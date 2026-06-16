@@ -95,8 +95,8 @@ export default function BookingPage() {
               <label className="block text-sm font-medium text-[#3F3A36] mb-2">欲訂房型</label>
               <select name="roomType" className="w-full border border-[#D1C9BE] rounded-xl px-4 py-3.5 text-[#3F3A36] focus:outline-none focus:border-[#8B7355]">
                 <option value="">請選擇房型</option>
-                <option value="雙人房">雙人房（共4間）</option>
-                <option value="家庭房">家庭房</option>
+                <option value="和鳴雙人房">和鳴雙人房</option>
+                <option value="和風4-6家庭房">和風4-6家庭房</option>
               </select>
             </div>
             <div>
