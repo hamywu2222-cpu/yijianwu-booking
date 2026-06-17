@@ -1,26 +1,121 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  /* 一間屋日式溫潤配色 */
+  --color-bg: #F8F5F1;
+  --color-text: #3F3A36;
+  --color-accent: #8B7355;
+  --color-muted: #6B665F;
+  --color-card: #FFFFFF;
+  --color-border: #EDE8E0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* 基礎樣式 */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-geist-sans);
+}
+
+/* 優雅標題與文字 */
+h1, h2, h3 {
+  font-feature-settings: "palt";
+  letter-spacing: -0.02em;
+}
+
+/* Hero 與 LOGO 背景搭配的字體與顏色 */
+.hero-title {
+  font-family: var(--font-playfair);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.hero-subtitle {
+  font-family: var(--font-geist-sans);
+  font-weight: 300;
+  letter-spacing: 0.015em;
+  line-height: 1.4;
+}
+
+/* 配合 LOGO 的暖金色調 */
+.hero-text {
+  color: #F5E8C7; /* 暖米金，搭配星空LOGO */
+}
+
+.font-playfair {
+  font-family: var(--font-playfair);
+}
+
+/* 卡片與按鈕增強 */
+.card {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.05), 
+              0 8px 10px -6px rgb(0 0 0 / 0.05);
+}
+
+/* 表單美化 */
+input, select, textarea {
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.1);
+  outline: none;
+}
+
+/* 導覽列 */
+.nav-link {
+  position: relative;
+}
+
+.nav-link:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--color-accent);
+  transition: width 0.2s ease;
+}
+
+.nav-link:hover:after {
+  width: 100%;
+}
+
+/* 房間卡片圖片容器 */
+.room-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.room-image img {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.room-image:hover img {
+  transform: scale(1.08);
+}
+
+/* 相簿網格 */
+.gallery-img {
+  transition: transform 0.4s ease, opacity 0.2s ease;
+}
+
+.gallery-img:hover {
+  transform: scale(1.02);
+  opacity: 0.95;
 }

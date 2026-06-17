@@ -95,14 +95,18 @@ export default function BookingPage() {
               <label className="block text-sm font-medium text-[#3F3A36] mb-2">欲訂房型</label>
               <select name="roomType" className="w-full border border-[#D1C9BE] rounded-xl px-4 py-3.5 text-[#3F3A36] focus:outline-none focus:border-[#8B7355]">
                 <option value="">請選擇房型</option>
-                <option value="和鳴雙人房">和鳴雙人房</option>
-                <option value="和風4-6家庭房">和風4-6家庭房</option>
+                <option value="和鳴雙人房">和鳴雙人房（共4間，衛浴共用）</option>
+                <option value="和風4-6人家庭房">和風4-6人家庭房（僅此一間，兩張雙人床，衛浴共用）</option>
               </select>
             </div>
             <div>
               <label className="block text-sm font-medium text-[#3F3A36] mb-2">入住人數</label>
               <input type="number" name="numberOfPeople" className="w-full border border-[#D1C9BE] rounded-xl px-4 py-3.5 text-[#3F3A36] focus:outline-none focus:border-[#8B7355]" placeholder="請輸入人數" min="1" required />
             </div>
+          </div>
+
+          <div className="text-[10px] text-[#8B7355] -mt-2">
+            公共衛浴提供洗髮精、沐浴乳、香皂，每間房一台吹風機。不供一次性用品，提倡環保。
           </div>
 
           {/* LINE ID */}
@@ -138,6 +142,11 @@ export default function BookingPage() {
             <p className="text-center text-red-600 mt-4 font-medium">❌ 送出失敗，請稍後再試或直接聯絡我們。</p>
           )}
         </form>
+
+        <div className="mt-8 text-center text-sm text-[#6B665F]">
+          包房專線：<a href="tel:0912362533" className="font-medium text-[#3F3A36] hover:underline">0912-362-533</a>（或是有急事也可撥打）<br />
+          或直接 <a href="https://line.me/R/ti/p/@811mszbh" target="_blank" className="text-[#00C300] hover:underline">加入 LINE 享 95 折</a>
+        </div>
       </div>
     </div>
   );
