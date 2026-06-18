@@ -118,7 +118,7 @@ export default function BookingPage() {
           </div>
 
           <a 
-            href="https://line.me/R/ti/p/@811mszbh" 
+            href="https://line.me/ti/p/@811mszbh" 
             target="_blank"
             className="block w-full text-center bg-[#00C300] hover:bg-[#00A000] text-white py-3.5 rounded-2xl text-sm font-medium transition-all"
           >
@@ -147,7 +147,7 @@ export default function BookingPage() {
               <p className="text-sm text-gray-600 mb-2">請回傳訂單後4碼 <span className="font-bold text-[#3F3A36]">{referenceNumber.slice(-4)}</span> 到 LINE @811mszbh 確認訂單</p>
               <p className="text-sm text-gray-600 mt-3 font-medium">⚠️ 必須加入 LINE 官方，未加入無法確認訂房</p>
               <a 
-                href="https://line.me/R/ti/p/@811mszbh" 
+                href="https://line.me/ti/p/@811mszbh" 
                 target="_blank" 
                 className="mt-4 inline-flex items-center justify-center bg-[#00C300] text-white w-full py-3.5 rounded-2xl font-medium hover:bg-[#00A000]"
               >

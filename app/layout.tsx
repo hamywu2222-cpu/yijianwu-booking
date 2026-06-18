@@ -20,8 +20,19 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://yijianwu-website.vercel.app'),
   title: "一間屋 · 駅前宿 | 福隆日式民宿",
   description: "新北市貢寮區福隆街2巷1-2號，福隆車站步行30秒。一間屋·駅前宿，日式風格民宿，提供舒適雙人房與和風4-6人家庭房，讓您感受溫潤慢時光。",
+  keywords: ["福隆民宿", "福隆車站民宿", "貢寮民宿", "福隆住宿", "日式民宿", "福隆海邊民宿", "一間屋"],
+  authors: [{ name: "一間屋 · 駅前宿" }],
+  openGraph: {
+    title: "一間屋 · 駅前宿 | 福隆日式民宿",
+    description: "福隆車站步行30秒，日式風格民宿。雙人房與和風4-6人家庭房，溫潤慢時光。",
+    images: [{ url: "/images/hero.jpg" }],
+  },
+  verification: {
+    google: 'IRMtM18ZuIvRPD1up4V9a6S_bbyeaZAvd46S1I8VtHQ',
+  },
   icons: {
     icon: "/favicon.ico",
   },

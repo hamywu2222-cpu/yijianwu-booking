@@ -86,7 +86,7 @@ export default function YijianwuWebsite() {
             📞 0912-362-533
           </a>
           <a 
-            href="https://line.me/R/ti/p/@811mszbh" 
+            href="https://line.me/ti/p/@811mszbh" 
             target="_blank"
             className="hidden md:flex items-center gap-2 bg-[#00C300] text-white text-xs px-5 py-2 rounded-full hover:bg-[#00A000] transition-all tracking-wider font-medium"
           >
@@ -123,7 +123,7 @@ export default function YijianwuWebsite() {
           {/* CTA 按鈕 - 更簡潔有力，顏色與 LOGO 暖調呼應 */}
           <div className="flex flex-col sm:flex-row gap-2.5 justify-center">
             <a 
-              href="https://line.me/R/ti/p/@811mszbh" 
+              href="https://line.me/ti/p/@811mszbh" 
               target="_blank"
               className="px-7 py-3 bg-[#00C300] hover:bg-[#00A000] text-white rounded-full font-medium tracking-[0.5px] text-xs md:text-sm transition-all active:scale-[0.985] shadow"
             >
@@ -322,7 +322,7 @@ export default function YijianwuWebsite() {
 
                 <div className="flex items-center justify-between text-sm mt-3">
                   <a 
-                    href="https://line.me/R/ti/p/@811mszbh" 
+                    href="https://line.me/ti/p/@811mszbh" 
                     target="_blank" 
                     className="px-6 py-2.5 bg-[#00C300] text-white rounded-full hover:bg-[#00A000] transition-colors text-xs font-medium"
                   >
@@ -370,7 +370,7 @@ LINE @811mszbh 回傳後4碼確認
 
                 <div className="flex items-center justify-between text-sm mt-3">
                   <a 
-                    href="https://line.me/R/ti/p/@811mszbh" 
+                    href="https://line.me/ti/p/@811mszbh" 
                     target="_blank" 
                     className="px-6 py-2.5 bg-[#00C300] text-white rounded-full hover:bg-[#00A000] transition-colors text-xs font-medium"
                   >
@@ -410,7 +410,7 @@ LINE @811mszbh 回傳後4碼確認
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a 
-              href="https://line.me/R/ti/p/@811mszbh" 
+              href="https://line.me/ti/p/@811mszbh" 
               target="_blank" 
               className="inline-flex items-center gap-2 px-8 py-3 bg-[#00C300] text-white rounded-full text-sm font-medium hover:bg-[#00A000] transition-all"
             >
@@ -540,7 +540,7 @@ LINE @811mszbh 回傳後4碼確認
 
           <div className="mt-8 text-center">
             <a 
-              href="https://line.me/R/ti/p/@811mszbh" 
+              href="https://line.me/ti/p/@811mszbh" 
               target="_blank" 
               className="inline-flex items-center gap-2 px-8 py-3 bg-[#00C300] text-white rounded-full text-sm font-medium hover:bg-[#00A000] transition-all"
             >
@@ -611,7 +611,7 @@ LINE @811mszbh 回傳後4碼確認
           </div>
 
           <a 
-            href="https://line.me/R/ti/p/@811mszbh" 
+            href="https://line.me/ti/p/@811mszbh" 
             target="_blank"
             className="block w-full text-center bg-[#00C300] hover:bg-[#00A000] text-white py-3.5 rounded-2xl text-sm font-medium transition-all"
           >
@@ -639,7 +639,7 @@ LINE @811mszbh 回傳後4碼確認
               <p className="text-sm text-[#6B665F] mb-3">請回傳訂單後4碼 <span className="font-bold text-[#3F3A36]">{referenceNumber.slice(-4)}</span> 到 LINE @811mszbh 確認訂單</p>
               <p className="text-xs text-[#8B7355] mb-6">⚠️ 必須加入 LINE 官方，未加入無法確認訂房</p>
               <a 
-                href="https://line.me/R/ti/p/@811mszbh" 
+                href="https://line.me/ti/p/@811mszbh" 
                 target="_blank" 
                 className="inline-flex items-center justify-center bg-[#00C300] text-white w-full py-3.5 rounded-2xl font-medium hover:bg-[#00A000]"
               >
@@ -653,7 +653,7 @@ LINE @811mszbh 回傳後4碼確認
 
       {/* 浮動 LINE 按鈕 */}
       <a 
-        href="https://line.me/R/ti/p/@811mszbh" 
+        href="https://line.me/ti/p/@811mszbh" 
         target="_blank"
         className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-[#00C300] text-white px-5 py-3 rounded-full shadow-lg hover:bg-[#00A000] transition-all font-medium text-xs md:text-sm"
       >
@@ -676,7 +676,7 @@ LINE @811mszbh 回傳後4碼確認
           </div>
           <div className="space-y-1">
             <a 
-              href="https://line.me/R/ti/p/@811mszbh" 
+              href="https://line.me/ti/p/@811mszbh" 
               target="_blank" 
               className="block text-[#00C300] hover:underline font-medium"
             >
