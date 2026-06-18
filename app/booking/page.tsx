@@ -31,7 +31,7 @@ export default function BookingPage() {
     params.append('checkOutDate', formData.get('checkOutDate') as string);
     params.append('roomType', formData.get('roomType') as string);
     params.append('numberOfPeople', formData.get('numberOfPeople') as string);
-    params.append('lineId', formData.get('lineId') as string);
+
     params.append('note', formData.get('note') as string);
     params.append('referenceNumber', refNum);
 
@@ -59,8 +59,9 @@ export default function BookingPage() {
     <div className="min-h-screen bg-[#F8F5F1] py-12 px-4">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-light tracking-tight text-[#3F3A36] mb-3">訂房詢問</h1>
-          <p className="text-[#6B665F] text-lg">請填寫以下資訊，我們會盡快與您聯繫確認</p>
+          <h1 className="text-4xl font-light tracking-tight text-[#3F3A36] mb-3">訂房請加入 LINE 官方（必須）</h1>
+          <p className="text-[#6B665F] text-lg font-medium">必須加入 LINE 官方 @811mszbh 才能完成訂房（未加入無法確認）</p>
+          <p className="text-xs text-[#8B7355] mt-1">填寫後請回傳後4碼到 LINE @811mszbh 確認訂單</p>
         </div>
 
         <form onSubmit={handleSubmit} className="bg-white p-8 md:p-10 rounded-3xl border border-[#EDE8E0] shadow-sm space-y-8">
@@ -73,7 +74,7 @@ export default function BookingPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-[#3F3A36] mb-2">聯絡電話</label>
-              <input type="tel" name="phone" className="w-full border border-[#D1C9BE] rounded-xl px-4 py-3.5 text-[#3F3A36] placeholder:text-[#9A9389] focus:outline-none focus:border-[#8B7355]" placeholder="請輸入電話號碼" required />
+              <input type="tel" name="phone" className="w-full border border-[#D1C9BE] rounded-xl px-4 py-3.5 text-[#3F3A36] placeholder:text-[#9A9389] focus:outline-none focus:border-[#8B7355]" placeholder="0912345678" inputMode="numeric" maxLength={10} onInput={(e) => { const t = e.currentTarget; t.value = t.value.replace(/\D/g, ''); }} required />
             </div>
           </div>
 
@@ -96,7 +97,8 @@ export default function BookingPage() {
               <select name="roomType" className="w-full border border-[#D1C9BE] rounded-xl px-4 py-3.5 text-[#3F3A36] focus:outline-none focus:border-[#8B7355]">
                 <option value="">請選擇房型</option>
                 <option value="和鳴雙人房">和鳴雙人房（共4間，衛浴共用）</option>
-                <option value="和風4-6人家庭房">和風4-6人家庭房（僅此一間，兩張雙人床，衛浴共用）</option>
+                <option value="和風4-6人家庭房">和風4-6人家庭房（僅此1間，兩張雙人床，衛浴共用）</option>
+                <option value="包房方案">包房方案（共5間，衛浴共用）</option>
               </select>
             </div>
             <div>
@@ -105,15 +107,23 @@ export default function BookingPage() {
             </div>
           </div>
 
-          <div className="text-[10px] text-[#8B7355] -mt-2">
-            公共衛浴提供洗髮精、沐浴乳、香皂，每間房一台吹風機。不供一次性用品，提倡環保。
+          {/* LINE 提醒 - 更明顯突出 */}
+          <div className="bg-[#E8F5E9] border-2 border-[#4CAF50] rounded-xl p-4">
+            <div className="flex items-center gap-2">
+              <span className="text-xl">📱</span>
+              <div className="text-base font-semibold text-[#2E7D32]">
+                必須加入 LINE @811mszbh 並回傳後4碼確認訂單
+              </div>
+            </div>
           </div>
 
-          {/* LINE ID */}
-          <div>
-            <label className="block text-sm font-medium text-[#3F3A36] mb-2">LINE ID（選填）</label>
-            <input type="text" name="lineId" className="w-full border border-[#D1C9BE] rounded-xl px-4 py-3.5 text-[#3F3A36] placeholder:text-[#9A9389] focus:outline-none focus:border-[#8B7355]" placeholder="例如：@yourlineid" />
-          </div>
+          <a 
+            href="https://line.me/R/ti/p/@811mszbh" 
+            target="_blank"
+            className="block w-full text-center bg-[#00C300] hover:bg-[#00A000] text-white py-3.5 rounded-2xl text-sm font-medium transition-all"
+          >
+            📱 立即加入 LINE 官方 @811mszbh
+          </a>
 
           {/* 備註 */}
           <div>
@@ -132,20 +142,28 @@ export default function BookingPage() {
           {/* 成功訊息 */}
           {submitStatus === 'success' && referenceNumber && (
             <div className="mt-6 p-6 bg-green-50 border border-green-200 rounded-2xl text-center">
-              <p className="text-green-700 font-semibold text-lg mb-2">✅ 我們已收到您的詢問！</p>
+              <p className="text-green-700 font-semibold text-lg mb-2">✅ 表單已收到（僅為詢問）</p>
               <p className="text-[#3F3A36] mb-1">您的詢問編號：<span className="font-bold text-xl">{referenceNumber}</span></p>
-              <p className="text-sm text-gray-600 mt-3">請加入我們的 LINE 官方帳號後，傳送上方編號給我們，我們會主動聯繫您。</p>
+              <p className="text-sm text-gray-600 mb-2">請回傳訂單後4碼 <span className="font-bold text-[#3F3A36]">{referenceNumber.slice(-4)}</span> 到 LINE @811mszbh 確認訂單</p>
+              <p className="text-sm text-gray-600 mt-3 font-medium">⚠️ 必須加入 LINE 官方，未加入無法確認訂房</p>
+              <a 
+                href="https://line.me/R/ti/p/@811mszbh" 
+                target="_blank" 
+                className="mt-4 inline-flex items-center justify-center bg-[#00C300] text-white w-full py-3.5 rounded-2xl font-medium hover:bg-[#00A000]"
+              >
+                📱 立即加入 LINE 官方 @811mszbh
+              </a>
             </div>
           )}
 
           {submitStatus === 'error' && (
-            <p className="text-center text-red-600 mt-4 font-medium">❌ 送出失敗，請稍後再試或直接聯絡我們。</p>
+            <p className="text-center text-red-600 mt-4 font-medium">❌ 送出失敗，請加入 LINE @811mszbh 回傳後4碼確認訂單。</p>
           )}
         </form>
 
         <div className="mt-8 text-center text-sm text-[#6B665F]">
-          包房專線：<a href="tel:0912362533" className="font-medium text-[#3F3A36] hover:underline">0912-362-533</a>（或是有急事也可撥打）<br />
-          或直接 <a href="https://line.me/R/ti/p/@811mszbh" target="_blank" className="text-[#00C300] hover:underline">加入 LINE 享 95 折</a>
+          包房專線：<a href="tel:0912362533" className="font-medium text-[#3F3A36] hover:underline">0912-362-533</a><br />
+          <span className="font-medium text-[#3F3A36]">回傳後4碼到 LINE @811mszbh 確認訂單</span>
         </div>
       </div>
     </div>
