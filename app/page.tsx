@@ -1,66 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import BookingForm from '@/components/BookingForm';
 
 export default function YijianwuWebsite() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [referenceNumber, setReferenceNumber] = useState('');
   const [renovationTab, setRenovationTab] = useState<'before' | 'during' | 'after'>('after');
   const [modalImage, setModalImage] = useState<string | null>(null);
-
-  const generateReferenceNumber = () => {
-    const date = new Date();
-    const dateStr = date.toISOString().slice(0, 10).replace(/-/g, '');
-    const random = Math.floor(1000 + Math.random() * 9000);
-    return `${dateStr}-${random}`;
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitStatus('idle');
-
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-
-    const refNum = generateReferenceNumber();
-    setReferenceNumber(refNum);
-
-    const params = new URLSearchParams();
-    params.append('name', formData.get('name') as string);
-    params.append('phone', formData.get('phone') as string);
-    params.append('checkInDate', formData.get('checkInDate') as string);
-    params.append('checkOutDate', formData.get('checkOutDate') as string);
-    params.append('roomType', formData.get('roomType') as string);
-    params.append('numberOfPeople', formData.get('numberOfPeople') as string);
-
-    params.append('note', formData.get('note') as string);
-    params.append('referenceNumber', refNum);
-
-    try {
-      await fetch(
-        'https://script.google.com/macros/s/AKfycbx3J43TGTOi5-HyB65Rc0B3ELQ6lubli1biES_ZpCTyk7WFXdV84xuyUk2vplXEP4WQtA/exec',
-        {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: params.toString(),
-        }
-      );
-
-      setSubmitStatus('success');
-      form.reset();
-
-    } catch (error) {
-      console.error('提交錯誤:', error);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
     <main className="min-h-screen bg-[#F8F5F1] text-[#3F3A36]">
@@ -559,96 +504,7 @@ LINE @811mszbh 回傳後4碼確認
           <p className="text-xs text-[#8B7355] mt-1">填寫後請回傳後4碼到 LINE @811mszbh 確認訂單</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white p-8 md:p-10 rounded-3xl border border-[#EDE8E0] space-y-7">
-          {/* 姓名電話 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-xs font-medium tracking-widest text-[#8B7355] mb-1.5">姓名</label>
-              <input type="text" name="name" required className="w-full border border-[#D1C9BE] rounded-2xl px-5 py-3.5 text-base" placeholder="您的姓名" />
-            </div>
-            <div>
-              <label className="block text-xs font-medium tracking-widest text-[#8B7355] mb-1.5">聯絡電話</label>
-              <input type="tel" name="phone" required className="w-full border border-[#D1C9BE] rounded-2xl px-5 py-3.5 text-base" placeholder="0912345678" inputMode="numeric" maxLength={10} onInput={(e) => { const t = e.currentTarget; t.value = t.value.replace(/\D/g, ''); }} />
-            </div>
-          </div>
-
-          {/* 日期 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-xs font-medium tracking-widest text-[#8B7355] mb-1.5">入住日期</label>
-              <input type="date" name="checkInDate" required className="w-full border border-[#D1C9BE] rounded-2xl px-5 py-3.5" />
-            </div>
-            <div>
-              <label className="block text-xs font-medium tracking-widest text-[#8B7355] mb-1.5">退房日期</label>
-              <input type="date" name="checkOutDate" required className="w-full border border-[#D1C9BE] rounded-2xl px-5 py-3.5" />
-            </div>
-          </div>
-
-          {/* 房型與人數 */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-xs font-medium tracking-widest text-[#8B7355] mb-1.5">房型</label>
-              <select name="roomType" required className="w-full border border-[#D1C9BE] rounded-2xl px-5 py-3.5 bg-white">
-                <option value="">請選擇</option>
-                <option value="和鳴雙人房">和鳴雙人房（共4間，衛浴共用）— NT$1,600/晚</option>
-                <option value="和風4-6人家庭房">和風4-6人家庭房（僅此1間，兩張雙人床，衛浴共用）— NT$3,200起（4人）+NT$600/人</option>
-                <option value="包房方案">包房方案（共5間，衛浴共用）— 平日 NT$8,800 / 假日 NT$9,200（價格固定，特殊活動日另詢）</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-xs font-medium tracking-widest text-[#8B7355] mb-1.5">人數</label>
-              <input type="number" name="numberOfPeople" required min="1" className="w-full border border-[#D1C9BE] rounded-2xl px-5 py-3.5" placeholder="2" />
-            </div>
-          </div>
-
-          <div className="bg-[#E8F5E9] border-2 border-[#4CAF50] rounded-2xl p-4">
-            <div className="flex items-center gap-2">
-              <span className="text-lg">📱</span>
-              <div className="text-sm font-semibold text-[#2E7D32]">
-                必須加入 LINE @811mszbh 並回傳後4碼確認訂單
-              </div>
-            </div>
-          </div>
-
-          <a 
-            href="https://line.me/ti/p/@811mszbh" 
-            target="_blank"
-            className="block w-full text-center bg-[#00C300] hover:bg-[#00A000] text-white py-3.5 rounded-2xl text-sm font-medium transition-all"
-          >
-            📱 立即加入 LINE 官方 @811mszbh
-          </a>
-
-          <div>
-            <label className="block text-xs font-medium tracking-widest text-[#8B7355] mb-1.5">備註</label>
-            <textarea name="note" rows={3} className="w-full border border-[#D1C9BE] rounded-2xl px-5 py-4 resize-y" placeholder="特殊需求、到達時間等"></textarea>
-          </div>
-
-          <button 
-            type="submit" 
-            disabled={isSubmitting}
-            className="w-full py-4 rounded-2xl bg-[#3F3A36] text-white text-sm tracking-[2px] hover:bg-[#2C2926] active:scale-[0.99] transition-all disabled:opacity-60"
-          >
-            {isSubmitting ? "送出中..." : "送出詢問"}
-          </button>
-
-          {/* 成功 / 錯誤訊息 */}
-          {submitStatus === 'success' && referenceNumber && (
-            <div className="p-8 bg-green-50 rounded-3xl text-center border border-green-100">
-              <p className="font-medium mb-2">✅ 表單已收到（僅為詢問）</p>
-              <p className="text-3xl font-semibold tracking-widest mb-1 text-[#3F3A36]">{referenceNumber}</p>
-              <p className="text-sm text-[#6B665F] mb-3">請回傳訂單後4碼 <span className="font-bold text-[#3F3A36]">{referenceNumber.slice(-4)}</span> 到 LINE @811mszbh 確認訂單</p>
-              <p className="text-xs text-[#8B7355] mb-6">⚠️ 必須加入 LINE 官方，未加入無法確認訂房</p>
-              <a 
-                href="https://line.me/ti/p/@811mszbh" 
-                target="_blank" 
-                className="inline-flex items-center justify-center bg-[#00C300] text-white w-full py-3.5 rounded-2xl font-medium hover:bg-[#00A000]"
-              >
-                📱 立即加入 LINE 官方 @811mszbh
-              </a>
-            </div>
-          )}
-          {submitStatus === 'error' && <p className="text-center text-red-600">送出失敗，請加入 LINE @811mszbh 回傳後4碼確認訂單。</p>}
-        </form>
+        <BookingForm />
       </section>
 
       {/* 浮動 LINE 按鈕 */}
