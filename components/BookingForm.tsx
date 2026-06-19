@@ -8,23 +8,63 @@ const GAS_URL =
   process.env.NEXT_PUBLIC_BOOKING_FORM_URL ||
   'https://script.google.com/macros/s/AKfycbx3J43TGTOi5-HyB65Rc0B3ELQ6lubli1biES_ZpCTyk7WFXdV84xuyUk2vplXEP4WQtA/exec';
 
-const ROOM_TYPES = [
+const MULTI_ROOM_TYPE = '訂一間以上';
+
+type RoomTypeConfig = {
+  value: string;
+  label: string;
+  maxPeople: number;
+  peopleHint?: string;
+  roomHint?: string;
+  requiresRoomCountInNote?: boolean;
+};
+
+const ROOM_TYPES: RoomTypeConfig[] = [
   {
     value: '和鳴雙人房',
-    label: '和鳴雙人房（共4間，衛浴共用）— NT$1,600/晚',
+    label: '和鳴雙人房（共4間相同格局，訂其中1間，衛浴共用）— NT$1,600/晚',
     maxPeople: 2,
+    peopleHint: '舒適建議人數 2 人，如需加鋪請備註',
   },
   {
     value: '和風4-6人家庭房',
     label: '和風4-6人家庭房（僅此1間，兩張雙人床，衛浴共用）— NT$3,200起（4人）+NT$600/人',
     maxPeople: 6,
+    peopleHint: '舒適建議人數 4–6 人，如需加鋪請備註',
   },
   {
     value: '包房方案',
     label: '包房方案（共5間，衛浴共用）— 平日 NT$8,800 / 假日 NT$9,200（價格固定，特殊活動日另詢）',
     maxPeople: 30,
+    peopleHint: '舒適建議人數 12–14 人（超過 14 位，每多 1 人 +NT$600）',
   },
-] as const;
+  {
+    value: MULTI_ROOM_TYPE,
+    label: '訂一間以上請選這個（備註請填間數，老闆確認安排）',
+    maxPeople: 30,
+    peopleHint: '請填總入住人數',
+    roomHint: '備註請填間數房型（例：2雙人、1家庭1雙人）；其他如行李寄放等可一併備註，老闆確認安排',
+    requiresRoomCountInNote: true,
+  },
+];
+
+function hasRoomCountInNote(note: string) {
+  return /(\d+雙人|\d+家庭\d+雙人)/.test(note.trim());
+}
+
+function validateNote(note: string, roomType: string): string | undefined {
+  const room = ROOM_TYPES.find((item) => item.value === roomType);
+  if (!room?.requiresRoomCountInNote) return undefined;
+
+  const trimmed = note.trim();
+  if (!trimmed) {
+    return '請於備註填寫間數房型（例：2雙人、1家庭1雙人）';
+  }
+  if (!hasRoomCountInNote(trimmed)) {
+    return '請於備註填寫間數房型（例：2雙人、1家庭1雙人）';
+  }
+  return undefined;
+}
 
 type FormField = 'name' | 'phone' | 'checkInDate' | 'checkOutDate' | 'roomType' | 'numberOfPeople';
 type FormErrors = Partial<Record<FormField, string>>;
@@ -35,8 +75,30 @@ const labelClass = 'block text-xs font-medium tracking-widest text-[#8B7355] mb-
 const errorClass = 'mt-1.5 text-xs text-red-600';
 
 function todayString() {
-  return new Date().toISOString().slice(0, 10);
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, '0');
+  const d = String(now.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
 }
+
+const FIELD_IDS: Record<FormField, string> = {
+  name: 'booking-name',
+  phone: 'booking-phone',
+  checkInDate: 'booking-check-in',
+  checkOutDate: 'booking-check-out',
+  roomType: 'booking-room-type',
+  numberOfPeople: 'booking-people',
+};
+
+const FIELD_ORDER: FormField[] = [
+  'name',
+  'phone',
+  'checkInDate',
+  'checkOutDate',
+  'roomType',
+  'numberOfPeople',
+];
 
 function addDays(dateStr: string, days: number) {
   const date = new Date(`${dateStr}T00:00:00`);
@@ -175,6 +237,8 @@ export default function BookingForm() {
     numberOfPeople: '',
   });
   const [note, setNote] = useState('');
+  const [noteError, setNoteError] = useState('');
+  const [validationSummary, setValidationSummary] = useState('');
 
   const minCheckIn = todayString();
   const minCheckOut = values.checkInDate ? addDays(values.checkInDate, 1) : addDays(minCheckIn, 1);
@@ -189,6 +253,7 @@ export default function BookingForm() {
   }, [values.checkInDate, values.checkOutDate]);
 
   const selectedRoom = ROOM_TYPES.find((room) => room.value === values.roomType);
+  const requiresRoomCountInNote = selectedRoom?.requiresRoomCountInNote ?? false;
 
   useEffect(() => {
     if (submitStatus === 'success') {
@@ -216,6 +281,7 @@ export default function BookingForm() {
         delete next[field];
         return next;
       });
+      setValidationSummary('');
     }
   };
 
@@ -234,17 +300,44 @@ export default function BookingForm() {
     }
   };
 
+  const focusFirstError = (nextErrors: FormErrors) => {
+    const firstField = FIELD_ORDER.find((field) => nextErrors[field]);
+    if (!firstField) return;
+
+    const el = document.getElementById(FIELD_IDS[firstField]);
+    el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (el instanceof HTMLElement) {
+      window.setTimeout(() => el.focus(), 300);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitStatus('idle');
+    setValidationSummary('');
 
     const nextErrors = validateForm(values);
-    if (Object.keys(nextErrors).length > 0) {
+    const nextNoteError = validateNote(note, values.roomType);
+
+    if (Object.keys(nextErrors).length > 0 || nextNoteError) {
       setErrors(nextErrors);
+      setNoteError(nextNoteError ?? '');
+
+      if (nextNoteError) {
+        setValidationSummary(nextNoteError);
+        document.getElementById('booking-note')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        window.setTimeout(() => document.getElementById('booking-note')?.focus(), 300);
+      } else {
+        const firstField = FIELD_ORDER.find((field) => nextErrors[field]);
+        setValidationSummary(firstField ? nextErrors[firstField]! : '請檢查表單欄位');
+        focusFirstError(nextErrors);
+      }
       return;
     }
 
     setErrors({});
+    setNoteError('');
+    setValidationSummary('');
     setIsSubmitting(true);
 
     const refNum = generateReferenceNumber();
@@ -408,6 +501,9 @@ export default function BookingForm() {
               ))}
             </select>
             {errors.roomType && <p className={errorClass}>{errors.roomType}</p>}
+            {selectedRoom?.roomHint && (
+              <p className="mt-1.5 text-xs text-[#8B7355] leading-relaxed">{selectedRoom.roomHint}</p>
+            )}
           </div>
           <div>
             <label htmlFor="booking-people" className={labelClass}>
@@ -426,7 +522,9 @@ export default function BookingForm() {
               required
             />
             {selectedRoom && (
-              <p className="mt-1.5 text-xs text-[#8B7355]">此房型建議最多 {selectedRoom.maxPeople} 人</p>
+              <p className="mt-1.5 text-xs text-[#8B7355]">
+                {selectedRoom.peopleHint ?? `此房型建議最多 ${selectedRoom.maxPeople} 人`}
+              </p>
             )}
             {errors.numberOfPeople && <p className={errorClass}>{errors.numberOfPeople}</p>}
           </div>
@@ -434,18 +532,52 @@ export default function BookingForm() {
 
         <div>
           <label htmlFor="booking-note" className={labelClass}>
-            備註（選填）
+            {requiresRoomCountInNote ? '備註（必填：請填間數房型）' : '備註（選填）'}
           </label>
           <textarea
             id="booking-note"
             name="note"
             value={note}
-            onChange={(e) => setNote(e.target.value)}
+            onChange={(e) => {
+              setNote(e.target.value);
+              if (noteError) setNoteError('');
+              if (validationSummary && requiresRoomCountInNote) setValidationSummary('');
+            }}
             rows={3}
             className={`${inputClass} resize-y`}
-            placeholder="特殊需求、到達時間等"
+            placeholder={
+              requiresRoomCountInNote
+                ? '例：2雙人、1家庭1雙人；其他：行李寄放等'
+                : '加鋪、提早放行李等'
+            }
           />
+          {noteError && <p className={errorClass}>{noteError}</p>}
+          <p className="mt-1.5 text-xs text-[#8B7355] leading-relaxed">
+            {requiresRoomCountInNote ? (
+              <>
+                老闆確認房況後安排；若需全館包房可參考{' '}
+                <a href="/#package" className="underline hover:text-[#3F3A36] transition-colors">
+                  包房方案
+                </a>
+                ，皆須提早詢問。
+              </>
+            ) : (
+              <>
+                訂多間可備註間數房型（例：2雙人、1家庭1雙人），老闆確認安排；另有
+                <a href="/#package" className="underline hover:text-[#3F3A36] transition-colors">
+                  包房方案
+                </a>
+                可參考，皆須提早詢問確認房況。
+              </>
+            )}
+          </p>
         </div>
+
+        {validationSummary && (
+          <p className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
+            {validationSummary}
+          </p>
+        )}
 
         <div className="hidden md:block space-y-4">
           <button
@@ -471,7 +603,13 @@ export default function BookingForm() {
 
       {showStickySubmit && (
         <div className="md:hidden fixed bottom-0 left-0 right-0 z-[60] bg-white/95 backdrop-blur-md border-t border-[#EDE8E0] px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgba(0,0,0,0.08)]">
-          <p className="text-center text-xs text-[#8B7355] mb-2">填完請先按送出，成功後再到 LINE 回傳後 4 碼</p>
+          {validationSummary ? (
+            <p className="mb-2 rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-center text-xs text-red-700" role="alert">
+              {validationSummary}
+            </p>
+          ) : (
+            <p className="text-center text-xs text-[#8B7355] mb-2">填完請先按送出，成功後再到 LINE 回傳後 4 碼</p>
+          )}
           <button
             type="submit"
             form="booking-form"

@@ -223,7 +223,7 @@ export default function YijianwuWebsite() {
           <div className="text-center mb-10">
             <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">ROOMS</div>
             <h2 className="text-5xl font-light tracking-tight font-playfair">房間介紹</h2>
-            <p className="mt-1 text-sm text-[#6B665F]">全館和式雅房（衛浴共用）：四間雙人房 + 和風4-6人家庭房（僅此1間）</p>
+            <p className="mt-1 text-sm text-[#6B665F]">全館和式雅房（衛浴共用）：四間和鳴雙人房（每次訂其中1間）+ 和風4-6人家庭房（僅此1間）</p>
             <p className="mt-1 text-xs text-[#8B7355]">雙人房 NT$1,600/晚 ｜ 家庭房 NT$3,200起（4人）+NT$600/人（最多6人）｜ 包房平日 $8,800 / 假日 $9,200</p>
             <p className="mt-1 text-[10px] text-[#8B7355]">填寫後請回傳後4碼到 LINE @811mszbh 確認訂單</p>
           </div>
@@ -241,7 +241,7 @@ export default function YijianwuWebsite() {
                     <div className="flex items-center gap-2 mb-1">
                       <h3 className="text-3xl font-light tracking-tight">和鳴 · 雙人房</h3>
                     </div>
-                    <div className="text-[#8B7355] text-sm">共 4 間（格局設備相同）</div>
+                    <div className="text-[#8B7355] text-sm">共 4 間相同格局（每次訂其中 1 間）</div>
                   </div>
                   <div className="text-right text-xs text-[#8B7355]">
                     2 人<br /><span className="opacity-70">衛浴共用</span>
