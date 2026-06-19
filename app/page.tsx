@@ -88,12 +88,14 @@ function PackagePriceCard({
   salePrice,
   period,
   featured = false,
+  saleSuffix = '/晚',
 }: {
   label: string;
   originalPrice: string;
   salePrice: string;
   period: string;
   featured?: boolean;
+  saleSuffix?: string;
 }) {
   return (
     <div
@@ -103,7 +105,13 @@ function PackagePriceCard({
     >
       <PriceOfferBadge />
       <div className="text-2xl font-light text-[#3F3A36] mb-4">{label}</div>
-      <PriceStrikeThrough originalPrice={originalPrice} salePrice={salePrice} size="lg" align="center" />
+      <PriceStrikeThrough
+        originalPrice={originalPrice}
+        salePrice={salePrice}
+        saleSuffix={saleSuffix}
+        size="lg"
+        align="center"
+      />
       <div className="text-sm text-[#8B7355] mt-4">{period}</div>
     </div>
   );
