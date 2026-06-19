@@ -65,6 +65,13 @@ h1, h2, h3 {
               0 8px 10px -6px rgb(0 0 0 / 0.05);
 }
 
+.card:hover .room-price-card {
+  border-color: #D9CFC0;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 4px 14px rgba(139, 115, 85, 0.08);
+}
+
 /* 表單美化 */
 input, select, textarea {
   transition: border-color 0.15s ease, box-shadow 0.15s ease;

@@ -1,7 +1,53 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import BookingForm from '@/components/BookingForm';
+
+function RoomPriceDisplay({
+  originalPrice,
+  salePrice,
+  saleSuffix = '/晚',
+  rightContent,
+  footer,
+}: {
+  originalPrice: string;
+  salePrice: string;
+  saleSuffix?: string;
+  rightContent?: ReactNode;
+  footer?: ReactNode;
+}) {
+  return (
+    <div className="room-price-card mt-4 p-4 sm:p-5 rounded-2xl border border-[#E8DFD2] bg-gradient-to-br from-[#FFFCF8] via-[#F8F5F1] to-[#F0E8DC] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
+      <div className="inline-flex items-center gap-2 mb-3.5 px-3 py-1 rounded-full bg-white/70 border border-[#D9CFC0]/60 backdrop-blur-sm">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#8B7355] animate-pulse" />
+        <span className="text-[10px] tracking-[0.2em] text-[#8B7355] font-medium">官網直訂優惠</span>
+      </div>
+
+      <div className="flex items-end justify-between gap-4 flex-wrap">
+        <div className="flex items-end gap-2 sm:gap-3 flex-wrap">
+          <span className="relative text-base sm:text-lg text-[#B0A69A] font-light line-through decoration-[#C4B8A8] decoration-2 underline-offset-4">
+            {originalPrice}
+          </span>
+          <span
+            className="hidden sm:flex items-center justify-center w-7 h-7 rounded-full bg-white/80 border border-[#E5DDD2] text-[#8B7355] text-sm pb-px shadow-sm"
+            aria-hidden
+          >
+            →
+          </span>
+          <div className="flex items-baseline">
+            <span className="text-3xl sm:text-[2.125rem] font-light text-[#3F3A36] tracking-tight font-playfair leading-none">
+              {salePrice}
+            </span>
+            <span className="text-sm text-[#8B7355] ml-1.5">{saleSuffix}</span>
+          </div>
+        </div>
+        {rightContent}
+      </div>
+
+      {footer}
+    </div>
+  );
+}
 
 export default function YijianwuWebsite() {
   const [renovationTab, setRenovationTab] = useState<'before' | 'during' | 'after'>('after');
@@ -251,19 +297,16 @@ export default function YijianwuWebsite() {
                   簡約和式雅房，木質溫潤。2026年5月全新裝潢，公共衛浴提供洗髮精沐浴乳香皂，每間房一台吹風機，不供一次性用品（環保）。單車停放安心。
                 </p>
 
-                {/* 價格呈現 - 漂亮卡片風格 */}
-                <div className="mt-4 p-4 bg-[#F8F5F1] rounded-2xl border border-[#EDE8E0]">
-                  <div className="flex items-baseline justify-between">
-                    <div>
-                      <span className="text-3xl font-light text-[#3F3A36]">NT$1,600</span>
-                      <span className="text-sm text-[#8B7355] ml-1">/晚</span>
-                    </div>
+                <RoomPriceDisplay
+                  originalPrice="NT$2,000"
+                  salePrice="NT$1,600"
+                  rightContent={
                     <div className="text-right">
                       <div className="text-sm text-[#8B7355]">雙人入住</div>
                       <div className="text-[10px] text-[#6B665F]">公共衛浴提供盥洗用品，每間房吹風機</div>
                     </div>
-                  </div>
-                </div>
+                  }
+                />
 
                 <div className="flex items-center justify-between text-sm mt-3">
                   <a 
@@ -297,21 +340,27 @@ LINE @811mszbh 回傳後4碼確認
                   寬敞和風4-6人家庭房（僅此1間，兩張雙人床）。2026年5月全新裝潢，公共衛浴提供洗髮精沐浴乳香皂，每間房一台吹風機，不供一次性用品（環保）。單車停放安心。
                 </p>
 
-                {/* 價格呈現 - 漂亮卡片風格 */}
-                <div className="mt-4 p-4 bg-[#F8F5F1] rounded-2xl border border-[#EDE8E0]">
-                  <div className="flex items-baseline justify-between mb-1">
-                    <div>
-                      <span className="text-3xl font-light text-[#3F3A36]">NT$3,200</span>
-                      <span className="text-sm text-[#8B7355] ml-1">起 /晚</span>
-                    </div>
+                <RoomPriceDisplay
+                  originalPrice="NT$4,000"
+                  salePrice="NT$3,200"
+                  saleSuffix="起 /晚"
+                  rightContent={
                     <div className="text-right">
                       <div className="text-sm text-[#8B7355]">僅此1間</div>
                       <div className="text-sm text-[#8B7355]">最少 4 人</div>
                     </div>
-                  </div>
-                  <div className="text-sm text-[#6B665F] mb-2">每增加 1 人 + NT$600（最多 6 人）</div>
-                  <div className="text-[10px] text-[#8B7355]">和風4-6人家庭房（僅此1間，兩張雙人床），公共衛浴提供盥洗用品，每間房吹風機</div>
-                </div>
+                  }
+                  footer={
+                    <>
+                      <div className="mt-3 pt-3 border-t border-[#E8DFD2]/80 text-sm text-[#6B665F]">
+                        每增加 1 人 + NT$600（最多 6 人）
+                      </div>
+                      <div className="text-[10px] text-[#8B7355] mt-2">
+                        和風4-6人家庭房（僅此1間，兩張雙人床），公共衛浴提供盥洗用品，每間房吹風機
+                      </div>
+                    </>
+                  }
+                />
 
                 <div className="flex items-center justify-between text-sm mt-3">
                   <a 
