@@ -3,6 +3,58 @@
 import { useState, type ReactNode } from 'react';
 import BookingForm from '@/components/BookingForm';
 
+function PriceOfferBadge() {
+  return (
+    <div className="inline-flex items-center gap-2 mb-3.5 px-3 py-1 rounded-full bg-white/70 border border-[#D9CFC0]/60 backdrop-blur-sm">
+      <span className="w-1.5 h-1.5 rounded-full bg-[#8B7355] animate-pulse" />
+      <span className="text-[10px] tracking-[0.2em] text-[#8B7355] font-medium">官網直訂優惠</span>
+    </div>
+  );
+}
+
+function PriceStrikeThrough({
+  originalPrice,
+  salePrice,
+  saleSuffix = '',
+  size = 'md',
+  align = 'start',
+}: {
+  originalPrice: string;
+  salePrice: string;
+  saleSuffix?: string;
+  size?: 'md' | 'lg';
+  align?: 'start' | 'center';
+}) {
+  const saleClass =
+    size === 'lg'
+      ? 'text-4xl sm:text-5xl font-light text-[#3F3A36] tracking-tight font-playfair leading-none'
+      : 'text-3xl sm:text-[2.125rem] font-light text-[#3F3A36] tracking-tight font-playfair leading-none';
+  const originalClass =
+    size === 'lg' ? 'text-lg sm:text-xl text-[#B0A69A] font-light' : 'text-base sm:text-lg text-[#B0A69A] font-light';
+
+  return (
+    <div
+      className={`flex items-end gap-2 sm:gap-3 flex-wrap ${align === 'center' ? 'justify-center' : ''}`}
+    >
+      <span
+        className={`relative ${originalClass} line-through decoration-[#C4B8A8] decoration-2 underline-offset-4`}
+      >
+        {originalPrice}
+      </span>
+      <span
+        className="flex items-center justify-center w-7 h-7 rounded-full bg-white/80 border border-[#E5DDD2] text-[#8B7355] text-sm pb-px shadow-sm"
+        aria-hidden
+      >
+        →
+      </span>
+      <div className="flex items-baseline">
+        <span className={saleClass}>{salePrice}</span>
+        {saleSuffix && <span className="text-sm text-[#8B7355] ml-1.5">{saleSuffix}</span>}
+      </div>
+    </div>
+  );
+}
+
 function RoomPriceDisplay({
   originalPrice,
   salePrice,
@@ -18,33 +70,41 @@ function RoomPriceDisplay({
 }) {
   return (
     <div className="room-price-card mt-4 p-4 sm:p-5 rounded-2xl border border-[#E8DFD2] bg-gradient-to-br from-[#FFFCF8] via-[#F8F5F1] to-[#F0E8DC] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
-      <div className="inline-flex items-center gap-2 mb-3.5 px-3 py-1 rounded-full bg-white/70 border border-[#D9CFC0]/60 backdrop-blur-sm">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#8B7355] animate-pulse" />
-        <span className="text-[10px] tracking-[0.2em] text-[#8B7355] font-medium">官網直訂優惠</span>
-      </div>
+      <PriceOfferBadge />
 
       <div className="flex items-end justify-between gap-4 flex-wrap">
-        <div className="flex items-end gap-2 sm:gap-3 flex-wrap">
-          <span className="relative text-base sm:text-lg text-[#B0A69A] font-light line-through decoration-[#C4B8A8] decoration-2 underline-offset-4">
-            {originalPrice}
-          </span>
-          <span
-            className="hidden sm:flex items-center justify-center w-7 h-7 rounded-full bg-white/80 border border-[#E5DDD2] text-[#8B7355] text-sm pb-px shadow-sm"
-            aria-hidden
-          >
-            →
-          </span>
-          <div className="flex items-baseline">
-            <span className="text-3xl sm:text-[2.125rem] font-light text-[#3F3A36] tracking-tight font-playfair leading-none">
-              {salePrice}
-            </span>
-            <span className="text-sm text-[#8B7355] ml-1.5">{saleSuffix}</span>
-          </div>
-        </div>
+        <PriceStrikeThrough originalPrice={originalPrice} salePrice={salePrice} saleSuffix={saleSuffix} />
         {rightContent}
       </div>
 
       {footer}
+    </div>
+  );
+}
+
+function PackagePriceCard({
+  label,
+  originalPrice,
+  salePrice,
+  period,
+  featured = false,
+}: {
+  label: string;
+  originalPrice: string;
+  salePrice: string;
+  period: string;
+  featured?: boolean;
+}) {
+  return (
+    <div
+      className={`room-price-card p-8 rounded-3xl flex-1 max-w-sm mx-auto text-center border bg-gradient-to-br from-[#FFFCF8] via-[#F8F5F1] to-[#F0E8DC] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] ${
+        featured ? 'border-2 border-[#8B7355]/50' : 'border-[#E8DFD2]'
+      }`}
+    >
+      <PriceOfferBadge />
+      <div className="text-2xl font-light text-[#3F3A36] mb-4">{label}</div>
+      <PriceStrikeThrough originalPrice={originalPrice} salePrice={salePrice} size="lg" align="center" />
+      <div className="text-sm text-[#8B7355] mt-4">{period}</div>
     </div>
   );
 }
@@ -385,16 +445,19 @@ LINE @811mszbh 回傳後4碼確認
           <p className="text-[#6B665F] mb-6 text-sm">全館和式雅房（衛浴共用），含和風4-6人家庭房1間。提供衛浴用品，每間房吹風機，不供一次性用品。適合家庭、團體或單車族。</p>
 
           <div className="flex flex-col md:flex-row gap-6 justify-center mb-8">
-            <div className="bg-[#F8F5F1] p-8 rounded-3xl flex-1 max-w-xs mx-auto">
-              <div className="text-2xl font-light text-[#3F3A36]">平日</div>
-              <div className="text-5xl font-light tracking-tight mt-2 mb-1">NT$8,800</div>
-              <div className="text-sm text-[#8B7355]">週一至週四</div>
-            </div>
-            <div className="bg-[#F8F5F1] p-8 rounded-3xl flex-1 max-w-xs mx-auto border-2 border-[#8B7355]">
-              <div className="text-2xl font-light text-[#3F3A36]">假日</div>
-              <div className="text-5xl font-light tracking-tight mt-2 mb-1">NT$9,200</div>
-              <div className="text-sm text-[#8B7355]">週五、週六、假日</div>
-            </div>
+            <PackagePriceCard
+              label="平日"
+              originalPrice="NT$10,800"
+              salePrice="NT$8,800"
+              period="週一～週四"
+            />
+            <PackagePriceCard
+              label="假日"
+              originalPrice="NT$11,500"
+              salePrice="NT$9,200"
+              period="週五、週六、假日"
+              featured
+            />
           </div>
 
           <div className="text-sm text-[#6B665F] mb-6">
