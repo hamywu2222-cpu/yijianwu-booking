@@ -153,41 +153,65 @@ export default function YijianwuWebsite() {
     <main className="min-h-screen bg-[#F8F5F1] text-[#3F3A36]">
       {/* 優雅固定導覽列 */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#F8F5F1]/95 backdrop-blur-md border-b border-[#EDE8E0]">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="text-2xl font-light tracking-[3px]">一間屋</div>
-            <div className="text-sm text-[#8B7355] tracking-widest">· 駅前宿</div>
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
+          <div className="h-14 md:h-16 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 md:gap-3 min-w-0">
+              <div className="text-xl md:text-2xl font-light tracking-[3px] shrink-0">一間屋</div>
+              <div className="text-xs md:text-sm text-[#8B7355] tracking-widest shrink-0">· 駅前宿</div>
+            </div>
+
+            <div className="hidden md:flex gap-7 text-sm font-medium">
+              <a href="#fulong" className="nav-link hover:text-[#8B7355] transition-colors">福隆</a>
+              <a href="#renovation" className="nav-link hover:text-[#8B7355] transition-colors">翻新</a>
+              <a href="#rooms" className="nav-link hover:text-[#8B7355] transition-colors">房間</a>
+              <a href="#package" className="nav-link hover:text-[#8B7355] transition-colors">包房</a>
+              <a href="#amenities" className="nav-link hover:text-[#8B7355] transition-colors">設施</a>
+              <a href="#location" className="nav-link hover:text-[#8B7355] transition-colors">位置</a>
+              <a href="#booking" className="nav-link hover:text-[#8B7355] transition-colors">訂房</a>
+            </div>
+
+            <div className="flex items-center gap-2 md:gap-3 shrink-0">
+              <a
+                href="tel:0912362533"
+                className="md:hidden inline-flex items-center gap-1.5 rounded-full bg-[#3F3A36] px-3 py-2 text-xs font-medium text-white shadow-sm active:scale-[0.98] transition-transform"
+                aria-label="撥打電話 0912-362-533"
+              >
+                <span aria-hidden>📞</span>
+                <span>0912-362-533</span>
+              </a>
+              <a
+                href="tel:0912362533"
+                className="hidden md:block text-sm text-[#8B7355] hover:text-[#3F3A36] transition-colors tracking-wider"
+              >
+                📞 0912-362-533
+              </a>
+              <a
+                href="https://line.me/ti/p/@811mszbh"
+                target="_blank"
+                className="hidden md:flex items-center gap-2 bg-[#00C300] text-white text-xs px-5 py-2 rounded-full hover:bg-[#00A000] transition-all tracking-wider font-medium"
+              >
+                LINE 直接訂房享 95 折
+              </a>
+              <a href="#booking" className="hidden md:block text-xs px-5 py-2 border border-[#3F3A36] rounded-full hover:bg-[#3F3A36] hover:text-white transition-all tracking-wider">
+                立即詢問
+              </a>
+            </div>
           </div>
-          <div className="flex gap-7 text-sm font-medium">
-            <a href="#fulong" className="nav-link hover:text-[#8B7355] transition-colors">福隆</a>
-            <a href="#renovation" className="nav-link hover:text-[#8B7355] transition-colors">翻新</a>
-            <a href="#rooms" className="nav-link hover:text-[#8B7355] transition-colors">房間</a>
-            <a href="#package" className="nav-link hover:text-[#8B7355] transition-colors">包房</a>
-            <a href="#amenities" className="nav-link hover:text-[#8B7355] transition-colors">設施</a>
-            <a href="#location" className="nav-link hover:text-[#8B7355] transition-colors">位置</a>
-            <a href="#booking" className="nav-link hover:text-[#8B7355] transition-colors">訂房</a>
+
+          <div className="md:hidden flex gap-4 overflow-x-auto pb-2.5 text-xs font-medium text-[#6B665F] nav-scroll">
+            <a href="#fulong" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">福隆</a>
+            <a href="#renovation" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">翻新</a>
+            <a href="#rooms" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">房間</a>
+            <a href="#package" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">包房</a>
+            <a href="#amenities" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">設施</a>
+            <a href="#location" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">位置</a>
+            <a href="#booking" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">訂房</a>
           </div>
-          <a 
-            href="tel:0912362533" 
-            className="hidden md:block text-sm text-[#8B7355] hover:text-[#3F3A36] transition-colors tracking-wider"
-          >
-            📞 0912-362-533
-          </a>
-          <a 
-            href="https://line.me/ti/p/@811mszbh" 
-            target="_blank"
-            className="hidden md:flex items-center gap-2 bg-[#00C300] text-white text-xs px-5 py-2 rounded-full hover:bg-[#00A000] transition-all tracking-wider font-medium"
-          >
-            LINE 直接訂房享 95 折
-          </a>
-          <a href="#booking" className="hidden md:block text-xs px-5 py-2 border border-[#3F3A36] rounded-full hover:bg-[#3F3A36] hover:text-white transition-all tracking-wider">
-            立即詢問
-          </a>
         </div>
       </nav>
 
       {/* Hero 區塊 - 已更換為 LOGO 背景，字體已搭配星空暖調風格 */}
-      <section className="relative h-[100dvh] flex items-center justify-center pt-16 overflow-hidden">
+      <section className="relative h-[100dvh] flex items-center justify-center pt-[6.5rem] md:pt-16 overflow-hidden">
         {/* 背景 - 您的 LOGO 插畫 */}
         <div className="absolute inset-0 bg-[url('/images/hero.jpg')] bg-cover bg-center">
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/25 to-black/55" />

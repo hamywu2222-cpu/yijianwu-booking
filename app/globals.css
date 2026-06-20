@@ -103,6 +103,15 @@ input:focus, select:focus, textarea:focus {
   width: 100%;
 }
 
+.nav-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.nav-scroll::-webkit-scrollbar {
+  display: none;
+}
+
 /* 房間卡片圖片容器 */
 .room-image {
   position: relative;
