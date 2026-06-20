@@ -30,6 +30,18 @@ export const IMAGE_ALT: Record<string, string> = {
     '雙人房從門口望向窗邊，採光充足、空間整潔',
   '/images/exterior4.jpg':
     '和式雙人房側面視角，收納櫃與榻榻米風地板',
+  '/images/scenery/fulong-beach-aerial.jpg':
+    '福隆海水浴場空拍，金色沙灣延伸至湛藍海線',
+  '/images/scenery/fulong-station.jpg':
+    '福隆火車站外觀，一間屋駅前宿步行 30 秒即達',
+  '/images/scenery/fulong-sandcastle.jpg':
+    '福隆沙灘大型沙雕城堡，海邊文化地標',
+  '/images/scenery/fulong-sand-sculpture.jpg':
+    '福隆國際沙雕藝術季作品，沙灘上的匠人風景',
+  '/images/scenery/fulong-view-from-inn.jpg':
+    '一間屋窗外遠眺，青山綠意與福隆街景',
+  '/images/scenery/fulong-starbucks.jpg':
+    '福隆車站旁黃昏街景，散步即可抵達的休閒角落',
 };
 
 export function getImageAlt(src: string): string {

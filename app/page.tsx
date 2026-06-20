@@ -2,7 +2,10 @@
 
 import { useState, type ReactNode } from 'react';
 import BookingForm from '@/components/BookingForm';
+import RoomVideoPlayer from '@/components/RoomVideoPlayer';
+import SceneryGallery from '@/components/SceneryGallery';
 import { getImageAlt } from '@/lib/imageAlt';
+import { OUTDOOR_HIGHLIGHTS, ROOM_VIDEOS, SCENERY_IMAGES } from '@/lib/media';
 
 const RENOVATION_IMAGES = {
   before: [
@@ -156,6 +159,7 @@ export default function YijianwuWebsite() {
             <div className="text-sm text-[#8B7355] tracking-widest">· 駅前宿</div>
           </div>
           <div className="flex gap-7 text-sm font-medium">
+            <a href="#fulong" className="nav-link hover:text-[#8B7355] transition-colors">福隆</a>
             <a href="#renovation" className="nav-link hover:text-[#8B7355] transition-colors">翻新</a>
             <a href="#rooms" className="nav-link hover:text-[#8B7355] transition-colors">房間</a>
             <a href="#package" className="nav-link hover:text-[#8B7355] transition-colors">包房</a>
@@ -241,6 +245,20 @@ export default function YijianwuWebsite() {
           <div>LINE 官方確認訂房</div>
           <div>單車族友善 · 爬山玩水海邊</div>
           <div>和風家庭房僅此1間</div>
+        </div>
+      </section>
+
+      {/* 福隆風景 — 住這裡，風景就在門外 */}
+      <section id="fulong" className="bg-white py-20 border-t border-[#EDE8E0]">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">FULONG SCENERY</div>
+            <h2 className="text-5xl font-light tracking-tight font-playfair">福隆，走出家門就是風景</h2>
+            <p className="mt-3 max-w-xl mx-auto text-sm text-[#6B665F] leading-relaxed">
+              車站前 30 秒抵達，海水浴場步行 5 分鐘。沙灘、沙雕、山海線與東北角日常，都在一間屋的散步距離內。
+            </p>
+          </div>
+          <SceneryGallery items={SCENERY_IMAGES} />
         </div>
       </section>
 
@@ -352,10 +370,12 @@ export default function YijianwuWebsite() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* 和鳴雙人房 */}
             <div className="card group border border-[#EDE8E0] rounded-3xl overflow-hidden bg-white">
-              <div className="room-image aspect-[16/10] bg-[#EDE8E0]">
-                {/* 使用用戶提供的照片 */}
-                <img src="/images/double_room.jpg" alt={getImageAlt('/images/double_room.jpg')} className="w-full h-full object-cover" />
-              </div>
+              <RoomVideoPlayer
+                poster={ROOM_VIDEOS.double.poster}
+                posterAlt={getImageAlt(ROOM_VIDEOS.double.poster)}
+                label={ROOM_VIDEOS.double.label}
+                sources={ROOM_VIDEOS.double.sources}
+              />
               <div className="p-8">
                 <div className="flex items-start justify-between mb-4">
                   <div>
@@ -397,9 +417,12 @@ LINE @811mszbh 回傳後4碼確認
 
             {/* 和風4-6人家庭房（僅此1間，兩張雙人床） - 已更新新照片 */}
             <div className="card group border border-[#EDE8E0] rounded-3xl overflow-hidden bg-white">
-              <div className="room-image aspect-[16/10] bg-[#EDE8E0]">
-                <img src="/images/photo_2026-06-18_02-06-05.jpg" alt={getImageAlt('/images/photo_2026-06-18_02-06-05.jpg')} className="w-full h-full object-cover" />
-              </div>
+              <RoomVideoPlayer
+                poster={ROOM_VIDEOS.family.poster}
+                posterAlt={getImageAlt(ROOM_VIDEOS.family.poster)}
+                label={ROOM_VIDEOS.family.label}
+                sources={ROOM_VIDEOS.family.sources}
+              />
               <div className="p-8">
                 <div className="flex items-start justify-between mb-4">
                   <div>
@@ -524,35 +547,22 @@ LINE @811mszbh 回傳後4碼確認
             <div className="text-[#8B7355] text-xs tracking-[3px] mb-1">單車 · 戶外友善</div>
             <h3 className="text-xl font-light tracking-tight">單車停放 · 爬山玩水海邊</h3>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-sm">
-            <div className="flex gap-4">
-              <div className="text-2xl">🚲</div>
-              <div>
-                <div className="font-medium text-[#3F3A36] mb-1">單車停放無憂</div>
-                <div className="text-[#6B665F] text-xs">室內/遮雨專屬空間。</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {OUTDOOR_HIGHLIGHTS.map((item) => (
+              <div key={item.title} className="group overflow-hidden rounded-2xl bg-white">
+                <div className="aspect-[16/10] overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={getImageAlt(item.image)}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                  />
+                </div>
+                <div className="p-4">
+                  <div className="font-medium text-[#3F3A36] mb-1">{item.title}</div>
+                  <div className="text-[#6B665F] text-xs leading-relaxed">{item.desc}</div>
+                </div>
               </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="text-2xl">🏔️</div>
-              <div>
-                <div className="font-medium text-[#3F3A36] mb-1">爬山步道</div>
-                <div className="text-[#6B665F] text-xs">附近輕鬆健行路線。</div>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="text-2xl">💦</div>
-              <div>
-                <div className="font-medium text-[#3F3A36] mb-1">玩水溯溪</div>
-                <div className="text-[#6B665F] text-xs">河岸玩水，清涼首選。提供毛巾淋浴。</div>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="text-2xl">🏖️</div>
-              <div>
-                <div className="font-medium text-[#3F3A36] mb-1">海邊 5 分鐘</div>
-                <div className="text-[#6B665F] text-xs">海水浴場步行可達，沙灘夕陽。</div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -598,6 +608,14 @@ LINE @811mszbh 回傳後4碼確認
           <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#F8F5F1] px-4 py-1.5 text-sm text-[#3F3A36]">
             <span>🚉</span>
             <span>福隆火車站出站大門口，立馬右轉直走就會看到招牌</span>
+          </div>
+
+          <div className="mb-8 overflow-hidden rounded-3xl max-w-2xl mx-auto">
+            <img
+              src="/images/scenery/fulong-station.jpg"
+              alt={getImageAlt('/images/scenery/fulong-station.jpg')}
+              className="w-full h-auto object-cover"
+            />
           </div>
           
           <div className="bg-[#F8F5F1] p-8 rounded-3xl text-left max-w-md mx-auto">
