@@ -7,18 +7,21 @@ import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
 const PAGE_TITLE = "一間屋 · 駅前宿 | 福隆日式民宿";
@@ -29,7 +32,19 @@ export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: PAGE_TITLE,
   description: SITE_DESCRIPTION,
-  keywords: ["福隆民宿", "福隆車站民宿", "貢寮民宿", "福隆住宿", "日式民宿", "福隆海邊民宿", "一間屋"],
+  keywords: [
+    "福隆民宿",
+    "福隆車站民宿",
+    "福隆青年旅館",
+    "福隆背包客棧",
+    "新北貢寮住宿",
+    "草嶺古道住宿",
+    "福隆包棟民宿",
+    "貢寮民宿",
+    "福隆住宿",
+    "日式民宿",
+    "一間屋",
+  ],
   authors: [{ name: SITE_NAME }],
   alternates: {
     canonical: "/",

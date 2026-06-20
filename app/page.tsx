@@ -3,6 +3,7 @@
 import { useState, type ReactNode } from 'react';
 import BookingForm from '@/components/BookingForm';
 import GoogleMapEmbed from '@/components/GoogleMapEmbed';
+import HeroBackground from '@/components/HeroBackground';
 import RoomVideoPlayer from '@/components/RoomVideoPlayer';
 import SceneryGallery from '@/components/SceneryGallery';
 import {
@@ -227,14 +228,13 @@ export default function YijianwuWebsite() {
 
       {/* Hero 區塊 - 已更換為 LOGO 背景，字體已搭配星空暖調風格 */}
       <section className="relative h-[100dvh] flex items-center justify-center pt-[6.5rem] md:pt-16 overflow-hidden">
-        {/* 背景 - 您的 LOGO 插畫 */}
-        <div className="absolute inset-0 bg-[url('/images/hero.jpg')] bg-cover bg-center">
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/25 to-black/55" />
-        </div>
+        <HeroBackground />
 
         {/* 內容置底，避免與 LOGO 中央大標題重疊，讓 LOGO 更突出 */}
         <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center justify-end h-full pb-20 md:pb-28 text-center">
-          <h1 className="sr-only">一間屋・駅前宿｜福隆車站旁日式民宿</h1>
+          <h1 className="sr-only">
+            一間屋・駅前宿｜福隆背包客棧・福隆青年旅館｜新北貢寮住宿
+          </h1>
 
           {/* 頂部小標 - 極簡，放在最上方 */}
           <div className="inline-block text-[9px] md:text-xs tracking-[4px] mb-2 px-4 py-0.5 border border-[#F5E8C7]/40 rounded-full text-[#F5E8C7]/70">
@@ -275,9 +275,11 @@ export default function YijianwuWebsite() {
       {/* 關於我們 + 位置 */}
       <section id="about" className="max-w-4xl mx-auto px-6 py-20 text-center">
         <div className="text-[#8B7355] text-xs tracking-[4px] mb-3">A QUIET RETREAT BY THE STATION</div>
-        <h2 className="text-5xl font-light tracking-tight mb-6 font-playfair">在福隆車站旁，<br />有一間溫柔的家。</h2>
+        <h2 className="text-5xl font-light tracking-tight mb-6 font-playfair">
+          在福隆車站旁，<br />有一間溫柔的福隆背包客棧。
+        </h2>
         <p className="max-w-xl mx-auto text-base text-[#6B665F] leading-relaxed mb-4">
-          福隆車站旁 30 秒日式民宿。2026年5月全新裝潢，溫潤和風空間，專注寧靜與細節。
+          坐落新北貢寮，福隆車站步行 30 秒即達。一間屋・駅前宿是 2026 年 5 月全新裝潢的福隆青年旅館與日式民宿，溫潤和風空間，專注寧靜與細節，也是前往草嶺古道與舊草嶺隧道的便利住宿據點。
         </p>
         <div className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm text-[#8B7355]">
           <div>福隆車站步行 30 秒</div>
@@ -295,7 +297,7 @@ export default function YijianwuWebsite() {
             <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">FULONG SCENERY</div>
             <h2 className="text-5xl font-light tracking-tight font-playfair">福隆，走出家門就是風景</h2>
             <p className="mt-3 max-w-xl mx-auto text-sm text-[#6B665F] leading-relaxed">
-              車站前 30 秒抵達，海水浴場步行 5 分鐘。舊草嶺隧道環狀線、沙灘沙雕與山海風光，都在一間屋的單車與散步距離內。
+              車站前 30 秒抵達，海水浴場步行 5 分鐘。舊草嶺隧道環狀線、沙灘沙雕與山海風光，都在一間屋的單車與散步距離內。騎行與健行旅客常選這裡作為草嶺古道住宿與新北貢寮住宿的基地。
             </p>
           </div>
           <SceneryGallery items={SCENERY_IMAGES} />
@@ -360,10 +362,12 @@ export default function YijianwuWebsite() {
                   className="group relative overflow-hidden rounded-2xl aspect-[4/3] bg-[#EDE8E0] cursor-pointer"
                   onClick={() => setModalImage(src)}
                 >
-                  <img 
-                    src={src} 
-                    alt={getImageAlt(src)} 
-                    className="w-full h-full object-cover transition-all duration-500 group-hover:scale-[1.08] group-hover:brightness-105" 
+                  <img
+                    src={src}
+                    alt={getImageAlt(src)}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full object-cover transition-all duration-500 group-hover:scale-[1.08] group-hover:brightness-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                   <div className="absolute bottom-0 left-0 p-4 text-white">
@@ -401,8 +405,10 @@ export default function YijianwuWebsite() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-10">
             <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">ROOMS</div>
-            <h2 className="text-5xl font-light tracking-tight font-playfair">房間介紹</h2>
-            <p className="mt-1 text-sm text-[#6B665F]">全館和式雅房（衛浴共用）：四間和鳴雙人房（每次訂其中1間）+ 和風4-6人家庭房（僅此1間）</p>
+            <h2 className="text-5xl font-light tracking-tight font-playfair">福隆青年旅館・房間介紹</h2>
+            <p className="mt-1 text-sm text-[#6B665F]">
+              全館和式雅房（衛浴共用）：四間和鳴雙人房（每次訂其中 1 間）+ 和風 4–6 人家庭房（僅此 1 間）。福隆車站旁平價新北貢寮住宿首選。
+            </p>
             <p className="mt-1 text-xs text-[#8B7355]">雙人房 NT$1,600/晚 ｜ 家庭房 NT$3,200起（4人）+NT$600/人（最多6人）｜ 包房平日 $8,800 / 假日 $9,200</p>
             <p className="mt-1 text-[10px] text-[#8B7355]">填寫後請回傳後4碼到 LINE @811mszbh 確認訂單</p>
           </div>
@@ -519,8 +525,10 @@ LINE @811mszbh 回傳後4碼確認
       <section id="package" className="bg-white py-20 border-t border-[#EDE8E0]">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <div className="text-[#8B7355] text-xs tracking-[3px] mb-2">WHOLE HOUSE RENTAL</div>
-          <h2 className="text-4xl font-light tracking-tight mb-3">包房方案（共5間）</h2>
-          <p className="text-[#6B665F] mb-6 text-sm">全館和式雅房（衛浴共用），含和風4-6人家庭房1間。提供衛浴用品，每間房吹風機，不供一次性用品。適合家庭、團體或單車族。</p>
+          <h2 className="text-4xl font-light tracking-tight mb-3">福隆包棟民宿方案（共 5 間）</h2>
+          <p className="text-[#6B665F] mb-6 text-sm">
+            全館和式雅房（衛浴共用），含和風 4–6 人家庭房 1 間。提供衛浴用品，每間房吹風機，不供一次性用品。適合家庭、團體、單車隊或公司福隆包棟民宿需求。
+          </p>
 
           <div className="flex flex-col md:flex-row gap-6 justify-center mb-8">
             <PackagePriceCard
@@ -634,7 +642,7 @@ LINE @811mszbh 回傳後4碼確認
       <section id="location" className="bg-white py-16 border-t border-[#EDE8E0]">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <div className="text-[#8B7355] text-xs tracking-[4px] mb-3">LOCATION</div>
-          <h2 className="text-4xl font-light tracking-tight mb-4">福隆車站前 30 秒</h2>
+          <h2 className="text-4xl font-light tracking-tight mb-4">福隆車站前 30 秒・新北貢寮住宿</h2>
           <div className="mx-auto mb-8 max-w-md rounded-3xl border border-[#EDE8E0] bg-[#F8F5F1] p-6 text-left text-sm text-[#6B665F]">
             <div className="mb-3 text-base font-medium text-[#3F3A36]">{BUSINESS_NAME}</div>
             <address className="not-italic leading-relaxed">
@@ -675,11 +683,13 @@ LINE @811mszbh 回傳後4碼確認
             <span>福隆火車站出站大門口，立馬右轉直走就會看到招牌</span>
           </div>
 
-          <div className="mb-8 overflow-hidden rounded-3xl max-w-2xl mx-auto">
+          <div className="mx-auto mb-8 max-w-2xl overflow-hidden rounded-3xl aspect-[16/10] bg-[#EDE8E0]">
             <img
               src="/images/scenery/fulong-station.jpg"
               alt={getImageAlt('/images/scenery/fulong-station.jpg')}
-              className="w-full h-auto object-cover"
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover"
             />
           </div>
           

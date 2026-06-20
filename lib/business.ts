@@ -3,6 +3,9 @@ export const BUSINESS_NAME = '一間屋・駅前宿';
 export const BUSINESS_LEGAL_NAME = '一間屋民宿';
 export const BUSINESS_REGISTRATION = '新北市民宿152號';
 
+/** Google 商家／地圖正式名稱 */
+export const BUSINESS_MAPS_NAME = '福隆一間屋背包客棧';
+
 export const BUSINESS_ADDRESS = {
   full: '新北市貢寮區福隆街2巷1-2號',
   street: '福隆街2巷1-2號',
@@ -26,9 +29,15 @@ export const BUSINESS_LINE = {
   url: 'https://line.me/ti/p/@811mszbh',
 } as const;
 
+export const BUSINESS_FACEBOOK = {
+  url: 'https://www.facebook.com/onekitchenandhostel/',
+  name: '一間廚房 & 背包客棧',
+} as const;
+
+/** Google 地圖商家精確座標（與 Google 商家檔案一致） */
 export const BUSINESS_GEO = {
-  latitude: 25.021,
-  longitude: 121.9443,
+  latitude: 25.0158858,
+  longitude: 121.945463,
 } as const;
 
 export const BUSINESS_HOURS = {
@@ -40,15 +49,31 @@ export const BUSINESS_HOURS = {
 
 export const BUSINESS_ROOM_COUNT = 5;
 
+/** 在地 SEO 關鍵字（HTML 文案與 JSON-LD 共用） */
+export const LOCAL_SEO_KEYWORDS = [
+  '福隆青年旅館',
+  '福隆背包客棧',
+  '新北貢寮住宿',
+  '草嶺古道住宿',
+  '福隆包棟民宿',
+] as const;
+
 const MAP_QUERY = encodeURIComponent(BUSINESS_ADDRESS.full);
+const MAP_COORDS = `${BUSINESS_GEO.latitude},${BUSINESS_GEO.longitude}`;
+
+/** Google 商家正式地圖網址（hasMap / sameAs 用） */
+const GOOGLE_MAPS_PLACE_URL =
+  'https://www.google.com/maps/place/@25.0158858,121.945463,17z/data=!4m6!3m5!1s0x345d5d00f311114b:0x9cc510218a9b628b!8m2!3d25.0158858!4d121.945463!16s%2Fg%2F1thq30lt';
 
 export const BUSINESS_URLS = {
+  googleMapsBusiness: GOOGLE_MAPS_PLACE_URL,
+  googleMapsShort: 'https://maps.app.goo.gl/qufazd7DVkdem2y37',
   googleMapsSearch: `https://www.google.com/maps/search/?api=1&query=${MAP_QUERY}`,
-  googleMapsPlace: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${BUSINESS_NAME} ${BUSINESS_ADDRESS.full}`)}`,
-  googleMapsEmbed: `https://maps.google.com/maps?q=${MAP_QUERY}&hl=zh-TW&z=17&output=embed`,
-  googleMapsDirections: `https://www.google.com/maps/dir/?api=1&destination=${MAP_QUERY}&travelmode=walking`,
+  googleMapsPlace: GOOGLE_MAPS_PLACE_URL,
+  googleMapsEmbed: `https://maps.google.com/maps?q=${MAP_COORDS}&hl=zh-TW&z=17&output=embed`,
+  googleMapsDirections: `https://www.google.com/maps/dir/?api=1&destination=${MAP_COORDS}&travelmode=walking`,
   taiwanStay: 'https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=3078',
-  facebook: 'https://www.facebook.com/onekitchenandhostel/',
+  facebook: BUSINESS_FACEBOOK.url,
 } as const;
 
 /** Google 商家後台可直接貼上的簡介（750 字內） */

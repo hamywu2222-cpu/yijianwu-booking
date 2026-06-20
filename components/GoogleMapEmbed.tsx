@@ -23,7 +23,7 @@ export default function GoogleMapEmbed() {
             Google 導航
           </a>
           <a
-            href={BUSINESS_URLS.googleMapsPlace}
+            href={BUSINESS_URLS.googleMapsBusiness}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center rounded-full border border-[#3F3A36] px-4 py-2 text-xs font-medium text-[#3F3A36] transition-colors hover:bg-[#3F3A36] hover:text-white"

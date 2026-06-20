@@ -1,20 +1,23 @@
 import {
   BUSINESS_ADDRESS,
+  BUSINESS_FACEBOOK,
   BUSINESS_GEO,
   BUSINESS_HOURS,
   BUSINESS_LEGAL_NAME,
   BUSINESS_LINE,
+  BUSINESS_MAPS_NAME,
   BUSINESS_NAME,
   BUSINESS_PHONE,
   BUSINESS_REGISTRATION,
   BUSINESS_ROOM_COUNT,
   BUSINESS_URLS,
+  LOCAL_SEO_KEYWORDS,
 } from '@/lib/business';
 import { absoluteUrl } from '@/lib/site';
 
 export const SITE_NAME = BUSINESS_NAME;
 export const SITE_DESCRIPTION =
-  '福隆車站旁 30 秒即抵！一間屋·駅前宿提供日式雅房與家庭房，2026年全新裝潢，環境乾淨舒適。適合單車族、家庭或情侶入住，歡迎線上預訂。';
+  '福隆車站旁 30 秒即抵！一間屋·駅前宿是鄰近草嶺古道的福隆背包客棧與青年旅館，提供新北貢寮住宿、福隆包棟民宿與日式雅房，2026年全新裝潢，適合單車族、家庭或情侶入住。';
 
 const AMENITIES = [
   '免費 WiFi',
@@ -24,17 +27,23 @@ const AMENITIES = [
   '日式木質裝潢',
 ] as const;
 
-/** Schema.org LodgingBusiness JSON-LD（民宿結構化資料） */
+/** Schema.org LodgingBusiness + BedAndBreakfast JSON-LD（民宿結構化資料） */
 export function getLodgingBusinessJsonLd() {
   const siteUrl = absoluteUrl('/');
 
   return {
     '@context': 'https://schema.org',
-    '@type': 'LodgingBusiness',
+    '@type': ['LodgingBusiness', 'BedAndBreakfast'],
     '@id': `${siteUrl}#lodging`,
     name: BUSINESS_NAME,
     legalName: BUSINESS_LEGAL_NAME,
-    alternateName: ['一間屋', '駅前宿', '一間屋 福隆', '福隆駅前宿', '一間屋背包客棧'],
+    alternateName: [
+      BUSINESS_MAPS_NAME,
+      '一間屋',
+      '駅前宿',
+      '一間屋背包客棧',
+      ...LOCAL_SEO_KEYWORDS,
+    ],
     description: SITE_DESCRIPTION,
     url: siteUrl,
     telephone: BUSINESS_PHONE.mobileE164,
@@ -66,7 +75,7 @@ export function getLodgingBusinessJsonLd() {
       latitude: BUSINESS_GEO.latitude,
       longitude: BUSINESS_GEO.longitude,
     },
-    hasMap: BUSINESS_URLS.googleMapsPlace,
+    hasMap: BUSINESS_URLS.googleMapsBusiness,
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
@@ -96,12 +105,18 @@ export function getLodgingBusinessJsonLd() {
       name,
       value: true,
     })),
-    knowsAbout: ['福隆民宿', '福隆車站住宿', '日式民宿', '單車友善住宿'],
+    knowsAbout: [
+      '福隆民宿',
+      '福隆車站住宿',
+      '日式民宿',
+      '單車友善住宿',
+      ...LOCAL_SEO_KEYWORDS,
+    ],
     sameAs: [
       BUSINESS_LINE.url,
-      BUSINESS_URLS.googleMapsPlace,
+      BUSINESS_FACEBOOK.url,
+      BUSINESS_URLS.googleMapsBusiness,
       BUSINESS_URLS.taiwanStay,
-      BUSINESS_URLS.facebook,
     ],
   };
 }
