@@ -2,8 +2,17 @@
 
 import { useState, type ReactNode } from 'react';
 import BookingForm from '@/components/BookingForm';
+import GoogleMapEmbed from '@/components/GoogleMapEmbed';
 import RoomVideoPlayer from '@/components/RoomVideoPlayer';
 import SceneryGallery from '@/components/SceneryGallery';
+import {
+  BUSINESS_ADDRESS,
+  BUSINESS_LINE,
+  BUSINESS_NAME,
+  BUSINESS_PHONE,
+  BUSINESS_REGISTRATION,
+  BUSINESS_URLS,
+} from '@/lib/business';
 import { getImageAlt } from '@/lib/imageAlt';
 import {
   OUTDOOR_HIGHLIGHTS,
@@ -626,15 +635,40 @@ LINE @811mszbh 回傳後4碼確認
         <div className="max-w-4xl mx-auto px-6 text-center">
           <div className="text-[#8B7355] text-xs tracking-[4px] mb-3">LOCATION</div>
           <h2 className="text-4xl font-light tracking-tight mb-4">福隆車站前 30 秒</h2>
-          <p className="text-lg text-[#6B665F] mb-8">
-            <a 
-              href="https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E8%B2%A2%E5%AF%AE%E5%8D%80%E7%A6%8F%E9%9A%86%E8%A1%972%E5%B7%B71-2%E8%99%9F" 
-              target="_blank" 
-              className="hover:underline hover:text-[#3F3A36] transition-colors"
-            >
-              新北市貢寮區福隆街2巷1-2號
-            </a>
-          </p>
+          <div className="mx-auto mb-8 max-w-md rounded-3xl border border-[#EDE8E0] bg-[#F8F5F1] p-6 text-left text-sm text-[#6B665F]">
+            <div className="mb-3 text-base font-medium text-[#3F3A36]">{BUSINESS_NAME}</div>
+            <address className="not-italic leading-relaxed">
+              <a
+                href={BUSINESS_URLS.googleMapsPlace}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#3F3A36] hover:underline"
+              >
+                {BUSINESS_ADDRESS.full}
+              </a>
+              <div className="mt-2">
+                電話：
+                <a href={`tel:${BUSINESS_PHONE.mobileTel}`} className="hover:text-[#3F3A36] hover:underline">
+                  {BUSINESS_PHONE.mobile}
+                </a>
+              </div>
+              <div className="mt-1 text-xs text-[#8B7355]">
+                合法民宿登記 {BUSINESS_REGISTRATION} ·{' '}
+                <a
+                  href={BUSINESS_URLS.taiwanStay}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#3F3A36] hover:underline"
+                >
+                  交通部旅宿網查詢
+                </a>
+              </div>
+            </address>
+          </div>
+
+          <div className="mx-auto mb-8 max-w-2xl">
+            <GoogleMapEmbed />
+          </div>
 
           <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#F8F5F1] px-4 py-1.5 text-sm text-[#3F3A36]">
             <span>🚉</span>
@@ -764,32 +798,39 @@ LINE @811mszbh 回傳後4碼確認
       <footer className="border-t border-[#EDE8E0] py-12 text-sm text-[#8B7355]">
         <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between gap-y-6 text-center md:text-left">
           <div>
-            <div className="font-medium text-[#3F3A36]">一間屋 · 駅前宿</div>
-            <a 
-              href="https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E8%B2%A2%E5%AF%AE%E5%8D%80%E7%A6%8F%E9%9A%86%E8%A1%972%E5%B7%B71-2%E8%99%9F" 
-              target="_blank" 
+            <div className="font-medium text-[#3F3A36]">{BUSINESS_NAME}</div>
+            <a
+              href={BUSINESS_URLS.googleMapsPlace}
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-1 block hover:underline hover:text-[#3F3A36] transition-colors"
             >
-              新北市貢寮區福隆街2巷1-2號
+              {BUSINESS_ADDRESS.full}
             </a>
-            <div className="text-xs">出站右轉直走 30 秒即達</div>
+            <div className="text-xs">出站右轉直走 30 秒即達 · {BUSINESS_REGISTRATION}</div>
           </div>
           <div className="space-y-1">
-            <a 
-              href="https://line.me/ti/p/@811mszbh" 
-              target="_blank" 
-              className="block text-[#00C300] hover:underline font-medium"
+            <a
+              href={BUSINESS_LINE.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block font-medium text-[#00C300] hover:underline"
             >
-              LINE 官方 @811mszbh（回傳後4碼確認訂單）
+              LINE 官方 {BUSINESS_LINE.id}（回傳後4碼確認訂單）
             </a>
-            <a 
-              href="tel:0912362533" 
-              className="block hover:text-[#3F3A36] font-medium"
+            <a href={`tel:${BUSINESS_PHONE.mobileTel}`} className="block font-medium hover:text-[#3F3A36]">
+              包房 / 急事專線 {BUSINESS_PHONE.mobile}
+            </a>
+            <a
+              href={BUSINESS_URLS.googleMapsPlace}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block hover:text-[#3F3A36]"
             >
-              包房 / 急事專線 0912-362-533
+              Google 地圖查看
             </a>
           </div>
-          <div className="text-xs text-[#8B7355]/70 md:text-right">© {new Date().getFullYear()} 一間屋・駅前宿</div>
+          <div className="text-xs text-[#8B7355]/70 md:text-right">© {new Date().getFullYear()} {BUSINESS_NAME}</div>
         </div>
       </footer>
 

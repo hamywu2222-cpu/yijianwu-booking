@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import BookingForm from '@/components/BookingForm';
+import { BUSINESS_LINE, BUSINESS_PHONE } from '@/lib/business';
 
 export default function BookingPage() {
   return (
@@ -11,7 +12,7 @@ export default function BookingPage() {
           </Link>
           <div className="text-sm font-light tracking-[3px]">一間屋</div>
           <a
-            href="https://line.me/ti/p/@811mszbh"
+            href={BUSINESS_LINE.url}
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs px-4 py-2 bg-[#00C300] text-white rounded-full hover:bg-[#00A000] transition-all font-medium"
@@ -29,20 +30,20 @@ export default function BookingPage() {
               訂房請加入 LINE 官方（必須）
             </h1>
             <p className="text-[#6B665F] font-medium">
-              必須加入 LINE 官方 <span className="text-[#00C300]">@811mszbh</span> 才能完成訂房（未加入無法確認）
+              必須加入 LINE 官方 <span className="text-[#00C300]">{BUSINESS_LINE.id}</span> 才能完成訂房（未加入無法確認）
             </p>
-            <p className="text-xs text-[#8B7355] mt-1">填寫後請回傳後 4 碼到 LINE @811mszbh 確認訂單</p>
+            <p className="text-xs text-[#8B7355] mt-1">填寫後請回傳後 4 碼到 LINE {BUSINESS_LINE.id} 確認訂單</p>
           </header>
 
           <BookingForm />
 
           <footer className="mt-8 text-center text-sm text-[#6B665F]">
             包房專線：
-            <a href="tel:0912362533" className="font-medium text-[#3F3A36] hover:underline">
-              0912-362-533
+            <a href={`tel:${BUSINESS_PHONE.mobileTel}`} className="font-medium text-[#3F3A36] hover:underline">
+              {BUSINESS_PHONE.mobile}
             </a>
             <br />
-            <span className="font-medium text-[#3F3A36]">回傳後 4 碼到 LINE @811mszbh 確認訂單</span>
+            <span className="font-medium text-[#3F3A36]">回傳後 4 碼到 LINE {BUSINESS_LINE.id} 確認訂單</span>
           </footer>
         </div>
       </main>

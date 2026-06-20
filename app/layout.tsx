@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
-import { getLodgingBusinessJsonLd, SITE_DESCRIPTION, SITE_NAME } from "@/lib/structuredData";
+import { getStructuredDataJsonLd, SITE_DESCRIPTION, SITE_NAME } from "@/lib/structuredData";
 import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
 
@@ -78,7 +78,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(getLodgingBusinessJsonLd()),
+            __html: JSON.stringify(getStructuredDataJsonLd()),
           }}
         />
         {children}

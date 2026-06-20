@@ -1,11 +1,20 @@
+import {
+  BUSINESS_ADDRESS,
+  BUSINESS_GEO,
+  BUSINESS_HOURS,
+  BUSINESS_LEGAL_NAME,
+  BUSINESS_LINE,
+  BUSINESS_NAME,
+  BUSINESS_PHONE,
+  BUSINESS_REGISTRATION,
+  BUSINESS_ROOM_COUNT,
+  BUSINESS_URLS,
+} from '@/lib/business';
 import { absoluteUrl } from '@/lib/site';
 
-export const SITE_NAME = '一間屋・駅前宿';
+export const SITE_NAME = BUSINESS_NAME;
 export const SITE_DESCRIPTION =
   '福隆車站旁 30 秒即抵！一間屋·駅前宿提供日式雅房與家庭房，2026年全新裝潢，環境乾淨舒適。適合單車族、家庭或情侶入住，歡迎線上預訂。';
-
-const GOOGLE_MAPS_URL =
-  'https://www.google.com/maps/search/?api=1&query=%E6%96%B0%E5%8C%97%E5%B8%82%E8%B2%A2%E5%AF%AE%E5%8D%80%E7%A6%8F%E9%9A%86%E8%A1%972%E5%B7%B71-2%E8%99%9F';
 
 const AMENITIES = [
   '免費 WiFi',
@@ -23,11 +32,12 @@ export function getLodgingBusinessJsonLd() {
     '@context': 'https://schema.org',
     '@type': 'LodgingBusiness',
     '@id': `${siteUrl}#lodging`,
-    name: SITE_NAME,
-    alternateName: ['一間屋', '駅前宿', '一間屋 福隆', '福隆駅前宿'],
+    name: BUSINESS_NAME,
+    legalName: BUSINESS_LEGAL_NAME,
+    alternateName: ['一間屋', '駅前宿', '一間屋 福隆', '福隆駅前宿', '一間屋背包客棧'],
     description: SITE_DESCRIPTION,
     url: siteUrl,
-    telephone: '+886-912-362-533',
+    telephone: BUSINESS_PHONE.mobileE164,
     image: [
       absoluteUrl('/images/hero.jpg'),
       absoluteUrl('/images/scenery/fulong-station.jpg'),
@@ -35,28 +45,85 @@ export function getLodgingBusinessJsonLd() {
     ],
     logo: absoluteUrl('/images/hero.jpg'),
     priceRange: 'NT$1600+',
-    checkinTime: '15:00',
-    checkoutTime: '11:00',
+    numberOfRooms: BUSINESS_ROOM_COUNT,
+    checkinTime: BUSINESS_HOURS.checkIn,
+    checkoutTime: BUSINESS_HOURS.checkOut,
+    identifier: {
+      '@type': 'PropertyValue',
+      name: '民宿登記證號',
+      value: BUSINESS_REGISTRATION,
+    },
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '福隆街2巷1-2號',
-      addressLocality: '貢寮區',
-      addressRegion: '新北市',
-      postalCode: '228',
-      addressCountry: 'TW',
+      streetAddress: BUSINESS_ADDRESS.street,
+      addressLocality: BUSINESS_ADDRESS.locality,
+      addressRegion: BUSINESS_ADDRESS.region,
+      postalCode: BUSINESS_ADDRESS.postalCode,
+      addressCountry: BUSINESS_ADDRESS.country,
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 25.0209,
-      longitude: 121.9445,
+      latitude: BUSINESS_GEO.latitude,
+      longitude: BUSINESS_GEO.longitude,
     },
-    hasMap: GOOGLE_MAPS_URL,
+    hasMap: BUSINESS_URLS.googleMapsPlace,
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        opens: BUSINESS_HOURS.contact.opens,
+        closes: BUSINESS_HOURS.contact.closes,
+      },
+    ],
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        telephone: BUSINESS_PHONE.mobileE164,
+        contactType: 'reservations',
+        availableLanguage: ['zh-TW', 'en', 'ja'],
+        areaServed: 'TW',
+      },
+      {
+        '@type': 'ContactPoint',
+        telephone: BUSINESS_PHONE.landlineE164,
+        contactType: 'customer service',
+        availableLanguage: ['zh-TW'],
+        areaServed: 'TW',
+      },
+    ],
     amenityFeature: AMENITIES.map((name) => ({
       '@type': 'LocationFeatureSpecification',
       name,
       value: true,
     })),
     knowsAbout: ['福隆民宿', '福隆車站住宿', '日式民宿', '單車友善住宿'],
-    sameAs: ['https://line.me/ti/p/@811mszbh', GOOGLE_MAPS_URL],
+    sameAs: [
+      BUSINESS_LINE.url,
+      BUSINESS_URLS.googleMapsPlace,
+      BUSINESS_URLS.taiwanStay,
+      BUSINESS_URLS.facebook,
+    ],
   };
+}
+
+/** Schema.org WebSite JSON-LD（供 Google 關聯官網與商家） */
+export function getWebSiteJsonLd() {
+  const siteUrl = absoluteUrl('/');
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${siteUrl}#website`,
+    url: siteUrl,
+    name: BUSINESS_NAME,
+    description: SITE_DESCRIPTION,
+    inLanguage: 'zh-TW',
+    publisher: {
+      '@id': `${siteUrl}#lodging`,
+    },
+  };
+}
+
+export function getStructuredDataJsonLd() {
+  return [getWebSiteJsonLd(), getLodgingBusinessJsonLd()];
 }

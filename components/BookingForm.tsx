@@ -2,8 +2,10 @@
 
 import { useEffect, useMemo, useState } from 'react';
 
-const LINE_URL = 'https://line.me/ti/p/@811mszbh';
-const LINE_ID = '@811mszbh';
+import { BUSINESS_LINE } from '@/lib/business';
+
+const LINE_URL = BUSINESS_LINE.url;
+const LINE_ID = BUSINESS_LINE.id;
 const GAS_URL =
   process.env.NEXT_PUBLIC_BOOKING_FORM_URL ||
   'https://script.google.com/macros/s/AKfycbx3J43TGTOi5-HyB65Rc0B3ELQ6lubli1biES_ZpCTyk7WFXdV84xuyUk2vplXEP4WQtA/exec';
