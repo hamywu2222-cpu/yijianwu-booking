@@ -225,7 +225,8 @@ export default function YijianwuWebsite() {
 
         {/* 內容置底，避免與 LOGO 中央大標題重疊，讓 LOGO 更突出 */}
         <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center justify-end h-full pb-20 md:pb-28 text-center">
-          
+          <h1 className="sr-only">一間屋・駅前宿｜福隆車站旁日式民宿</h1>
+
           {/* 頂部小標 - 極簡，放在最上方 */}
           <div className="inline-block text-[9px] md:text-xs tracking-[4px] mb-2 px-4 py-0.5 border border-[#F5E8C7]/40 rounded-full text-[#F5E8C7]/70">
             one house · ekimae-yado
