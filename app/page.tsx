@@ -2,6 +2,31 @@
 
 import { useState, type ReactNode } from 'react';
 import BookingForm from '@/components/BookingForm';
+import { getImageAlt } from '@/lib/imageAlt';
+
+const RENOVATION_IMAGES = {
+  before: [
+    '/images/photo_2026-04-25_01-38-33.jpg',
+    '/images/photo_2026-04-25_01-38-38.jpg',
+    '/images/photo_2026-04-26_16-17-21.jpg',
+  ],
+  during: [
+    '/images/photo_2026-05-01_23-59-02.jpg',
+    '/images/photo_2026-05-01_23-59-09.jpg',
+  ],
+  after: [
+    '/images/double_room.jpg',
+    '/images/photo_2026-06-18_02-06-05.jpg',
+    '/images/facilities.jpg',
+    '/images/hallway.jpg',
+    '/images/hallway2.jpg',
+    '/images/hallway3.jpg',
+    '/images/bathroom.jpg',
+    '/images/double_room2.jpg',
+    '/images/exterior3.jpg',
+    '/images/exterior4.jpg',
+  ],
+} as const;
 
 function PriceOfferBadge() {
   return (
@@ -271,33 +296,15 @@ export default function YijianwuWebsite() {
 
             {/* 動態圖片展示區 - 根據階段切換，讓體驗更有故事感 */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {(renovationTab === 'before' ? [
-                { src: "/images/photo_2026-04-25_01-38-33.jpg", alt: "翻新前 - 舊空間" },
-                { src: "/images/photo_2026-04-25_01-38-38.jpg", alt: "翻新前 - 原始狀態" },
-                { src: "/images/photo_2026-04-26_16-17-21.jpg", alt: "翻新前 - 待更新區域" }
-              ] : renovationTab === 'during' ? [
-                { src: "/images/photo_2026-05-01_23-59-02.jpg", alt: "施工中 - 拆除進行" },
-                { src: "/images/photo_2026-05-01_23-59-09.jpg", alt: "施工中 - 翻新過程" }
-              ] : [
-                { src: "/images/double_room.jpg", alt: "翻新後 - 溫潤雙人房（衛浴共用）" },
-                { src: "/images/photo_2026-06-18_02-06-05.jpg", alt: "翻新後 - 和風4-6人家庭房（僅此1間，兩張雙人床，衛浴共用）" },
-                { src: "/images/facilities.jpg", alt: "翻新後 - 公共設施區" },
-                { src: "/images/hallway.jpg", alt: "翻新後 - 溫潤木質走廊" },
-                { src: "/images/hallway2.jpg", alt: "翻新後 - 室內通道" },
-                { src: "/images/hallway3.jpg", alt: "翻新後 - 走道細節" },
-                { src: "/images/bathroom.jpg", alt: "翻新後 - 公共衛浴空間（洗髮精沐浴乳香皂）" },
-                { src: "/images/double_room2.jpg", alt: "翻新後 - 雙人房內景（衛浴共用）" },
-                { src: "/images/exterior3.jpg", alt: "翻新後 - 雙人房內景" },
-                { src: "/images/exterior4.jpg", alt: "翻新後 - 雙人房另一視角" }
-              ]).map((item, index) => (
+              {RENOVATION_IMAGES[renovationTab].map((src, index) => (
                 <div 
-                  key={index} 
+                  key={src} 
                   className="group relative overflow-hidden rounded-2xl aspect-[4/3] bg-[#EDE8E0] cursor-pointer"
-                  onClick={() => setModalImage(item.src)}
+                  onClick={() => setModalImage(src)}
                 >
                   <img 
-                    src={item.src} 
-                    alt={item.alt} 
+                    src={src} 
+                    alt={getImageAlt(src)} 
                     className="w-full h-full object-cover transition-all duration-500 group-hover:scale-[1.08] group-hover:brightness-105" 
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
@@ -308,7 +315,7 @@ export default function YijianwuWebsite() {
                     }`}>
                       {renovationTab === 'before' ? 'BEFORE' : renovationTab === 'during' ? 'DURING' : 'AFTER'}
                     </div>
-                    <div className="text-base font-light tracking-tight leading-tight">{item.alt}</div>
+                    <div className="text-base font-light tracking-tight leading-tight">{getImageAlt(src)}</div>
                   </div>
                   <div className="absolute top-3 right-3 text-white/70 group-hover:text-white text-xs tracking-widest flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">
                     點擊放大 <span>↗</span>
@@ -347,7 +354,7 @@ export default function YijianwuWebsite() {
             <div className="card group border border-[#EDE8E0] rounded-3xl overflow-hidden bg-white">
               <div className="room-image aspect-[16/10] bg-[#EDE8E0]">
                 {/* 使用用戶提供的照片 */}
-                <img src="/images/double_room.jpg" alt="和鳴雙人房" className="w-full h-full object-cover" />
+                <img src="/images/double_room.jpg" alt={getImageAlt('/images/double_room.jpg')} className="w-full h-full object-cover" />
               </div>
               <div className="p-8">
                 <div className="flex items-start justify-between mb-4">
@@ -391,7 +398,7 @@ LINE @811mszbh 回傳後4碼確認
             {/* 和風4-6人家庭房（僅此1間，兩張雙人床） - 已更新新照片 */}
             <div className="card group border border-[#EDE8E0] rounded-3xl overflow-hidden bg-white">
               <div className="room-image aspect-[16/10] bg-[#EDE8E0]">
-                <img src="/images/photo_2026-06-18_02-06-05.jpg" alt="和風4-6人家庭房" className="w-full h-full object-cover" />
+                <img src="/images/photo_2026-06-18_02-06-05.jpg" alt={getImageAlt('/images/photo_2026-06-18_02-06-05.jpg')} className="w-full h-full object-cover" />
               </div>
               <div className="p-8">
                 <div className="flex items-start justify-between mb-4">
@@ -678,7 +685,7 @@ LINE @811mszbh 回傳後4碼確認
           <div className="relative max-w-5xl max-h-[90vh]" onClick={e => e.stopPropagation()}>
             <img 
               src={modalImage} 
-              alt="放大檢視" 
+              alt={getImageAlt(modalImage)} 
               className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl" 
             />
             <button 

@@ -1,4 +1,5 @@
-﻿import { MetadataRoute } from 'next'
+import type { MetadataRoute } from 'next';
+import { absoluteUrl, getSiteUrl } from '@/lib/site';
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -6,6 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://yijianwu-website.vercel.app'}/sitemap.xml`,
-  }
+    sitemap: absoluteUrl('/sitemap.xml'),
+    host: new URL(getSiteUrl()).host,
+  };
 }

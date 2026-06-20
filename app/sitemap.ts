@@ -1,20 +1,21 @@
-﻿import { MetadataRoute } from 'next'
+import type { MetadataRoute } from 'next';
+import { absoluteUrl } from '@/lib/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://yijianwu-website.vercel.app'
+  const lastModified = new Date();
 
   return [
     {
-      url: baseUrl,
-      lastModified: new Date(),
+      url: absoluteUrl('/'),
+      lastModified,
       changeFrequency: 'weekly',
       priority: 1,
     },
     {
-      url: `${baseUrl}/booking`,
-      lastModified: new Date(),
+      url: absoluteUrl('/booking'),
+      lastModified,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
-  ]
+  ];
 }
