@@ -5,7 +5,13 @@ import BookingForm from '@/components/BookingForm';
 import RoomVideoPlayer from '@/components/RoomVideoPlayer';
 import SceneryGallery from '@/components/SceneryGallery';
 import { getImageAlt } from '@/lib/imageAlt';
-import { OUTDOOR_HIGHLIGHTS, ROOM_VIDEOS, SCENERY_IMAGES } from '@/lib/media';
+import {
+  OUTDOOR_HIGHLIGHTS,
+  ROOM_VIDEOS,
+  SCENERY_IMAGES,
+  WEB_DEV_FEATURES,
+  WEB_DEV_REQUIREMENTS,
+} from '@/lib/media';
 
 const RENOVATION_IMAGES = {
   before: [
@@ -267,7 +273,7 @@ export default function YijianwuWebsite() {
           <div>福隆車站步行 30 秒</div>
           <div>2026年5月全新裝潢</div>
           <div>LINE 官方確認訂房</div>
-          <div>單車族友善 · 爬山玩水海邊</div>
+          <div>單車族友善 · 舊草嶺隧道環狀線</div>
           <div>和風家庭房僅此1間</div>
         </div>
       </section>
@@ -279,7 +285,7 @@ export default function YijianwuWebsite() {
             <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">FULONG SCENERY</div>
             <h2 className="text-5xl font-light tracking-tight font-playfair">福隆，走出家門就是風景</h2>
             <p className="mt-3 max-w-xl mx-auto text-sm text-[#6B665F] leading-relaxed">
-              車站前 30 秒抵達，海水浴場步行 5 分鐘。沙灘、沙雕、山海線與東北角日常，都在一間屋的散步距離內。
+              車站前 30 秒抵達，海水浴場步行 5 分鐘。舊草嶺隧道環狀線、沙灘沙雕與山海風光，都在一間屋的單車與散步距離內。
             </p>
           </div>
           <SceneryGallery items={SCENERY_IMAGES} />
@@ -571,7 +577,7 @@ LINE @811mszbh 回傳後4碼確認
             <div className="text-[#8B7355] text-xs tracking-[3px] mb-1">單車 · 戶外友善</div>
             <h3 className="text-xl font-light tracking-tight">單車停放 · 爬山玩水海邊</h3>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {OUTDOOR_HIGHLIGHTS.map((item) => (
               <div key={item.title} className="group overflow-hidden rounded-2xl bg-white">
                 <div className="aspect-[16/10] overflow-hidden">
@@ -645,6 +651,8 @@ LINE @811mszbh 回傳後4碼確認
           <div className="bg-[#F8F5F1] p-8 rounded-3xl text-left max-w-md mx-auto">
             <ul className="space-y-3 text-sm">
               <li className="flex justify-between"><span>福隆海水浴場</span> <span className="text-[#8B7355]">步行 5 分鐘 · 海邊玩水</span></li>
+              <li className="flex justify-between"><span>舊草嶺隧道</span> <span className="text-[#8B7355]">單車約 15 分鐘 · 環狀線經典</span></li>
+              <li className="flex justify-between"><span>舊草嶺隧道環狀線</span> <span className="text-[#8B7355]">沿海騎行 · 藍天碧海</span></li>
               <li className="flex justify-between"><span>貢寮老街</span> <span className="text-[#8B7355]">車程 10 分鐘</span></li>
               <li className="flex justify-between"><span>九份老街</span> <span className="text-[#8B7355]">車程 35 分鐘</span></li>
               <li className="flex justify-between"><span>登山步道</span> <span className="text-[#8B7355]">附近輕鬆爬山路線</span></li>
@@ -678,17 +686,52 @@ LINE @811mszbh 回傳後4碼確認
 
       {/* 建站諮詢 — 低調展示，不影響訂房主線 */}
       <section className="border-t border-[#EDE8E0] bg-white py-14 md:py-16">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">WEB DEVELOPMENT</div>
-          <h2 className="text-2xl md:text-3xl font-light tracking-tight font-playfair text-[#3F3A36] mb-3">
-            本站由老闆親自架設
-          </h2>
-          <p className="text-sm text-[#6B665F] leading-relaxed mb-2">
-            從版面設計、照片呈現到訂房流程，這個官網皆由一間屋老闆一手完成。
-          </p>
-          <p className="text-sm text-[#6B665F] leading-relaxed mb-6">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-8">
+            <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">WEB DEVELOPMENT</div>
+            <h2 className="text-2xl md:text-3xl font-light tracking-tight font-playfair text-[#3F3A36] mb-3">
+              本站由老闆親自架設 · 純代碼，非套版
+            </h2>
+            <p className="text-sm text-[#6B665F] leading-relaxed max-w-2xl mx-auto">
+              這個官網不是套用 Wix 或 WordPress 模板，而是從零以程式碼撰寫完成。
+              版面、風景相簿、房間實景影片、訂房流程與手機排版，皆依一間屋實際需求客製開發。
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+            {WEB_DEV_FEATURES.map((item) => (
+              <div
+                key={item.title}
+                className="rounded-2xl border border-[#E8DFD2] bg-gradient-to-br from-[#FFFCF8] to-[#F8F5F1] p-5 text-left"
+              >
+                <div className="text-sm font-medium text-[#3F3A36] mb-1.5">{item.title}</div>
+                <div className="text-xs text-[#6B665F] leading-relaxed">{item.desc}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="rounded-2xl bg-[#F8F5F1] border border-[#EDE8E0] p-6 md:p-8 mb-8 text-left">
+            <div className="text-xs tracking-[3px] text-[#8B7355] mb-3">ENGINEERING LEVEL</div>
+            <p className="text-sm text-[#3F3A36] font-medium mb-3">
+              要完成同等級官網，工程師需具備以下能力：
+            </p>
+            <ul className="space-y-2 text-sm text-[#6B665F]">
+              {WEB_DEV_REQUIREMENTS.map((item) => (
+                <li key={item} className="flex gap-2">
+                  <span className="text-[#8B7355] shrink-0">·</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-xs text-[#8B7355] leading-relaxed">
+              簡言之：這不是拖曳式建站工具能複製的成品，而是需要中高階全端工程實力才能獨立完成的客製化網站。
+            </p>
+          </div>
+
+          <p className="text-sm text-[#6B665F] leading-relaxed text-center mb-6">
             若您是福隆、東北角周邊民宿業者，或有官網、訂房頁面、形象網站需求，歡迎聯絡老闆諮詢建站服務。
           </p>
+
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
               href="tel:0912362533"
@@ -704,9 +747,6 @@ LINE @811mszbh 回傳後4碼確認
               LINE 私訊（請註明建站諮詢）
             </a>
           </div>
-          <p className="mt-4 text-[10px] text-[#8B7355]/80 tracking-wide">
-            民宿官網 · 訂房頁面 · 手機友善設計 · 歡迎洽詢報價
-          </p>
         </div>
       </section>
 

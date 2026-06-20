@@ -42,6 +42,12 @@ export const IMAGE_ALT: Record<string, string> = {
     '一間屋窗外遠眺，青山綠意與福隆街景',
   '/images/scenery/fulong-starbucks.jpg':
     '福隆車站旁黃昏街景，散步即可抵達的休閒角落',
+  '/images/scenery/fulong-caoling-loop-sign.jpg':
+    '舊草嶺隧道環狀線路標，福隆沿海公路單車騎行景色',
+  '/images/scenery/fulong-caoling-tunnel.jpg':
+    '舊草嶺隧道內部，單車騎士穿梭百年鐵道隧道',
+  '/images/scenery/fulong-ring-immersive-art.webp':
+    '東北角環狀線沿途沉浸光影體驗，單車旅遊特色景點',
 };
 
 export function getImageAlt(src: string): string {
