@@ -676,6 +676,40 @@ LINE @811mszbh 回傳後4碼確認
         <BookingForm />
       </section>
 
+      {/* 建站諮詢 — 低調展示，不影響訂房主線 */}
+      <section className="border-t border-[#EDE8E0] bg-white py-14 md:py-16">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">WEB DEVELOPMENT</div>
+          <h2 className="text-2xl md:text-3xl font-light tracking-tight font-playfair text-[#3F3A36] mb-3">
+            本站由老闆親自架設
+          </h2>
+          <p className="text-sm text-[#6B665F] leading-relaxed mb-2">
+            從版面設計、照片呈現到訂房流程，這個官網皆由一間屋老闆一手完成。
+          </p>
+          <p className="text-sm text-[#6B665F] leading-relaxed mb-6">
+            若您是福隆、東北角周邊民宿業者，或有官網、訂房頁面、形象網站需求，歡迎聯絡老闆諮詢建站服務。
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <a
+              href="tel:0912362533"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3 bg-[#3F3A36] text-white rounded-full text-sm font-medium hover:bg-[#2C2926] transition-all"
+            >
+              📞 電話諮詢 0912-362-533
+            </a>
+            <a
+              href="https://line.me/ti/p/@811mszbh"
+              target="_blank"
+              className="inline-flex items-center justify-center gap-2 px-7 py-3 border border-[#3F3A36] text-[#3F3A36] rounded-full text-sm font-medium hover:bg-[#3F3A36] hover:text-white transition-all"
+            >
+              LINE 私訊（請註明建站諮詢）
+            </a>
+          </div>
+          <p className="mt-4 text-[10px] text-[#8B7355]/80 tracking-wide">
+            民宿官網 · 訂房頁面 · 手機友善設計 · 歡迎洽詢報價
+          </p>
+        </div>
+      </section>
+
       {/* 浮動 LINE 按鈕 */}
       <a 
         href="https://line.me/ti/p/@811mszbh" 
