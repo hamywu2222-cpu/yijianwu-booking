@@ -1,4 +1,4 @@
-const DEFAULT_SITE_URL = 'https://yijianwu-website.vercel.app';
+const DEFAULT_SITE_URL = 'https://yijianwu-booking.vercel.app';
 
 /** 正規化網站根網址（無尾隨斜線），供 sitemap / robots / metadata 共用 */
 export function getSiteUrl(): string {
