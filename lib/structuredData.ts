@@ -116,7 +116,6 @@ export function getLodgingBusinessJsonLd() {
       BUSINESS_LINE.url,
       BUSINESS_FACEBOOK.url,
       BUSINESS_URLS.googleMapsBusiness,
-      BUSINESS_URLS.taiwanStay,
     ],
   };
 }

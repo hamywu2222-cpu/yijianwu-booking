@@ -660,15 +660,7 @@ LINE @811mszbh 回傳後4碼確認
                 </a>
               </div>
               <div className="mt-1 text-xs text-[#8B7355]">
-                合法民宿登記 {BUSINESS_REGISTRATION} ·{' '}
-                <a
-                  href={BUSINESS_URLS.taiwanStay}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#3F3A36] hover:underline"
-                >
-                  交通部旅宿網查詢
-                </a>
+                合法民宿登記 {BUSINESS_REGISTRATION}
               </div>
             </address>
           </div>

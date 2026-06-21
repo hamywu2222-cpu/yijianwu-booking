@@ -75,7 +75,6 @@ export const BUSINESS_URLS = {
   googleMapsPlace: GOOGLE_MAPS_PLACE_URL,
   googleMapsEmbed: `https://maps.google.com/maps?q=${MAP_COORDS}&hl=zh-TW&z=17&output=embed`,
   googleMapsDirections: `https://www.google.com/maps/dir/?api=1&destination=${MAP_COORDS}&travelmode=walking`,
-  taiwanStay: 'https://www.taiwanstay.net.tw/TSA/web_page/TSA020200.jsp?hohi_id=3078',
   facebook: BUSINESS_FACEBOOK.url,
 } as const;
 
