@@ -286,7 +286,6 @@ export default function YijianwuWebsite() {
           <div>2026年5月全新裝潢</div>
           <div>LINE 官方確認訂房</div>
           <div>單車族友善 · 舊草嶺隧道環狀線</div>
-          <div>和風家庭房僅此1間</div>
         </div>
       </section>
 
