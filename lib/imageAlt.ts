@@ -27,7 +27,7 @@ export const IMAGE_ALT: Record<string, string> = {
   '/images/double_room2.jpg':
     '和鳴雙人房床邊特寫，木質床架與暖色床單',
   '/images/exterior3.jpg':
-    '雙人房從門口望向窗邊，採光充足、空間整潔',
+    '和鳴雙人房從門口望向室內，暖色燈光柔和、空間整潔',
   '/images/exterior4.jpg':
     '和式雙人房側面視角，收納櫃與榻榻米風地板',
   '/images/scenery/fulong-beach-aerial.jpg':
