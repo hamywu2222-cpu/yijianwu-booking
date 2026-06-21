@@ -188,18 +188,18 @@ export default function YijianwuWebsite() {
 
             <div className="flex items-center gap-2 md:gap-3 shrink-0">
               <a
-                href="tel:0912362533"
+                href={BUSINESS_PHONE.mobileHref}
                 className="md:hidden inline-flex items-center gap-1.5 rounded-full bg-[#3F3A36] px-3 py-2 text-xs font-medium text-white shadow-sm active:scale-[0.98] transition-transform"
-                aria-label="撥打電話 0912-362-533"
+                aria-label={`撥打電話 ${BUSINESS_PHONE.mobile}`}
               >
                 <span aria-hidden>📞</span>
-                <span>0912-362-533</span>
+                <span>{BUSINESS_PHONE.mobile}</span>
               </a>
               <a
-                href="tel:0912362533"
+                href={BUSINESS_PHONE.mobileHref}
                 className="hidden md:block text-sm text-[#8B7355] hover:text-[#3F3A36] transition-colors tracking-wider"
               >
-                📞 0912-362-533
+                📞 {BUSINESS_PHONE.mobile}
               </a>
               <a
                 href="https://line.me/ti/p/@811mszbh"
@@ -558,11 +558,11 @@ LINE @811mszbh 回傳後4碼確認
             >
 LINE @811mszbh 回傳後4碼確認
             </a>
-            <a 
-              href="tel:0912362533" 
+            <a
+              href={BUSINESS_PHONE.mobileHref}
               className="inline-flex items-center gap-2 px-8 py-3 bg-[#3F3A36] text-white rounded-full text-sm font-medium hover:bg-[#2C2926] transition-all"
             >
-              📞 包房專線 0912-362-533
+              📞 包房專線 {BUSINESS_PHONE.mobile}
             </a>
           </div>
           <p className="mt-3 text-xs text-[#8B7355]">或是有急事也可撥打此專線</p>
@@ -655,7 +655,7 @@ LINE @811mszbh 回傳後4碼確認
               </a>
               <div className="mt-2">
                 電話：
-                <a href={`tel:${BUSINESS_PHONE.mobileTel}`} className="hover:text-[#3F3A36] hover:underline">
+                <a href={BUSINESS_PHONE.mobileHref} className="hover:text-[#3F3A36] hover:underline">
                   {BUSINESS_PHONE.mobile}
                 </a>
               </div>
@@ -778,10 +778,10 @@ LINE @811mszbh 回傳後4碼確認
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
-              href="tel:0912362533"
+              href={BUSINESS_PHONE.mobileHref}
               className="inline-flex items-center justify-center gap-2 px-7 py-3 bg-[#3F3A36] text-white rounded-full text-sm font-medium hover:bg-[#2C2926] transition-all"
             >
-              📞 電話諮詢 0912-362-533
+              📞 電話諮詢 {BUSINESS_PHONE.mobile}
             </a>
             <a
               href="https://line.me/ti/p/@811mszbh"
@@ -827,7 +827,7 @@ LINE @811mszbh 回傳後4碼確認
             >
               LINE 官方 {BUSINESS_LINE.id}（回傳後4碼確認訂單）
             </a>
-            <a href={`tel:${BUSINESS_PHONE.mobileTel}`} className="block font-medium hover:text-[#3F3A36]">
+            <a href={BUSINESS_PHONE.mobileHref} className="block font-medium hover:text-[#3F3A36]">
               包房 / 急事專線 {BUSINESS_PHONE.mobile}
             </a>
             <a

@@ -39,7 +39,7 @@ export default function BookingPage() {
 
           <footer className="mt-8 text-center text-sm text-[#6B665F]">
             包房專線：
-            <a href={`tel:${BUSINESS_PHONE.mobileTel}`} className="font-medium text-[#3F3A36] hover:underline">
+            <a href={BUSINESS_PHONE.mobileHref} className="font-medium text-[#3F3A36] hover:underline">
               {BUSINESS_PHONE.mobile}
             </a>
             <br />

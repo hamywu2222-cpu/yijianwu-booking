@@ -22,6 +22,9 @@ export const BUSINESS_PHONE = {
   landline: '02-24992161',
   landlineTel: '0224992161',
   landlineE164: '+886-2-24992161',
+  /** 手機一鍵撥號（所有 <a href> 請用此值） */
+  mobileHref: 'tel:0912362533',
+  landlineHref: 'tel:0224992161',
 } as const;
 
 export const BUSINESS_LINE = {
