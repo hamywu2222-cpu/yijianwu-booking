@@ -45,11 +45,6 @@ export const SCENERY_IMAGES: SceneryItem[] = [
     caption: '東北角單車之旅，沿途特色景點豐富',
   },
   {
-    src: '/images/scenery/fulong-view-from-inn.jpg',
-    title: '民宿窗外',
-    caption: '推門即見青山綠意與福隆日常',
-  },
-  {
     src: '/images/scenery/fulong-starbucks.jpg',
     title: '福隆夜色',
     caption: '車站旁休閒角落，散步即可抵達',
