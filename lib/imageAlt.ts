@@ -29,7 +29,7 @@ export const IMAGE_ALT: Record<string, string> = {
   '/images/exterior3.jpg':
     '和鳴雙人房從門口望向室內，暖色燈光柔和、空間整潔',
   '/images/exterior4.jpg':
-    '和式雙人房側面視角，收納櫃與榻榻米風地板',
+    '和鳴雙人房側面視角，小桌子與木質地板的簡約和式空間',
   '/images/scenery/fulong-beach-aerial.jpg':
     '福隆海水浴場空拍，金色沙灣延伸至湛藍海線',
   '/images/scenery/fulong-station.jpg':
