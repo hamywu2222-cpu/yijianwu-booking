@@ -26,7 +26,7 @@ export default function SceneryGallery({ items }: SceneryGalleryProps) {
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 auto-rows-[180px] md:auto-rows-[200px] gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 md:grid-flow-dense auto-rows-[180px] md:auto-rows-[200px] gap-3">
         {items.map((item) => (
           <button
             key={item.src}
