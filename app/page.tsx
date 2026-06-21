@@ -404,7 +404,7 @@ export default function YijianwuWebsite() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-10">
             <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">ROOMS</div>
-            <h2 className="text-5xl font-light tracking-tight font-playfair">福隆青年旅館・房間介紹</h2>
+            <h2 className="text-5xl font-light tracking-tight font-playfair">一間屋· 駅前宿・房間介紹</h2>
             <p className="mt-1 text-sm text-[#6B665F]">
               全館和式雅房（衛浴共用）：四間和鳴雙人房（每次訂其中 1 間）+ 和風 4–6 人家庭房（僅此 1 間）。福隆車站旁平價新北貢寮住宿首選。
             </p>
