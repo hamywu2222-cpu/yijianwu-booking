@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { SITE_OG_IMAGE, SITE_OG_IMAGE_ALT } from '@/lib/business';
 import { SITE_NAME } from '@/lib/structuredData';
 
-const BOOKING_TITLE = '訂房詢問 | 一間屋 · 駅前宿（出站30秒）';
+const BOOKING_TITLE = '訂房詢問 | 福隆車站步行30秒 · 一間屋 · 駅前宿';
 const BOOKING_DESCRIPTION =
   '填寫訂房詢問表單，加入 LINE 官方 @811mszbh 並回傳訂單後 4 碼即可完成確認。福隆車站步行 30 秒。';
 
