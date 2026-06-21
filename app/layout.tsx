@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import { SITE_OG_IMAGE, SITE_OG_IMAGE_ALT } from "@/lib/business";
 import { getStructuredDataJsonLd, SITE_DESCRIPTION, SITE_NAME } from "@/lib/structuredData";
 import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
@@ -26,8 +27,6 @@ const playfair = Playfair_Display({
 });
 
 const PAGE_TITLE = "一間屋 · 駅前宿 | 福隆日式民宿";
-const OG_IMAGE = "/images/scenery/fulong-station.jpg";
-const OG_IMAGE_ALT = "福隆車站前一間屋・駅前宿日式民宿";
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
@@ -59,10 +58,10 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     images: [
       {
-        url: OG_IMAGE,
+        url: SITE_OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: OG_IMAGE_ALT,
+        alt: SITE_OG_IMAGE_ALT,
       },
     ],
   },
@@ -70,7 +69,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: PAGE_TITLE,
     description: SITE_DESCRIPTION,
-    images: [OG_IMAGE],
+    images: [SITE_OG_IMAGE],
   },
   verification: {
     google: 'IRMtM18ZuIvRPD1up4V9a6S_bbyeaZAvd46S1I8VtHQ',

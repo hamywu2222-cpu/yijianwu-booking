@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { SITE_OG_IMAGE, SITE_OG_IMAGE_ALT } from '@/lib/business';
 import { SITE_NAME } from '@/lib/structuredData';
 
 const BOOKING_TITLE = '訂房詢問 | 一間屋 · 駅前宿';
@@ -20,10 +21,10 @@ export const metadata: Metadata = {
     description: BOOKING_DESCRIPTION,
     images: [
       {
-        url: '/images/scenery/fulong-station.jpg',
+        url: SITE_OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: '福隆車站前一間屋・駅前宿日式民宿',
+        alt: SITE_OG_IMAGE_ALT,
       },
     ],
   },
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: BOOKING_TITLE,
     description: BOOKING_DESCRIPTION,
-    images: ['/images/scenery/fulong-station.jpg'],
+    images: [SITE_OG_IMAGE],
   },
 };
 
