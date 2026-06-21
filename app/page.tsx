@@ -526,7 +526,7 @@ LINE @811mszbh 回傳後4碼確認
           <div className="text-[#8B7355] text-xs tracking-[3px] mb-2">WHOLE HOUSE RENTAL</div>
           <h2 className="text-4xl font-light tracking-tight mb-3">福隆包棟民宿方案（共 5 間）</h2>
           <p className="text-[#6B665F] mb-6 text-sm">
-            全館包房包含 <strong className="font-medium text-[#3F3A36]">4 間和鳴雙人房 ＋ 1 間和風 4–6 人家庭房</strong>（共 5 間，衛浴共用）。提供衛浴用品，每間房吹風機，不供一次性用品。適合家庭、團體、單車隊或公司福隆包棟民宿需求。
+            全館包房包含 4 間和鳴雙人房 ＋ 1 間和風 4–6 人家庭房（共 5 間，衛浴共用）。提供衛浴用品，每間房吹風機，不供一次性用品。適合家庭、團體、單車隊或公司福隆包棟民宿需求。
           </p>
 
           <div className="flex flex-col md:flex-row gap-6 justify-center mb-8">
