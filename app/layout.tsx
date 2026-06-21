@@ -26,7 +26,7 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-const PAGE_TITLE = "一間屋 · 駅前宿 | 福隆日式民宿";
+const PAGE_TITLE = "一間屋 · 駅前宿 | 福隆出站30秒・日式民宿";
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),

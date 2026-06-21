@@ -1,7 +1,7 @@
 /** 官網與 Google 商家共用的 NAP（名稱、地址、電話）單一來源 */
 /** 分享連結預覽圖（LINE / Facebook / iMessage 縮圖） */
 export const SITE_OG_IMAGE = '/images/hero.jpg';
-export const SITE_OG_IMAGE_ALT = '一間屋・駅前宿｜福隆車站旁日式民宿';
+export const SITE_OG_IMAGE_ALT = '一間屋・駅前宿｜福隆車站出站30秒・日式民宿';
 
 export const BUSINESS_NAME = '一間屋・駅前宿';
 export const BUSINESS_LEGAL_NAME = '一間屋民宿';

@@ -233,7 +233,7 @@ export default function YijianwuWebsite() {
         {/* 內容置底，避免與 LOGO 中央大標題重疊，讓 LOGO 更突出 */}
         <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center justify-end h-full pb-20 md:pb-28 text-center">
           <h1 className="sr-only">
-            一間屋・駅前宿｜福隆背包客棧・福隆青年旅館｜新北貢寮住宿
+            一間屋・駅前宿｜福隆車站出站30秒・福隆背包客棧・新北貢寮住宿
           </h1>
 
           {/* 頂部小標 - 極簡，放在最上方 */}
