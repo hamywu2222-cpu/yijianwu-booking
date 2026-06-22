@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 
 import { BUSINESS_LINE } from '@/lib/business';
@@ -558,17 +559,17 @@ export default function BookingForm() {
             {requiresRoomCountInNote ? (
               <>
                 老闆確認房況後安排；若需全館包房可參考{' '}
-                <a href="/#package" className="underline hover:text-[#3F3A36] transition-colors">
+                <Link href="/#package" className="underline hover:text-[#3F3A36] transition-colors">
                   包房方案
-                </a>
+                </Link>
                 ，皆須提早詢問。
               </>
             ) : (
               <>
                 訂多間可備註間數房型（例：2雙人、1家庭1雙人），老闆確認安排；另有
-                <a href="/#package" className="underline hover:text-[#3F3A36] transition-colors">
+                <Link href="/#package" className="underline hover:text-[#3F3A36] transition-colors">
                   包房方案
-                </a>
+                </Link>
                 可參考，皆須提早詢問確認房況。
               </>
             )}

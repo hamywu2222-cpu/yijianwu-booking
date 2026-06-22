@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useRef, useState } from 'react';
 
 type RoomVideoPlayerProps = {
@@ -61,12 +62,12 @@ export default function RoomVideoPlayer({
           className="group absolute inset-0 z-20 block h-full w-full cursor-pointer border-0 bg-transparent p-0"
           aria-label={`播放${label}`}
         >
-          <img
+          <Image
             src={poster}
             alt={posterAlt}
-            loading="lazy"
-            decoding="async"
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/20" />
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">

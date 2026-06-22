@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState } from 'react';
 import { getImageAlt } from '@/lib/imageAlt';
 import type { SceneryItem } from '@/lib/media';
@@ -34,12 +35,12 @@ export default function SceneryGallery({ items }: SceneryGalleryProps) {
             onClick={() => setModalImage(item.src)}
             className={`group relative overflow-hidden rounded-2xl bg-[#EDE8E0] text-left ${spanClass(item.span)}`}
           >
-            <img
+            <Image
               src={item.src}
               alt={getImageAlt(item.src)}
-              loading="lazy"
-              decoding="async"
-              className="gallery-img h-full w-full object-cover"
+              fill
+              sizes="(max-width: 768px) 100vw, 25vw"
+              className="gallery-img object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
             <div className="absolute bottom-0 left-0 p-4 text-white">
@@ -59,10 +60,12 @@ export default function SceneryGallery({ items }: SceneryGalleryProps) {
           onClick={() => setModalImage(null)}
         >
           <div className="relative max-h-[90vh] max-w-5xl" onClick={(e) => e.stopPropagation()}>
-            <img
+            <Image
               src={modalImage}
               alt={getImageAlt(modalImage)}
-              className="max-h-[90vh] max-w-full rounded-lg object-contain shadow-2xl"
+              width={1920}
+              height={1280}
+              className="max-h-[90vh] max-w-full h-auto w-auto rounded-lg object-contain shadow-2xl"
             />
             <button
               type="button"

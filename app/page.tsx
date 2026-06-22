@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useState, type ReactNode } from 'react';
 import BookingForm from '@/components/BookingForm';
 import GoogleMapEmbed from '@/components/GoogleMapEmbed';
@@ -355,18 +356,18 @@ export default function YijianwuWebsite() {
 
             {/* 動態圖片展示區 - 根據階段切換，讓體驗更有故事感 */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {RENOVATION_IMAGES[renovationTab].map((src, index) => (
+              {RENOVATION_IMAGES[renovationTab].map((src) => (
                 <div 
                   key={src} 
                   className="group relative overflow-hidden rounded-2xl aspect-[4/3] bg-[#EDE8E0] cursor-pointer"
                   onClick={() => setModalImage(src)}
                 >
-                  <img
+                  <Image
                     src={src}
                     alt={getImageAlt(src)}
-                    loading="lazy"
-                    decoding="async"
-                    className="h-full w-full object-cover transition-all duration-500 group-hover:scale-[1.08] group-hover:brightness-105"
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-cover transition-all duration-500 group-hover:scale-[1.08] group-hover:brightness-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                   <div className="absolute bottom-0 left-0 p-4 text-white">
@@ -597,11 +598,13 @@ LINE @811mszbh 回傳後4碼確認
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {OUTDOOR_HIGHLIGHTS.map((item) => (
               <div key={item.title} className="group overflow-hidden rounded-2xl bg-white">
-                <div className="aspect-[16/10] overflow-hidden">
-                  <img
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <Image
                     src={item.image}
                     alt={getImageAlt(item.image)}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                   />
                 </div>
                 <div className="p-4">
@@ -674,13 +677,13 @@ LINE @811mszbh 回傳後4碼確認
             <span>福隆火車站出站大門口，立馬右轉直走就會看到招牌</span>
           </div>
 
-          <div className="mx-auto mb-8 max-w-2xl overflow-hidden rounded-3xl aspect-[16/10] bg-[#EDE8E0]">
-            <img
+          <div className="relative mx-auto mb-8 max-w-2xl overflow-hidden rounded-3xl aspect-[16/10] bg-[#EDE8E0]">
+            <Image
               src="/images/scenery/fulong-station.jpg"
               alt={getImageAlt('/images/scenery/fulong-station.jpg')}
-              loading="lazy"
-              decoding="async"
-              className="h-full w-full object-cover"
+              fill
+              sizes="(max-width: 768px) 100vw, 672px"
+              className="object-cover"
             />
           </div>
           
@@ -842,10 +845,12 @@ LINE @811mszbh 回傳後4碼確認
           onClick={() => setModalImage(null)}
         >
           <div className="relative max-w-5xl max-h-[90vh]" onClick={e => e.stopPropagation()}>
-            <img 
-              src={modalImage} 
-              alt={getImageAlt(modalImage)} 
-              className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl" 
+            <Image
+              src={modalImage}
+              alt={getImageAlt(modalImage)}
+              width={1920}
+              height={1280}
+              className="max-h-[90vh] max-w-full h-auto w-auto object-contain rounded-lg shadow-2xl"
             />
             <button 
               onClick={() => setModalImage(null)}

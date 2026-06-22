@@ -1,8 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
-import { SITE_OG_IMAGE, SITE_OG_IMAGE_ALT } from "@/lib/business";
-import { getStructuredDataJsonLd, SITE_DESCRIPTION, SITE_NAME } from "@/lib/structuredData";
+import StructuredData from "@/components/StructuredData";
+import { LOCAL_SEO_KEYWORDS, SITE_OG_IMAGE, SITE_OG_IMAGE_ALT } from "@/lib/business";
+import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/structuredData";
 import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
 
@@ -28,23 +30,21 @@ const playfair = Playfair_Display({
 
 const PAGE_TITLE = "福隆車站步行30秒 | 一間屋 · 駅前宿・日式民宿";
 
+const SITE_KEYWORDS = [
+  "福隆民宿",
+  "福隆車站民宿",
+  ...LOCAL_SEO_KEYWORDS,
+  "貢寮民宿",
+  "福隆住宿",
+  "日式民宿",
+  "一間屋",
+];
+
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   title: PAGE_TITLE,
   description: SITE_DESCRIPTION,
-  keywords: [
-    "福隆民宿",
-    "福隆車站民宿",
-    "福隆青年旅館",
-    "福隆背包客棧",
-    "新北貢寮住宿",
-    "草嶺古道住宿",
-    "福隆包棟民宿",
-    "貢寮民宿",
-    "福隆住宿",
-    "日式民宿",
-    "一間屋",
-  ],
+  keywords: SITE_KEYWORDS,
   authors: [{ name: SITE_NAME }],
   alternates: {
     canonical: "/",
@@ -72,30 +72,27 @@ export const metadata: Metadata = {
     images: [SITE_OG_IMAGE],
   },
   verification: {
-    google: 'IRMtM18ZuIvRPD1up4V9a6S_bbyeaZAvd46S1I8VtHQ',
+    google: "IRMtM18ZuIvRPD1up4V9a6S_bbyeaZAvd46S1I8VtHQ",
   },
   icons: {
     icon: "/favicon.ico",
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#F8F5F1",
+};
+
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="zh-TW"
       className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(getStructuredDataJsonLd()),
-          }}
-        />
+        <StructuredData />
         {children}
         <GoogleAnalytics />
       </body>
