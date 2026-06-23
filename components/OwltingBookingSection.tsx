@@ -28,18 +28,30 @@ const labelClass = 'block text-xs font-medium tracking-widest text-[#8B7355] mb-
 const bookingButtonClass =
   'flex w-full items-center justify-center rounded-2xl bg-[#3F3A36] px-8 py-4 text-sm font-medium tracking-[2px] text-white hover:bg-[#2C2926] active:scale-[0.99] transition-all disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-[#3F3A36]';
 
+function OwlNestTipList({ items }: { items: readonly string[] }) {
+  return (
+    <ul className="space-y-2">
+      {items.map((tip) => (
+        <li key={tip} className="flex gap-2">
+          <span className="text-[#8B7355] shrink-0">·</span>
+          <span>{tip}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function OwlNestAvailabilityTips() {
   return (
-    <div className="rounded-2xl border border-[#E8DFD2] bg-[#FFFCF8] px-5 py-4 text-sm text-[#6B665F] leading-relaxed">
-      <p className="text-xs font-medium tracking-widest text-[#8B7355] mb-2">訂房小提醒</p>
-      <ul className="space-y-2">
-        {OWLNEST_BOOKING.tips.map((tip) => (
-          <li key={tip} className="flex gap-2">
-            <span className="text-[#8B7355] shrink-0">·</span>
-            <span>{tip}</span>
-          </li>
-        ))}
-      </ul>
+    <div className="rounded-2xl border border-[#E8DFD2] bg-[#FFFCF8] px-5 py-4 text-sm text-[#6B665F] leading-relaxed space-y-4">
+      <div>
+        <p className="text-xs font-medium tracking-widest text-[#8B7355] mb-2">人數與房型提醒</p>
+        <OwlNestTipList items={OWLNEST_BOOKING.guestTips} />
+      </div>
+      <div className="border-t border-[#E8DFD2] pt-4">
+        <p className="text-xs font-medium tracking-widest text-[#8B7355] mb-2">訂房小提醒</p>
+        <OwlNestTipList items={OWLNEST_BOOKING.tips} />
+      </div>
     </div>
   );
 }
