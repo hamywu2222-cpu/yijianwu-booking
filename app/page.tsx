@@ -8,6 +8,7 @@ import HeroBackground from '@/components/HeroBackground';
 import RoomVideoPlayer from '@/components/RoomVideoPlayer';
 import SceneryGallery from '@/components/SceneryGallery';
 import {
+  BOOKING_CTA,
   BUSINESS_ADDRESS,
   BUSINESS_LINE,
   BUSINESS_NAME,
@@ -192,7 +193,7 @@ export default function YijianwuWebsite() {
                 href="#booking"
                 className="md:hidden inline-flex items-center rounded-full bg-[#3F3A36] px-3.5 py-2 text-xs font-medium text-white shadow-sm active:scale-[0.98] transition-transform"
               >
-                立即訂房
+                {BOOKING_CTA.jump}
               </a>
               <a
                 href={BUSINESS_PHONE.mobileHref}
@@ -216,7 +217,7 @@ export default function YijianwuWebsite() {
                 LINE 門禁密碼
               </a>
               <a href="#booking" className="hidden md:block text-xs px-5 py-2 bg-[#3F3A36] text-white rounded-full hover:bg-[#2C2926] transition-all tracking-wider">
-                立即訂房
+                {BOOKING_CTA.jump}
               </a>
             </div>
           </div>
@@ -261,7 +262,7 @@ export default function YijianwuWebsite() {
               href="#booking"
               className="px-7 py-3 bg-[#F5E8C7] text-[#3F3A36] rounded-full font-medium tracking-[0.5px] text-xs md:text-sm hover:bg-white transition-all active:scale-[0.985] shadow"
             >
-              立即訂房
+              {BOOKING_CTA.jump}
             </a>
             <a href="#rooms" className="px-7 py-3 border border-[#F5E8C7]/60 text-[#F5E8C7] rounded-full font-medium tracking-[0.5px] text-xs md:text-sm hover:bg-[#F5E8C7] hover:text-[#3F3A36] transition-all active:scale-[0.985]">
               查看房間
@@ -464,7 +465,7 @@ export default function YijianwuWebsite() {
                     href="#booking"
                     className="px-6 py-2.5 bg-[#3F3A36] text-white rounded-full hover:bg-[#2C2926] transition-colors text-xs font-medium"
                   >
-                    立即訂房
+                    {BOOKING_CTA.jump}
                   </a>
                 </div>
               </div>
@@ -520,7 +521,7 @@ export default function YijianwuWebsite() {
                     href="#booking"
                     className="px-6 py-2.5 bg-[#3F3A36] text-white rounded-full hover:bg-[#2C2926] transition-colors text-xs font-medium"
                   >
-                    立即訂房
+                    {BOOKING_CTA.jump}
                   </a>
                 </div>
               </div>
@@ -564,7 +565,7 @@ export default function YijianwuWebsite() {
               href="#booking"
               className="inline-flex items-center gap-2 px-8 py-3 bg-[#3F3A36] text-white rounded-full text-sm font-medium hover:bg-[#2C2926] transition-all"
             >
-              線上預訂包房
+              {BOOKING_CTA.package}
             </a>
             <a
               href={BUSINESS_LINE.url}
@@ -718,7 +719,7 @@ export default function YijianwuWebsite() {
               href="#booking"
               className="inline-flex items-center gap-2 px-8 py-3 bg-[#3F3A36] text-white rounded-full text-sm font-medium hover:bg-[#2C2926] transition-all"
             >
-              立即訂房
+              {BOOKING_CTA.jump}
             </a>
           </div>
         </div>
@@ -727,8 +728,8 @@ export default function YijianwuWebsite() {
       <section id="booking" className="max-w-4xl mx-auto px-6 py-20">
         <div className="text-center mb-10">
           <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">BOOKING</div>
-          <h2 className="text-4xl md:text-5xl font-light tracking-tight mb-2">線上即時訂房</h2>
-          <p className="text-[#6B665F] font-medium">選好條件後前往奧丁丁官方訂房頁，即時查空房、包棟與付款</p>
+          <h2 className="text-4xl md:text-5xl font-light tracking-tight mb-2">{BOOKING_CTA.sectionTitle}</h2>
+          <p className="text-[#6B665F] font-medium">{BOOKING_CTA.sectionSubtitle}</p>
         </div>
 
         <OwltingBookingSection />
@@ -805,7 +806,7 @@ export default function YijianwuWebsite() {
         href="#booking"
         className="md:hidden fixed bottom-6 left-4 z-50 inline-flex items-center rounded-full bg-[#3F3A36] px-4 py-3 text-xs font-medium text-white shadow-lg hover:bg-[#2C2926] active:scale-[0.98] transition-all"
       >
-        立即訂房
+        {BOOKING_CTA.jump}
       </a>
 
       {/* 浮動 LINE 按鈕 */}

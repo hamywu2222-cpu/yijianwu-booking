@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import OwltingBookingSection from '@/components/OwltingBookingSection';
+import { BOOKING_CTA } from '@/lib/business';
 
 export default function BookingPage() {
   return (
@@ -15,7 +16,7 @@ export default function BookingPage() {
               href="#booking-form"
               className="md:hidden text-xs px-3.5 py-2 bg-[#3F3A36] text-white rounded-full hover:bg-[#2C2926] transition-all font-medium"
             >
-              立即訂房
+              {BOOKING_CTA.jump}
             </a>
             <Link
               href="/"
@@ -31,8 +32,8 @@ export default function BookingPage() {
         <div className="max-w-4xl mx-auto">
           <header className="text-center mb-10">
             <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">BOOKING</div>
-            <h1 className="text-4xl md:text-5xl font-light tracking-tight mb-2">線上即時訂房</h1>
-            <p className="text-[#6B665F] font-medium">選好條件後前往奧丁丁官方訂房頁，即時查空房、包棟與付款</p>
+            <h1 className="text-4xl md:text-5xl font-light tracking-tight mb-2">{BOOKING_CTA.sectionTitle}</h1>
+            <p className="text-[#6B665F] font-medium">{BOOKING_CTA.sectionSubtitle}</p>
           </header>
 
           <div id="booking-form">

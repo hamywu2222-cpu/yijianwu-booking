@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 
-import { BUSINESS_LINE, OWLNEST_BOOKING } from '@/lib/business';
+import { BOOKING_CTA, BUSINESS_LINE, OWLNEST_BOOKING } from '@/lib/business';
 import { buildOwlNestBookingUrl } from '@/lib/owlnest';
 
 function todayString() {
@@ -83,7 +83,7 @@ export default function OwltingBookingSection() {
 
       <div className="rounded-3xl border border-[#EDE8E0] bg-white p-6 md:p-8 shadow-sm">
         <p className="text-sm text-[#6B665F] leading-relaxed mb-6 text-center">
-          選好條件後，前往奧丁丁完整訂房頁查空房、選房型與完成付款（含包棟方案）。信用卡與 3D 驗證在完整頁面最穩定。
+          {BOOKING_CTA.intro}
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
@@ -141,11 +141,11 @@ export default function OwltingBookingSection() {
           rel="noopener noreferrer"
           className={bookingButtonClass}
         >
-          前往奧丁丁訂房與付款 →
+          {BOOKING_CTA.action} →
         </a>
 
         <p className="mt-4 text-center text-xs text-[#8B7355]">
-          將在新分頁開啟官方訂房系統，完成訂單後可關閉分頁回到官網
+          {BOOKING_CTA.note}
         </p>
       </div>
 
@@ -172,7 +172,7 @@ export default function OwltingBookingSection() {
             rel="noopener noreferrer"
             className={bookingButtonClass}
           >
-            前往奧丁丁訂房與付款 →
+            {BOOKING_CTA.action} →
           </a>
         </div>
       )}

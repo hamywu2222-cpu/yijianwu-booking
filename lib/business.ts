@@ -42,9 +42,20 @@ export const BUSINESS_LINE = {
 export const OWLNEST_BOOKING = {
   url: 'https://www.booking-owlnest.com/yijianwu?lang=zh_TW&adult=1&child=0&infant=0',
   tips: [
-    '在奧丁丁訂房頁，若房型可選表示當天有空房；若看不到可選房型，表示當天已無空房。',
-    '若要包房（全館 5 間），請滑到頁面最下方查看是否有包房選項；若沒有，表示當天已有房間被預訂。',
+    '訂房頁上，房型可選表示有空房；看不到可選房型表示當天已無空房。',
+    '若要包房（全館 5 間），請滑到最下方查看包房選項；若沒有，表示當天已有房間被預訂。',
   ],
+} as const;
+
+/** 官網訂房按鈕與說明文案（單一來源） */
+export const BOOKING_CTA = {
+  jump: '訂房付款',
+  action: '線上訂房付款',
+  intro: '選好日期與人數，即可查空房、選房型並完成付款（含包棟）。',
+  note: '點擊後在新分頁完成訂房與刷卡',
+  sectionTitle: '線上訂房付款',
+  sectionSubtitle: '選日期與人數，查空房、選房型並完成付款',
+  package: '包房付款',
 } as const;
 
 export const BUSINESS_FACEBOOK = {
