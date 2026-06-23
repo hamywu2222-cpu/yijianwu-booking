@@ -189,12 +189,17 @@ export default function YijianwuWebsite() {
 
             <div className="flex items-center gap-2 md:gap-3 shrink-0">
               <a
+                href="#booking"
+                className="md:hidden inline-flex items-center rounded-full bg-[#3F3A36] px-3.5 py-2 text-xs font-medium text-white shadow-sm active:scale-[0.98] transition-transform"
+              >
+                立即訂房
+              </a>
+              <a
                 href={BUSINESS_PHONE.mobileHref}
-                className="md:hidden inline-flex items-center gap-1.5 rounded-full bg-[#3F3A36] px-3 py-2 text-xs font-medium text-white shadow-sm active:scale-[0.98] transition-transform"
+                className="md:hidden inline-flex items-center gap-1 rounded-full border border-[#D1C9BE] bg-white px-2.5 py-2 text-xs font-medium text-[#3F3A36] shadow-sm active:scale-[0.98] transition-transform"
                 aria-label={`撥打電話 ${BUSINESS_PHONE.mobile}`}
               >
                 <span aria-hidden>📞</span>
-                <span>{BUSINESS_PHONE.mobile}</span>
               </a>
               <a
                 href={BUSINESS_PHONE.mobileHref}
@@ -795,14 +800,23 @@ export default function YijianwuWebsite() {
         </div>
       </section>
 
+      {/* 手機版固定訂房捷徑 */}
+      <a
+        href="#booking"
+        className="md:hidden fixed bottom-6 left-4 z-50 inline-flex items-center rounded-full bg-[#3F3A36] px-4 py-3 text-xs font-medium text-white shadow-lg hover:bg-[#2C2926] active:scale-[0.98] transition-all"
+      >
+        立即訂房
+      </a>
+
       {/* 浮動 LINE 按鈕 */}
       <a
         href={BUSINESS_LINE.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-[#00C300] text-white px-5 py-3 rounded-full shadow-lg hover:bg-[#00A000] transition-all font-medium text-xs md:text-sm"
+        className="fixed bottom-6 right-4 md:right-6 z-50 flex items-center gap-2 bg-[#00C300] text-white px-4 md:px-5 py-3 rounded-full shadow-lg hover:bg-[#00A000] transition-all font-medium text-xs md:text-sm"
       >
-        <span>📱 LINE 門禁密碼 {BUSINESS_LINE.id}</span>
+        <span className="md:hidden">📱 LINE</span>
+        <span className="hidden md:inline">📱 LINE 門禁密碼 {BUSINESS_LINE.id}</span>
       </a>
 
       {/* Footer */}

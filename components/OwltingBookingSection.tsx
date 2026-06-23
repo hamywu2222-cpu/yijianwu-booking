@@ -1,8 +1,8 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
-import { BUSINESS_LINE } from '@/lib/business';
+import { BUSINESS_LINE, OWLNEST_BOOKING } from '@/lib/business';
 import { buildOwlNestBookingUrl } from '@/lib/owlnest';
 
 function todayString() {
@@ -22,8 +22,28 @@ function addDays(dateStr: string, days: number) {
 const inputClass =
   'w-full border border-[#D1C9BE] rounded-2xl px-4 py-3 text-sm text-[#3F3A36] bg-white';
 const labelClass = 'block text-xs font-medium tracking-widest text-[#8B7355] mb-1.5';
+const bookingButtonClass =
+  'flex w-full items-center justify-center rounded-2xl bg-[#3F3A36] px-8 py-4 text-sm font-medium tracking-[2px] text-white hover:bg-[#2C2926] active:scale-[0.99] transition-all';
+
+function OwlNestAvailabilityTips() {
+  return (
+    <div className="rounded-2xl border border-[#E8DFD2] bg-[#FFFCF8] px-5 py-4 text-sm text-[#6B665F] leading-relaxed">
+      <p className="text-xs font-medium tracking-widest text-[#8B7355] mb-2">訂房小提醒</p>
+      <ul className="space-y-2">
+        {OWLNEST_BOOKING.tips.map((tip) => (
+          <li key={tip} className="flex gap-2">
+            <span className="text-[#8B7355] shrink-0">·</span>
+            <span>{tip}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 export default function OwltingBookingSection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [showMobileSticky, setShowMobileSticky] = useState(false);
   const minCheckIn = todayString();
   const [checkIn, setCheckIn] = useState('');
   const [checkOut, setCheckOut] = useState('');
@@ -42,8 +62,25 @@ export default function OwltingBookingSection() {
     [adults, checkIn, checkOut],
   );
 
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setShowMobileSticky(entry.isIntersecting);
+      },
+      { threshold: 0.15 },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="space-y-6">
+    <div ref={sectionRef} className="space-y-6 pb-24 md:pb-0">
+      <OwlNestAvailabilityTips />
+
       <div className="rounded-3xl border border-[#EDE8E0] bg-white p-6 md:p-8 shadow-sm">
         <p className="text-sm text-[#6B665F] leading-relaxed mb-6 text-center">
           選好條件後，前往奧丁丁完整訂房頁查空房、選房型與完成付款（含包棟方案）。信用卡與 3D 驗證在完整頁面最穩定。
@@ -102,7 +139,7 @@ export default function OwltingBookingSection() {
           href={bookingUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex w-full items-center justify-center rounded-2xl bg-[#3F3A36] px-8 py-4 text-sm font-medium tracking-[2px] text-white hover:bg-[#2C2926] active:scale-[0.99] transition-all"
+          className={bookingButtonClass}
         >
           前往奧丁丁訂房與付款 →
         </a>
@@ -126,6 +163,19 @@ export default function OwltingBookingSection() {
           ，入住前將收到門禁密碼與入住資訊。
         </p>
       </div>
+
+      {showMobileSticky && (
+        <div className="md:hidden fixed bottom-0 left-0 right-0 z-[60] bg-white/95 backdrop-blur-md border-t border-[#EDE8E0] px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgba(0,0,0,0.08)]">
+          <a
+            href={bookingUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={bookingButtonClass}
+          >
+            前往奧丁丁訂房與付款 →
+          </a>
+        </div>
+      )}
     </div>
   );
 }

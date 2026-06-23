@@ -41,6 +41,10 @@ export const BUSINESS_LINE = {
 /** 奧丁丁 OwlNest 官網訂房引擎（可被 NEXT_PUBLIC_OWLNEST_BOOKING_URL 覆寫） */
 export const OWLNEST_BOOKING = {
   url: 'https://www.booking-owlnest.com/yijianwu?lang=zh_TW&adult=1&child=0&infant=0',
+  tips: [
+    '在奧丁丁訂房頁，若房型可選表示當天有空房；若看不到可選房型，表示當天已無空房。',
+    '若要包房（全館 5 間），請滑到頁面最下方查看是否有包房選項；若沒有，表示當天已有房間被預訂。',
+  ],
 } as const;
 
 export const BUSINESS_FACEBOOK = {

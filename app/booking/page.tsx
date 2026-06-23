@@ -10,12 +10,20 @@ export default function BookingPage() {
             ← 返回首頁
           </Link>
           <div className="text-sm font-light tracking-[3px]">一間屋</div>
-          <Link
-            href="/"
-            className="text-xs px-4 py-2 border border-[#3F3A36] text-[#3F3A36] rounded-full hover:bg-[#3F3A36] hover:text-white transition-all font-medium"
-          >
-            回首頁
-          </Link>
+          <div className="flex items-center gap-2">
+            <a
+              href="#booking-form"
+              className="md:hidden text-xs px-3.5 py-2 bg-[#3F3A36] text-white rounded-full hover:bg-[#2C2926] transition-all font-medium"
+            >
+              立即訂房
+            </a>
+            <Link
+              href="/"
+              className="text-xs px-4 py-2 border border-[#3F3A36] text-[#3F3A36] rounded-full hover:bg-[#3F3A36] hover:text-white transition-all font-medium"
+            >
+              回首頁
+            </Link>
+          </div>
         </div>
       </nav>
 
@@ -27,7 +35,9 @@ export default function BookingPage() {
             <p className="text-[#6B665F] font-medium">選好條件後前往奧丁丁官方訂房頁，即時查空房、包棟與付款</p>
           </header>
 
-          <OwltingBookingSection />
+          <div id="booking-form">
+            <OwltingBookingSection />
+          </div>
         </div>
       </main>
     </div>
