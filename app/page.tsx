@@ -196,6 +196,14 @@ export default function YijianwuWebsite() {
                 {BOOKING_CTA.jump}
               </a>
               <a
+                href={BUSINESS_LINE.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="md:hidden inline-flex items-center rounded-full border border-[#00C300] px-3 py-2 text-xs font-medium text-[#00A300] shadow-sm active:scale-[0.98] transition-transform"
+              >
+                LINE
+              </a>
+              <a
                 href={BUSINESS_PHONE.mobileHref}
                 className="md:hidden inline-flex items-center gap-1 rounded-full border border-[#D1C9BE] bg-white px-2.5 py-2 text-xs font-medium text-[#3F3A36] shadow-sm active:scale-[0.98] transition-transform"
                 aria-label={`撥打電話 ${BUSINESS_PHONE.mobile}`}
@@ -208,6 +216,9 @@ export default function YijianwuWebsite() {
               >
                 📞 {BUSINESS_PHONE.mobile}
               </a>
+              <a href="#booking" className="hidden md:block text-xs px-5 py-2 bg-[#3F3A36] text-white rounded-full hover:bg-[#2C2926] transition-all tracking-wider">
+                {BOOKING_CTA.jump}
+              </a>
               <a
                 href={BUSINESS_LINE.url}
                 target="_blank"
@@ -215,9 +226,6 @@ export default function YijianwuWebsite() {
                 className="hidden md:flex items-center gap-2 border border-[#00C300] text-[#00A300] text-xs px-5 py-2 rounded-full hover:bg-[#00C300] hover:text-white transition-all tracking-wider font-medium"
               >
                 LINE 門禁密碼
-              </a>
-              <a href="#booking" className="hidden md:block text-xs px-5 py-2 bg-[#3F3A36] text-white rounded-full hover:bg-[#2C2926] transition-all tracking-wider">
-                {BOOKING_CTA.jump}
               </a>
             </div>
           </div>
