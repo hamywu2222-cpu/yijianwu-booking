@@ -182,10 +182,10 @@ export default function YijianwuWebsite() {
               <a href="#fulong" className="nav-link hover:text-[#8B7355] transition-colors">福隆</a>
               <a href="#renovation" className="nav-link hover:text-[#8B7355] transition-colors">翻新</a>
               <a href="#rooms" className="nav-link hover:text-[#8B7355] transition-colors">房間</a>
+              <a href="#booking" className="nav-link hover:text-[#8B7355] transition-colors">訂房</a>
               <a href="#package" className="nav-link hover:text-[#8B7355] transition-colors">包房</a>
               <a href="#amenities" className="nav-link hover:text-[#8B7355] transition-colors">設施</a>
               <a href="#location" className="nav-link hover:text-[#8B7355] transition-colors">位置</a>
-              <a href="#booking" className="nav-link hover:text-[#8B7355] transition-colors">訂房</a>
             </div>
 
             <div className="flex items-center gap-2 md:gap-3 shrink-0">
@@ -226,10 +226,10 @@ export default function YijianwuWebsite() {
             <a href="#fulong" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">福隆</a>
             <a href="#renovation" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">翻新</a>
             <a href="#rooms" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">房間</a>
+            <a href="#booking" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">訂房</a>
             <a href="#package" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">包房</a>
             <a href="#amenities" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">設施</a>
             <a href="#location" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">位置</a>
-            <a href="#booking" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">訂房</a>
           </div>
         </div>
       </nav>
@@ -421,7 +421,7 @@ export default function YijianwuWebsite() {
               全館和式雅房（衛浴共用）：四間和鳴雙人房（每次訂其中 1 間）+ 和風 4–6 人家庭房（僅此 1 間）。福隆車站旁平價新北貢寮住宿首選。
             </p>
             <p className="mt-1 text-xs text-[#8B7355]">雙人房 NT$1,600/晚 ｜ 家庭房 NT$3,200起（4人）+NT$600/人（最多6人）｜ 包房平日 $8,800 / 假日 $9,200</p>
-            <p className="mt-1 text-[10px] text-[#8B7355]">線上訂房請至下方訂房區；入住前 LINE 自動發送門禁密碼</p>
+            <p className="mt-1 text-[10px] text-[#8B7355]">看完房價即可在下方訂房付款；入住前 LINE 自動發送門禁密碼</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -528,6 +528,16 @@ export default function YijianwuWebsite() {
             </div>
           </div>
         </div>
+      </section>
+
+      <section id="booking" className="max-w-4xl mx-auto px-6 py-12 md:py-20 scroll-mt-28 md:scroll-mt-20 border-t border-[#EDE8E0]">
+        <div className="text-center mb-6 md:mb-10">
+          <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">BOOKING</div>
+          <h2 className="text-3xl md:text-5xl font-light tracking-tight mb-2">{BOOKING_CTA.sectionTitle}</h2>
+          <p className="text-sm md:text-base text-[#6B665F] font-medium">{BOOKING_CTA.sectionSubtitle}</p>
+        </div>
+
+        <OwltingBookingSection />
       </section>
 
       {/* 包房方案 */}
@@ -723,16 +733,6 @@ export default function YijianwuWebsite() {
             </a>
           </div>
         </div>
-      </section>
-
-      <section id="booking" className="max-w-4xl mx-auto px-6 py-20">
-        <div className="text-center mb-10">
-          <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">BOOKING</div>
-          <h2 className="text-4xl md:text-5xl font-light tracking-tight mb-2">{BOOKING_CTA.sectionTitle}</h2>
-          <p className="text-[#6B665F] font-medium">{BOOKING_CTA.sectionSubtitle}</p>
-        </div>
-
-        <OwltingBookingSection />
       </section>
 
       {/* 建站諮詢 — 低調展示，不影響訂房主線 */}

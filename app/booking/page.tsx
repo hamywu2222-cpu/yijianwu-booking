@@ -28,12 +28,12 @@ export default function BookingPage() {
         </div>
       </nav>
 
-      <main className="py-12 px-4">
+      <main className="py-5 md:py-12 px-4">
         <div className="max-w-4xl mx-auto">
-          <header className="text-center mb-10">
-            <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">BOOKING</div>
-            <h1 className="text-4xl md:text-5xl font-light tracking-tight mb-2">{BOOKING_CTA.sectionTitle}</h1>
-            <p className="text-[#6B665F] font-medium">{BOOKING_CTA.sectionSubtitle}</p>
+          <header className="text-center mb-5 md:mb-10">
+            <div className="text-[#8B7355] text-xs tracking-[4px] mb-1.5 md:mb-2">BOOKING</div>
+            <h1 className="text-3xl md:text-5xl font-light tracking-tight mb-1.5 md:mb-2">{BOOKING_CTA.sectionTitle}</h1>
+            <p className="text-sm md:text-base text-[#6B665F] font-medium">{BOOKING_CTA.sectionSubtitle}</p>
           </header>
 
           <div id="booking-form">

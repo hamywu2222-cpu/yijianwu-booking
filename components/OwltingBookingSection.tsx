@@ -78,15 +78,15 @@ export default function OwltingBookingSection() {
   }, []);
 
   return (
-    <div ref={sectionRef} className="space-y-6 pb-24 md:pb-0">
+    <div ref={sectionRef} className="space-y-4 md:space-y-6 pb-24 md:pb-0">
       <OwlNestAvailabilityTips />
 
-      <div className="rounded-3xl border border-[#EDE8E0] bg-white p-6 md:p-8 shadow-sm">
-        <p className="text-sm text-[#6B665F] leading-relaxed mb-6 text-center">
+      <div className="rounded-3xl border border-[#EDE8E0] bg-white p-5 md:p-8 shadow-sm">
+        <p className="text-sm text-[#6B665F] leading-relaxed mb-4 md:mb-6 text-center">
           {BOOKING_CTA.intro}
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 mb-6 md:mb-8">
           <div>
             <label htmlFor="owlnest-check-in" className={labelClass}>
               入住日期
