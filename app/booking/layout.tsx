@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import { SITE_OG_IMAGE, SITE_OG_IMAGE_ALT } from '@/lib/business';
 import { SITE_NAME } from '@/lib/structuredData';
 
-const BOOKING_TITLE = '訂房詢問 | 福隆車站步行30秒 · 一間屋 · 駅前宿';
+const BOOKING_TITLE = '線上訂房 | 福隆車站步行30秒 · 一間屋 · 駅前宿';
 const BOOKING_DESCRIPTION =
-  '填寫訂房詢問表單，加入 LINE 官方 @811mszbh 並回傳訂單後 4 碼即可完成確認。福隆車站步行 30 秒。';
+  '一間屋線上訂房：前往奧丁丁官方訂房頁查空房、包棟與付款。加入 LINE 官方 @811mszbh 接收入住門禁密碼。福隆車站步行 30 秒。';
 
 export const metadata: Metadata = {
   title: BOOKING_TITLE,

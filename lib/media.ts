@@ -116,7 +116,7 @@ export const WEB_DEV_FEATURES = [
   },
   {
     title: '手機優先',
-    desc: '響應式排版，一鍵撥號、LINE 訂房在手機上完整可用',
+    desc: '響應式排版，一鍵撥號、線上訂房與 LINE 門禁通知在手機上完整可用',
   },
   {
     title: '上線部署',

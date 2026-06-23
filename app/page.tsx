@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import { useState, type ReactNode } from 'react';
-import BookingForm from '@/components/BookingForm';
 import GoogleMapEmbed from '@/components/GoogleMapEmbed';
+import OwltingBookingSection from '@/components/OwltingBookingSection';
 import HeroBackground from '@/components/HeroBackground';
 import RoomVideoPlayer from '@/components/RoomVideoPlayer';
 import SceneryGallery from '@/components/SceneryGallery';
@@ -203,14 +203,15 @@ export default function YijianwuWebsite() {
                 📞 {BUSINESS_PHONE.mobile}
               </a>
               <a
-                href="https://line.me/ti/p/@811mszbh"
+                href={BUSINESS_LINE.url}
                 target="_blank"
-                className="hidden md:flex items-center gap-2 bg-[#00C300] text-white text-xs px-5 py-2 rounded-full hover:bg-[#00A000] transition-all tracking-wider font-medium"
+                rel="noopener noreferrer"
+                className="hidden md:flex items-center gap-2 border border-[#00C300] text-[#00A300] text-xs px-5 py-2 rounded-full hover:bg-[#00C300] hover:text-white transition-all tracking-wider font-medium"
               >
-                LINE 直接訂房享 95 折
+                LINE 門禁密碼
               </a>
-              <a href="#booking" className="hidden md:block text-xs px-5 py-2 border border-[#3F3A36] rounded-full hover:bg-[#3F3A36] hover:text-white transition-all tracking-wider">
-                立即詢問
+              <a href="#booking" className="hidden md:block text-xs px-5 py-2 bg-[#3F3A36] text-white rounded-full hover:bg-[#2C2926] transition-all tracking-wider">
+                立即訂房
               </a>
             </div>
           </div>
@@ -251,18 +252,22 @@ export default function YijianwuWebsite() {
 
           {/* CTA 按鈕 - 更簡潔有力，顏色與 LOGO 暖調呼應 */}
           <div className="flex flex-col sm:flex-row gap-2.5 justify-center">
-            <a 
-              href="https://line.me/ti/p/@811mszbh" 
-              target="_blank"
-              className="px-7 py-3 bg-[#00C300] hover:bg-[#00A000] text-white rounded-full font-medium tracking-[0.5px] text-xs md:text-sm transition-all active:scale-[0.985] shadow"
+            <a
+              href="#booking"
+              className="px-7 py-3 bg-[#F5E8C7] text-[#3F3A36] rounded-full font-medium tracking-[0.5px] text-xs md:text-sm hover:bg-white transition-all active:scale-[0.985] shadow"
             >
-              LINE 直接訂房享 95 折
+              立即訂房
             </a>
-            <a href="#rooms" className="px-7 py-3 bg-[#F5E8C7] text-[#3F3A36] rounded-full font-medium tracking-[0.5px] text-xs md:text-sm hover:bg-white transition-all active:scale-[0.985]">
+            <a href="#rooms" className="px-7 py-3 border border-[#F5E8C7]/60 text-[#F5E8C7] rounded-full font-medium tracking-[0.5px] text-xs md:text-sm hover:bg-[#F5E8C7] hover:text-[#3F3A36] transition-all active:scale-[0.985]">
               查看房間
             </a>
-            <a href="#booking" className="px-7 py-3 border border-[#F5E8C7]/60 text-[#F5E8C7] rounded-full font-medium tracking-[0.5px] text-xs md:text-sm hover:bg-[#F5E8C7] hover:text-[#3F3A36] transition-all active:scale-[0.985]">
-              表單詢問（較慢）
+            <a
+              href={BUSINESS_LINE.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-7 py-3 bg-[#00C300] hover:bg-[#00A000] text-white rounded-full font-medium tracking-[0.5px] text-xs md:text-sm transition-all active:scale-[0.985]"
+            >
+              LINE 門禁密碼
             </a>
           </div>
         </div>
@@ -285,7 +290,7 @@ export default function YijianwuWebsite() {
         <div className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm text-[#8B7355]">
           <div>福隆車站步行 30 秒</div>
           <div>2026年5月全新裝潢</div>
-          <div>LINE 官方確認訂房</div>
+          <div>LINE 接收入住門禁密碼</div>
           <div>單車族友善 · 舊草嶺隧道環狀線</div>
         </div>
       </section>
@@ -410,7 +415,7 @@ export default function YijianwuWebsite() {
               全館和式雅房（衛浴共用）：四間和鳴雙人房（每次訂其中 1 間）+ 和風 4–6 人家庭房（僅此 1 間）。福隆車站旁平價新北貢寮住宿首選。
             </p>
             <p className="mt-1 text-xs text-[#8B7355]">雙人房 NT$1,600/晚 ｜ 家庭房 NT$3,200起（4人）+NT$600/人（最多6人）｜ 包房平日 $8,800 / 假日 $9,200</p>
-            <p className="mt-1 text-[10px] text-[#8B7355]">填寫後請回傳後4碼到 LINE @811mszbh 確認訂單</p>
+            <p className="mt-1 text-[10px] text-[#8B7355]">線上訂房請至下方訂房區；入住前 LINE 自動發送門禁密碼</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -450,12 +455,11 @@ export default function YijianwuWebsite() {
                 />
 
                 <div className="flex items-center justify-between text-sm mt-3">
-                  <a 
-                    href="https://line.me/ti/p/@811mszbh" 
-                    target="_blank" 
-                    className="px-6 py-2.5 bg-[#00C300] text-white rounded-full hover:bg-[#00A000] transition-colors text-xs font-medium"
+                  <a
+                    href="#booking"
+                    className="px-6 py-2.5 bg-[#3F3A36] text-white rounded-full hover:bg-[#2C2926] transition-colors text-xs font-medium"
                   >
-LINE @811mszbh 回傳後4碼確認
+                    立即訂房
                   </a>
                 </div>
               </div>
@@ -507,12 +511,11 @@ LINE @811mszbh 回傳後4碼確認
                 />
 
                 <div className="flex items-center justify-between text-sm mt-3">
-                  <a 
-                    href="https://line.me/ti/p/@811mszbh" 
-                    target="_blank" 
-                    className="px-6 py-2.5 bg-[#00C300] text-white rounded-full hover:bg-[#00A000] transition-colors text-xs font-medium"
+                  <a
+                    href="#booking"
+                    className="px-6 py-2.5 bg-[#3F3A36] text-white rounded-full hover:bg-[#2C2926] transition-colors text-xs font-medium"
                   >
-LINE @811mszbh 回傳後4碼確認
+                    立即訂房
                   </a>
                 </div>
               </div>
@@ -552,21 +555,27 @@ LINE @811mszbh 回傳後4碼確認
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a 
-              href="https://line.me/ti/p/@811mszbh" 
-              target="_blank" 
+            <a
+              href="#booking"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-[#3F3A36] text-white rounded-full text-sm font-medium hover:bg-[#2C2926] transition-all"
+            >
+              線上預訂包房
+            </a>
+            <a
+              href={BUSINESS_LINE.url}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-3 bg-[#00C300] text-white rounded-full text-sm font-medium hover:bg-[#00A000] transition-all"
             >
-LINE @811mszbh 回傳後4碼確認
+              LINE {BUSINESS_LINE.id}（門禁密碼）
             </a>
             <a
               href={BUSINESS_PHONE.mobileHref}
-              className="inline-flex items-center gap-2 px-8 py-3 bg-[#3F3A36] text-white rounded-full text-sm font-medium hover:bg-[#2C2926] transition-all"
+              className="inline-flex items-center gap-2 px-8 py-3 border border-[#3F3A36] text-[#3F3A36] rounded-full text-sm font-medium hover:bg-[#3F3A36] hover:text-white transition-all"
             >
-              📞 包房專線 {BUSINESS_PHONE.mobile}
+              📞 急事專線 {BUSINESS_PHONE.mobile}
             </a>
           </div>
-          <p className="mt-3 text-xs text-[#8B7355]">或是有急事也可撥打此專線</p>
         </div>
       </section>
 
@@ -625,7 +634,7 @@ LINE @811mszbh 回傳後4碼確認
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-sm">
           {[
             { icon: "🛠️", title: "2026年5月全新裝潢", desc: "公共空間全面翻新，更現代舒適" },
-            { icon: "🔒", title: "官方 LINE 確認", desc: "填寫後請回傳後4碼到 @811mszbh 確認訂單" },
+            { icon: "🔒", title: "LINE 門禁密碼", desc: "加入 @811mszbh，入住前自動收到門禁與入住資訊" },
             { icon: "🧼", title: "每日徹底清潔 + 環保", desc: "公共衛浴提供洗髮精沐浴乳香皂，每間房吹風機，不供一次性用品" },
             { icon: "🏔️🏖️", title: "單車友善 + 周邊景點", desc: "室內停車 · 爬山玩水海邊步行/單車可達" },
           ].map((item, i) => (
@@ -700,27 +709,24 @@ LINE @811mszbh 回傳後4碼確認
           </div>
 
           <div className="mt-8 text-center">
-            <a 
-              href="https://line.me/ti/p/@811mszbh" 
-              target="_blank" 
-              className="inline-flex items-center gap-2 px-8 py-3 bg-[#00C300] text-white rounded-full text-sm font-medium hover:bg-[#00A000] transition-all"
+            <a
+              href="#booking"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-[#3F3A36] text-white rounded-full text-sm font-medium hover:bg-[#2C2926] transition-all"
             >
-LINE @811mszbh 回傳後4碼確認
+              立即訂房
             </a>
           </div>
         </div>
       </section>
 
-      {/* 訂房詢問表單 - 保持原有功能但更美 */}
-      <section id="booking" className="max-w-2xl mx-auto px-6 py-20">
+      <section id="booking" className="max-w-4xl mx-auto px-6 py-20">
         <div className="text-center mb-10">
           <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">BOOKING</div>
-          <h2 className="text-5xl font-light tracking-tight mb-2">訂房請加入 LINE 官方（必須）</h2>
-          <p className="text-[#6B665F] font-medium">必須加入 LINE 官方 <span className="text-[#00C300]">@811mszbh</span> 才能完成訂房（未加入無法確認）</p>
-          <p className="text-xs text-[#8B7355] mt-1">填寫後請回傳後4碼到 LINE @811mszbh 確認訂單</p>
+          <h2 className="text-4xl md:text-5xl font-light tracking-tight mb-2">線上即時訂房</h2>
+          <p className="text-[#6B665F] font-medium">選好條件後前往奧丁丁官方訂房頁，即時查空房、包棟與付款</p>
         </div>
 
-        <BookingForm />
+        <OwltingBookingSection />
       </section>
 
       {/* 建站諮詢 — 低調展示，不影響訂房主線 */}
@@ -790,12 +796,13 @@ LINE @811mszbh 回傳後4碼確認
       </section>
 
       {/* 浮動 LINE 按鈕 */}
-      <a 
-        href="https://line.me/ti/p/@811mszbh" 
+      <a
+        href={BUSINESS_LINE.url}
         target="_blank"
+        rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-[#00C300] text-white px-5 py-3 rounded-full shadow-lg hover:bg-[#00A000] transition-all font-medium text-xs md:text-sm"
       >
-        <span>📱 立即加入 LINE @811mszbh</span>
+        <span>📱 LINE 門禁密碼 {BUSINESS_LINE.id}</span>
       </a>
 
       {/* Footer */}
@@ -820,10 +827,10 @@ LINE @811mszbh 回傳後4碼確認
               rel="noopener noreferrer"
               className="block font-medium text-[#00C300] hover:underline"
             >
-              LINE 官方 {BUSINESS_LINE.id}（回傳後4碼確認訂單）
+              LINE 官方 {BUSINESS_LINE.id}（入住門禁密碼）
             </a>
             <a href={BUSINESS_PHONE.mobileHref} className="block font-medium hover:text-[#3F3A36]">
-              包房 / 急事專線 {BUSINESS_PHONE.mobile}
+              急事專線 {BUSINESS_PHONE.mobile}
             </a>
             <a
               href={BUSINESS_URLS.googleMapsPlace}
