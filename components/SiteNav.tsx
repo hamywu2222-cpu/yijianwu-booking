@@ -3,6 +3,7 @@
 import { useEffect, useRef, type CSSProperties } from 'react';
 import BrandTagline from '@/components/BrandTagline';
 import CabinIcon from '@/components/CabinIcon';
+import NavBrandMark from '@/components/NavBrandMark';
 import { BOOKING_CTA, BUSINESS_LINE, BUSINESS_PHONE } from '@/lib/business';
 
 const SCROLL_FADE_DISTANCE = 64;
@@ -75,9 +76,7 @@ export default function SiteNav() {
           <div className="h-14 md:h-16 flex items-center justify-between gap-3">
             <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 min-w-0 max-w-[46%] sm:max-w-none">
               <CabinIcon variant="nav" />
-              <div className="text-lg sm:text-xl md:text-2xl font-light tracking-[2px] sm:tracking-[3px] shrink-0 whitespace-nowrap">
-                一間屋
-              </div>
+              <NavBrandMark />
             </div>
 
             <div className="hidden md:flex gap-7 text-sm font-medium">
