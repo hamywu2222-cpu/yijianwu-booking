@@ -9,7 +9,7 @@ export const SCENERY_IMAGES: SceneryItem[] = [
   {
     src: '/images/scenery/fulong-beach-aerial.jpg',
     title: '福隆海水浴場',
-    caption: '步行 5 分鐘 · 金色沙灣與湛藍海線',
+    caption: '步行 8 分鐘 · 金色沙灣與湛藍海線',
     span: 'hero',
   },
   {
@@ -33,11 +33,6 @@ export const SCENERY_IMAGES: SceneryItem[] = [
     src: '/images/scenery/fulong-sandcastle.jpg',
     title: '沙雕藝術季',
     caption: '福隆沙灘經典地標，每年吸引無數旅人',
-  },
-  {
-    src: '/images/scenery/fulong-sand-sculpture.jpg',
-    title: '沙雕展',
-    caption: '海風、細沙與匠人巧手交織的風景',
   },
   {
     src: '/images/scenery/fulong-ring-immersive-art.webp',
@@ -64,37 +59,89 @@ export const ROOM_VIDEOS = {
   },
 } as const;
 
-export const OUTDOOR_HIGHLIGHTS = [
-  {
-    image: '/images/scenery/fulong-beach-aerial.jpg',
-    title: '海邊 5 分鐘',
-    desc: '福隆海水浴場步行可達，沙灘夕陽與海水浴',
+/** 福隆風景區塊 — 與上方相簿不重複的戶外友善說明 */
+export const FULONG_SECTION = {
+  intro: '住一間屋，福隆山海風光、單車路線與桃源谷登山都在門外。',
+} as const;
+
+export type OutdoorRouteItem = {
+  image: string;
+  name: string;
+  badge: string;
+  meta: string;
+  desc: string;
+};
+
+export const OUTDOOR_FRIENDLY = {
+  eyebrow: '單車 · 戶外友善',
+  title: '單車騎行 · 登山健行',
+  intro:
+    '福隆車站前出發，舊草嶺環狀線與桃源谷登山都方便。室內遮雨單車停放，騎完直接停好。',
+  cycling: {
+    title: '舊草嶺環狀線',
+    intro: '全長約 18.5 km，1 級親子路線。福隆出發繞三貂角，多為自行車專用道。',
+    routes: [
+      {
+        image: '/images/scenery/caoling-tunnel-entrance.jpg',
+        name: '福隆 → 舊草嶺隧道',
+        badge: '起點',
+        meta: '約 2.2 km · 百年鐵道隧道',
+        desc: '從福隆車站出發，舊草嶺隧道入口啟程，穿越音樂光廊經典首段。',
+      },
+      {
+        image: '/images/scenery/caoling-coastal-path.jpg',
+        name: '沿海專用道 · 三貂角',
+        badge: '推薦',
+        meta: '環繞台灣極東點 · 海景騎行',
+        desc: '舊草嶺濱海步道一路看海，繞向三貂角燈塔，藍天碧海相伴。',
+      },
+      {
+        image: '/images/scenery/maoao-fishing-village.jpg',
+        name: '卯澳漁港 → 回福隆',
+        badge: '一日遊',
+        meta: '卯澳漁村 · 馬崗漁港風光',
+        desc: '經卯澳漁村與漁港巷弄，沿環狀線騎回福隆，適合搭配便當一日完騎。',
+      },
+    ] satisfies OutdoorRouteItem[],
   },
-  {
-    image: '/images/scenery/fulong-caoling-tunnel.jpg',
-    title: '舊草嶺隧道',
-    desc: '單車騎行經典景點，從福隆出發輕鬆抵達',
+  hiking: {
+    title: '桃源谷｜海景大草原',
+    intro: '東北角經典草原步道，遠眺太平洋與龜山島，海拔約 500m。',
+    routes: [
+      {
+        image: '/images/Mountain2.webp',
+        name: '內寮線',
+        badge: '最輕鬆',
+        meta: '往返 1–2 km · 約 40 分～1 小時',
+        desc: '適合新手、親子半日遊，草原野餐即回。',
+      },
+      {
+        image: '/images/Mountain1.jpg',
+        name: '草嶺古道 → 桃源谷',
+        badge: '推薦',
+        meta: '可從福隆出發 · 來回約 8–9 km',
+        desc: '經草嶺古道接桃源谷草嶺線，一日挑戰路線。',
+      },
+      {
+        image: '/images/Mountain3.webp',
+        name: '石觀音 · 大溪線',
+        badge: '進階',
+        meta: '往返 7–10 km · 約 5–8 小時',
+        desc: '階梯多、爬升明顯，適合體力充足的健行者。',
+      },
+    ] satisfies OutdoorRouteItem[],
   },
-  {
-    image: '/images/scenery/fulong-caoling-loop-sign.jpg',
-    title: '環狀線騎行',
-    desc: '舊草嶺隧道環狀線，沿海公路藍天碧海',
-  },
-  {
-    image: '/images/scenery/fulong-view-from-inn.jpg',
-    title: '單車停放無憂',
-    desc: '室內遮雨專屬空間，騎完環狀線安心停放',
-  },
-  {
-    image: '/images/scenery/fulong-sand-sculpture.jpg',
-    title: '沙灘文化',
-    desc: '福隆沙雕季與海岸風光，四季各有風景',
-  },
-  {
-    image: '/images/scenery/fulong-station.jpg',
-    title: '交通樞紐',
-    desc: '福隆車站前，東北角海岸自行車道起點',
-  },
+} as const;
+
+/** 簡介區塊 — 入住重要配套（緊湊標籤呈現） */
+export const ABOUT_AMENITIES = [
+  { icon: '🚲', label: '單車專屬停放區' },
+  { icon: '🧳', label: '房客行李寄放服務' },
+  { icon: '❄️', label: '獨立冷氣' },
+  { icon: '📶', label: '免費 WiFi' },
+  { icon: '🚿', label: '公共衛浴（洗髮精・沐浴乳・香皂）' },
+  { icon: '💨', label: '每間房一台吹風機' },
+  { icon: '♻️', label: '不供一次性用品（提倡環保）' },
 ] as const;
 
 export const WEB_DEV_FEATURES = [

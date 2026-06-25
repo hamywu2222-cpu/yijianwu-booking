@@ -12,9 +12,9 @@ export default function HeroBackground() {
         priority
         sizes="100vw"
         quality={80}
-        className="object-cover object-center"
+        className="object-cover object-[center_62%] md:object-[center_58%] scale-[1.08]"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/25 to-black/55" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/10 via-40% to-black/65 md:from-black/20 md:via-black/25 md:to-black/55" />
     </div>
   );
 }

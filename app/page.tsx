@@ -5,6 +5,8 @@ import { useState, type ReactNode } from 'react';
 import GoogleMapEmbed from '@/components/GoogleMapEmbed';
 import OwltingBookingSection from '@/components/OwltingBookingSection';
 import HeroBackground from '@/components/HeroBackground';
+import BrandTagline from '@/components/BrandTagline';
+import SiteNav from '@/components/SiteNav';
 import RoomVideoPlayer from '@/components/RoomVideoPlayer';
 import SceneryGallery from '@/components/SceneryGallery';
 import {
@@ -15,10 +17,14 @@ import {
   BUSINESS_PHONE,
   BUSINESS_REGISTRATION,
   BUSINESS_URLS,
+  PACKAGE_SECTION,
+  ROOMS_SECTION,
 } from '@/lib/business';
 import { getImageAlt } from '@/lib/imageAlt';
 import {
-  OUTDOOR_HIGHLIGHTS,
+  ABOUT_AMENITIES,
+  FULONG_SECTION,
+  OUTDOOR_FRIENDLY,
   ROOM_VIDEOS,
   SCENERY_IMAGES,
   WEB_DEV_FEATURES,
@@ -48,6 +54,30 @@ const RENOVATION_IMAGES = {
     '/images/exterior4.jpg',
   ],
 } as const;
+
+function AboutAmenityStrip() {
+  return (
+    <div className="mt-7 max-w-2xl mx-auto rounded-2xl border border-[#EDE8E0]/90 bg-white/50 px-3 py-3 md:px-4 md:py-3.5">
+      <p className="text-[10px] tracking-[3px] text-[#8B7355] mb-2.5">入住配套</p>
+      <ul className="flex flex-wrap justify-center gap-1.5 md:gap-2">
+        {ABOUT_AMENITIES.map(({ icon, label }) => (
+          <li
+            key={label}
+            className="inline-flex items-center gap-1.5 rounded-full border border-[#E8DFD2] bg-[#FFFCF8] px-2.5 py-1 text-[11px] md:text-xs text-[#6B665F] leading-snug"
+          >
+            <span aria-hidden className="text-[12px] leading-none shrink-0">
+              {icon}
+            </span>
+            <span>{label}</span>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-2.5 text-[10px] md:text-xs text-[#8B7355] leading-relaxed">
+        行李寄放：入住前後如需暫放，歡迎事先透過 LINE 或電話洽詢。
+      </p>
+    </div>
+  );
+}
 
 function PriceOfferBadge() {
   return (
@@ -97,6 +127,73 @@ function PriceStrikeThrough({
         <span className={saleClass}>{salePrice}</span>
         {saleSuffix && <span className="text-sm text-[#8B7355] ml-1.5">{saleSuffix}</span>}
       </div>
+    </div>
+  );
+}
+
+type OutdoorRouteItem = {
+  image: string;
+  name: string;
+  badge: string;
+  meta: string;
+  desc: string;
+};
+
+function OutdoorRouteGrid({
+  title,
+  intro,
+  routes,
+}: {
+  title: string;
+  intro: string;
+  routes: readonly OutdoorRouteItem[];
+}) {
+  return (
+    <div>
+      <div className="mb-5 text-center md:text-left">
+        <p className="text-base font-light text-[#3F3A36] mb-1">{title}</p>
+        <p className="text-sm text-[#6B665F] leading-relaxed">{intro}</p>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {routes.map((route) => (
+          <div key={route.name} className="overflow-hidden rounded-2xl bg-white border border-[#E8DFD2]">
+            <div className="relative aspect-[4/3] overflow-hidden bg-[#EDE8E0]">
+              <Image
+                src={route.image}
+                alt={getImageAlt(route.image)}
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover"
+              />
+            </div>
+            <div className="p-4">
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                <span className="font-medium text-[#3F3A36]">{route.name}</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#8B7355]/10 text-[#8B7355]">
+                  {route.badge}
+                </span>
+              </div>
+              <p className="text-xs text-[#8B7355] mb-1.5">{route.meta}</p>
+              <p className="text-xs text-[#6B665F] leading-relaxed">{route.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function RoomTags({ tags }: { tags: readonly string[] }) {
+  return (
+    <div className="flex flex-wrap items-center gap-2 text-xs text-[#8B7355]">
+      {tags.map((tag) => (
+        <span
+          key={tag}
+          className="rounded-full border border-[#E8DFD2] bg-[#FFFCF8] px-2.5 py-1"
+        >
+          {tag}
+        </span>
+      ))}
     </div>
   );
 }
@@ -169,97 +266,20 @@ export default function YijianwuWebsite() {
 
   return (
     <main className="min-h-screen bg-[#F8F5F1] text-[#3F3A36]">
-      {/* 優雅固定導覽列 */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#F8F5F1]/95 backdrop-blur-md border-b border-[#EDE8E0]">
-        <div className="max-w-6xl mx-auto px-4 md:px-6">
-          <div className="h-14 md:h-16 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2 md:gap-3 min-w-0">
-              <div className="text-xl md:text-2xl font-light tracking-[3px] shrink-0">一間屋</div>
-              <div className="text-xs md:text-sm text-[#8B7355] tracking-widest shrink-0">· 駅前宿</div>
-            </div>
-
-            <div className="hidden md:flex gap-7 text-sm font-medium">
-              <a href="#fulong" className="nav-link hover:text-[#8B7355] transition-colors">福隆</a>
-              <a href="#renovation" className="nav-link hover:text-[#8B7355] transition-colors">翻新</a>
-              <a href="#rooms" className="nav-link hover:text-[#8B7355] transition-colors">房間</a>
-              <a href="#booking" className="nav-link hover:text-[#8B7355] transition-colors">訂房</a>
-              <a href="#package" className="nav-link hover:text-[#8B7355] transition-colors">包房</a>
-              <a href="#amenities" className="nav-link hover:text-[#8B7355] transition-colors">設施</a>
-              <a href="#location" className="nav-link hover:text-[#8B7355] transition-colors">位置</a>
-            </div>
-
-            <div className="flex items-center gap-2 md:gap-3 shrink-0">
-              <a
-                href="#booking"
-                className="md:hidden inline-flex items-center rounded-full bg-[#3F3A36] px-3.5 py-2 text-xs font-medium text-white shadow-sm active:scale-[0.98] transition-transform"
-              >
-                {BOOKING_CTA.jump}
-              </a>
-              <a
-                href={BUSINESS_LINE.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="md:hidden inline-flex items-center rounded-full border border-[#00C300] px-3 py-2 text-xs font-medium text-[#00A300] shadow-sm active:scale-[0.98] transition-transform"
-              >
-                LINE
-              </a>
-              <a
-                href={BUSINESS_PHONE.mobileHref}
-                className="md:hidden inline-flex items-center gap-1 rounded-full border border-[#D1C9BE] bg-white px-2.5 py-2 text-xs font-medium text-[#3F3A36] shadow-sm active:scale-[0.98] transition-transform"
-                aria-label={`撥打電話 ${BUSINESS_PHONE.mobile}`}
-              >
-                <span aria-hidden>📞</span>
-              </a>
-              <a
-                href={BUSINESS_PHONE.mobileHref}
-                className="hidden md:block text-sm text-[#8B7355] hover:text-[#3F3A36] transition-colors tracking-wider"
-              >
-                📞 {BUSINESS_PHONE.mobile}
-              </a>
-              <a href="#booking" className="hidden md:block text-xs px-5 py-2 bg-[#3F3A36] text-white rounded-full hover:bg-[#2C2926] transition-all tracking-wider">
-                {BOOKING_CTA.jump}
-              </a>
-              <a
-                href={BUSINESS_LINE.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden md:flex items-center gap-2 border border-[#00C300] text-[#00A300] text-xs px-5 py-2 rounded-full hover:bg-[#00C300] hover:text-white transition-all tracking-wider font-medium"
-              >
-                LINE 門禁密碼
-              </a>
-            </div>
-          </div>
-
-          <div className="md:hidden flex gap-4 overflow-x-auto pb-2.5 text-xs font-medium text-[#6B665F] nav-scroll">
-            <a href="#fulong" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">福隆</a>
-            <a href="#renovation" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">翻新</a>
-            <a href="#rooms" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">房間</a>
-            <a href="#booking" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">訂房</a>
-            <a href="#package" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">包房</a>
-            <a href="#amenities" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">設施</a>
-            <a href="#location" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">位置</a>
-          </div>
-        </div>
-      </nav>
+      <SiteNav />
 
       {/* Hero 區塊 - 已更換為 LOGO 背景，字體已搭配星空暖調風格 */}
-      <section className="relative h-[100dvh] flex items-center justify-center pt-[6.5rem] md:pt-16 overflow-hidden">
+      <section className="relative h-[100dvh] flex items-end justify-center pt-[calc(5.75rem+var(--site-nav-tagline-offset))] md:items-center md:pt-[calc(4rem+var(--site-nav-tagline-offset))] overflow-hidden">
         <HeroBackground />
 
-        {/* 內容置底，避免與 LOGO 中央大標題重疊，讓 LOGO 更突出 */}
-        <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center justify-end h-full pb-20 md:pb-28 text-center">
+        {/* 手機：內容下移至背景內建標題下方；桌面：維持置底排版 */}
+        <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center md:justify-end md:h-full pb-[max(4.5rem,env(safe-area-inset-bottom))] md:pb-28 pt-[30vh] md:pt-0 text-center">
           <h1 className="sr-only">
             一間屋・駅前宿｜福隆車站出站30秒・福隆背包客棧・新北貢寮住宿
           </h1>
 
-          {/* 頂部小標 - 極簡，放在最上方 */}
-          <div className="inline-block text-[9px] md:text-xs tracking-[4px] mb-2 px-4 py-0.5 border border-[#F5E8C7]/40 rounded-full text-[#F5E8C7]/70">
-            one house · ekimae-yado
-          </div>
-
-          {/* 副標題 - 移到底部，與 LOGO 下方插畫區域呼應，更乾淨優雅 */}
-          <div className="mb-5 px-6 py-3 rounded-2xl bg-black/20 backdrop-blur-sm">
-            <p className="hero-subtitle text-lg md:text-xl font-light tracking-[1.2px] text-[#F5E8C7] leading-tight">
+          <div className="mb-4 md:mb-5 w-full max-w-md px-4 py-2.5 md:px-6 md:py-3 rounded-2xl bg-black/35 md:bg-black/20 backdrop-blur-sm shadow-[0_8px_24px_rgba(0,0,0,0.25)]">
+            <p className="hero-subtitle text-base md:text-xl font-light tracking-[0.8px] md:tracking-[1.2px] text-[#F5E8C7] leading-snug md:leading-tight">
               福隆車站步行 30 秒　・　日式溫潤的慢時光
             </p>
           </div>
@@ -287,13 +307,13 @@ export default function YijianwuWebsite() {
         </div>
 
         {/* 捲動提示 */}
-        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 text-[#F5E8C7]/40 text-[9px] tracking-[2.5px]">
+        <div className="absolute bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 text-[#F5E8C7]/40 text-[9px] tracking-[2.5px] pointer-events-none">
           SCROLL TO EXPLORE
         </div>
       </section>
 
       {/* 關於我們 + 位置 */}
-      <section id="about" className="max-w-4xl mx-auto px-6 py-20 text-center">
+      <section id="about" className="max-w-4xl mx-auto px-6 py-20 scroll-mt-28 md:scroll-mt-20 text-center">
         <div className="text-[#8B7355] text-xs tracking-[4px] mb-3">A QUIET RETREAT BY THE STATION</div>
         <h2 className="text-5xl font-light tracking-tight mb-6 font-playfair">
           在福隆車站旁，<br />有一間溫柔的福隆背包客棧。
@@ -307,6 +327,182 @@ export default function YijianwuWebsite() {
           <div>LINE 接收入住門禁密碼</div>
           <div>單車族友善 · 舊草嶺隧道環狀線</div>
         </div>
+        <AboutAmenityStrip />
+      </section>
+
+      {/* 房間介紹 - 更精緻的卡片 */}
+      <section id="rooms" className="py-20 scroll-mt-28 md:scroll-mt-20 bg-[#F8F5F1] border-t border-[#EDE8E0]">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">ROOMS</div>
+            <h2 className="text-5xl font-light tracking-tight font-playfair">{ROOMS_SECTION.title}</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* 和鳴雙人房 */}
+            <div className="card group border border-[#EDE8E0] rounded-3xl overflow-hidden bg-white">
+              <RoomVideoPlayer
+                poster={ROOM_VIDEOS.double.poster}
+                posterAlt={getImageAlt(ROOM_VIDEOS.double.poster)}
+                label={ROOM_VIDEOS.double.label}
+                sources={ROOM_VIDEOS.double.sources}
+              />
+              <div className="p-5 md:p-8">
+                <div className="mb-4 space-y-2">
+                  <h3 className="text-2xl md:text-3xl font-light tracking-tight leading-tight">
+                    {ROOMS_SECTION.double.title}
+                  </h3>
+                  <p className="text-[#8B7355] text-sm leading-relaxed">{ROOMS_SECTION.double.subtitle}</p>
+                  <RoomTags tags={ROOMS_SECTION.double.tags} />
+                  <p className="text-sm text-[#6B665F] leading-relaxed">{ROOMS_SECTION.double.note}</p>
+                </div>
+                <RoomPriceDisplay
+                  originalPrice="NT$2,000"
+                  salePrice="NT$1,600"
+                  rightContent={
+                    <div className="text-right text-sm text-[#8B7355]">{ROOMS_SECTION.double.priceNote}</div>
+                  }
+                />
+
+                <p className="mt-4 text-[10px] text-[#8B7355] leading-relaxed border-t border-[#EDE8E0] pt-3">
+                  {ROOMS_SECTION.sharedNote}
+                </p>
+                <div className="flex items-center justify-between text-sm mt-3">
+                  <a
+                    href="#booking"
+                    className="px-6 py-2.5 bg-[#3F3A36] text-white rounded-full hover:bg-[#2C2926] transition-colors text-xs font-medium"
+                  >
+                    {BOOKING_CTA.jump}
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* 和風4-6人家庭房（僅此1間，兩張雙人床） - 已更新新照片 */}
+            <div className="card group border border-[#EDE8E0] rounded-3xl overflow-hidden bg-white">
+              <RoomVideoPlayer
+                poster={ROOM_VIDEOS.family.poster}
+                posterAlt={getImageAlt(ROOM_VIDEOS.family.poster)}
+                label={ROOM_VIDEOS.family.label}
+                sources={ROOM_VIDEOS.family.sources}
+              />
+              <div className="p-5 md:p-8">
+                <div className="mb-4 space-y-2">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="text-2xl md:text-3xl font-light tracking-tight leading-tight">
+                      {ROOMS_SECTION.family.title}
+                    </h3>
+                    <span className="shrink-0 text-[10px] px-2 py-0.5 bg-[#8B7355] text-white rounded-full">
+                      {ROOMS_SECTION.family.badge}
+                    </span>
+                  </div>
+                  <RoomTags tags={ROOMS_SECTION.family.tags} />
+                  <p className="text-sm text-[#6B665F] leading-relaxed">{ROOMS_SECTION.family.note}</p>
+                </div>
+                <RoomPriceDisplay
+                  originalPrice="NT$4,000"
+                  salePrice="NT$3,200"
+                  saleSuffix="起 /晚"
+                  rightContent={
+                    <div className="text-right text-sm text-[#8B7355]">{ROOMS_SECTION.family.priceNote}</div>
+                  }
+                  footer={
+                    <div className="mt-3 pt-3 border-t border-[#E8DFD2]/80 text-sm text-[#6B665F]">
+                      {ROOMS_SECTION.family.extraNote}
+                    </div>
+                  }
+                />
+
+                <p className="mt-4 text-[10px] text-[#8B7355] leading-relaxed border-t border-[#EDE8E0] pt-3">
+                  {ROOMS_SECTION.sharedNote}
+                </p>
+                <div className="flex items-center justify-between text-sm mt-3">
+                  <a
+                    href="#booking"
+                    className="px-6 py-2.5 bg-[#3F3A36] text-white rounded-full hover:bg-[#2C2926] transition-colors text-xs font-medium"
+                  >
+                    {BOOKING_CTA.jump}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="package"
+            className="mt-16 md:mt-20 scroll-mt-28 md:scroll-mt-24 p-8 md:p-10 rounded-3xl border border-[#EDE8E0] bg-white text-center"
+          >
+            <div className="text-[#8B7355] text-xs tracking-[3px] mb-2">{PACKAGE_SECTION.eyebrow}</div>
+            <h3 className="text-2xl md:text-4xl font-light tracking-tight mb-4 font-playfair leading-snug">
+              {PACKAGE_SECTION.title}
+            </h3>
+            <p className="text-[#6B665F] mb-6 text-sm max-w-2xl mx-auto leading-relaxed">
+              {PACKAGE_SECTION.intro}
+            </p>
+            <ul className="text-left text-sm text-[#6B665F] max-w-xl mx-auto space-y-2.5 mb-4 leading-relaxed">
+              {PACKAGE_SECTION.highlights.map((line) => (
+                <li key={line} className="flex gap-2">
+                  <span className="text-[#8B7355] shrink-0">·</span>
+                  <span>{line}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="text-xs text-[#8B7355] max-w-xl mx-auto mb-8 leading-relaxed">
+              （{PACKAGE_SECTION.ecoNote}）
+            </p>
+
+            <div className="flex flex-col md:flex-row gap-6 justify-center mb-8">
+              <PackagePriceCard
+                label="平日"
+                originalPrice="NT$10,800"
+                salePrice="NT$8,800"
+                period="週一～週四"
+              />
+              <PackagePriceCard
+                label="假日"
+                originalPrice="NT$11,500"
+                salePrice="NT$9,200"
+                period="週五、週六、假日"
+                featured
+              />
+            </div>
+
+            <div className="text-sm text-[#6B665F] mb-6">{PACKAGE_SECTION.priceNote}</div>
+
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <a
+                href="#booking"
+                className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-[#3F3A36] text-white rounded-full text-sm font-medium hover:bg-[#2C2926] transition-all"
+              >
+                {BOOKING_CTA.package}
+              </a>
+              <a
+                href={BUSINESS_LINE.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-[#00C300] text-white rounded-full text-sm font-medium hover:bg-[#00A000] transition-all"
+              >
+                LINE {BUSINESS_LINE.id}（門禁密碼）
+              </a>
+              <a
+                href={BUSINESS_PHONE.mobileHref}
+                className="inline-flex items-center justify-center gap-2 px-8 py-3 border border-[#3F3A36] text-[#3F3A36] rounded-full text-sm font-medium hover:bg-[#3F3A36] hover:text-white transition-all"
+              >
+                📞 急事專線 {BUSINESS_PHONE.mobile}
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="booking" className="max-w-4xl mx-auto px-6 py-12 md:py-20 scroll-mt-28 md:scroll-mt-20 border-t border-[#EDE8E0] bg-[#F8F5F1]">
+        <div className="text-center mb-6 md:mb-10">
+          <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">BOOKING</div>
+          <h2 className="text-3xl md:text-5xl font-light tracking-tight mb-2">{BOOKING_CTA.sectionTitle}</h2>
+          <p className="text-sm md:text-base text-[#6B665F] font-medium">{BOOKING_CTA.sectionSubtitle}</p>
+        </div>
+
+        <OwltingBookingSection />
       </section>
 
       {/* 福隆風景 — 住這裡，風景就在門外 */}
@@ -316,10 +512,32 @@ export default function YijianwuWebsite() {
             <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">FULONG SCENERY</div>
             <h2 className="text-5xl font-light tracking-tight font-playfair">福隆，走出家門就是風景</h2>
             <p className="mt-3 max-w-xl mx-auto text-sm text-[#6B665F] leading-relaxed">
-              車站前 30 秒抵達，海水浴場步行 5 分鐘。舊草嶺隧道環狀線、沙灘沙雕與山海風光，都在一間屋的單車與散步距離內。騎行與健行旅客常選這裡作為草嶺古道住宿與新北貢寮住宿的基地。
+              {FULONG_SECTION.intro}
             </p>
           </div>
           <SceneryGallery items={SCENERY_IMAGES} />
+
+          <div className="mt-12 bg-[#F8F5F1] p-6 md:p-8 rounded-3xl space-y-8">
+            <div className="text-center md:text-left">
+              <div className="text-[#8B7355] text-xs tracking-[3px] mb-1">{OUTDOOR_FRIENDLY.eyebrow}</div>
+              <h3 className="text-xl md:text-2xl font-light tracking-tight mb-2">{OUTDOOR_FRIENDLY.title}</h3>
+              <p className="text-sm text-[#6B665F] leading-relaxed">{OUTDOOR_FRIENDLY.intro}</p>
+            </div>
+
+            <OutdoorRouteGrid
+              title={OUTDOOR_FRIENDLY.cycling.title}
+              intro={OUTDOOR_FRIENDLY.cycling.intro}
+              routes={OUTDOOR_FRIENDLY.cycling.routes}
+            />
+
+            <div className="border-t border-[#E8DFD2] pt-8">
+              <OutdoorRouteGrid
+                title={OUTDOOR_FRIENDLY.hiking.title}
+                intro={OUTDOOR_FRIENDLY.hiking.intro}
+                routes={OUTDOOR_FRIENDLY.hiking.routes}
+              />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -419,265 +637,14 @@ export default function YijianwuWebsite() {
         </div>
       </section>
 
-      {/* 房間介紹 - 更精緻的卡片 */}
-      <section id="rooms" className="py-20 bg-[#F8F5F1]">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-10">
-            <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">ROOMS</div>
-            <h2 className="text-5xl font-light tracking-tight font-playfair">一間屋· 駅前宿・房間介紹</h2>
-            <p className="mt-1 text-sm text-[#6B665F]">
-              全館和式雅房（衛浴共用）：四間和鳴雙人房（每次訂其中 1 間）+ 和風 4–6 人家庭房（僅此 1 間）。福隆車站旁平價新北貢寮住宿首選。
-            </p>
-            <p className="mt-1 text-xs text-[#8B7355]">雙人房 NT$1,600/晚 ｜ 家庭房 NT$3,200起（4人）+NT$600/人（最多6人）｜ 包房平日 $8,800 / 假日 $9,200</p>
-            <p className="mt-1 text-[10px] text-[#8B7355]">看完房價即可在下方訂房付款；入住前 LINE 自動發送門禁密碼</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* 和鳴雙人房 */}
-            <div className="card group border border-[#EDE8E0] rounded-3xl overflow-hidden bg-white">
-              <RoomVideoPlayer
-                poster={ROOM_VIDEOS.double.poster}
-                posterAlt={getImageAlt(ROOM_VIDEOS.double.poster)}
-                label={ROOM_VIDEOS.double.label}
-                sources={ROOM_VIDEOS.double.sources}
-              />
-              <div className="p-8">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-3xl font-light tracking-tight">和鳴 · 雙人房</h3>
-                    </div>
-                    <div className="text-[#8B7355] text-sm">共 4 間相同格局（每次訂其中 1 間）</div>
-                  </div>
-                  <div className="text-right text-xs text-[#8B7355]">
-                    2 人<br /><span className="opacity-70">衛浴共用</span>
-                  </div>
-                </div>
-                <p className="text-[#6B665F] leading-relaxed mb-5 text-sm">
-                  簡約和式雅房，木質溫潤。2026年5月全新裝潢，公共衛浴提供洗髮精沐浴乳香皂，每間房一台吹風機，不供一次性用品（環保）。單車停放安心。
-                </p>
-
-                <RoomPriceDisplay
-                  originalPrice="NT$2,000"
-                  salePrice="NT$1,600"
-                  rightContent={
-                    <div className="text-right">
-                      <div className="text-sm text-[#8B7355]">雙人入住</div>
-                      <div className="text-[10px] text-[#6B665F]">公共衛浴提供盥洗用品，每間房吹風機</div>
-                    </div>
-                  }
-                />
-
-                <div className="flex items-center justify-between text-sm mt-3">
-                  <a
-                    href="#booking"
-                    className="px-6 py-2.5 bg-[#3F3A36] text-white rounded-full hover:bg-[#2C2926] transition-colors text-xs font-medium"
-                  >
-                    {BOOKING_CTA.jump}
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* 和風4-6人家庭房（僅此1間，兩張雙人床） - 已更新新照片 */}
-            <div className="card group border border-[#EDE8E0] rounded-3xl overflow-hidden bg-white">
-              <RoomVideoPlayer
-                poster={ROOM_VIDEOS.family.poster}
-                posterAlt={getImageAlt(ROOM_VIDEOS.family.poster)}
-                label={ROOM_VIDEOS.family.label}
-                sources={ROOM_VIDEOS.family.sources}
-              />
-              <div className="p-8">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-3xl font-light tracking-tight">和風4-6人家庭房</h3>
-                      <span className="text-[10px] px-2 py-0.5 bg-[#8B7355] text-white rounded-full">僅此1間</span>
-                    </div>
-                    <div className="text-[#8B7355] text-sm">僅此1間，可容納 4–6 人（兩張雙人床）</div>
-                  </div>
-                  <div className="text-right text-xs text-[#8B7355]"><span className="opacity-70">衛浴共用</span></div>
-                </div>
-                <p className="text-[#6B665F] leading-relaxed mb-5 text-sm">
-                  寬敞和風4-6人家庭房（僅此1間，兩張雙人床）。2026年5月全新裝潢，公共衛浴提供洗髮精沐浴乳香皂，每間房一台吹風機，不供一次性用品（環保）。單車停放安心。
-                </p>
-
-                <RoomPriceDisplay
-                  originalPrice="NT$4,000"
-                  salePrice="NT$3,200"
-                  saleSuffix="起 /晚"
-                  rightContent={
-                    <div className="text-right">
-                      <div className="text-sm text-[#8B7355]">僅此1間</div>
-                      <div className="text-sm text-[#8B7355]">最少 4 人</div>
-                    </div>
-                  }
-                  footer={
-                    <>
-                      <div className="mt-3 pt-3 border-t border-[#E8DFD2]/80 text-sm text-[#6B665F]">
-                        每增加 1 人 + NT$600（最多 6 人）
-                      </div>
-                      <div className="text-[10px] text-[#8B7355] mt-2">
-                        和風4-6人家庭房（僅此1間，兩張雙人床），公共衛浴提供盥洗用品，每間房吹風機
-                      </div>
-                    </>
-                  }
-                />
-
-                <div className="flex items-center justify-between text-sm mt-3">
-                  <a
-                    href="#booking"
-                    className="px-6 py-2.5 bg-[#3F3A36] text-white rounded-full hover:bg-[#2C2926] transition-colors text-xs font-medium"
-                  >
-                    {BOOKING_CTA.jump}
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="booking" className="max-w-4xl mx-auto px-6 py-12 md:py-20 scroll-mt-28 md:scroll-mt-20 border-t border-[#EDE8E0]">
-        <div className="text-center mb-6 md:mb-10">
-          <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">BOOKING</div>
-          <h2 className="text-3xl md:text-5xl font-light tracking-tight mb-2">{BOOKING_CTA.sectionTitle}</h2>
-          <p className="text-sm md:text-base text-[#6B665F] font-medium">{BOOKING_CTA.sectionSubtitle}</p>
-        </div>
-
-        <OwltingBookingSection />
-      </section>
-
-      {/* 包房方案 */}
-      <section id="package" className="bg-white py-20 border-t border-[#EDE8E0]">
-        <div className="max-w-5xl mx-auto px-6 text-center">
-          <div className="text-[#8B7355] text-xs tracking-[3px] mb-2">WHOLE HOUSE RENTAL</div>
-          <h2 className="text-4xl font-light tracking-tight mb-3">福隆包棟民宿方案（共 5 間）</h2>
-          <p className="text-[#6B665F] mb-6 text-sm">
-            全館包房包含 4 間和鳴雙人房 ＋ 1 間和風 4–6 人家庭房（共 5 間，衛浴共用）。提供衛浴用品，每間房吹風機，不供一次性用品。適合家庭、團體、單車隊或公司福隆包棟民宿需求。
-          </p>
-
-          <div className="flex flex-col md:flex-row gap-6 justify-center mb-8">
-            <PackagePriceCard
-              label="平日"
-              originalPrice="NT$10,800"
-              salePrice="NT$8,800"
-              period="週一～週四"
-            />
-            <PackagePriceCard
-              label="假日"
-              originalPrice="NT$11,500"
-              salePrice="NT$9,200"
-              period="週五、週六、假日"
-              featured
-            />
-          </div>
-
-          <div className="text-sm text-[#6B665F] mb-6">
-            價格固定（特殊活動日另詢）。<br />
-            單車停放空間充足。
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a
-              href="#booking"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-[#3F3A36] text-white rounded-full text-sm font-medium hover:bg-[#2C2926] transition-all"
-            >
-              {BOOKING_CTA.package}
-            </a>
-            <a
-              href={BUSINESS_LINE.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-[#00C300] text-white rounded-full text-sm font-medium hover:bg-[#00A000] transition-all"
-            >
-              LINE {BUSINESS_LINE.id}（門禁密碼）
-            </a>
-            <a
-              href={BUSINESS_PHONE.mobileHref}
-              className="inline-flex items-center gap-2 px-8 py-3 border border-[#3F3A36] text-[#3F3A36] rounded-full text-sm font-medium hover:bg-[#3F3A36] hover:text-white transition-all"
-            >
-              📞 急事專線 {BUSINESS_PHONE.mobile}
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* 設施 Amenities */}
-      <section id="amenities" className="max-w-5xl mx-auto px-6 py-20 border-t border-[#EDE8E0]">
-        <div className="text-center mb-12">
-          <div className="text-[#8B7355] text-xs tracking-[3px]">AMENITIES</div>
-          <h2 className="text-4xl font-light tracking-tight">溫暖的細節</h2>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10 text-center">
-          {[
-            "日式木質裝潢", "舒適寢具", "獨立冷氣", "免費 WiFi",
-            "公共衛浴（洗髮精・沐浴乳・香皂）", "每間房一台吹風機", "不供一次性用品（提倡環保）", "單車專屬停放區"
-          ].map((item, i) => (
-            <div key={i} className="text-[#6B665F]">
-              <div className="mx-auto mb-3 w-9 h-px bg-[#8B7355]" />
-              <div className="text-sm tracking-wide">{item}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* 單車族與周邊 */}
-        <div className="mt-8 bg-[#F8F5F1] p-6 rounded-3xl">
-          <div className="text-center mb-4">
-            <div className="text-[#8B7355] text-xs tracking-[3px] mb-1">單車 · 戶外友善</div>
-            <h3 className="text-xl font-light tracking-tight">單車停放 · 爬山玩水海邊</h3>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {OUTDOOR_HIGHLIGHTS.map((item) => (
-              <div key={item.title} className="group overflow-hidden rounded-2xl bg-white">
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <Image
-                    src={item.image}
-                    alt={getImageAlt(item.image)}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                  />
-                </div>
-                <div className="p-4">
-                  <div className="font-medium text-[#3F3A36] mb-1">{item.title}</div>
-                  <div className="text-[#6B665F] text-xs leading-relaxed">{item.desc}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 重點特色 */}
-      <section className="max-w-5xl mx-auto px-6 py-10 border-t border-[#EDE8E0]">
-        <div className="text-center mb-6">
-          <div className="text-[#8B7355] text-xs tracking-[3px] mb-1">KEY POINTS</div>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-sm">
-          {[
-            { icon: "🛠️", title: "2026年5月全新裝潢", desc: "公共空間全面翻新，更現代舒適" },
-            { icon: "🔒", title: "LINE 門禁密碼", desc: "加入 @811mszbh，入住前自動收到門禁與入住資訊" },
-            { icon: "🧼", title: "每日徹底清潔 + 環保", desc: "公共衛浴提供洗髮精沐浴乳香皂，每間房吹風機，不供一次性用品" },
-            { icon: "🏔️🏖️", title: "單車友善 + 周邊景點", desc: "室內停車 · 爬山玩水海邊步行/單車可達" },
-          ].map((item, i) => (
-            <div key={i} className="flex gap-4">
-              <div className="text-2xl">{item.icon}</div>
-              <div>
-                <div className="font-medium text-[#3F3A36] mb-1">{item.title}</div>
-                <div className="text-[#6B665F] text-xs leading-relaxed">{item.desc}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* 位置 */}
-      <section id="location" className="bg-white py-16 border-t border-[#EDE8E0]">
+      <section id="location" className="bg-white py-16 scroll-mt-28 md:scroll-mt-20 border-t border-[#EDE8E0]">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <div className="text-[#8B7355] text-xs tracking-[4px] mb-3">LOCATION</div>
-          <h2 className="text-4xl font-light tracking-tight mb-4">福隆車站前 30 秒・新北貢寮住宿</h2>
+          <h2 className="text-4xl font-light tracking-tight mb-3">福隆車站前 30 秒・新北貢寮住宿</h2>
+          <p className="mx-auto mb-8 max-w-lg text-sm text-[#6B665F] leading-relaxed">
+            出站即達，走路比等紅綠燈還快。跟著下方指引，輕鬆找到一間屋· 駅前宿。
+          </p>
           <div className="mx-auto mb-8 max-w-md rounded-3xl border border-[#EDE8E0] bg-[#F8F5F1] p-6 text-left text-sm text-[#6B665F]">
             <div className="mb-3 text-base font-medium text-[#3F3A36]">{BUSINESS_NAME}</div>
             <address className="not-italic leading-relaxed">
@@ -701,13 +668,46 @@ export default function YijianwuWebsite() {
             </address>
           </div>
 
-          <div className="mx-auto mb-8 max-w-2xl">
-            <GoogleMapEmbed />
+          <div className="mx-auto mb-8 max-w-lg rounded-3xl border border-[#EDE8E0] bg-white p-6 md:p-7 text-left shadow-sm">
+            <p className="text-xs tracking-[0.2em] text-[#8B7355] mb-4 text-center">如何抵達</p>
+            <ul className="space-y-4 text-sm text-[#6B665F] leading-relaxed">
+              <li className="flex gap-3">
+                <span className="text-xl shrink-0" aria-hidden>
+                  🚉
+                </span>
+                <p>
+                  <span className="font-medium text-[#3F3A36]">步行指引</span>
+                  <br />
+                  出福隆車站大廳，馬上右轉直走，<span className="text-[#8B7355] font-medium">30 秒內</span>
+                  就會看到 <span className="text-[#3F3A36] font-medium">一間屋· 駅前宿</span> 招牌，即抵達。
+                </p>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-xl shrink-0" aria-hidden>
+                  🛵
+                </span>
+                <p>
+                  <span className="font-medium text-[#3F3A36]">機車・腳踏車</span>
+                  <br />
+                  門口可停放機車與腳踏車 🚲，單車旅人與機車族都很方便。
+                </p>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-xl shrink-0" aria-hidden>
+                  🚗
+                </span>
+                <p>
+                  <span className="font-medium text-[#3F3A36]">汽車停車建議</span>
+                  <br />
+                  自駕旅客建議將愛車停放在 <span className="text-[#8B7355] font-medium">濱海公路 7-11 旁停車場</span>{' '}
+                  🅿️，較為安全便利，再步行回民宿即可。
+                </p>
+              </li>
+            </ul>
           </div>
 
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#F8F5F1] px-4 py-1.5 text-sm text-[#3F3A36]">
-            <span>🚉</span>
-            <span>福隆火車站出站大門口，立馬右轉直走就會看到招牌</span>
+          <div className="mx-auto mb-8 max-w-2xl">
+            <GoogleMapEmbed />
           </div>
 
           <div className="relative mx-auto mb-8 max-w-2xl overflow-hidden rounded-3xl aspect-[16/10] bg-[#EDE8E0]">
@@ -722,7 +722,7 @@ export default function YijianwuWebsite() {
           
           <div className="bg-[#F8F5F1] p-8 rounded-3xl text-left max-w-md mx-auto">
             <ul className="space-y-3 text-sm">
-              <li className="flex justify-between"><span>福隆海水浴場</span> <span className="text-[#8B7355]">步行 5 分鐘 · 海邊玩水</span></li>
+              <li className="flex justify-between"><span>福隆海水浴場</span> <span className="text-[#8B7355]">步行 8 分鐘 · 海邊玩水</span></li>
               <li className="flex justify-between"><span>舊草嶺隧道</span> <span className="text-[#8B7355]">單車約 15 分鐘 · 環狀線經典</span></li>
               <li className="flex justify-between"><span>舊草嶺隧道環狀線</span> <span className="text-[#8B7355]">沿海騎行 · 藍天碧海</span></li>
               <li className="flex justify-between"><span>貢寮老街</span> <span className="text-[#8B7355]">車程 10 分鐘</span></li>
@@ -812,9 +812,9 @@ export default function YijianwuWebsite() {
       {/* 手機版固定訂房捷徑 */}
       <a
         href="#booking"
-        className="md:hidden fixed bottom-6 left-4 z-50 inline-flex items-center rounded-full bg-[#3F3A36] px-4 py-3 text-xs font-medium text-white shadow-lg hover:bg-[#2C2926] active:scale-[0.98] transition-all"
+        className="primary-booking-btn primary-booking-btn--compact md:hidden fixed bottom-6 left-4 z-50 inline-flex items-center justify-center rounded-full px-3.5 py-2.5 text-[11px] tracking-wide whitespace-nowrap"
       >
-        {BOOKING_CTA.jump}
+        {BOOKING_CTA.jumpShort}
       </a>
 
       {/* 浮動 LINE 按鈕 */}
@@ -829,8 +829,12 @@ export default function YijianwuWebsite() {
       </a>
 
       {/* Footer */}
-      <footer className="border-t border-[#EDE8E0] py-12 text-sm text-[#8B7355]">
-        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between gap-y-6 text-center md:text-left">
+      <footer className="border-t border-[#EDE8E0] py-4 text-sm text-[#8B7355] overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex justify-center mb-3">
+            <BrandTagline variant="footer" />
+          </div>
+          <div className="flex flex-col md:flex-row justify-between gap-y-4 text-center md:text-left">
           <div>
             <div className="font-medium text-[#3F3A36]">{BUSINESS_NAME}</div>
             <a
@@ -865,6 +869,7 @@ export default function YijianwuWebsite() {
             </a>
           </div>
           <div className="text-xs text-[#8B7355]/70 md:text-right">© {new Date().getFullYear()} {BUSINESS_NAME}</div>
+          </div>
         </div>
       </footer>
 

@@ -3,7 +3,8 @@
 :root {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  
+  --site-nav-tagline-offset: 0px;
+
   /* 一間屋日式溫潤配色 */
   --color-bg: #F8F5F1;
   --color-text: #3F3A36;
@@ -11,6 +12,97 @@
   --color-muted: #6B665F;
   --color-card: #FFFFFF;
   --color-border: #EDE8E0;
+}
+
+.site-nav {
+  --tagline-progress: 1;
+  --tagline-height: 0px;
+}
+
+.site-nav-tagline {
+  height: calc(var(--tagline-height) * var(--tagline-progress));
+  opacity: var(--tagline-progress);
+  overflow: hidden;
+  pointer-events: none;
+  border-bottom: 1px solid rgba(74, 55, 40, calc(var(--tagline-progress) * 0.14));
+  background: linear-gradient(180deg, #fff6eb 0%, #f3ebe0 100%);
+}
+
+.site-nav-tagline-panel {
+  overflow: hidden;
+  min-height: 0;
+  transform: translateY(calc((1 - var(--tagline-progress)) * -0.35rem));
+}
+
+.site-nav-tagline-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.45rem 0.75rem 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  color: #4a3728;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.site-nav-tagline-text span {
+  color: #3f3a36;
+}
+
+@media (min-width: 640px) {
+  .site-nav-tagline-text {
+    gap: 0.65rem;
+    padding: 0.5rem 1rem 0.55rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.28em;
+  }
+}
+
+.site-nav-tagline-star {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: #9a6f2e;
+  filter: drop-shadow(0 0 1px rgba(255, 248, 230, 0.8));
+}
+
+.site-nav-tagline-star svg {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .site-nav-tagline-star svg {
+    width: 0.5625rem;
+    height: 0.5625rem;
+  }
+}
+
+.site-footer-tagline-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  color: #4a3728;
+}
+
+.site-footer-tagline-text span {
+  color: #3f3a36;
+}
+
+@media (min-width: 640px) {
+  .site-footer-tagline-text {
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+  }
 }
 
 /* 基礎樣式 */
@@ -83,6 +175,24 @@ input:focus, select:focus, textarea:focus {
   outline: none;
 }
 
+/* 訂房日期欄 — 修正 iOS Safari 內建 min-width 導致手機版溢出 */
+.booking-date-input {
+  -webkit-appearance: none;
+  appearance: none;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.booking-date-input::-webkit-date-and-time-value {
+  min-width: 0;
+  text-align: left;
+}
+
+.booking-date-input::-webkit-calendar-picker-indicator {
+  margin-left: 0;
+  padding: 0;
+}
+
 /* 導覽列 */
 .nav-link {
   position: relative;
@@ -139,4 +249,114 @@ input:focus, select:focus, textarea:focus {
 /* 房間影片播放器 */
 .room-media video::-webkit-media-controls-panel {
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.45));
+}
+
+/* 品牌彎月圖示 — 暖光加強；占位固定，光暈不撐開導覽列 */
+.brand-moon-emoji {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  filter: drop-shadow(0 1px 2px rgba(160, 120, 20, 0.28));
+  pointer-events: none;
+}
+
+/* 官網訂房主按鈕 — 暖金漸層，視覺優先於次要渠道 */
+.primary-booking-btn {
+  background-image: linear-gradient(
+    135deg,
+    #f0d078 0%,
+    #d4ad62 28%,
+    #b89450 58%,
+    #8b7355 100%
+  );
+  color: #fff;
+  border: none;
+  outline: none;
+  font-weight: 600;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.06),
+    0 6px 22px rgba(184, 148, 80, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.primary-booking-btn:hover:not(:disabled) {
+  background-image: linear-gradient(
+    135deg,
+    #f5d888 0%,
+    #deb96e 28%,
+    #c4a05c 58%,
+    #9a7f5f 100%
+  );
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.06),
+    0 8px 26px rgba(184, 148, 80, 0.52),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32);
+  filter: brightness(1.02);
+}
+
+.primary-booking-btn:active:not(:disabled) {
+  transform: scale(0.985);
+}
+
+.primary-booking-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+  filter: none;
+}
+
+.primary-booking-btn:focus-visible {
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 4px #c4a05c,
+    0 6px 22px rgba(184, 148, 80, 0.42);
+}
+
+.primary-booking-btn--compact {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.06),
+    0 3px 12px rgba(184, 148, 80, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.primary-booking-btn--compact:hover:not(:disabled) {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.06),
+    0 4px 14px rgba(184, 148, 80, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+/* Airbnb 次要 CTA — 官網白字標誌 + 柔和寶石紅底，不搶主按鈕 */
+.airbnb-btn {
+  background-color: #9a4f5d;
+  background-image: linear-gradient(180deg, #a65866 0%, #8c4855 100%);
+  border: 1px solid #7a3f4c;
+  color: #fff;
+  outline: none;
+  box-shadow: none;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    background-image 0.2s ease,
+    filter 0.2s ease;
+}
+
+.airbnb-btn:hover {
+  background-color: #a85a68;
+  background-image: linear-gradient(180deg, #b36674 0%, #96525f 100%);
+  border-color: #854a57;
+  filter: brightness(1.03);
+}
+
+.airbnb-btn:focus-visible {
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 4px rgba(154, 79, 93, 0.55);
+}
+
+.airbnb-mark,
+.airbnb-wordmark {
+  color: inherit;
 }

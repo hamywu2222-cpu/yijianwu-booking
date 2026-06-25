@@ -1,10 +1,15 @@
 import type { Metadata } from 'next';
-import { SITE_OG_IMAGE, SITE_OG_IMAGE_ALT } from '@/lib/business';
+import {
+  SITE_OG_IMAGE,
+  SITE_OG_IMAGE_ALT,
+  SITE_OG_IMAGE_HEIGHT,
+  SITE_OG_IMAGE_WIDTH,
+} from '@/lib/business';
 import { SITE_NAME } from '@/lib/structuredData';
 
 const BOOKING_TITLE = '線上訂房付款 | 福隆車站步行30秒 · 一間屋 · 駅前宿';
 const BOOKING_DESCRIPTION =
-  '一間屋線上訂房付款：選日期與人數，查空房、選房型並完成付款（含包棟）。加入 LINE 官方 @811mszbh 接收入住門禁密碼。福隆車站步行 30 秒。';
+  '一間屋線上訂房付款：選日期與人數，查空房、選房型並完成付款（含包房優惠方案，舒適建議人數 12–14）。加入 LINE 官方 @811mszbh 接收入住門禁密碼。福隆車站步行 30 秒。';
 
 export const metadata: Metadata = {
   title: BOOKING_TITLE,
@@ -22,8 +27,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: SITE_OG_IMAGE,
-        width: 1200,
-        height: 630,
+        width: SITE_OG_IMAGE_WIDTH,
+        height: SITE_OG_IMAGE_HEIGHT,
         alt: SITE_OG_IMAGE_ALT,
       },
     ],

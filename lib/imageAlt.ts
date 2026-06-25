@@ -48,6 +48,18 @@ export const IMAGE_ALT: Record<string, string> = {
     '舊草嶺隧道內部，單車騎士穿梭百年鐵道隧道',
   '/images/scenery/fulong-ring-immersive-art.webp':
     '東北角環狀線沿途沉浸光影體驗，單車旅遊特色景點',
+  '/images/scenery/caoling-tunnel-entrance.jpg':
+    '舊草嶺隧道入口，單車旅客在隧道前整装出發',
+  '/images/scenery/caoling-coastal-path.jpg':
+    '舊草嶺濱海自行車道，山海相伴的環狀線海景路段',
+  '/images/scenery/maoao-fishing-village.jpg':
+    '卯澳漁村海岸雕塑地標，舊草嶺環狀線漁港風光',
+  '/images/Mountain1.jpg':
+    '草嶺古道石階步道，俯瞰東北角海岸與太平洋',
+  '/images/Mountain2.webp':
+    '桃源谷大草原木棧步道，綠色山稜與芒草草原',
+  '/images/Mountain3.webp':
+    '桃源谷山區蜿蜒道路與綠色山巒，山海步道景觀',
 };
 
 export function getImageAlt(src: string): string {

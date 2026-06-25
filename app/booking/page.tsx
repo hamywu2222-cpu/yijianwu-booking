@@ -14,7 +14,7 @@ export default function BookingPage() {
           <div className="flex items-center gap-2">
             <a
               href="#booking-form"
-              className="md:hidden text-xs px-3.5 py-2 bg-[#3F3A36] text-white rounded-full hover:bg-[#2C2926] transition-all font-medium"
+              className="primary-booking-btn primary-booking-btn--compact md:hidden text-xs px-3.5 py-2 rounded-full font-medium"
             >
               {BOOKING_CTA.jump}
             </a>

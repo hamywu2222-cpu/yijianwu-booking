@@ -1,4 +1,5 @@
 import {
+  BOOKING_FAQ,
   BUSINESS_ADDRESS,
   BUSINESS_FACEBOOK,
   BUSINESS_GEO,
@@ -13,19 +14,35 @@ import {
   BUSINESS_URLS,
   LOCAL_SEO_KEYWORDS,
 } from '@/lib/business';
+import { ABOUT_AMENITIES } from '@/lib/media';
 import { absoluteUrl } from '@/lib/site';
 
 export const SITE_NAME = BUSINESS_NAME;
 export const SITE_DESCRIPTION =
-  '福隆車站旁 30 秒即抵！一間屋·駅前宿是鄰近草嶺古道的福隆背包客棧與青年旅館，提供新北貢寮住宿、福隆包棟民宿與日式雅房，2026年全新裝潢，適合單車族、家庭或情侶入住。';
+  '福隆車站旁 30 秒即抵！一間屋·駅前宿是鄰近草嶺古道的福隆背包客棧與青年旅館，提供新北貢寮住宿、一間屋包房優惠方案(5間)（舒適建議人數 12–14）與日式雅房，2026年全新裝潢，適合單車族、家庭或情侶入住。';
 
-const AMENITIES = [
-  '免費 WiFi',
-  '單車停放',
-  '獨立冷氣',
-  '公共衛浴',
-  '日式木質裝潢',
-] as const;
+const LODGING_AMENITIES = ABOUT_AMENITIES.map((item) => item.label);
+
+function getReserveActionJsonLd() {
+  const bookingUrl = absoluteUrl('/booking');
+
+  return {
+    '@type': 'ReserveAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: bookingUrl,
+      inLanguage: 'zh-TW',
+      actionPlatform: [
+        'https://schema.org/DesktopWebPlatform',
+        'https://schema.org/MobileWebPlatform',
+      ],
+    },
+    result: {
+      '@type': 'LodgingReservation',
+      name: '一間屋・駅前宿線上訂房',
+    },
+  };
+}
 
 /** Schema.org LodgingBusiness + BedAndBreakfast JSON-LD（民宿結構化資料） */
 export function getLodgingBusinessJsonLd() {
@@ -100,7 +117,7 @@ export function getLodgingBusinessJsonLd() {
         areaServed: 'TW',
       },
     ],
-    amenityFeature: AMENITIES.map((name) => ({
+    amenityFeature: LODGING_AMENITIES.map((name) => ({
       '@type': 'LocationFeatureSpecification',
       name,
       value: true,
@@ -117,6 +134,7 @@ export function getLodgingBusinessJsonLd() {
       BUSINESS_FACEBOOK.url,
       BUSINESS_URLS.googleMapsBusiness,
     ],
+    potentialAction: getReserveActionJsonLd(),
   };
 }
 
@@ -135,9 +153,27 @@ export function getWebSiteJsonLd() {
     publisher: {
       '@id': `${siteUrl}#lodging`,
     },
+    potentialAction: getReserveActionJsonLd(),
+  };
+}
+
+/** Schema.org FAQPage — 訂房常見問題 */
+export function getFaqPageJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    '@id': `${absoluteUrl('/booking')}#faq`,
+    mainEntity: BOOKING_FAQ.map(({ question, answer }) => ({
+      '@type': 'Question',
+      name: question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: answer,
+      },
+    })),
   };
 }
 
 export function getStructuredDataJsonLd() {
-  return [getWebSiteJsonLd(), getLodgingBusinessJsonLd()];
+  return [getWebSiteJsonLd(), getLodgingBusinessJsonLd(), getFaqPageJsonLd()];
 }

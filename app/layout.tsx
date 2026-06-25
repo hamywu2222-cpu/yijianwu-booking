@@ -3,7 +3,13 @@ import type { ReactNode } from "react";
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import StructuredData from "@/components/StructuredData";
-import { LOCAL_SEO_KEYWORDS, SITE_OG_IMAGE, SITE_OG_IMAGE_ALT } from "@/lib/business";
+import {
+  LOCAL_SEO_KEYWORDS,
+  SITE_OG_IMAGE,
+  SITE_OG_IMAGE_ALT,
+  SITE_OG_IMAGE_HEIGHT,
+  SITE_OG_IMAGE_WIDTH,
+} from "@/lib/business";
 import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/structuredData";
 import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
@@ -59,8 +65,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: SITE_OG_IMAGE,
-        width: 1200,
-        height: 630,
+        width: SITE_OG_IMAGE_WIDTH,
+        height: SITE_OG_IMAGE_HEIGHT,
         alt: SITE_OG_IMAGE_ALT,
       },
     ],
