@@ -443,3 +443,39 @@ input:focus, select:focus, textarea:focus {
 .airbnb-wordmark {
   color: inherit;
 }
+
+/* 品牌星星游標 — 僅滑鼠裝置；套用在全站元素（auto 不會繼承父層） */
+@media (hover: hover) and (pointer: fine) {
+  html {
+    cursor: url('/cursors/star-default.png') 16 16, auto;
+  }
+
+  html * {
+    cursor: inherit;
+  }
+
+  a[href],
+  button:not(:disabled),
+  summary,
+  label[for],
+  [role='button']:not([aria-disabled='true']),
+  .cursor-pointer,
+  input[type='button']:not(:disabled),
+  input[type='submit']:not(:disabled),
+  input[type='reset']:not(:disabled) {
+    cursor: url('/cursors/star-pointer.png') 16 16, pointer !important;
+  }
+
+  input:not(:disabled):not([type='button']):not([type='submit']):not([type='reset']),
+  textarea:not(:disabled),
+  select:not(:disabled),
+  [contenteditable='true'] {
+    cursor: text !important;
+  }
+
+  :disabled,
+  [aria-disabled='true'],
+  .cursor-not-allowed {
+    cursor: not-allowed !important;
+  }
+}
