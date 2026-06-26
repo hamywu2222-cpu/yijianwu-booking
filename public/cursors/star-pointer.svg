@@ -6,11 +6,4 @@
     stroke-width="1.2"
     stroke-linejoin="round"
   />
-  <path
-    d="M16 9.8V20.2M11.2 15H20.8"
-    stroke="#FFF8E8"
-    stroke-width="1.5"
-    stroke-linecap="round"
-    opacity="0.85"
-  />
 </svg>
