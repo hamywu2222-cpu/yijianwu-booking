@@ -141,6 +141,7 @@ export const ABOUT_AMENITIES = [
   { icon: '📶', label: '免費 WiFi' },
   { icon: '🚿', label: '公共衛浴（洗髮精・沐浴乳・香皂）' },
   { icon: '💨', label: '每間房一台吹風機' },
+  { icon: '🥿', label: '民宿內拖鞋' },
   { icon: '♻️', label: '不供一次性用品（提倡環保）' },
 ] as const;
 

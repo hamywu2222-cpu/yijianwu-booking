@@ -25,13 +25,13 @@ type RoomTypeConfig = {
 const ROOM_TYPES: RoomTypeConfig[] = [
   {
     value: '和鳴雙人房',
-    label: '和鳴雙人房（共4間相同格局，訂其中1間，衛浴共用）— NT$1,600/晚',
+    label: '和鳴雙人房（共4間相同格局，訂其中1間，衛浴共用）— 平日 NT$1,500 / 假日 NT$1,600',
     maxPeople: 2,
     peopleHint: '舒適建議人數 2 人，如需加鋪請備註',
   },
   {
     value: '和風4-6人家庭房',
-    label: '和風4-6人家庭房（僅此1間，兩張雙人床，衛浴共用）— NT$3,200起（4人）+NT$600/人',
+    label: '和風4-6人家庭房（僅此1間，兩張雙人床，衛浴共用）— 平日 NT$3,000起 / 假日 NT$3,200起（4人）+NT$600/人',
     maxPeople: 6,
     peopleHint: '舒適建議人數 4–6 人，如需加鋪請備註',
   },

@@ -198,25 +198,52 @@ function RoomTags({ tags }: { tags: readonly string[] }) {
   );
 }
 
+type RoomPriceTier = {
+  label: string;
+  original: string;
+  sale: string;
+};
+
 function RoomPriceDisplay({
+  pricing,
   originalPrice,
   salePrice,
   saleSuffix = '/晚',
   rightContent,
   footer,
 }: {
-  originalPrice: string;
-  salePrice: string;
+  pricing?: { weekday: RoomPriceTier; holiday: RoomPriceTier };
+  originalPrice?: string;
+  salePrice?: string;
   saleSuffix?: string;
   rightContent?: ReactNode;
   footer?: ReactNode;
 }) {
+  const tiers = pricing
+    ? ([pricing.weekday, pricing.holiday] as const)
+    : originalPrice && salePrice
+      ? ([{ label: '', original: originalPrice, sale: salePrice }] as const)
+      : [];
+
   return (
     <div className="room-price-card mt-4 p-4 sm:p-5 rounded-2xl border border-[#E8DFD2] bg-gradient-to-br from-[#FFFCF8] via-[#F8F5F1] to-[#F0E8DC] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
       <PriceOfferBadge />
 
-      <div className="flex items-end justify-between gap-4 flex-wrap">
-        <PriceStrikeThrough originalPrice={originalPrice} salePrice={salePrice} saleSuffix={saleSuffix} />
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <div className="space-y-3 min-w-0">
+          {tiers.map((tier) => (
+            <div key={tier.label || 'single'}>
+              {tier.label ? (
+                <div className="text-[10px] tracking-[0.18em] text-[#8B7355] mb-1.5">{tier.label}</div>
+              ) : null}
+              <PriceStrikeThrough
+                originalPrice={tier.original}
+                salePrice={tier.sale}
+                saleSuffix={saleSuffix}
+              />
+            </div>
+          ))}
+        </div>
         {rightContent}
       </div>
 
@@ -357,8 +384,7 @@ export default function YijianwuWebsite() {
                   <p className="text-sm text-[#6B665F] leading-relaxed">{ROOMS_SECTION.double.note}</p>
                 </div>
                 <RoomPriceDisplay
-                  originalPrice="NT$2,000"
-                  salePrice="NT$1,600"
+                  pricing={ROOMS_SECTION.double.pricing}
                   rightContent={
                     <div className="text-right text-sm text-[#8B7355]">{ROOMS_SECTION.double.priceNote}</div>
                   }
@@ -400,8 +426,7 @@ export default function YijianwuWebsite() {
                   <p className="text-sm text-[#6B665F] leading-relaxed">{ROOMS_SECTION.family.note}</p>
                 </div>
                 <RoomPriceDisplay
-                  originalPrice="NT$4,000"
-                  salePrice="NT$3,200"
+                  pricing={ROOMS_SECTION.family.pricing}
                   saleSuffix="起 /晚"
                   rightContent={
                     <div className="text-right text-sm text-[#8B7355]">{ROOMS_SECTION.family.priceNote}</div>
