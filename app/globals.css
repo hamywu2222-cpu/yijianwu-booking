@@ -173,7 +173,8 @@
 
 @media (min-width: 768px) {
   .site-nav-inner {
-    padding-inline: 1.5rem;
+    max-width: none;
+    padding-inline: 1.25rem;
   }
 }
 
@@ -187,8 +188,11 @@
 
 @media (min-width: 768px) {
   .site-nav-main {
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-    column-gap: 1rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: 0;
     min-height: 4rem;
   }
 }
@@ -209,7 +213,9 @@
 
 @media (min-width: 768px) {
   .site-nav-brand-slot {
+    flex: 0 0 auto;
     gap: 0.75rem;
+    margin-inline-end: 1rem;
   }
 }
 
@@ -220,6 +226,17 @@
   font-size: 0.875rem;
   font-weight: 500;
   color: #6b665f;
+}
+
+@media (min-width: 768px) {
+  .site-nav-links-slot {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    justify-self: auto;
+    pointer-events: auto;
+  }
 }
 
 .site-nav-actions-slot {
@@ -233,7 +250,9 @@
 
 @media (min-width: 768px) {
   .site-nav-actions-slot {
+    flex: 0 0 auto;
     gap: 0.75rem;
+    margin-inline-start: auto;
     margin-inline-end: 0;
   }
 }
