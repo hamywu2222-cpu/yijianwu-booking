@@ -20,10 +20,14 @@ export default function SiteNav() {
     let frame = 0;
     let taglineHeight = 0;
 
+    const shell = header.querySelector<HTMLElement>('.site-nav-shell');
+
     const measureTagline = () => {
       const panel = tagline.querySelector<HTMLElement>('.site-nav-tagline-panel');
       taglineHeight = panel?.scrollHeight ?? tagline.scrollHeight;
       header.style.setProperty('--tagline-height', `${taglineHeight}px`);
+      const shellHeight = shell?.offsetHeight ?? 0;
+      document.documentElement.style.setProperty('--site-nav-offset', `${shellHeight}px`);
     };
 
     measureTagline();
@@ -56,6 +60,7 @@ export default function SiteNav() {
       resizeObserver.disconnect();
       if (frame) window.cancelAnimationFrame(frame);
       document.documentElement.style.removeProperty('--site-nav-tagline-offset');
+      document.documentElement.style.removeProperty('--site-nav-offset');
     };
   }, []);
 

@@ -296,44 +296,50 @@ export default function YijianwuWebsite() {
     <main className="min-h-screen bg-[#F8F5F1] text-[#3F3A36]">
       <SiteNav />
 
-      {/* Hero 區塊 - 已更換為 LOGO 背景，字體已搭配星空暖調風格 */}
-      <section className="relative h-[100dvh] flex items-end justify-center pt-[calc(5.75rem+var(--site-nav-tagline-offset))] md:items-center md:pt-[calc(4rem+var(--site-nav-tagline-offset))] overflow-hidden">
+      {/* Hero：背景圖內建品牌標題，疊加副標與 CTA 固定於下半部 */}
+      <section className="relative h-[100dvh] overflow-hidden">
         <HeroBackground />
 
-        {/* 手機：內容下移至背景內建標題下方；桌面：維持置底排版 */}
-        <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center md:justify-end md:h-full pb-[max(4.5rem,env(safe-area-inset-bottom))] md:pb-28 pt-[30vh] md:pt-0 text-center">
-          <h1 className="sr-only">{HOME_H1_TEXT}</h1>
+        <div
+          className="relative z-10 flex h-full flex-col"
+          style={{ paddingTop: 'var(--site-nav-offset, 7.25rem)' }}
+        >
+          <div className="hero-logo-safe-zone flex-1 min-h-[28vh] sm:min-h-[32vh] md:min-h-[38vh]" aria-hidden />
 
-          <div className="mb-4 md:mb-5 w-full max-w-md px-4 py-2.5 md:px-6 md:py-3 rounded-2xl bg-black/35 md:bg-black/20 backdrop-blur-sm shadow-[0_8px_24px_rgba(0,0,0,0.25)]">
-            <p className="hero-subtitle text-base md:text-xl font-light tracking-[0.8px] md:tracking-[1.2px] text-[#F5E8C7] leading-snug md:leading-tight">
-              福隆民宿・新北海邊住宿　・　車站出站 30 秒
-            </p>
-          </div>
+          <div className="hero-content">
+            <h1 className="sr-only">{HOME_H1_TEXT}</h1>
 
-          {/* CTA 按鈕 - 更簡潔有力，顏色與 LOGO 暖調呼應 */}
-          <div className="flex flex-col sm:flex-row gap-2.5 justify-center">
-            <a
-              href="#booking"
-              className="px-7 py-3 bg-[#F5E8C7] text-[#3F3A36] rounded-full font-medium tracking-[0.5px] text-xs md:text-sm hover:bg-white transition-all active:scale-[0.985] shadow"
-            >
-              {BOOKING_CTA.jump}
-            </a>
-            <a href="#rooms" className="px-7 py-3 border border-[#F5E8C7]/60 text-[#F5E8C7] rounded-full font-medium tracking-[0.5px] text-xs md:text-sm hover:bg-[#F5E8C7] hover:text-[#3F3A36] transition-all active:scale-[0.985]">
-              查看房間
-            </a>
-            <a
-              href={BUSINESS_LINE.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-7 py-3 bg-[#00C300] hover:bg-[#00A000] text-white rounded-full font-medium tracking-[0.5px] text-xs md:text-sm transition-all active:scale-[0.985]"
-            >
-              LINE 門禁密碼
-            </a>
+            <div className="hero-subtitle-card">
+              <p className="hero-subtitle-line hero-subtitle-line--primary">福隆民宿・新北海邊住宿</p>
+              <p className="hero-subtitle-line hero-subtitle-line--secondary">福隆車站出站 30 秒</p>
+            </div>
+
+            <div className="hero-cta-group">
+              <a
+                href="#booking"
+                className="hero-cta-btn bg-[#F5E8C7] text-[#3F3A36] shadow hover:bg-white"
+              >
+                {BOOKING_CTA.jump}
+              </a>
+              <a
+                href="#rooms"
+                className="hero-cta-btn border border-[#F5E8C7]/65 text-[#F5E8C7] hover:bg-[#F5E8C7] hover:text-[#3F3A36]"
+              >
+                查看房間
+              </a>
+              <a
+                href={BUSINESS_LINE.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-cta-btn bg-[#00C300] text-white hover:bg-[#00A000]"
+              >
+                LINE 門禁密碼
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* 捲動提示 */}
-        <div className="absolute bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 text-[#F5E8C7]/40 text-[9px] tracking-[2.5px] pointer-events-none">
+        <div className="pointer-events-none absolute bottom-[max(0.75rem,env(safe-area-inset-bottom))] left-1/2 hidden -translate-x-1/2 text-[9px] tracking-[2.5px] text-[#F5E8C7]/35 sm:block">
           SCROLL TO EXPLORE
         </div>
       </section>
