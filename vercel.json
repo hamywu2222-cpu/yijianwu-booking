@@ -1,0 +1,22 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "yijianwu-booking.vercel.app" }],
+      "destination": "https://onehouse.asia/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "yijianwu-website.vercel.app" }],
+      "destination": "https://onehouse.asia/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.onehouse.asia" }],
+      "destination": "https://onehouse.asia/:path*",
+      "permanent": true
+    }
+  ]
+}

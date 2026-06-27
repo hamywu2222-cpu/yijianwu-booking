@@ -11,6 +11,9 @@ export const SITE_OG_IMAGE_HEIGHT = 853;
 export const OFFICIAL_BOOKING_PAGE_URL = 'https://onehouse.asia/booking';
 
 export const BUSINESS_NAME = '一間屋・駅前宿';
+export const BUSINESS_NAME_EN = 'OneHouse Backpacker';
+/** Schema / 對外完整品牌名（中英並列） */
+export const BUSINESS_DISPLAY_NAME = '一間屋・駅前宿 OneHouse Backpacker';
 export const BUSINESS_LEGAL_NAME = '一間屋民宿';
 export const BUSINESS_REGISTRATION = '新北市民宿152號';
 

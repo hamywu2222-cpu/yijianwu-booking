@@ -1,10 +1,12 @@
 import {
   BUSINESS_ADDRESS,
+  BUSINESS_DISPLAY_NAME,
   BUSINESS_FACEBOOK,
   BUSINESS_GEO,
   BUSINESS_HOURS,
   BUSINESS_LINE,
   BUSINESS_NAME,
+  BUSINESS_NAME_EN,
   BUSINESS_PHONE,
   BUSINESS_REGISTRATION,
   BUSINESS_ROOM_COUNT,
@@ -133,6 +135,8 @@ export function getLocalBusinessJsonLd() {
     name: BUSINESS_NAME,
     legalName: '一間屋民宿',
     alternateName: [
+      BUSINESS_DISPLAY_NAME,
+      BUSINESS_NAME_EN,
       '一間屋駅前宿',
       ...TOP5_REGIONAL_KEYWORDS,
       '福隆一間屋背包客棧',
@@ -231,9 +235,10 @@ export function getHotelJsonLd() {
       {
         '@type': 'Hotel',
         '@id': hotelId,
-        name: BUSINESS_NAME,
+        name: BUSINESS_DISPLAY_NAME,
+        alternateName: [BUSINESS_NAME, BUSINESS_NAME_EN, '一間屋駅前宿'],
         description:
-          '新北海邊福隆民宿，福隆車站出站30秒。5間日式客房，近福隆海水浴場，東北角旅遊住宿首選。',
+          '位於新北市貢寮區福隆的日式精品簡約民宿，福隆車站出站30秒，提供舒適住宿環境。5間日式客房，近福隆海水浴場，東北角旅遊住宿首選。',
         url,
         telephone: BUSINESS_PHONE.mobileE164,
         image: absoluteUrl(SITE_OG_IMAGE),
