@@ -231,7 +231,7 @@ export const LOCAL_SEO_KEYWORDS = [
 const MAP_COORDS = `${BUSINESS_GEO.latitude},${BUSINESS_GEO.longitude}`;
 
 /** Google 商家檔案正式連結（地址／地圖按鈕／導航統一導向） */
-export const GOOGLE_BUSINESS_PROFILE_URL = 'https://share.google/gZmGJacHY2yTCrH2i';
+export const GOOGLE_BUSINESS_PROFILE_URL = 'https://maps.app.goo.gl/Hp4it2im1FD88NbeA';
 
 export const BUSINESS_URLS = {
   googleMapsBusiness: GOOGLE_BUSINESS_PROFILE_URL,
