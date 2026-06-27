@@ -238,7 +238,22 @@
   }
 }
 
+.site-nav-mobile-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding-bottom: 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #6b665f;
+}
 
+@media (min-width: 400px) {
+  .site-nav-mobile-links {
+    gap: 1.5rem;
+  }
+}
 
 .site-footer-tagline-text {
   display: flex;

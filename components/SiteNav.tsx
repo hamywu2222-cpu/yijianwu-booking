@@ -143,6 +143,14 @@ export default function SiteNav() {
               </a>
             </div>
           </div>
+
+          <nav className="site-nav-mobile-links md:hidden" aria-label="主要導覽">
+            {NAV_LINKS.map(({ href, label }) => (
+              <a key={href} href={href} className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">
+                {label}
+              </a>
+            ))}
+          </nav>
         </div>
       </div>
     </header>
