@@ -228,20 +228,18 @@ export const LOCAL_SEO_KEYWORDS = [
   '舊草嶺隧道民宿',
 ] as const;
 
-const MAP_QUERY = encodeURIComponent(BUSINESS_ADDRESS.full);
 const MAP_COORDS = `${BUSINESS_GEO.latitude},${BUSINESS_GEO.longitude}`;
 
-/** Google 商家正式地圖網址（hasMap / sameAs 用） */
-const GOOGLE_MAPS_PLACE_URL =
-  'https://www.google.com/maps/place/@25.0158858,121.945463,17z/data=!4m6!3m5!1s0x345d5d00f311114b:0x9cc510218a9b628b!8m2!3d25.0158858!4d121.945463!16s%2Fg%2F1thq30lt';
+/** Google 商家檔案正式連結（地址／地圖按鈕／導航統一導向） */
+export const GOOGLE_BUSINESS_PROFILE_URL = 'https://share.google/gZmGJacHY2yTCrH2i';
 
 export const BUSINESS_URLS = {
-  googleMapsBusiness: GOOGLE_MAPS_PLACE_URL,
-  googleMapsShort: 'https://maps.app.goo.gl/qufazd7DVkdem2y37',
-  googleMapsSearch: `https://www.google.com/maps/search/?api=1&query=${MAP_QUERY}`,
-  googleMapsPlace: GOOGLE_MAPS_PLACE_URL,
+  googleMapsBusiness: GOOGLE_BUSINESS_PROFILE_URL,
+  googleMapsShort: GOOGLE_BUSINESS_PROFILE_URL,
+  googleMapsSearch: GOOGLE_BUSINESS_PROFILE_URL,
+  googleMapsPlace: GOOGLE_BUSINESS_PROFILE_URL,
   googleMapsEmbed: `https://maps.google.com/maps?q=${MAP_COORDS}&hl=zh-TW&z=17&output=embed`,
-  googleMapsDirections: `https://www.google.com/maps/dir/?api=1&destination=${MAP_COORDS}&travelmode=walking`,
+  googleMapsDirections: GOOGLE_BUSINESS_PROFILE_URL,
   facebook: BUSINESS_FACEBOOK.url,
 } as const;
 

@@ -12,7 +12,14 @@ export default function GoogleMapEmbed() {
         allowFullScreen
       />
       <div className="flex flex-col gap-2 border-t border-[#EDE8E0] bg-white px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-left text-xs text-[#6B665F]">{BUSINESS_ADDRESS.full}</p>
+        <a
+          href={BUSINESS_URLS.googleMapsPlace}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-left text-xs text-[#6B665F] hover:text-[#3F3A36] hover:underline"
+        >
+          {BUSINESS_ADDRESS.full}
+        </a>
         <div className="flex flex-wrap gap-2">
           <a
             href={BUSINESS_URLS.googleMapsDirections}
@@ -20,7 +27,7 @@ export default function GoogleMapEmbed() {
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center rounded-full bg-[#3F3A36] px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-[#2C2926]"
           >
-            Google 導航
+            Google 商家導航
           </a>
           <a
             href={BUSINESS_URLS.googleMapsBusiness}
