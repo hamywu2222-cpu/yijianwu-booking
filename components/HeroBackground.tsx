@@ -1,13 +1,14 @@
 'use client';
 
 import Image from 'next/image';
+import { getImageAlt } from '@/lib/imageAlt';
 
 export default function HeroBackground() {
   return (
     <div className="absolute inset-0">
       <Image
         src="/images/hero.jpg"
-        alt="一間屋・駅前宿｜福隆背包客棧與青年旅館 Logo 背景"
+        alt={getImageAlt('/images/hero.jpg')}
         fill
         priority
         sizes="100vw"

@@ -1,34 +1,41 @@
-import type { Metadata } from 'next';
 import Image from 'next/image';
 import { PageJsonLd } from '@/components/PageJsonLd';
 import { SeoSubPage } from '@/components/SeoSubPage';
 import { getImageAlt } from '@/lib/imageAlt';
+import { FULONG_SEO_KEYWORDS } from '@/lib/seo';
+import { buildPageMetadata } from '@/lib/seoMetadata';
 import { ROOM_PAGES } from '@/lib/seoPages';
-import { getRoomStructuredData } from '@/lib/structuredData';
+import { getBreadcrumbJsonLd, getRoomStructuredData } from '@/lib/structuredData';
 
 const page = ROOM_PAGES.double;
 
-export const metadata: Metadata = {
-  title: page.title,
-  description: page.description,
-  alternates: { canonical: page.path },
-  openGraph: {
-    title: page.title,
-    description: page.description,
-    url: page.path,
-    images: [{ url: page.image, alt: getImageAlt(page.image) }],
-  },
-};
+export const metadata = buildPageMetadata({
+  title: '和鳴雙人房｜福隆民宿近車站・出站30秒・平日$1,500',
+  description:
+    '福隆車站民宿和鳴雙人房，出站步行30秒。原木和式雅房共4間，平日$1,500、假日$1,600。2026全新裝潢，官網訂房享最大優惠。',
+  path: page.path,
+  keywords: [...FULONG_SEO_KEYWORDS.tier1, '福隆雙人房', '和鳴雙人房'],
+  ogImage: page.image,
+  ogImageAlt: getImageAlt(page.image),
+});
 
 export default function DoubleRoomPage() {
   const { room } = page;
 
   return (
     <>
-      <PageJsonLd data={getRoomStructuredData('double')} />
+      <PageJsonLd
+        data={[
+          getRoomStructuredData('double'),
+          getBreadcrumbJsonLd([
+            { name: '首頁', path: '/' },
+            { name: '和鳴雙人房', path: page.path },
+          ]),
+        ]}
+      />
       <SeoSubPage
         eyebrow="房型介紹"
-        title={page.title}
+        title="和鳴雙人房"
         description={page.description}
         sections={[
           {
@@ -43,7 +50,7 @@ export default function DoubleRoomPage() {
           {
             heading: '適合誰住',
             paragraphs: [
-              '情侶約會、好友出遊、獨旅背包客，或搭火車抵達福隆、想住車站旁安靜日式客房的旅人。福隆出站 30 秒即可入住，隔天可步行至海水浴場或騎舊草嶺隧道。',
+              '情侶、好友、獨旅或搭火車抵達福隆的旅人。福隆民宿近車站，出站30秒即可入住，隔天可步行至海水浴場或騎舊草嶺隧道。',
             ],
           },
         ]}

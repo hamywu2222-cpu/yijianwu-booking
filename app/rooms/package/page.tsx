@@ -1,35 +1,42 @@
-import type { Metadata } from 'next';
 import Image from 'next/image';
 import { PageJsonLd } from '@/components/PageJsonLd';
 import { SeoSubPage } from '@/components/SeoSubPage';
 import { PACKAGE_BOOKING } from '@/lib/business';
 import { getImageAlt } from '@/lib/imageAlt';
+import { FULONG_SEO_KEYWORDS } from '@/lib/seo';
+import { buildPageMetadata } from '@/lib/seoMetadata';
 import { ROOM_PAGES } from '@/lib/seoPages';
-import { getRoomStructuredData } from '@/lib/structuredData';
+import { getBreadcrumbJsonLd, getRoomStructuredData } from '@/lib/structuredData';
 
 const page = ROOM_PAGES.package;
 
-export const metadata: Metadata = {
-  title: page.title,
-  description: page.description,
-  alternates: { canonical: page.path },
-  openGraph: {
-    title: page.title,
-    description: page.description,
-    url: page.path,
-    images: [{ url: page.image, alt: getImageAlt(page.image) }],
-  },
-};
+export const metadata = buildPageMetadata({
+  title: '福隆包棟民宿｜全館5間包房・平日$8,800・近車站',
+  description:
+    '福隆包棟民宿一間屋·駅前宿：4間和鳴雙人房+1間家庭房，平日$8,800、假日$9,200。舒適12-14人，福隆車站出站30秒，適合團體與單車隊。',
+  path: page.path,
+  keywords: [...FULONG_SEO_KEYWORDS.tier2, '福隆包棟', '福隆包棟民宿'],
+  ogImage: page.image,
+  ogImageAlt: getImageAlt(page.image),
+});
 
 export default function PackageRoomPage() {
   const { section } = page;
 
   return (
     <>
-      <PageJsonLd data={getRoomStructuredData('package')} />
+      <PageJsonLd
+        data={[
+          getRoomStructuredData('package'),
+          getBreadcrumbJsonLd([
+            { name: '首頁', path: '/' },
+            { name: '包棟方案', path: page.path },
+          ]),
+        ]}
+      />
       <SeoSubPage
         eyebrow="包棟方案"
-        title={page.title}
+        title="福隆包棟・全館包房"
         description={page.description}
         sections={[
           {
@@ -49,7 +56,7 @@ export default function PackageRoomPage() {
           {
             heading: '適合誰訂',
             paragraphs: [
-              '家庭聚會、同學會、單車隊、公司員旅或想一次包下福隆車站旁整棟民宿的團體。出站 30 秒即可集合，騎車、玩水後直接回館休息。',
+              '家庭聚會、同學會、單車隊、公司員旅。福隆包棟民宿出站30秒即可集合，騎車玩水後直接回館休息。',
             ],
           },
         ]}

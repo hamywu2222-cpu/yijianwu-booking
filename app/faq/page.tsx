@@ -1,29 +1,34 @@
-import type { Metadata } from 'next';
 import { PageJsonLd } from '@/components/PageJsonLd';
 import { SeoSubPage } from '@/components/SeoSubPage';
+import { buildPageMetadata } from '@/lib/seoMetadata';
+import { FULONG_SEO_KEYWORDS } from '@/lib/seo';
 import { SITE_FAQ } from '@/lib/seoPages';
-import { getFaqStructuredData } from '@/lib/structuredData';
+import { getBreadcrumbJsonLd, getFaqStructuredData } from '@/lib/structuredData';
 
-export const metadata: Metadata = {
-  title: '常見問題 FAQ｜福隆一間屋・駅前宿訂房與入住',
+export const metadata = buildPageMetadata({
+  title: '常見問題｜福隆民宿訂房・LINE自助入住・包棟規則',
   description:
-    '一間屋・駅前宿訂房 FAQ：空房查詢、包棟規則、加人計費、入住退房時間、LINE 門禁密碼、行李寄放與從福隆車站步行 30 秒路線。',
-  alternates: { canonical: '/faq' },
-  openGraph: {
-    title: '常見問題 FAQ｜福隆一間屋・駅前宿',
-    description: '訂房、包棟、加人計費、入住資訊與福隆車站步行路線，一頁看懂。',
-    url: '/faq',
-  },
-};
+    '福隆民宿一間屋·駅前宿 FAQ：空房查詢、包棟規則、加人計費、入住退房、LINE自助入住門禁密碼、行李寄放、福隆車站步行30秒路線。',
+  path: '/faq',
+  keywords: [...FULONG_SEO_KEYWORDS.tier1, '福隆民宿 FAQ', 'LINE自助入住'],
+});
 
 export default function FaqPage() {
   return (
     <>
-      <PageJsonLd data={getFaqStructuredData()} />
+      <PageJsonLd
+        data={[
+          getFaqStructuredData(),
+          getBreadcrumbJsonLd([
+            { name: '首頁', path: '/' },
+            { name: '常見問題', path: '/faq' },
+          ]),
+        ]}
+      />
       <SeoSubPage
         eyebrow="FAQ"
-        title="常見問題"
-        description="關於訂房、房型、包棟、入住與福隆交通的常見疑問，整理如下供您參考。"
+        title="福隆民宿常見問題"
+        description="關於福隆住宿訂房、房型、包棟、LINE自助入住與交通的常見疑問。"
         sections={[]}
       >
         <div className="mt-10 space-y-8">

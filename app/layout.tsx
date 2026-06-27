@@ -10,7 +10,12 @@ import {
   SITE_OG_IMAGE_HEIGHT,
   SITE_OG_IMAGE_WIDTH,
 } from "@/lib/business";
-import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/structuredData";
+import {
+  HOME_PAGE_DESCRIPTION,
+  HOME_PAGE_TITLE,
+  SITE_SEO_KEYWORDS,
+} from "@/lib/seo";
+import { SITE_NAME } from "@/lib/structuredData";
 import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
 
@@ -34,22 +39,19 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-const PAGE_TITLE = "福隆車站步行30秒 | 一間屋 · 駅前宿・日式民宿";
+const SITE_KEYWORDS = [...SITE_SEO_KEYWORDS, ...LOCAL_SEO_KEYWORDS, "日式民宿", "一間屋"];
 
-const SITE_KEYWORDS = [
-  "福隆民宿",
-  "福隆車站民宿",
-  ...LOCAL_SEO_KEYWORDS,
-  "貢寮民宿",
-  "福隆住宿",
-  "日式民宿",
-  "一間屋",
-];
+const GOOGLE_VERIFICATION =
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ||
+  "IRMtM18ZuIvRPD1up4V9a6S_bbyeaZAvd46S1I8VtHQ";
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
-  title: PAGE_TITLE,
-  description: SITE_DESCRIPTION,
+  title: {
+    default: HOME_PAGE_TITLE,
+    template: "%s | 一間屋・駅前宿",
+  },
+  description: HOME_PAGE_DESCRIPTION,
   keywords: SITE_KEYWORDS,
   authors: [{ name: SITE_NAME }],
   alternates: {
@@ -60,8 +62,8 @@ export const metadata: Metadata = {
     locale: "zh_TW",
     url: "/",
     siteName: SITE_NAME,
-    title: PAGE_TITLE,
-    description: SITE_DESCRIPTION,
+    title: HOME_PAGE_TITLE,
+    description: HOME_PAGE_DESCRIPTION,
     images: [
       {
         url: SITE_OG_IMAGE,
@@ -73,15 +75,25 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: PAGE_TITLE,
-    description: SITE_DESCRIPTION,
+    title: HOME_PAGE_TITLE,
+    description: HOME_PAGE_DESCRIPTION,
     images: [SITE_OG_IMAGE],
   },
   verification: {
-    google: "IRMtM18ZuIvRPD1up4V9a6S_bbyeaZAvd46S1I8VtHQ",
+    google: GOOGLE_VERIFICATION,
   },
   icons: {
     icon: "/favicon.ico",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 

@@ -302,7 +302,7 @@ export default function YijianwuWebsite() {
         {/* 手機：內容下移至背景內建標題下方；桌面：維持置底排版 */}
         <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center md:justify-end md:h-full pb-[max(4.5rem,env(safe-area-inset-bottom))] md:pb-28 pt-[30vh] md:pt-0 text-center">
           <h1 className="sr-only">
-            一間屋・駅前宿｜福隆車站出站30秒・福隆背包客棧・新北貢寮住宿
+            福隆民宿一間屋・駅前宿｜福隆車站出站30秒・福隆住宿・福隆包棟・LINE自助入住
           </h1>
 
           <div className="mb-4 md:mb-5 w-full max-w-md px-4 py-2.5 md:px-6 md:py-3 rounded-2xl bg-black/35 md:bg-black/20 backdrop-blur-sm shadow-[0_8px_24px_rgba(0,0,0,0.25)]">
@@ -826,6 +826,7 @@ export default function YijianwuWebsite() {
             <a
               href="https://line.me/ti/p/@811mszbh"
               target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-7 py-3 border border-[#3F3A36] text-[#3F3A36] rounded-full text-sm font-medium hover:bg-[#3F3A36] hover:text-white transition-all"
             >
               LINE 私訊（請註明建站諮詢）
@@ -920,8 +921,10 @@ export default function YijianwuWebsite() {
               height={1280}
               className="max-h-[90vh] max-w-full h-auto w-auto object-contain rounded-lg shadow-2xl"
             />
-            <button 
+            <button
+              type="button"
               onClick={() => setModalImage(null)}
+              aria-label="關閉圖片預覽"
               className="absolute top-4 right-4 text-white bg-black/50 hover:bg-black/80 rounded-full w-10 h-10 flex items-center justify-center text-2xl"
             >
               ✕

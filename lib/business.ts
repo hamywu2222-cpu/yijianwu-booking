@@ -209,11 +209,16 @@ export const BUSINESS_ROOM_COUNT = 5;
 
 /** 在地 SEO 關鍵字（HTML 文案與 JSON-LD 共用） */
 export const LOCAL_SEO_KEYWORDS = [
+  '福隆民宿',
+  '福隆住宿',
+  '福隆車站民宿',
   '福隆青年旅館',
   '福隆背包客棧',
+  '福隆包棟民宿',
+  '福隆海水浴場住宿',
   '新北貢寮住宿',
   '草嶺古道住宿',
-  '福隆包棟民宿',
+  '舊草嶺隧道民宿',
 ] as const;
 
 const MAP_QUERY = encodeURIComponent(BUSINESS_ADDRESS.full);

@@ -14,12 +14,12 @@ import {
   ROOM_TYPES,
   SITE_OG_IMAGE,
 } from '@/lib/business';
+import { HOME_PAGE_DESCRIPTION } from '@/lib/seo';
 import { SITE_FAQ } from '@/lib/seoPages';
 import { absoluteUrl } from '@/lib/site';
 
 export const SITE_NAME = BUSINESS_NAME;
-export const SITE_DESCRIPTION =
-  '福隆車站旁 30 秒即抵！一間屋·駅前宿是鄰近草嶺古道的福隆背包客棧與青年旅館，提供新北貢寮住宿、一間屋包房優惠方案(5間)（舒適建議人數 12–14）與日式雅房，2026年全新裝潢，適合單車族、家庭或情侶入住。';
+export const SITE_DESCRIPTION = HOME_PAGE_DESCRIPTION;
 
 const AMENITIES = [
   '免費 WiFi',
@@ -238,16 +238,41 @@ export function getStructuredDataJsonLd() {
       },
       roomOffer(ROOM_TYPES[2]),
       ...touristAttractions,
+    ],
+  };
+}
+
+export function getBreadcrumbJsonLd(items: { name: string; path: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
+    })),
+  };
+}
+
+export function getFulongGuideStructuredData() {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      ...FULONG_ATTRACTIONS.map((spot) => ({
+        '@type': 'TouristAttraction',
+        '@id': `${absoluteUrl('/fulong')}#${spot.id}`,
+        name: spot.name,
+        description: spot.description,
+        url: spot.url,
+      })),
       {
-        '@type': 'FAQPage',
-        '@id': `${absoluteUrl('/faq')}#faq`,
-        mainEntity: SITE_FAQ.map((item) => ({
-          '@type': 'Question',
-          name: item.question,
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: item.answer,
-          },
+        '@type': 'ItemList',
+        name: '福隆周邊景點',
+        itemListElement: FULONG_ATTRACTIONS.map((spot, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          item: { '@id': `${absoluteUrl('/fulong')}#${spot.id}` },
         })),
       },
     ],
@@ -268,15 +293,29 @@ export function getFaqStructuredData() {
 
 export function getRoomStructuredData(slug: 'double' | 'family' | 'package') {
   const room = ROOM_TYPES.find((item) => item.slug === slug)!;
+  const bedType = slug === 'double' ? 'Twin' : slug === 'family' ? 'Queen' : undefined;
 
   return {
     '@context': 'https://schema.org',
     '@graph': [
       {
         '@type': 'HotelRoom',
+        '@id': `${absoluteUrl(room.path)}#room`,
         name: room.name,
         description: room.description,
         url: absoluteUrl(room.path),
+        image: absoluteUrl(SITE_OG_IMAGE),
+        ...(bedType
+          ? { bed: { '@type': 'BedDetails', typeOfBed: bedType } }
+          : {
+              numberOfRooms: BUSINESS_ROOM_COUNT,
+              occupancy: {
+                '@type': 'QuantitativeValue',
+                minValue: PACKAGE_BOOKING.comfortMin,
+                maxValue: PACKAGE_BOOKING.maxPeople,
+                unitText: '人',
+              },
+            }),
         containedInPlace: {
           '@type': 'Hotel',
           name: BUSINESS_NAME,
@@ -287,6 +326,20 @@ export function getRoomStructuredData(slug: 'double' | 'family' | 'package') {
           priceCurrency: 'TWD',
           price: room.weekdayPrice,
           url: absoluteUrl('/booking'),
+          priceSpecification: [
+            {
+              '@type': 'UnitPriceSpecification',
+              price: room.weekdayPrice,
+              priceCurrency: 'TWD',
+              name: '平日',
+            },
+            {
+              '@type': 'UnitPriceSpecification',
+              price: room.weekendPrice,
+              priceCurrency: 'TWD',
+              name: '假日',
+            },
+          ],
         },
       },
     ],
