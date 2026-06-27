@@ -8,6 +8,13 @@ import { BOOKING_CTA, BUSINESS_LINE, BUSINESS_PHONE } from '@/lib/business';
 
 const SCROLL_FADE_DISTANCE = 64;
 
+const NAV_LINKS = [
+  { href: '#about', label: '簡介' },
+  { href: '#rooms', label: '房間' },
+  { href: '#booking', label: '訂房' },
+  { href: '#location', label: '位置' },
+] as const;
+
 export default function SiteNav() {
   const headerRef = useRef<HTMLElement>(null);
   const taglineRef = useRef<HTMLDivElement>(null);
@@ -77,29 +84,22 @@ export default function SiteNav() {
           </div>
         </div>
 
-        <div className="max-w-6xl mx-auto px-4 md:px-6">
-          <div className="h-14 md:h-16 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 min-w-0 max-w-[46%] sm:max-w-none">
+        <div className="site-nav-inner">
+          <div className="site-nav-main">
+            <div className="site-nav-brand-slot">
               <CabinIcon variant="nav" />
               <NavBrandMark />
             </div>
 
-            <div className="hidden md:flex gap-7 text-sm font-medium">
-              <a href="#about" className="nav-link hover:text-[#8B7355] transition-colors">
-                簡介
-              </a>
-              <a href="#rooms" className="nav-link hover:text-[#8B7355] transition-colors">
-                房間
-              </a>
-              <a href="#booking" className="nav-link hover:text-[#8B7355] transition-colors">
-                訂房
-              </a>
-              <a href="#location" className="nav-link hover:text-[#8B7355] transition-colors">
-                位置
-              </a>
-            </div>
+            <nav className="site-nav-links-slot hidden md:flex" aria-label="主要導覽">
+              {NAV_LINKS.map(({ href, label }) => (
+                <a key={href} href={href} className="nav-link hover:text-[#8B7355] transition-colors">
+                  {label}
+                </a>
+              ))}
+            </nav>
 
-            <div className="flex items-center gap-2 md:gap-3 shrink-0">
+            <div className="site-nav-actions-slot">
               <a
                 href="#booking"
                 className="primary-booking-btn primary-booking-btn--compact md:hidden inline-flex items-center justify-center rounded-full px-3 py-2 text-[11px] tracking-wide whitespace-nowrap"
@@ -123,13 +123,13 @@ export default function SiteNav() {
               </a>
               <a
                 href={BUSINESS_PHONE.mobileHref}
-                className="hidden md:block text-sm text-[#8B7355] hover:text-[#3F3A36] transition-colors tracking-wider"
+                className="hidden md:block text-sm text-[#8B7355] hover:text-[#3F3A36] transition-colors tracking-wider whitespace-nowrap"
               >
                 📞 {BUSINESS_PHONE.mobile}
               </a>
               <a
                 href="#booking"
-                className="primary-booking-btn primary-booking-btn--compact hidden md:inline-flex items-center rounded-full px-5 py-2 text-xs tracking-wider"
+                className="primary-booking-btn primary-booking-btn--compact hidden md:inline-flex items-center rounded-full px-5 py-2 text-xs tracking-wider whitespace-nowrap"
               >
                 {BOOKING_CTA.jump}
               </a>
@@ -137,27 +137,20 @@ export default function SiteNav() {
                 href={BUSINESS_LINE.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden md:flex items-center gap-2 border border-[#00C300] text-[#00A300] text-xs px-5 py-2 rounded-full hover:bg-[#00C300] hover:text-white transition-all tracking-wider font-medium"
+                className="hidden md:flex items-center gap-2 border border-[#00C300] text-[#00A300] text-xs px-5 py-2 rounded-full hover:bg-[#00C300] hover:text-white transition-all tracking-wider font-medium whitespace-nowrap"
               >
                 LINE 門禁密碼
               </a>
             </div>
           </div>
 
-          <div className="md:hidden flex justify-center gap-5 pb-2.5 text-xs font-medium text-[#6B665F]">
-            <a href="#about" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">
-              簡介
-            </a>
-            <a href="#rooms" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">
-              房間
-            </a>
-            <a href="#booking" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">
-              訂房
-            </a>
-            <a href="#location" className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">
-              位置
-            </a>
-          </div>
+          <nav className="site-nav-mobile-links md:hidden" aria-label="主要導覽">
+            {NAV_LINKS.map(({ href, label }) => (
+              <a key={href} href={href} className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">
+                {label}
+              </a>
+            ))}
+          </nav>
         </div>
       </div>
     </header>

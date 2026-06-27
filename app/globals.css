@@ -163,6 +163,96 @@
   }
 }
 
+/* 導覽列：左品牌｜中導覽（對齊上方標語）｜右按鈕 */
+.site-nav-inner {
+  width: 100%;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 768px) {
+  .site-nav-inner {
+    padding-inline: 1.5rem;
+  }
+}
+
+.site-nav-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 0.75rem;
+  min-height: 3.5rem;
+}
+
+@media (min-width: 768px) {
+  .site-nav-main {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    column-gap: 1rem;
+    min-height: 4rem;
+  }
+}
+
+.site-nav-brand-slot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.375rem;
+  min-width: 0;
+}
+
+@media (min-width: 640px) {
+  .site-nav-brand-slot {
+    gap: 0.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .site-nav-brand-slot {
+    gap: 0.75rem;
+  }
+}
+
+.site-nav-links-slot {
+  justify-self: center;
+  align-items: center;
+  gap: 1.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6b665f;
+}
+
+.site-nav-actions-slot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .site-nav-actions-slot {
+    gap: 0.75rem;
+  }
+}
+
+.site-nav-mobile-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding-bottom: 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #6b665f;
+}
+
+@media (min-width: 400px) {
+  .site-nav-mobile-links {
+    gap: 1.5rem;
+  }
+}
+
 .site-footer-tagline-text {
   display: flex;
   align-items: center;
