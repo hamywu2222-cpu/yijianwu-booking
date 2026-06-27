@@ -21,6 +21,7 @@ import {
   ROOMS_SECTION,
 } from '@/lib/business';
 import { getImageAlt } from '@/lib/imageAlt';
+import { HOME_H1_TEXT } from '@/lib/seo';
 import {
   ABOUT_AMENITIES,
   FULONG_SECTION,
@@ -301,13 +302,11 @@ export default function YijianwuWebsite() {
 
         {/* 手機：內容下移至背景內建標題下方；桌面：維持置底排版 */}
         <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center md:justify-end md:h-full pb-[max(4.5rem,env(safe-area-inset-bottom))] md:pb-28 pt-[30vh] md:pt-0 text-center">
-          <h1 className="sr-only">
-            福隆民宿一間屋・駅前宿｜福隆車站出站30秒・福隆住宿・福隆包棟・LINE自助入住
-          </h1>
+          <h1 className="sr-only">{HOME_H1_TEXT}</h1>
 
           <div className="mb-4 md:mb-5 w-full max-w-md px-4 py-2.5 md:px-6 md:py-3 rounded-2xl bg-black/35 md:bg-black/20 backdrop-blur-sm shadow-[0_8px_24px_rgba(0,0,0,0.25)]">
             <p className="hero-subtitle text-base md:text-xl font-light tracking-[0.8px] md:tracking-[1.2px] text-[#F5E8C7] leading-snug md:leading-tight">
-              福隆車站步行 30 秒　・　日式溫潤的慢時光
+              福隆民宿・新北海邊住宿　・　車站出站 30 秒
             </p>
           </div>
 

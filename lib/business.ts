@@ -1,7 +1,8 @@
 /** 官網與 Google 商家共用的 NAP（名稱、地址、電話）單一來源 */
 /** 分享連結預覽圖（LINE / Facebook / iMessage 縮圖） */
 export const SITE_OG_IMAGE = '/images/hero.jpg';
-export const SITE_OG_IMAGE_ALT = '福隆車站步行30秒｜一間屋・駅前宿・日式民宿';
+export const SITE_OG_IMAGE_ALT =
+  '福隆民宿・新北海邊住宿｜一間屋駅前宿・福隆車站出站30秒・東北角民宿';
 /** 與 public/images/hero.jpg 實際尺寸一致，供 OG / Twitter meta 使用 */
 export const SITE_OG_IMAGE_WIDTH = 1280;
 export const SITE_OG_IMAGE_HEIGHT = 853;
@@ -210,13 +211,16 @@ export const BUSINESS_ROOM_COUNT = 5;
 /** 在地 SEO 關鍵字（HTML 文案與 JSON-LD 共用） */
 export const LOCAL_SEO_KEYWORDS = [
   '福隆民宿',
+  '新北海邊住宿',
+  '福隆海水浴場住宿',
+  '福隆車站住宿',
+  '東北角民宿',
   '福隆住宿',
   '福隆車站民宿',
-  '福隆青年旅館',
-  '福隆背包客棧',
-  '福隆包棟民宿',
-  '福隆海水浴場住宿',
+  '貢寮民宿',
   '新北貢寮住宿',
+  '福隆青年旅館',
+  '福隆包棟民宿',
   '草嶺古道住宿',
   '舊草嶺隧道民宿',
 ] as const;

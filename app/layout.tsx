@@ -14,6 +14,7 @@ import {
   HOME_PAGE_DESCRIPTION,
   HOME_PAGE_TITLE,
   SITE_SEO_KEYWORDS,
+  TOP5_REGIONAL_KEYWORDS,
 } from "@/lib/seo";
 import { SITE_NAME } from "@/lib/structuredData";
 import { getSiteUrl } from "@/lib/site";
@@ -39,7 +40,13 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-const SITE_KEYWORDS = [...SITE_SEO_KEYWORDS, ...LOCAL_SEO_KEYWORDS, "日式民宿", "一間屋"];
+const SITE_KEYWORDS = [
+  ...TOP5_REGIONAL_KEYWORDS,
+  ...SITE_SEO_KEYWORDS,
+  ...LOCAL_SEO_KEYWORDS,
+  "日式民宿",
+  "一間屋",
+];
 
 const GOOGLE_VERIFICATION =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ||

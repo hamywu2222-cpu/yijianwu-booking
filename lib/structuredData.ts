@@ -14,7 +14,7 @@ import {
   ROOM_TYPES,
   SITE_OG_IMAGE,
 } from '@/lib/business';
-import { HOME_PAGE_DESCRIPTION } from '@/lib/seo';
+import { HOME_PAGE_DESCRIPTION, TOP5_REGIONAL_KEYWORDS } from '@/lib/seo';
 import { SITE_FAQ } from '@/lib/seoPages';
 import { absoluteUrl } from '@/lib/site';
 
@@ -58,7 +58,7 @@ function roomOffer(room: (typeof ROOM_TYPES)[number]) {
         name: '假日',
       },
     ],
-    seller: { '@id': `${siteUrl()}#organization` },
+    seller: { '@id': `${siteUrl()}#localbusiness` },
   };
 }
 
@@ -93,129 +93,161 @@ const touristAttractions = FULONG_ATTRACTIONS.map((spot) => ({
   isAccessibleForFree: spot.id === 'fulong-beach',
 }));
 
-/** 全站 JSON-LD（LocalBusiness + Hotel + Room + Offer + TouristAttraction + FAQ） */
-export function getStructuredDataJsonLd() {
+const postalAddress = {
+  '@type': 'PostalAddress' as const,
+  streetAddress: BUSINESS_ADDRESS.street,
+  addressLocality: BUSINESS_ADDRESS.locality,
+  addressRegion: BUSINESS_ADDRESS.region,
+  postalCode: BUSINESS_ADDRESS.postalCode,
+  addressCountry: BUSINESS_ADDRESS.country,
+};
+
+const geoCoordinates = {
+  '@type': 'GeoCoordinates' as const,
+  latitude: BUSINESS_GEO.latitude,
+  longitude: BUSINESS_GEO.longitude,
+};
+
+export function getWebSiteJsonLd() {
   const url = siteUrl();
-  const orgId = `${url}#organization`;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${url}#website`,
+    url,
+    name: BUSINESS_NAME,
+    description: SITE_DESCRIPTION,
+    inLanguage: 'zh-TW',
+    publisher: { '@id': `${url}#localbusiness` },
+  };
+}
+
+/** 獨立 LocalBusiness + LodgingBusiness（本地搜尋 / Google 地圖 rich results） */
+export function getLocalBusinessJsonLd() {
+  const url = siteUrl();
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': ['LocalBusiness', 'LodgingBusiness', 'BedAndBreakfast'],
+    '@id': `${url}#localbusiness`,
+    name: BUSINESS_NAME,
+    legalName: '一間屋民宿',
+    alternateName: [
+      '一間屋駅前宿',
+      ...TOP5_REGIONAL_KEYWORDS,
+      '福隆一間屋背包客棧',
+      '新北民宿',
+    ],
+    slogan: '福隆車站出站30秒・新北海邊日式住宿',
+    description: SITE_DESCRIPTION,
+    url,
+    telephone: BUSINESS_PHONE.mobileE164,
+    image: [
+      absoluteUrl(SITE_OG_IMAGE),
+      absoluteUrl('/images/scenery/fulong-station.jpg'),
+      absoluteUrl('/images/scenery/fulong-beach-aerial.jpg'),
+    ],
+    logo: absoluteUrl(SITE_OG_IMAGE),
+    priceRange: 'NT$1500+',
+    numberOfRooms: BUSINESS_ROOM_COUNT,
+    checkinTime: BUSINESS_HOURS.checkIn,
+    checkoutTime: BUSINESS_HOURS.checkOut,
+    currenciesAccepted: 'TWD',
+    paymentAccepted: 'Cash, Bank Transfer, Credit Card',
+    identifier: {
+      '@type': 'PropertyValue',
+      name: '合法民宿登記',
+      value: BUSINESS_REGISTRATION,
+    },
+    address: postalAddress,
+    geo: geoCoordinates,
+    hasMap: BUSINESS_URLS.googleMapsBusiness,
+    areaServed: [
+      { '@type': 'City', name: '貢寮區', containedInPlace: { '@type': 'State', name: '新北市' } },
+      { '@type': 'State', name: '新北市', containedInPlace: { '@type': 'Country', name: '台灣' } },
+    ],
+    knowsAbout: [...TOP5_REGIONAL_KEYWORDS, '舊草嶺隧道', '草嶺古道', '單車友善住宿'],
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        opens: BUSINESS_HOURS.contact.opens,
+        closes: BUSINESS_HOURS.contact.closes,
+      },
+    ],
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        telephone: BUSINESS_PHONE.mobileE164,
+        contactType: 'reservations',
+        availableLanguage: ['zh-TW', 'en', 'ja'],
+        areaServed: 'TW',
+      },
+    ],
+    amenityFeature: AMENITIES.map((name) => ({
+      '@type': 'LocationFeatureSpecification',
+      name,
+      value: true,
+    })),
+    sameAs: [BUSINESS_LINE.url, BUSINESS_FACEBOOK.url, BUSINESS_URLS.googleMapsBusiness],
+    potentialAction: {
+      '@type': 'ReserveAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: absoluteUrl('/booking'),
+        actionPlatform: [
+          'http://schema.org/DesktopWebPlatform',
+          'http://schema.org/MobileWebPlatform',
+        ],
+      },
+      result: {
+        '@type': 'LodgingReservation',
+        name: '一間屋・駅前宿訂房',
+      },
+    },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: '一間屋房型與價格',
+      itemListElement: ROOM_TYPES.map((room, index) => ({
+        '@type': 'Offer',
+        position: index + 1,
+        name: room.name,
+        price: room.weekdayPrice,
+        priceCurrency: 'TWD',
+        url: absoluteUrl(room.path),
+      })),
+    },
+  };
+}
+
+/** 獨立 Hotel + HotelRoom + Offer + 周邊景點（住宿 rich results） */
+export function getHotelJsonLd() {
+  const url = siteUrl();
   const hotelId = `${url}#hotel`;
 
   return {
     '@context': 'https://schema.org',
     '@graph': [
       {
-        '@type': 'WebSite',
-        '@id': `${url}#website`,
-        url,
-        name: BUSINESS_NAME,
-        description: SITE_DESCRIPTION,
-        inLanguage: 'zh-TW',
-        publisher: { '@id': orgId },
-      },
-      {
-        '@type': ['LocalBusiness', 'LodgingBusiness', 'Hotel'],
-        '@id': orgId,
-        name: BUSINESS_NAME,
-        legalName: '一間屋民宿',
-        alternateName: [
-          '一間屋駅前宿',
-          '福隆民宿',
-          '福隆車站民宿',
-          '福隆一間屋背包客棧',
-        ],
-        description: SITE_DESCRIPTION,
-        url,
-        telephone: BUSINESS_PHONE.mobileE164,
-        image: [
-          absoluteUrl(SITE_OG_IMAGE),
-          absoluteUrl('/images/scenery/fulong-station.jpg'),
-        ],
-        logo: absoluteUrl(SITE_OG_IMAGE),
-        priceRange: 'NT$1500+',
-        numberOfRooms: BUSINESS_ROOM_COUNT,
-        checkinTime: BUSINESS_HOURS.checkIn,
-        checkoutTime: BUSINESS_HOURS.checkOut,
-        currenciesAccepted: 'TWD',
-        paymentAccepted: 'Cash, Bank Transfer',
-        identifier: {
-          '@type': 'PropertyValue',
-          name: '合法民宿登記',
-          value: BUSINESS_REGISTRATION,
-        },
-        address: {
-          '@type': 'PostalAddress',
-          streetAddress: BUSINESS_ADDRESS.street,
-          addressLocality: BUSINESS_ADDRESS.locality,
-          addressRegion: BUSINESS_ADDRESS.region,
-          postalCode: BUSINESS_ADDRESS.postalCode,
-          addressCountry: BUSINESS_ADDRESS.country,
-        },
-        geo: {
-          '@type': 'GeoCoordinates',
-          latitude: BUSINESS_GEO.latitude,
-          longitude: BUSINESS_GEO.longitude,
-        },
-        hasMap: BUSINESS_URLS.googleMapsBusiness,
-        openingHoursSpecification: [
-          {
-            '@type': 'OpeningHoursSpecification',
-            dayOfWeek: [
-              'Monday',
-              'Tuesday',
-              'Wednesday',
-              'Thursday',
-              'Friday',
-              'Saturday',
-              'Sunday',
-            ],
-            opens: BUSINESS_HOURS.contact.opens,
-            closes: BUSINESS_HOURS.contact.closes,
-          },
-        ],
-        contactPoint: [
-          {
-            '@type': 'ContactPoint',
-            telephone: BUSINESS_PHONE.mobileE164,
-            contactType: 'reservations',
-            availableLanguage: ['zh-TW', 'en', 'ja'],
-            areaServed: 'TW',
-          },
-        ],
-        amenityFeature: AMENITIES.map((name) => ({
-          '@type': 'LocationFeatureSpecification',
-          name,
-          value: true,
-        })),
-        sameAs: [
-          BUSINESS_LINE.url,
-          BUSINESS_FACEBOOK.url,
-          BUSINESS_URLS.googleMapsBusiness,
-        ],
-        makesOffer: ROOM_TYPES.map((room) => ({ '@id': `${absoluteUrl(room.path)}#offer` })),
-        containsPlace: { '@id': hotelId },
-      },
-      {
         '@type': 'Hotel',
         '@id': hotelId,
         name: BUSINESS_NAME,
-        description: '福隆駅前合法民宿，5 間客房含和鳴雙人房與和風家庭房。',
+        description:
+          '新北海邊福隆民宿，福隆車站出站30秒。5間日式客房，近福隆海水浴場，東北角旅遊住宿首選。',
         url,
         telephone: BUSINESS_PHONE.mobileE164,
-        address: {
-          '@type': 'PostalAddress',
-          streetAddress: BUSINESS_ADDRESS.street,
-          addressLocality: BUSINESS_ADDRESS.locality,
-          addressRegion: BUSINESS_ADDRESS.region,
-          postalCode: BUSINESS_ADDRESS.postalCode,
-          addressCountry: BUSINESS_ADDRESS.country,
-        },
-        geo: {
-          '@type': 'GeoCoordinates',
-          latitude: BUSINESS_GEO.latitude,
-          longitude: BUSINESS_GEO.longitude,
-        },
+        image: absoluteUrl(SITE_OG_IMAGE),
+        logo: absoluteUrl(SITE_OG_IMAGE),
+        priceRange: 'NT$1500+',
+        checkinTime: BUSINESS_HOURS.checkIn,
+        checkoutTime: BUSINESS_HOURS.checkOut,
+        address: postalAddress,
+        geo: geoCoordinates,
+        hasMap: BUSINESS_URLS.googleMapsBusiness,
+        parentOrganization: { '@id': `${url}#localbusiness` },
         containsPlace: ROOM_TYPES.map((room) => ({ '@id': `${absoluteUrl(room.path)}#room` })),
         nearbyAttraction: touristAttractions.map((a) => ({ '@id': a['@id'] })),
-        parentOrganization: { '@id': orgId },
+        makesOffer: ROOM_TYPES.map((room) => ({ '@id': `${absoluteUrl(room.path)}#offer` })),
       },
       hotelRoomSchema(ROOM_TYPES[0], 'Twin', 3),
       roomOffer(ROOM_TYPES[0]),
@@ -239,6 +271,14 @@ export function getStructuredDataJsonLd() {
       roomOffer(ROOM_TYPES[2]),
       ...touristAttractions,
     ],
+  };
+}
+
+/** @deprecated 請改用 getWebSiteJsonLd / getLocalBusinessJsonLd / getHotelJsonLd */
+export function getStructuredDataJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [getWebSiteJsonLd(), getLocalBusinessJsonLd(), getHotelJsonLd()],
   };
 }
 
