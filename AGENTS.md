@@ -7,7 +7,7 @@
 |------|------|
 | 專案名稱 | 一間屋民宿官網 |
 | 路徑 | `C:\Users\aaron\Desktop\yijianwu-website` |
-| 正式站 | https://yijianwu-booking.vercel.app |
+| 正式站 | https://onehouse.asia |
 | GitHub | hamywu2222-cpu/yijianwu-booking |
 
 ## 預設行為（保護是什麼）

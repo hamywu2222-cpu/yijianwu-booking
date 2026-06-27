@@ -892,6 +892,14 @@ export default function YijianwuWebsite() {
             >
               Google 地圖查看
             </a>
+            <nav className="flex flex-wrap justify-center md:justify-start gap-x-3 gap-y-1 pt-2 text-xs" aria-label="延伸閱讀">
+              <a href="/fulong" className="hover:text-[#3F3A36] hover:underline">福隆怎麼玩</a>
+              <a href="/faq" className="hover:text-[#3F3A36] hover:underline">常見問題</a>
+              <a href="/renovation" className="hover:text-[#3F3A36] hover:underline">2026 裝潢</a>
+              <a href="/rooms/double" className="hover:text-[#3F3A36] hover:underline">和鳴雙人房</a>
+              <a href="/rooms/family" className="hover:text-[#3F3A36] hover:underline">家庭房</a>
+              <a href="/rooms/package" className="hover:text-[#3F3A36] hover:underline">包棟方案</a>
+            </nav>
           </div>
           <div className="text-xs text-[#8B7355]/70 md:text-right">© {new Date().getFullYear()} {BUSINESS_NAME}</div>
           </div>

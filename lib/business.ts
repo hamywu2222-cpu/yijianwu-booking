@@ -7,7 +7,7 @@ export const SITE_OG_IMAGE_WIDTH = 1280;
 export const SITE_OG_IMAGE_HEIGHT = 853;
 
 /** Google 商家「查詢空房」、對外正式訂房頁（請用此網址，勿用首頁 /#booking） */
-export const OFFICIAL_BOOKING_PAGE_URL = 'https://yijianwu-booking.vercel.app/booking';
+export const OFFICIAL_BOOKING_PAGE_URL = 'https://onehouse.asia/booking';
 
 export const BUSINESS_NAME = '一間屋・駅前宿';
 export const BUSINESS_LEGAL_NAME = '一間屋民宿';
@@ -233,7 +233,55 @@ export const BUSINESS_URLS = {
   facebook: BUSINESS_FACEBOOK.url,
 } as const;
 
-/** Google 商家後台可直接貼上的簡介（750 字內） */
+/** Schema.org 房型與價格 — 官網與 JSON-LD 單一來源 */
+export const ROOM_TYPES = [
+  {
+    slug: 'double' as const,
+    name: '和鳴雙人房',
+    description:
+      '簡約和式雅房，木質溫潤、寧靜留白。2026 年 5 月全新裝潢，適合情侶、好友或獨旅。',
+    weekdayPrice: 1500,
+    weekendPrice: 1600,
+    path: '/rooms/double',
+  },
+  {
+    slug: 'family' as const,
+    name: '和風4-6人家庭房',
+    description:
+      '寬敞和風家庭房，空間從容、采光舒適。適合家庭與好友小團體，在福隆住得自在安靜。',
+    weekdayPrice: 3000,
+    weekendPrice: 3200,
+    path: '/rooms/family',
+  },
+  {
+    slug: 'package' as const,
+    name: '一間屋包房優惠方案',
+    description:
+      '一次打包全館 5 間空間，適合家庭聚會、團體旅遊、單車隊或公司行號包棟。',
+    weekdayPrice: 8800,
+    weekendPrice: 9200,
+    path: '/rooms/package',
+  },
+] as const;
+
+/** Schema.org 周邊景點 — 福隆海水浴場、舊草嶺隧道 */
+export const FULONG_ATTRACTIONS = [
+  {
+    id: 'fulong-beach',
+    name: '福隆海水浴場',
+    description:
+      '從一間屋步行約 8 分鐘即可抵達，金色沙灣與湛藍海線是福隆最具代表性的海灘。',
+    url: 'https://www.necoast-nsa.gov.tw/',
+  },
+  {
+    id: 'caoling-tunnel',
+    name: '舊草嶺隧道',
+    description:
+      '台灣第一條鐵路隧道，單車約 15 分鐘即可抵達，是舊草嶺隧道環狀線經典路段。',
+    url: 'https://www.necoast-nsa.gov.tw/',
+  },
+] as const;
+
 export const GMB_DESCRIPTION = `福隆車站出站右轉步行 30 秒即達。一間屋・駅前宿（合法登記：${BUSINESS_REGISTRATION}）提供日式雅房與家庭房，2026 年全新裝潢，環境乾淨舒適。
 
 ・和鳴雙人房 平日 NT$1,500 / 假日 NT$1,600（共 4 間）
