@@ -72,9 +72,13 @@ function AvailabilityHighlight() {
         </span>
         <div className="min-w-0 text-left">
           <p className="text-sm font-semibold text-[#3F3A36]">{availabilityHighlight.title}</p>
-          <p className="mt-1.5 text-sm font-medium leading-relaxed text-[#3F3A36]">
-            {availabilityHighlight.body}
-          </p>
+          <ol className="mt-2 space-y-1.5 pl-4 list-decimal text-sm font-medium leading-relaxed text-[#3F3A36] marker:text-[#8B7355]">
+            {availabilityHighlight.steps.map((step) => (
+              <li key={step} className="pl-1">
+                {step}
+              </li>
+            ))}
+          </ol>
           <p className="mt-2 text-xs text-[#8B7355]">{availabilityHighlight.note}</p>
         </div>
       </div>
