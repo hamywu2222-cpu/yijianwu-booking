@@ -12,10 +12,6 @@ export const IMAGE_ALT: Record<string, string> = {
     '新北海邊住宿翻新現場 福隆民宿木作泥作同步施工',
   '/images/double_room.jpg':
     '福隆民宿和鳴雙人房 福隆車站出站30秒 一間屋駅前宿和式雅房實景',
-  '/images/ROOMS/photo_2026-05-29_01-01-09.jpg':
-    '福隆民宿和鳴雙人房實景 一間屋駅前宿和式木質雅房全景',
-  '/images/ROOMS/photo_2026-05-29_01-01-14.jpg':
-    '福隆車站住宿和鳴雙人房 一間屋暖色床單木質床架特寫',
   '/images/ROOMS/photo_2026-06-01_04-05-50.jpg':
     '福隆民宿雙人房內部 新北海邊住宿一間屋和式空間',
   '/images/ROOMS/photo_2026-06-01_04-05-56.jpg':
@@ -24,12 +20,6 @@ export const IMAGE_ALT: Record<string, string> = {
     '福隆車站出站30秒 一間屋和鳴雙人房木質地板實景',
   '/images/ROOMS/photo_2026-06-01_04-13-50.jpg':
     '福隆民宿雙人房細節 東北角民宿一間屋暖色燈光空間',
-  '/images/ROOMS/photo_2026-06-24_00-46-46.jpg':
-    '福隆海水浴場住宿推薦 和鳴雙人房一間屋客房實景',
-  '/images/ROOMS/photo_2026-06-24_00-46-47.jpg':
-    '福隆民宿和鳴雙人房側視角 一間屋和式雅房配置',
-  '/images/ROOMS/photo_2026-06-24_00-46-49.jpg':
-    '福隆民宿雙人房門口視角 新北海邊住宿一間屋客房入口',
   '/images/photo_2026-06-18_02-06-05.jpg':
     '福隆海水浴場住宿推薦 一間屋和風4至6人家庭房 兩張雙人床日式空間',
   '/images/facilities.jpg':
