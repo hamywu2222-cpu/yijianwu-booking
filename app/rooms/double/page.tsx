@@ -61,7 +61,7 @@ export default function DoubleRoomPage() {
             images={DOUBLE_ROOM_IMAGES}
             label={ROOM_VIDEOS.double.label}
             priority
-            className="aspect-[16/10] rounded-none"
+            className="rounded-none"
           />
         </div>
       </SeoSubPage>

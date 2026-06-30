@@ -49,7 +49,7 @@ export default function RoomImageCarousel({
   if (images.length === 0) return null;
 
   return (
-    <div className={`room-media relative aspect-[16/10] bg-[#EDE8E0] ${className}`}>
+    <div className={`room-media relative aspect-[3/4] bg-[#EDE8E0] ${className}`}>
       <div
         ref={trackRef}
         onScroll={updateActiveIndex}
@@ -70,17 +70,13 @@ export default function RoomImageCarousel({
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               priority={priority && index === 0}
-              className="object-cover"
+              className="object-contain"
             />
           </div>
         ))}
       </div>
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/15" />
-
-      <div className="pointer-events-none absolute left-3 top-3 rounded-full bg-black/45 px-3 py-1 text-[10px] tracking-wider text-white backdrop-blur-sm">
-        {label}
-      </div>
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/35 to-transparent" />
 
       <div className="pointer-events-none absolute right-3 top-3 rounded-full bg-black/45 px-2.5 py-1 text-[10px] tracking-wider text-white backdrop-blur-sm">
         {activeIndex + 1} / {images.length}
