@@ -3,6 +3,9 @@
 import Image from 'next/image';
 import { useCallback, useRef, useState } from 'react';
 import { getImageAlt } from '@/lib/imageAlt';
+import { DOUBLE_ROOM_GALLERY, getDoubleRoomImageShift } from '@/lib/media';
+
+type RoomGalleryItem = (typeof DOUBLE_ROOM_GALLERY)[number];
 
 type RoomImageCarouselProps = {
   images: readonly string[];
@@ -10,6 +13,10 @@ type RoomImageCarouselProps = {
   priority?: boolean;
   className?: string;
 };
+
+const GALLERY_BY_SRC = new Map<string, RoomGalleryItem>(
+  DOUBLE_ROOM_GALLERY.map((item) => [item.src, item]),
+);
 
 export default function RoomImageCarousel({
   images,
@@ -57,23 +64,33 @@ export default function RoomImageCarousel({
         aria-label={`${label}照片`}
         aria-roledescription="carousel"
       >
-        {images.map((src, index) => (
-          <div
-            key={src}
-            className="relative h-full w-full shrink-0 snap-start snap-always"
-            aria-roledescription="slide"
-            aria-label={`${index + 1} / ${images.length}`}
-          >
-            <Image
-              src={src}
-              alt={getImageAlt(src)}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority={priority && index === 0}
-              className="object-cover object-top"
-            />
-          </div>
-        ))}
+        {images.map((src, index) => {
+          const galleryItem = GALLERY_BY_SRC.get(src);
+          const shiftPercent = galleryItem ? getDoubleRoomImageShift(galleryItem) : 0;
+
+          return (
+            <div
+              key={src}
+              className="relative h-full w-full shrink-0 snap-start snap-always overflow-hidden"
+              aria-roledescription="slide"
+              aria-label={`${index + 1} / ${images.length}`}
+            >
+              <Image
+                src={src}
+                alt={getImageAlt(src)}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority={priority && index === 0}
+                className="object-cover object-top"
+                style={
+                  shiftPercent
+                    ? { transform: `translateY(-${shiftPercent}%)` }
+                    : undefined
+                }
+              />
+            </div>
+          );
+        })}
       </div>
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/35 to-transparent" />

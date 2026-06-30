@@ -46,14 +46,43 @@ export const SCENERY_IMAGES: SceneryItem[] = [
   },
 ];
 
-/** 和鳴雙人房實景照片 — public/images/ROOMS */
-/** 順序依圖片標註：和鳴雙人房 A → B → C → D */
-export const DOUBLE_ROOM_IMAGES = [
-  '/images/ROOMS/photo_2026-06-01_04-05-50.jpg', // A
-  '/images/ROOMS/photo_2026-06-01_04-06-01.jpg', // B
-  '/images/ROOMS/photo_2026-06-01_04-13-50.jpg', // C
-  '/images/ROOMS/photo_2026-06-01_04-05-56.jpg', // D
+/** 和鳴雙人房實景照片 — public/images/ROOMS（順序 A → B → C → D） */
+export const DOUBLE_ROOM_GALLERY = [
+  {
+    src: '/images/ROOMS/photo_2026-06-01_04-05-50.jpg',
+    width: 973,
+    height: 1280,
+    labelTop: 240,
+  },
+  {
+    src: '/images/ROOMS/photo_2026-06-01_04-06-01.jpg',
+    width: 977,
+    height: 1280,
+    labelTop: 286,
+  },
+  {
+    src: '/images/ROOMS/photo_2026-06-01_04-13-50.jpg',
+    width: 962,
+    height: 1280,
+    labelTop: 253,
+  },
+  {
+    src: '/images/ROOMS/photo_2026-06-01_04-05-56.jpg',
+    width: 966,
+    height: 1280,
+    labelTop: 217,
+  },
 ] as const;
+
+export const DOUBLE_ROOM_IMAGES = DOUBLE_ROOM_GALLERY.map((item) => item.src);
+
+/** 滿版顯示時，將圖內標籤頂部對齊相框上緣 */
+export function getDoubleRoomImageShift(item: (typeof DOUBLE_ROOM_GALLERY)[number]) {
+  const containerAspect = 16 / 10;
+  const scaleRatio = item.height / item.width / containerAspect;
+  const labelTopRatio = item.labelTop / item.height;
+  return labelTopRatio * scaleRatio * 100;
+}
 
 export const ROOM_VIDEOS = {
   double: {
