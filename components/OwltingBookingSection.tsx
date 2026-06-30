@@ -2,7 +2,14 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { AIRBNB_BOOKING, BOOKING_CTA, BUSINESS_LINE, OWLNEST_BOOKING } from '@/lib/business';
+import {
+  AIRBNB_BOOKING,
+  BOOKING_CTA,
+  BUSINESS_LINE,
+  OWLNEST_BOOKING,
+  PACKAGE_ADULTS_FIELD_NOTE,
+  PACKAGE_BOOKING,
+} from '@/lib/business';
 import { buildOwlNestBookingUrl } from '@/lib/owlnest';
 
 function formatLocalDate(date: Date) {
@@ -205,13 +212,13 @@ export default function OwltingBookingSection() {
               id="owlnest-adults"
               type="number"
               min={1}
-              max={20}
+              max={PACKAGE_BOOKING.maxPeople}
               value={adults}
               onChange={(e) => setAdults(e.target.value)}
               className={inputClass}
             />
             <p className="mt-1.5 text-[10px] text-[#8B7355] leading-relaxed">
-              包房超過 14 人：請填 14 人下單，並於奧丁丁備註寫實際人數（超出每人 +600，最多 19 人）
+              {PACKAGE_ADULTS_FIELD_NOTE}
             </p>
           </div>
         </div>

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 
-import { BUSINESS_LINE } from '@/lib/business';
+import { BUSINESS_LINE, PACKAGE_FORM_PEOPLE_HINT } from '@/lib/business';
 
 const LINE_URL = BUSINESS_LINE.url;
 const LINE_ID = BUSINESS_LINE.id;
@@ -39,8 +39,7 @@ const ROOM_TYPES: RoomTypeConfig[] = [
     value: '包房方案',
     label: '一間屋包房優惠方案(5間)（4間和鳴雙人房+1間和風4-6人家庭房，衛浴共用，舒適建議人數 12–14）— 平日 NT$8,800 / 假日 NT$9,200（價格固定，特殊活動日另詢）',
     maxPeople: 30,
-    peopleHint:
-      '舒適建議 12–14 人，最多 19 人。超過 14 人請填 14 人下單，備註寫實際共幾人（超出每人 +NT$600）',
+    peopleHint: PACKAGE_FORM_PEOPLE_HINT,
   },
   {
     value: MULTI_ROOM_TYPE,

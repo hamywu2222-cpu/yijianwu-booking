@@ -69,10 +69,16 @@ export const PACKAGE_BOOKING = {
   comfortMax: 14,
   /** 奧丁丁下單時超過舒適人數，人數欄請填此值 */
   orderAdultCap: 14,
-  maxPeople: 19,
+  maxPeople: 18,
   extraPerPerson: 600,
   remarkExample: '實際共 16 人，超出 14 人 2 人',
 } as const;
+
+/** 奧丁丁人數欄位下方說明 — 官網訂房表單共用 */
+export const PACKAGE_ADULTS_FIELD_NOTE = `包房超過 ${PACKAGE_BOOKING.orderAdultCap} 人：請填 ${PACKAGE_BOOKING.orderAdultCap} 人下單，並於奧丁丁備註寫實際人數（超出每人 +${PACKAGE_BOOKING.extraPerPerson}，最多 ${PACKAGE_BOOKING.maxPeople} 人）`;
+
+/** 舊版 Google 表單包房人數說明 — BookingForm 共用 */
+export const PACKAGE_FORM_PEOPLE_HINT = `舒適建議 ${PACKAGE_BOOKING.comfortMin}–${PACKAGE_BOOKING.comfortMax} 人，最多 ${PACKAGE_BOOKING.maxPeople} 人。超過 ${PACKAGE_BOOKING.orderAdultCap} 人請填 ${PACKAGE_BOOKING.orderAdultCap} 人下單，備註寫實際共幾人（超出每人 +NT$${PACKAGE_BOOKING.extraPerPerson}）`;
 
 /** 房型區塊文案 — 官網單一來源 */
 export const ROOMS_SECTION = {

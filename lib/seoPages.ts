@@ -90,7 +90,7 @@ export const ROOM_PAGES = {
     description: `福隆一間屋全館包房（5 間）：4 間和鳴雙人房 + 1 間和風家庭房。平日 NT$8,800、假日 NT$9,200，舒適建議 ${PACKAGE_BOOKING.comfortMin}–${PACKAGE_BOOKING.comfortMax} 人，適合包棟、團體與單車隊。`,
     section: PACKAGE_SECTION,
     image: '/images/facilities.jpg',
-    maxOccupancy: 19,
+    maxOccupancy: PACKAGE_BOOKING.maxPeople,
   },
 } as const;
 
