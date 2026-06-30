@@ -129,7 +129,7 @@ export const OWLNEST_BOOKING = {
       ],
     },
     booking: {
-      title: '訂房小提醒',
+      title: '訂房小提醒與包房規則',
       availabilityHighlight: {
         title: '有空房嗎？進訂房頁一看就知道',
         body: '點下方「點我訂房最高優惠」進入訂房頁後，若看得到房型且可以選擇，就代表當天有空房，請直接完成預訂。',
@@ -137,11 +137,6 @@ export const OWLNEST_BOOKING = {
       },
       lines: [
         '想包房（全館 5 間）請滑到最下方選擇；若無選項代表當天已被分開預訂。',
-      ],
-    },
-    package: {
-      title: '包棟規則與奧丁丁下單步驟',
-      lines: [
         `人數限制｜舒適建議 ${PACKAGE_BOOKING.comfortMin}–${PACKAGE_BOOKING.comfortMax} 人，最多收 ${PACKAGE_BOOKING.maxPeople} 人。`,
       ],
       stepsTitle: '超過 14 人下單三步驟：',
