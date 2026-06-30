@@ -61,7 +61,6 @@ export const DOUBLE_ROOM_IMAGES = [
 export const FAMILY_ROOM_IMAGES = [
   '/images/4-6ROOMS/photo_2026-06-30_21-55-08.jpg',
   '/images/4-6ROOMS/photo_2026-06-30_21-55-00.jpg',
-  '/images/4-6ROOMS/photo_2026-06-30_21-55-04.jpg',
 ] as const;
 
 export const ROOM_VIDEOS = {
