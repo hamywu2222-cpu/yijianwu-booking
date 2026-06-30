@@ -75,7 +75,7 @@ export const PACKAGE_BOOKING = {
 } as const;
 
 /** 奧丁丁人數欄位下方說明 — 官網訂房表單共用 */
-export const PACKAGE_ADULTS_FIELD_NOTE = `包房超過 ${PACKAGE_BOOKING.orderAdultCap} 人：請填 ${PACKAGE_BOOKING.orderAdultCap} 人下單，並於奧丁丁備註寫實際人數（超出每人 +${PACKAGE_BOOKING.extraPerPerson}，最多 ${PACKAGE_BOOKING.maxPeople} 人）`;
+export const PACKAGE_ADULTS_FIELD_NOTE = `包房超過 ${PACKAGE_BOOKING.orderAdultCap} 人：請填 ${PACKAGE_BOOKING.orderAdultCap} 人下單，並於備註寫實際人數（超出每人 +${PACKAGE_BOOKING.extraPerPerson}，最多 ${PACKAGE_BOOKING.maxPeople} 人）`;
 
 /** 舊版 Google 表單包房人數說明 — BookingForm 共用 */
 export const PACKAGE_FORM_PEOPLE_HINT = `舒適建議 ${PACKAGE_BOOKING.comfortMin}–${PACKAGE_BOOKING.comfortMax} 人，最多 ${PACKAGE_BOOKING.maxPeople} 人。超過 ${PACKAGE_BOOKING.orderAdultCap} 人請填 ${PACKAGE_BOOKING.orderAdultCap} 人下單，備註寫實際共幾人（超出每人 +NT$${PACKAGE_BOOKING.extraPerPerson}）`;
@@ -140,7 +140,7 @@ export const OWLNEST_BOOKING = {
         title: '有空房嗎？進訂房頁一看就知道',
         steps: [
           '先在下方選好入住、退房日期與人數。',
-          '點「點我訂房最高優惠」進入奧丁丁選房頁面。',
+          '點「點我訂房最高優惠」進入選房頁面。',
           '若看得到房型且可以選擇，代表當天有空房，請直接完成預訂。',
         ],
         note: '若完全找不到可選房型，表示當天已售完。',
@@ -151,7 +151,7 @@ export const OWLNEST_BOOKING = {
       ],
       stepsTitle: '超過 14 人下單三步驟：',
       steps: [
-        '奧丁丁人數請選 14 人直接完成訂房。',
+        '下單時人數請選 14 人直接完成訂房。',
         '備註欄註明實際總人數（例：實際共 16 人，超出 2 人）。',
         `超出 14 人的部分，每多 1 人現場 +$${PACKAGE_BOOKING.extraPerPerson}。`,
       ],

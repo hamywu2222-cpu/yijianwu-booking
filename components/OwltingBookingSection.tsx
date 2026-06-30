@@ -229,7 +229,7 @@ export default function OwltingBookingSection() {
 
         {isReady ? (
           <p className="mb-3 rounded-2xl border border-[#E8DFD2] bg-[#F8F5F1] px-4 py-2.5 text-center text-xs text-[#6B665F]">
-            將帶入奧丁丁訂房頁：<span className="font-medium text-[#3F3A36]">{searchSummary}</span>
+            將帶入訂房頁：<span className="font-medium text-[#3F3A36]">{searchSummary}</span>
           </p>
         ) : (
           <p className="mb-3 text-center text-xs text-[#8B7355]">請先選擇入住與退房日期</p>
