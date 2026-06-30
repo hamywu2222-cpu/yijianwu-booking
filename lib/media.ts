@@ -53,7 +53,6 @@ export const DOUBLE_ROOM_IMAGES = [
   '/images/ROOMS/photo_2026-06-30_20-32-21.jpg',
   '/images/ROOMS/photo_2026-06-30_20-32-24.jpg',
   '/images/ROOMS/photo_2026-06-30_20-32-27.jpg',
-  '/images/ROOMS/photo_2026-06-30_20-32-29.jpg',
   '/images/ROOMS/photo_2026-06-30_20-32-32.jpg',
 ] as const;
 
