@@ -28,11 +28,11 @@ export const IMAGE_ALT: Record<string, string> = {
     '福隆海水浴場住宿推薦 和鳴雙人房一間屋客房實景',
   '/images/photo_2026-06-18_02-06-05.jpg':
     '福隆海水浴場住宿推薦 一間屋和風4至6人家庭房 兩張雙人床日式空間',
-  '/images/4-6ROOMS/photo_2026-06-30_21-07-24.jpg':
+  '/images/4-6ROOMS/photo_2026-06-30_21-55-00.jpg':
     '福隆民宿和風4至6人家庭房實景 一間屋兩張雙人床日式空間',
-  '/images/4-6ROOMS/photo_2026-06-30_21-07-32.jpg':
+  '/images/4-6ROOMS/photo_2026-06-30_21-55-04.jpg':
     '福隆車站住宿家庭房 一間屋駅前宿寬敞和風客房',
-  '/images/4-6ROOMS/photo_2026-06-30_21-11-18.jpg':
+  '/images/4-6ROOMS/photo_2026-06-30_21-55-08.jpg':
     '新北海邊住宿和風家庭房 福隆民宿一間屋暖色燈光空間',
   '/images/facilities.jpg':
     '東北角民宿一間屋 公共交誼區行李空間 福隆單車友善停放',
