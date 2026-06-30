@@ -152,15 +152,15 @@ export const OWLNEST_BOOKING = {
 
 /** 官網訂房按鈕與說明文案（單一來源） */
 export const BOOKING_CTA = {
-  jump: '官網訂房享最高優惠',
+  jump: '點我訂房最高優惠',
   /** 手機固定列等窄空間用 */
-  jumpShort: '官網訂房',
-  action: '官網訂房享最高優惠',
+  jumpShort: '點我訂房最高優惠',
+  action: '點我訂房最高優惠',
   intro: '選好日期與人數，即可查空房、選房型並完成付款（含包房優惠方案，舒適建議人數 12–14）。',
   note: '點擊後在新分頁完成訂房與刷卡',
   sectionTitle: '線上訂房付款',
   sectionSubtitle: '選日期與人數，查空房、選房型並完成付款',
-  package: '包房付款',
+  package: '點我訂房最高優惠',
 } as const;
 
 export const BUSINESS_FACEBOOK = {

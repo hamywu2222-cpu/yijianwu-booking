@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
+import { BOOKING_CTA } from '@/lib/business';
 
 type Section = {
   heading: string;
@@ -22,7 +23,7 @@ export function SeoSubPage({
   title,
   description,
   sections,
-  ctaLabel = '立即訂房',
+  ctaLabel = BOOKING_CTA.jump,
   ctaHref = '/booking',
   children,
 }: SeoSubPageProps) {
