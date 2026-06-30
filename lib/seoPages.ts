@@ -79,7 +79,7 @@ export const ROOM_PAGES = {
     description:
       '福隆車站旁和風 4–6 人家庭房，兩張雙人床、寬敞日式空間。平日 NT$3,000 起、假日 NT$3,200 起，適合家庭與小團體入住。',
     room: ROOMS_SECTION.family,
-    image: '/images/4-6ROOMS/photo_2026-06-30_21-55-00.jpg',
+    image: '/images/4-6ROOMS/photo_2026-06-30_21-55-08.jpg',
     maxOccupancy: 6,
     bed: '2 張雙人床',
   },
