@@ -143,12 +143,6 @@ export const OWLNEST_BOOKING = {
         '想包房（全館 5 間）請滑到最下方選擇；若無選項代表當天已被分開預訂。',
         `人數限制｜舒適建議 ${PACKAGE_BOOKING.comfortMin}–${PACKAGE_BOOKING.comfortMax} 人，最多收 ${PACKAGE_BOOKING.maxPeople} 人。`,
       ],
-      stepsTitle: '超過 14 人下單三步驟：',
-      steps: [
-        '下單時人數請選 14 人直接完成訂房。',
-        '備註欄註明實際總人數（例：實際共 16 人，超出 2 人）。',
-        `超出 14 人的部分，每多 1 人現場 +$${PACKAGE_BOOKING.extraPerPerson}。`,
-      ],
     },
   },
 } as const;

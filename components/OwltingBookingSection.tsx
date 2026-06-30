@@ -96,14 +96,6 @@ function OwlNestAvailabilityTips() {
       <div>
         <p className={sectionTitleClass}>{booking.title}</p>
         <OwlNestTipList items={booking.lines} />
-        <p className="mt-2 text-sm font-medium text-[#3F3A36]">{booking.stepsTitle}</p>
-        <ol className="mt-1.5 space-y-1.5 pl-5 list-decimal marker:text-[#8B7355]">
-          {booking.steps.map((step) => (
-            <li key={step} className="pl-1">
-              {step}
-            </li>
-          ))}
-        </ol>
       </div>
     </div>
   );
