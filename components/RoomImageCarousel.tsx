@@ -70,7 +70,7 @@ export default function RoomImageCarousel({
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               priority={priority && index === 0}
-              className="object-contain"
+              className="object-cover object-top"
             />
           </div>
         ))}
