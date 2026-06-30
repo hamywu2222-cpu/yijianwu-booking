@@ -68,7 +68,7 @@ export const ROOM_PAGES = {
     description:
       '福隆車站步行 30 秒的和鳴雙人房，原木和式雅房共 4 間。平日 NT$1,500、假日 NT$1,600，適合情侶、好友與獨旅，2026 年全新裝潢。',
     room: ROOMS_SECTION.double,
-    image: '/images/double_room.jpg',
+    image: '/images/ROOMS/photo_2026-05-29_01-01-09.jpg',
     maxOccupancy: 3,
     bed: '2 張單人床',
   },

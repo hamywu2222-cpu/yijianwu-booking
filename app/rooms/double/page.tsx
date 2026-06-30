@@ -1,7 +1,8 @@
-import Image from 'next/image';
 import { PageJsonLd } from '@/components/PageJsonLd';
+import RoomImageCarousel from '@/components/RoomImageCarousel';
 import { SeoSubPage } from '@/components/SeoSubPage';
 import { getImageAlt } from '@/lib/imageAlt';
+import { DOUBLE_ROOM_IMAGES, ROOM_VIDEOS } from '@/lib/media';
 import { FULONG_SEO_KEYWORDS } from '@/lib/seo';
 import { buildPageMetadata } from '@/lib/seoMetadata';
 import { ROOM_PAGES } from '@/lib/seoPages';
@@ -55,14 +56,14 @@ export default function DoubleRoomPage() {
           },
         ]}
       >
-        <Image
-          src={page.image}
-          alt={getImageAlt(page.image)}
-          width={960}
-          height={640}
-          priority
-          className="mt-10 w-full rounded-2xl border border-[#e8e0d4] object-cover"
-        />
+        <div className="mt-10 overflow-hidden rounded-2xl border border-[#e8e0d4]">
+          <RoomImageCarousel
+            images={DOUBLE_ROOM_IMAGES}
+            label={ROOM_VIDEOS.double.label}
+            priority
+            className="aspect-[16/10] rounded-none"
+          />
+        </div>
       </SeoSubPage>
     </>
   );

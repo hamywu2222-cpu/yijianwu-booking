@@ -46,9 +46,22 @@ export const SCENERY_IMAGES: SceneryItem[] = [
   },
 ];
 
+/** 和鳴雙人房實景照片 — public/images/ROOMS */
+export const DOUBLE_ROOM_IMAGES = [
+  '/images/ROOMS/photo_2026-05-29_01-01-09.jpg',
+  '/images/ROOMS/photo_2026-05-29_01-01-14.jpg',
+  '/images/ROOMS/photo_2026-06-01_04-05-50.jpg',
+  '/images/ROOMS/photo_2026-06-01_04-05-56.jpg',
+  '/images/ROOMS/photo_2026-06-01_04-06-01.jpg',
+  '/images/ROOMS/photo_2026-06-01_04-13-50.jpg',
+  '/images/ROOMS/photo_2026-06-24_00-46-46.jpg',
+  '/images/ROOMS/photo_2026-06-24_00-46-47.jpg',
+  '/images/ROOMS/photo_2026-06-24_00-46-49.jpg',
+] as const;
+
 export const ROOM_VIDEOS = {
   double: {
-    poster: '/images/double_room.jpg',
+    poster: DOUBLE_ROOM_IMAGES[0],
     label: '和鳴 · 雙人房實景',
     sources: ['/videos/double-room-1.mp4', '/videos/double-room-2.mp4', '/videos/family-room-1.mp4'],
   },

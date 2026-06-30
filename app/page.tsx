@@ -8,6 +8,7 @@ import OwltingBookingSection from '@/components/OwltingBookingSection';
 import HeroBackground from '@/components/HeroBackground';
 import BrandTagline from '@/components/BrandTagline';
 import SiteNav from '@/components/SiteNav';
+import RoomImageCarousel from '@/components/RoomImageCarousel';
 import RoomVideoPlayer from '@/components/RoomVideoPlayer';
 import SceneryGallery from '@/components/SceneryGallery';
 import {
@@ -27,6 +28,7 @@ import {
   ABOUT_AMENITIES,
   FULONG_SECTION,
   OUTDOOR_FRIENDLY,
+  DOUBLE_ROOM_IMAGES,
   ROOM_VIDEOS,
   SCENERY_IMAGES,
   WEB_DEV_FEATURES,
@@ -374,11 +376,10 @@ export default function YijianwuWebsite() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* 和鳴雙人房 */}
             <div className="card group border border-[#EDE8E0] rounded-3xl overflow-hidden bg-white">
-              <RoomVideoPlayer
-                poster={ROOM_VIDEOS.double.poster}
-                posterAlt={getImageAlt(ROOM_VIDEOS.double.poster)}
+              <RoomImageCarousel
+                images={DOUBLE_ROOM_IMAGES}
                 label={ROOM_VIDEOS.double.label}
-                sources={ROOM_VIDEOS.double.sources}
+                priority
               />
               <div className="p-5 md:p-8">
                 <div className="mb-4 space-y-2">
