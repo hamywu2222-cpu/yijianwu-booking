@@ -694,3 +694,18 @@ input:focus, select:focus, textarea:focus {
     cursor: not-allowed !important;
   }
 }
+
+.google-reviews-track {
+  scrollbar-width: thin;
+  scrollbar-color: #d1c9be transparent;
+}
+
+.google-review-card {
+  width: min(100%, 20rem);
+}
+
+@media (min-width: 768px) {
+  .google-review-card {
+    width: 18rem;
+  }
+}

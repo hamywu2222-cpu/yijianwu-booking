@@ -17,8 +17,16 @@ export const BUSINESS_DISPLAY_NAME = '一間屋・駅前宿 OneHouse Backpacker'
 export const BUSINESS_LEGAL_NAME = '一間屋民宿';
 export const BUSINESS_REGISTRATION = '新北市民宿152號';
 
-/** Google 商家／地圖正式名稱 */
-export const BUSINESS_MAPS_NAME = '福隆一間屋背包客棧';
+/** Google 商家／地圖正式名稱（駅前宿檔案，非舊版「背包客棧 Area」） */
+export const BUSINESS_MAPS_NAME =
+  '福隆出站30秒｜一間屋·駅前宿 OneHouse Backpacker';
+
+/** Google Places API 正式 Place ID（對應 Google Travel 商家檔案） */
+export const GOOGLE_PLACE_ID = 'ChIJN2tYluJdXTQRD288urUGwmM';
+
+/** Google Travel 評價頁（客人分享／查看全部評價用） */
+export const GOOGLE_TRAVEL_REVIEWS_URL =
+  'https://www.google.com/travel/hotels/entity/CgoIj97x0dvWgeFjEAE/reviews';
 
 export const BUSINESS_ADDRESS = {
   full: '新北市貢寮區福隆街2巷1-2號',

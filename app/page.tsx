@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useState, type ReactNode } from 'react';
 import GoogleMapEmbed from '@/components/GoogleMapEmbed';
+import GoogleReviews from '@/components/GoogleReviews';
 import OwltingBookingSection from '@/components/OwltingBookingSection';
 import HeroBackground from '@/components/HeroBackground';
 import BrandTagline from '@/components/BrandTagline';
@@ -533,6 +534,20 @@ export default function YijianwuWebsite() {
         </div>
 
         <OwltingBookingSection />
+      </section>
+
+      {/* Google 評價 */}
+      <section id="reviews" className="bg-[#F8F5F1] py-16 scroll-mt-28 md:scroll-mt-20 border-t border-[#EDE8E0]">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center px-6 mb-10">
+            <div className="text-[#8B7355] text-xs tracking-[4px] mb-3">留言板</div>
+            <h2 className="text-4xl font-light tracking-tight mb-3">旅客怎麼說</h2>
+            <p className="mx-auto max-w-lg text-sm text-[#6B665F] leading-relaxed">
+              來自 Google 商家的真實評價，左右滑動瀏覽；想留言請點「到 Google 寫評論」。
+            </p>
+          </div>
+          <GoogleReviews />
+        </div>
       </section>
 
       {/* 福隆風景 — 住這裡，風景就在門外 */}
