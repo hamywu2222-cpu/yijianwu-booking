@@ -57,6 +57,13 @@ export const DOUBLE_ROOM_IMAGES = [
   '/images/ROOMS/photo_2026-06-30_20-32-32.jpg',
 ] as const;
 
+/** 和風 4–6 人家庭房實景照片 — public/images/4-6ROOMS */
+export const FAMILY_ROOM_IMAGES = [
+  '/images/4-6ROOMS/photo_2026-06-30_21-07-24.jpg',
+  '/images/4-6ROOMS/photo_2026-06-30_21-07-32.jpg',
+  '/images/4-6ROOMS/photo_2026-06-30_21-11-18.jpg',
+] as const;
+
 export const ROOM_VIDEOS = {
   double: {
     poster: DOUBLE_ROOM_IMAGES[0],
@@ -64,7 +71,7 @@ export const ROOM_VIDEOS = {
     sources: ['/videos/double-room-1.mp4', '/videos/double-room-2.mp4', '/videos/family-room-1.mp4'],
   },
   family: {
-    poster: '/images/photo_2026-06-18_02-06-05.jpg',
+    poster: FAMILY_ROOM_IMAGES[0],
     label: '和風4-6人家庭房實景',
     sources: ['/videos/family-room-2.mp4'],
   },

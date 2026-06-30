@@ -9,7 +9,6 @@ import HeroBackground from '@/components/HeroBackground';
 import BrandTagline from '@/components/BrandTagline';
 import SiteNav from '@/components/SiteNav';
 import RoomImageCarousel from '@/components/RoomImageCarousel';
-import RoomVideoPlayer from '@/components/RoomVideoPlayer';
 import SceneryGallery from '@/components/SceneryGallery';
 import {
   BOOKING_CTA,
@@ -29,6 +28,7 @@ import {
   FULONG_SECTION,
   OUTDOOR_FRIENDLY,
   DOUBLE_ROOM_IMAGES,
+  FAMILY_ROOM_IMAGES,
   ROOM_VIDEOS,
   SCENERY_IMAGES,
   WEB_DEV_FEATURES,
@@ -411,13 +411,11 @@ export default function YijianwuWebsite() {
               </div>
             </div>
 
-            {/* 和風4-6人家庭房（僅此1間，兩張雙人床） - 已更新新照片 */}
+            {/* 和風4-6人家庭房（僅此1間，兩張雙人床） */}
             <div className="card group border border-[#EDE8E0] rounded-3xl overflow-hidden bg-white">
-              <RoomVideoPlayer
-                poster={ROOM_VIDEOS.family.poster}
-                posterAlt={getImageAlt(ROOM_VIDEOS.family.poster)}
+              <RoomImageCarousel
+                images={FAMILY_ROOM_IMAGES}
                 label={ROOM_VIDEOS.family.label}
-                sources={ROOM_VIDEOS.family.sources}
               />
               <div className="p-5 md:p-8">
                 <div className="mb-4 space-y-2">
