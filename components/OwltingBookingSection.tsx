@@ -51,12 +51,37 @@ function OwlNestTipList({ items }: { items: readonly string[] }) {
   );
 }
 
+function AvailabilityHighlight() {
+  const { availabilityHighlight } = OWLNEST_BOOKING.sections.booking;
+
+  return (
+    <div className="rounded-2xl border-2 border-[#8B7355]/35 bg-white px-4 py-3.5 shadow-sm">
+      <div className="flex items-start gap-3">
+        <span
+          className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#F5E8C7] text-base"
+          aria-hidden
+        >
+          ✓
+        </span>
+        <div className="min-w-0 text-left">
+          <p className="text-sm font-semibold text-[#3F3A36]">{availabilityHighlight.title}</p>
+          <p className="mt-1.5 text-sm font-medium leading-relaxed text-[#3F3A36]">
+            {availabilityHighlight.body}
+          </p>
+          <p className="mt-2 text-xs text-[#8B7355]">{availabilityHighlight.note}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function OwlNestAvailabilityTips() {
   const { guest, booking, package: packageSection } = OWLNEST_BOOKING.sections;
   const sectionTitleClass = 'text-xs font-medium tracking-widest text-[#8B7355] mb-2';
 
   return (
     <div className="rounded-2xl border border-[#E8DFD2] bg-[#FFFCF8] px-4 py-3 text-sm text-[#6B665F] leading-relaxed space-y-3">
+      <AvailabilityHighlight />
       <div>
         <p className={sectionTitleClass}>{guest.title}</p>
         <OwlNestTipList items={guest.lines} />
