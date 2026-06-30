@@ -87,17 +87,13 @@ function AvailabilityHighlight() {
 }
 
 function OwlNestAvailabilityTips() {
-  const { guest, booking } = OWLNEST_BOOKING.sections;
+  const { booking } = OWLNEST_BOOKING.sections;
   const sectionTitleClass = 'text-xs font-medium tracking-widest text-[#8B7355] mb-2';
 
   return (
     <div className="rounded-2xl border border-[#E8DFD2] bg-[#FFFCF8] px-4 py-3 text-sm text-[#6B665F] leading-relaxed space-y-3">
       <AvailabilityHighlight />
       <div>
-        <p className={sectionTitleClass}>{guest.title}</p>
-        <OwlNestTipList items={guest.lines} />
-      </div>
-      <div className="border-t border-[#E8DFD2] pt-3">
         <p className={sectionTitleClass}>{booking.title}</p>
         <OwlNestTipList items={booking.lines} />
         <p className="mt-2 text-sm font-medium text-[#3F3A36]">{booking.stepsTitle}</p>

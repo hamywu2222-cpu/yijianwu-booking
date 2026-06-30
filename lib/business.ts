@@ -127,13 +127,6 @@ export const PACKAGE_SECTION = {
 export const OWLNEST_BOOKING = {
   url: 'https://www.booking-owlnest.com/yijianwu?lang=zh_TW&adult=1&child=0&infant=0',
   sections: {
-    guest: {
-      title: '人數與房型說明（請確認人數後再訂房）',
-      lines: [
-        '和鳴雙人房｜建議 2 人。平日 $1,500 / 假日 $1,600。可加 1 人（+$600，含日式軟墊/枕頭/毯子）。',
-        '4–6人家庭房｜4 人起：平日 $3,000 / 假日 $3,200，每加 1 人 +$600（超過 6 人請斟酌）。',
-      ],
-    },
     booking: {
       title: '訂房小提醒與包房規則',
       availabilityHighlight: {
