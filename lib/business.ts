@@ -128,7 +128,6 @@ export const OWLNEST_BOOKING = {
   url: 'https://www.booking-owlnest.com/yijianwu?lang=zh_TW&adult=1&child=0&infant=0',
   sections: {
     booking: {
-      title: '訂房小提醒與包房規則',
       availabilityHighlight: {
         title: '有空房嗎？進訂房頁一看就知道',
         steps: [
@@ -139,9 +138,6 @@ export const OWLNEST_BOOKING = {
         ],
         note: '若找不到可選房型，表示當天該房型已被預訂。',
       },
-      lines: [
-        '想包房（全館 5 間）請滑到最下方選擇；若無選項代表當天已被分開預訂。',
-      ],
     },
   },
 } as const;

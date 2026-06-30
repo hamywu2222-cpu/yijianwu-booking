@@ -45,19 +45,6 @@ function AirbnbClassicMark() {
   );
 }
 
-function OwlNestTipList({ items }: { items: readonly string[] }) {
-  return (
-    <ul className="space-y-1.5">
-      {items.map((tip) => (
-        <li key={tip} className="flex gap-2">
-          <span className="text-[#8B7355] shrink-0">·</span>
-          <span>{tip}</span>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 function AvailabilityHighlight() {
   const { availabilityHighlight } = OWLNEST_BOOKING.sections.booking;
 
@@ -87,16 +74,9 @@ function AvailabilityHighlight() {
 }
 
 function OwlNestAvailabilityTips() {
-  const { booking } = OWLNEST_BOOKING.sections;
-  const sectionTitleClass = 'text-xs font-medium tracking-widest text-[#8B7355] mb-2';
-
   return (
-    <div className="rounded-2xl border border-[#E8DFD2] bg-[#FFFCF8] px-4 py-3 text-sm text-[#6B665F] leading-relaxed space-y-3">
+    <div className="rounded-2xl border border-[#E8DFD2] bg-[#FFFCF8] px-4 py-3 text-sm text-[#6B665F] leading-relaxed">
       <AvailabilityHighlight />
-      <div>
-        <p className={sectionTitleClass}>{booking.title}</p>
-        <OwlNestTipList items={booking.lines} />
-      </div>
     </div>
   );
 }
