@@ -56,12 +56,13 @@ export default function DoubleRoomPage() {
           },
         ]}
       >
-        <RoomImageCarousel
-          images={DOUBLE_ROOM_IMAGES}
-          label={ROOM_VIDEOS.double.label}
-          priority
-          className="mt-10"
-        />
+        <div className="mt-10 overflow-hidden rounded-2xl border border-[#e8e0d4]">
+          <RoomImageCarousel
+            images={DOUBLE_ROOM_IMAGES}
+            label={ROOM_VIDEOS.double.label}
+            priority
+          />
+        </div>
       </SeoSubPage>
     </>
   );
