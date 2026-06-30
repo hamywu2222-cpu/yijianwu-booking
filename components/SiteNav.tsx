@@ -11,8 +11,8 @@ const SCROLL_FADE_DISTANCE = 64;
 const NAV_LINKS = [
   { href: '#about', label: '簡介' },
   { href: '#rooms', label: '房間' },
-  { href: '#booking', label: '訂房' },
   { href: '#reviews', label: '留言板' },
+  { href: '#booking', label: '訂房' },
   { href: '#location', label: '位置' },
 ] as const;
 

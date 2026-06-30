@@ -30,37 +30,34 @@ function ReviewCard({ review }: { review: GoogleReviewsPayload['reviews'][number
 
   return (
     <article className="google-review-card shrink-0 snap-start">
-      <div className="flex h-full flex-col rounded-3xl border border-[#EDE8E0] bg-white p-5 shadow-sm">
-        <div className="mb-4 flex items-center gap-3">
+      <div className="flex h-full flex-col rounded-2xl border border-[#EDE8E0] bg-white p-3.5 shadow-sm">
+        <div className="mb-2 flex items-center gap-2.5">
           {review.profilePhotoUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={review.profilePhotoUrl}
               alt=""
-              width={40}
-              height={40}
-              className="h-10 w-10 rounded-full object-cover"
+              width={32}
+              height={32}
+              className="h-8 w-8 rounded-full object-cover"
               loading="lazy"
               referrerPolicy="no-referrer"
             />
           ) : (
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F8F5F1] text-sm font-medium text-[#8B7355]">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#F8F5F1] text-xs font-medium text-[#8B7355]">
               {initial}
             </div>
           )}
-          <div className="min-w-0">
-            <p className="truncate text-sm font-medium text-[#3F3A36]">{review.authorName}</p>
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-xs font-medium text-[#3F3A36]">{review.authorName}</p>
             {review.relativeTime ? (
-              <p className="text-xs text-[#8B7355]">{review.relativeTime}</p>
+              <p className="text-[10px] text-[#8B7355]">{review.relativeTime}</p>
             ) : null}
           </div>
-        </div>
-
-        <div className="mb-3">
           <StarRating rating={review.rating} size="sm" />
         </div>
 
-        <p className="flex-1 text-sm leading-relaxed text-[#6B665F] line-clamp-6">{review.text}</p>
+        <p className="flex-1 text-xs leading-relaxed text-[#6B665F] line-clamp-3">{review.text}</p>
       </div>
     </article>
   );
@@ -109,7 +106,7 @@ export default function GoogleReviews() {
   if (loading) {
     return (
       <div className="mx-auto max-w-5xl px-6">
-        <div className="h-48 animate-pulse rounded-3xl bg-[#EDE8E0]/70" aria-hidden />
+        <div className="h-28 animate-pulse rounded-2xl bg-[#EDE8E0]/70" aria-hidden />
         <p className="sr-only">載入 Google 評價中</p>
       </div>
     );
@@ -125,17 +122,14 @@ export default function GoogleReviews() {
 
   return (
     <div className="mx-auto max-w-5xl px-6">
-      <div className="mb-8 text-center">
-        <div className="mb-3 flex flex-wrap items-center justify-center gap-3">
-          <StarRating rating={data.rating || 5} />
-          <span className="text-2xl font-light text-[#3F3A36]">{ratingLabel}</span>
-          <span className="text-sm text-[#8B7355]">{countLabel}</span>
+      <div className="mb-4 text-center">
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          <StarRating rating={data.rating || 5} size="sm" />
+          <span className="text-xl font-light text-[#3F3A36]">{ratingLabel}</span>
+          <span className="text-xs text-[#8B7355]">{countLabel}</span>
         </div>
-        <p className="mx-auto max-w-lg text-sm text-[#6B665F]">
-          真實旅客在 Google 留下的評價，更多評價請點下方按鈕查看。
-        </p>
         {data.source === 'demo' ? (
-          <p className="mt-2 text-xs text-[#8B7355]">
+          <p className="mt-1.5 text-[10px] text-[#8B7355]">
             預覽模式：請在 `.env.local` 設定 `GOOGLE_PLACES_API_KEY` 後即可顯示真實評價。
           </p>
         ) : null}
@@ -145,7 +139,7 @@ export default function GoogleReviews() {
         <div className="relative">
           <div
             ref={trackRef}
-            className="google-reviews-track flex gap-4 overflow-x-auto pb-2 scroll-smooth snap-x snap-mandatory"
+            className="google-reviews-track flex gap-3 overflow-x-auto pb-1 scroll-smooth snap-x snap-mandatory"
             aria-label="Google 旅客評價"
           >
             {data.reviews.map((review, index) => (
@@ -154,11 +148,11 @@ export default function GoogleReviews() {
           </div>
 
           {data.reviews.length > 1 ? (
-            <div className="mt-4 hidden justify-end gap-2 md:flex">
+            <div className="mt-2 hidden justify-end gap-1.5 md:flex">
               <button
                 type="button"
                 onClick={() => scrollByCards(-1)}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#EDE8E0] bg-white text-[#3F3A36] transition-colors hover:border-[#8B7355] hover:text-[#8B7355]"
+                className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#EDE8E0] bg-white text-xs text-[#3F3A36] transition-colors hover:border-[#8B7355] hover:text-[#8B7355]"
                 aria-label="上一則評價"
               >
                 ←
@@ -166,7 +160,7 @@ export default function GoogleReviews() {
               <button
                 type="button"
                 onClick={() => scrollByCards(1)}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#EDE8E0] bg-white text-[#3F3A36] transition-colors hover:border-[#8B7355] hover:text-[#8B7355]"
+                className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#EDE8E0] bg-white text-xs text-[#3F3A36] transition-colors hover:border-[#8B7355] hover:text-[#8B7355]"
                 aria-label="下一則評價"
               >
                 →
@@ -176,20 +170,20 @@ export default function GoogleReviews() {
         </div>
       ) : null}
 
-      <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <div className="mt-4 flex flex-col items-center justify-center gap-2 sm:flex-row">
         <a
           href={data.reviewsUri}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center rounded-full border border-[#3F3A36] px-6 py-2.5 text-sm font-medium text-[#3F3A36] transition-colors hover:bg-[#3F3A36] hover:text-white"
+          className="inline-flex items-center justify-center rounded-full border border-[#3F3A36] px-4 py-1.5 text-xs font-medium text-[#3F3A36] transition-colors hover:bg-[#3F3A36] hover:text-white"
         >
-          查看全部 Google 評價
+          查看全部評價
         </a>
         <a
           href={data.writeReviewUri}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-[#3F3A36] px-6 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#2C2926]"
+          className="inline-flex items-center justify-center gap-1.5 rounded-full bg-[#3F3A36] px-4 py-1.5 text-xs font-medium text-white transition-colors hover:bg-[#2C2926]"
         >
           <span aria-hidden>✍️</span>
           到 Google 寫評論

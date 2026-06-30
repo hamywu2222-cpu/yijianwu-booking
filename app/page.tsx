@@ -59,22 +59,22 @@ const RENOVATION_IMAGES = {
 
 function AboutAmenityStrip() {
   return (
-    <div className="mt-7 max-w-2xl mx-auto rounded-2xl border border-[#EDE8E0]/90 bg-white/50 px-3 py-3 md:px-4 md:py-3.5">
-      <p className="text-[10px] tracking-[3px] text-[#8B7355] mb-2.5">入住配套</p>
-      <ul className="flex flex-wrap justify-center gap-1.5 md:gap-2">
+    <div className="mt-4 max-w-2xl mx-auto rounded-2xl border border-[#EDE8E0]/90 bg-white/50 px-3 py-2.5 md:px-3.5 md:py-3">
+      <p className="text-[10px] tracking-[3px] text-[#8B7355] mb-1.5">入住配套</p>
+      <ul className="flex flex-wrap justify-center gap-1 md:gap-1.5">
         {ABOUT_AMENITIES.map(({ icon, label }) => (
           <li
             key={label}
-            className="inline-flex items-center gap-1.5 rounded-full border border-[#E8DFD2] bg-[#FFFCF8] px-2.5 py-1 text-[11px] md:text-xs text-[#6B665F] leading-snug"
+            className="inline-flex items-center gap-1 rounded-full border border-[#E8DFD2] bg-[#FFFCF8] px-2 py-0.5 text-[10px] md:text-[11px] text-[#6B665F] leading-snug"
           >
-            <span aria-hidden className="text-[12px] leading-none shrink-0">
+            <span aria-hidden className="text-[11px] leading-none shrink-0">
               {icon}
             </span>
             <span>{label}</span>
           </li>
         ))}
       </ul>
-      <p className="mt-2.5 text-[10px] md:text-xs text-[#8B7355] leading-relaxed">
+      <p className="mt-1.5 text-[10px] text-[#8B7355] leading-relaxed">
         行李寄放：入住前後如需暫放，歡迎事先透過 LINE 或電話洽詢。
       </p>
     </div>
@@ -346,15 +346,15 @@ export default function YijianwuWebsite() {
       </section>
 
       {/* 關於我們 + 位置 */}
-      <section id="about" className="max-w-4xl mx-auto px-6 py-20 scroll-mt-28 md:scroll-mt-20 text-center">
-        <div className="text-[#8B7355] text-xs tracking-[4px] mb-3">A QUIET RETREAT BY THE STATION</div>
-        <h2 className="text-5xl font-light tracking-tight mb-6 font-playfair">
+      <section id="about" className="max-w-4xl mx-auto px-6 py-10 md:py-12 scroll-mt-28 md:scroll-mt-20 text-center">
+        <div className="text-[#8B7355] text-xs tracking-[4px] mb-1.5">A QUIET RETREAT BY THE STATION</div>
+        <h2 className="text-3xl md:text-4xl font-light tracking-tight mb-3 font-playfair">
           在福隆車站旁，<br />有一間溫柔的福隆背包客棧。
         </h2>
-        <p className="max-w-xl mx-auto text-base text-[#6B665F] leading-relaxed mb-4">
+        <p className="max-w-xl mx-auto text-sm text-[#6B665F] leading-relaxed mb-3">
           坐落新北貢寮，福隆車站步行 30 秒即達。一間屋・駅前宿是 2026 年 5 月全新裝潢的福隆青年旅館與日式民宿，溫潤和風空間，專注寧靜與細節，也是前往草嶺古道與舊草嶺隧道的便利住宿據點。
         </p>
-        <div className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm text-[#8B7355]">
+        <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-[#8B7355]">
           <div>福隆車站步行 30 秒</div>
           <div>2026年5月全新裝潢</div>
           <div>LINE 接收入住門禁密碼</div>
@@ -526,28 +526,28 @@ export default function YijianwuWebsite() {
         </div>
       </section>
 
-      <section id="booking" className="max-w-4xl mx-auto px-6 py-12 md:py-20 scroll-mt-28 md:scroll-mt-20 border-t border-[#EDE8E0] bg-[#F8F5F1]">
-        <div className="text-center mb-6 md:mb-10">
-          <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">BOOKING</div>
+      {/* Google 評價 */}
+      <section id="reviews" className="bg-[#F8F5F1] py-8 md:py-10 scroll-mt-28 md:scroll-mt-20 border-t border-[#EDE8E0]">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center px-6 mb-4">
+            <div className="text-[#8B7355] text-xs tracking-[4px] mb-1.5">留言板</div>
+            <h2 className="text-3xl font-light tracking-tight mb-1.5">旅客怎麼說</h2>
+            <p className="mx-auto max-w-lg text-xs md:text-sm text-[#6B665F] leading-relaxed">
+              左右滑動瀏覽 Google 評價
+            </p>
+          </div>
+          <GoogleReviews />
+        </div>
+      </section>
+
+      <section id="booking" className="max-w-4xl mx-auto px-6 py-8 md:py-10 scroll-mt-28 md:scroll-mt-20 border-t border-[#EDE8E0] bg-[#F8F5F1]">
+        <div className="text-center mb-4 md:mb-5">
+          <div className="text-[#8B7355] text-xs tracking-[4px] mb-1.5">BOOKING</div>
           <h2 className="text-3xl md:text-5xl font-light tracking-tight mb-2">{BOOKING_CTA.sectionTitle}</h2>
           <p className="text-sm md:text-base text-[#6B665F] font-medium">{BOOKING_CTA.sectionSubtitle}</p>
         </div>
 
         <OwltingBookingSection />
-      </section>
-
-      {/* Google 評價 */}
-      <section id="reviews" className="bg-[#F8F5F1] py-16 scroll-mt-28 md:scroll-mt-20 border-t border-[#EDE8E0]">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center px-6 mb-10">
-            <div className="text-[#8B7355] text-xs tracking-[4px] mb-3">留言板</div>
-            <h2 className="text-4xl font-light tracking-tight mb-3">旅客怎麼說</h2>
-            <p className="mx-auto max-w-lg text-sm text-[#6B665F] leading-relaxed">
-              來自 Google 商家的真實評價，左右滑動瀏覽；想留言請點「到 Google 寫評論」。
-            </p>
-          </div>
-          <GoogleReviews />
-        </div>
       </section>
 
       {/* 福隆風景 — 住這裡，風景就在門外 */}

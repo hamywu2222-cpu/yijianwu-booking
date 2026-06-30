@@ -701,11 +701,11 @@ input:focus, select:focus, textarea:focus {
 }
 
 .google-review-card {
-  width: min(100%, 20rem);
+  width: min(100%, 16rem);
 }
 
 @media (min-width: 768px) {
   .google-review-card {
-    width: 18rem;
+    width: 15rem;
   }
 }

@@ -28,7 +28,7 @@ const dateInputClass =
   'booking-date-input w-full min-w-0 max-w-full box-border border border-[#D1C9BE] rounded-2xl px-3 sm:px-4 py-3 text-sm text-[#3F3A36] bg-white';
 const labelClass = 'block text-xs font-medium tracking-widest text-[#8B7355] mb-1.5';
 const bookingButtonClass =
-  'primary-booking-btn flex w-full items-center justify-center gap-2 rounded-2xl px-8 py-[18px] text-[15px] tracking-[1.5px]';
+  'primary-booking-btn flex w-full items-center justify-center gap-2 rounded-2xl px-8 py-3.5 text-[15px] tracking-[1.5px]';
 
 function AirbnbClassicMark() {
   return (
@@ -40,7 +40,7 @@ function AirbnbClassicMark() {
 
 function OwlNestTipList({ items }: { items: readonly string[] }) {
   return (
-    <ul className="space-y-2">
+    <ul className="space-y-1.5">
       {items.map((tip) => (
         <li key={tip} className="flex gap-2">
           <span className="text-[#8B7355] shrink-0">·</span>
@@ -56,20 +56,20 @@ function OwlNestAvailabilityTips() {
   const sectionTitleClass = 'text-xs font-medium tracking-widest text-[#8B7355] mb-2';
 
   return (
-    <div className="rounded-2xl border border-[#E8DFD2] bg-[#FFFCF8] px-5 py-4 text-sm text-[#6B665F] leading-relaxed space-y-4">
+    <div className="rounded-2xl border border-[#E8DFD2] bg-[#FFFCF8] px-4 py-3 text-sm text-[#6B665F] leading-relaxed space-y-3">
       <div>
         <p className={sectionTitleClass}>{guest.title}</p>
         <OwlNestTipList items={guest.lines} />
       </div>
-      <div className="border-t border-[#E8DFD2] pt-4">
+      <div className="border-t border-[#E8DFD2] pt-3">
         <p className={sectionTitleClass}>{booking.title}</p>
         <OwlNestTipList items={booking.lines} />
       </div>
-      <div className="border-t border-[#E8DFD2] pt-4">
+      <div className="border-t border-[#E8DFD2] pt-3">
         <p className={sectionTitleClass}>{packageSection.title}</p>
         <OwlNestTipList items={packageSection.lines} />
-        <p className="mt-3 text-sm font-medium text-[#3F3A36]">{packageSection.stepsTitle}</p>
-        <ol className="mt-2 space-y-2 pl-5 list-decimal marker:text-[#8B7355]">
+        <p className="mt-2 text-sm font-medium text-[#3F3A36]">{packageSection.stepsTitle}</p>
+        <ol className="mt-1.5 space-y-1.5 pl-5 list-decimal marker:text-[#8B7355]">
           {packageSection.steps.map((step) => (
             <li key={step} className="pl-1">
               {step}
@@ -131,15 +131,15 @@ export default function OwltingBookingSection() {
   }, []);
 
   return (
-    <div ref={sectionRef} className="min-w-0 space-y-4 md:space-y-6 pb-24 md:pb-0">
+    <div ref={sectionRef} className="min-w-0 space-y-3 md:space-y-4 pb-20 md:pb-0">
       <OwlNestAvailabilityTips />
 
-      <div className="overflow-hidden rounded-3xl border border-[#EDE8E0] bg-white p-4 md:p-8 shadow-sm">
-        <p className="text-sm text-[#6B665F] leading-relaxed mb-4 md:mb-6 text-center">
+      <div className="overflow-hidden rounded-3xl border border-[#EDE8E0] bg-white p-4 md:p-5 shadow-sm">
+        <p className="text-sm text-[#6B665F] leading-relaxed mb-3 md:mb-4 text-center">
           {BOOKING_CTA.intro}
         </p>
 
-        <div className="grid min-w-0 grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4 mb-4 md:mb-6">
+        <div className="grid min-w-0 grid-cols-2 sm:grid-cols-3 gap-2.5 md:gap-3 mb-3 md:mb-4">
           <div className="min-w-0">
             <label htmlFor="owlnest-check-in" className={labelClass}>
               入住日期
@@ -196,11 +196,11 @@ export default function OwltingBookingSection() {
         </div>
 
         {isReady ? (
-          <p className="mb-4 rounded-2xl border border-[#E8DFD2] bg-[#F8F5F1] px-4 py-3 text-center text-xs text-[#6B665F]">
+          <p className="mb-3 rounded-2xl border border-[#E8DFD2] bg-[#F8F5F1] px-4 py-2.5 text-center text-xs text-[#6B665F]">
             將帶入奧丁丁訂房頁：<span className="font-medium text-[#3F3A36]">{searchSummary}</span>
           </p>
         ) : (
-          <p className="mb-4 text-center text-xs text-[#8B7355]">請先選擇入住與退房日期</p>
+          <p className="mb-3 text-center text-xs text-[#8B7355]">請先選擇入住與退房日期</p>
         )}
 
         <button
@@ -216,12 +216,12 @@ export default function OwltingBookingSection() {
           <span aria-hidden>→</span>
         </button>
 
-        <p className="mt-4 text-center text-xs text-[#8B7355]">
+        <p className="mt-3 text-center text-xs text-[#8B7355]">
           {isReady ? '已帶入日期與人數，點擊後在新分頁完成訂房與刷卡' : BOOKING_CTA.note}
         </p>
 
-        <div className="mt-5 pt-5 border-t border-[#EDE8E0] text-center">
-          <p className="text-xs text-[#8B7355] mb-3">或透過 Airbnb 預訂</p>
+        <div className="mt-4 pt-4 border-t border-[#EDE8E0] text-center">
+          <p className="text-xs text-[#8B7355] mb-2">或透過 Airbnb 預訂</p>
           <a
             href={AIRBNB_BOOKING.url}
             target="_blank"
@@ -231,11 +231,11 @@ export default function OwltingBookingSection() {
           >
             <AirbnbClassicMark />
           </a>
-          <p className="mt-3 text-xs text-[#8B7355] leading-relaxed">{AIRBNB_BOOKING.note}</p>
+          <p className="mt-2 text-xs text-[#8B7355] leading-relaxed">{AIRBNB_BOOKING.note}</p>
         </div>
       </div>
 
-      <div className="rounded-2xl border border-[#EDE8E0] bg-[#F8F5F1] px-5 py-4 text-center text-sm text-[#6B665F]">
+      <div className="rounded-2xl border border-[#EDE8E0] bg-[#F8F5F1] px-4 py-3 text-center text-sm text-[#6B665F]">
         <p>
           訂房完成後，請加入 LINE 官方{' '}
           <a
