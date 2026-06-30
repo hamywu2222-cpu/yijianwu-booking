@@ -60,8 +60,8 @@ export const DOUBLE_ROOM_IMAGES = [
 /** 和風 4–6 人家庭房實景照片 — public/images/4-6ROOMS */
 export const FAMILY_ROOM_IMAGES = [
   '/images/4-6ROOMS/photo_2026-06-30_21-55-00.jpg',
-  '/images/4-6ROOMS/photo_2026-06-30_21-55-04.jpg',
   '/images/4-6ROOMS/photo_2026-06-30_21-55-08.jpg',
+  '/images/4-6ROOMS/photo_2026-06-30_21-55-04.jpg',
 ] as const;
 
 export const ROOM_VIDEOS = {
