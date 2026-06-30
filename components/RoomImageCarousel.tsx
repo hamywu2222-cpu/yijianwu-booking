@@ -49,7 +49,8 @@ export default function RoomImageCarousel({
   if (images.length === 0) return null;
 
   return (
-    <div className={`room-media relative aspect-[3/4] bg-[#EDE8E0] ${className}`}>
+    <div className={`mx-auto w-[70%] py-3 ${className}`}>
+      <div className="room-media relative aspect-[3/4] overflow-hidden rounded-2xl bg-[#EDE8E0]">
       <div
         ref={trackRef}
         onScroll={updateActiveIndex}
@@ -68,7 +69,7 @@ export default function RoomImageCarousel({
               src={src}
               alt={getImageAlt(src)}
               fill
-              sizes="(max-width: 768px) 100vw, 50vw"
+              sizes="(max-width: 768px) 70vw, 35vw"
               priority={priority && index === 0}
               className="object-contain"
             />
@@ -119,6 +120,7 @@ export default function RoomImageCarousel({
           </div>
         </>
       ) : null}
+      </div>
     </div>
   );
 }
