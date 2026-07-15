@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import { Suspense } from "react";
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
+import BookingClickTracker from "@/components/BookingClickTracker";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import GoogleAnalyticsPageView from "@/components/GoogleAnalyticsPageView";
 import StructuredData from "@/components/StructuredData";
 import {
   LOCAL_SEO_KEYWORDS,
@@ -125,6 +128,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <StructuredData />
         {children}
         <GoogleAnalytics />
+        <Suspense fallback={null}>
+          <GoogleAnalyticsPageView />
+        </Suspense>
+        <BookingClickTracker />
       </body>
     </html>
   );

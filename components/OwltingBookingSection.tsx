@@ -10,6 +10,7 @@ import {
   PACKAGE_ADULTS_FIELD_NOTE,
   PACKAGE_BOOKING,
 } from '@/lib/business';
+import { trackOpenOwlnest } from '@/lib/analytics';
 import { buildOwlNestBookingUrl } from '@/lib/owlnest';
 
 function formatLocalDate(date: Date) {
@@ -109,11 +110,22 @@ export default function OwltingBookingSection() {
     return `${checkIn} 入住 → ${checkOut} 退房，${Number(adults) || 1} 人`;
   }, [adults, checkIn, checkOut, isReady]);
 
-  const openBooking = useCallback(() => {
-    if (!isReady) return;
-    const url = buildCurrentBookingUrl();
-    window.open(url, '_blank', 'noopener,noreferrer');
-  }, [buildCurrentBookingUrl, isReady]);
+  const openBooking = useCallback(
+    (location: 'booking_form' | 'mobile_sticky') => {
+      if (!isReady) return;
+      const url = buildCurrentBookingUrl();
+      // 主要轉換：點訂房 → 新分頁開啟奧丁丁（GA4 open_owlnest）
+      trackOpenOwlnest({
+        location,
+        destination: url,
+        checkIn,
+        checkOut,
+        adults: Number(adults) || 1,
+      });
+      window.open(url, '_blank', 'noopener,noreferrer');
+    },
+    [adults, buildCurrentBookingUrl, checkIn, checkOut, isReady],
+  );
 
   useEffect(() => {
     const node = sectionRef.current;
@@ -131,7 +143,11 @@ export default function OwltingBookingSection() {
   }, []);
 
   return (
-    <div ref={sectionRef} className="min-w-0 space-y-3 md:space-y-4 pb-20 md:pb-0">
+    <div
+      ref={sectionRef}
+      data-ga-booking-tracked
+      className="min-w-0 space-y-3 md:space-y-4 pb-20 md:pb-0"
+    >
       <OwlNestAvailabilityTips />
 
       <div className="overflow-hidden rounded-3xl border border-[#EDE8E0] bg-white p-4 md:p-5 shadow-sm">
@@ -205,7 +221,7 @@ export default function OwltingBookingSection() {
 
         <button
           type="button"
-          onClick={openBooking}
+          onClick={() => openBooking('booking_form')}
           disabled={!isReady}
           className={bookingButtonClass}
         >
@@ -254,7 +270,7 @@ export default function OwltingBookingSection() {
         <div className="md:hidden fixed bottom-0 left-0 right-0 z-[60] bg-white/95 backdrop-blur-md border-t border-[#EDE8E0] px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgba(0,0,0,0.08)]">
           <button
             type="button"
-            onClick={openBooking}
+            onClick={() => openBooking('mobile_sticky')}
             disabled={!isReady}
             className={bookingButtonClass}
           >

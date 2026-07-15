@@ -1,10 +1,16 @@
-import Script from 'next/script';
-
-export const GA_MEASUREMENT_ID =
-  process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? 'G-VYEJNN6EQF';
+import Script from "next/script";
+import {
+  GA_MEASUREMENT_ID,
+  GOOGLE_ADS_ID,
+} from "@/lib/analytics";
 
 export default function GoogleAnalytics() {
   if (!GA_MEASUREMENT_ID) return null;
+
+  // 有 Google Ads ID 時一併 config，才能送 AW conversion
+  const adsConfigLine = GOOGLE_ADS_ID
+    ? `gtag('config', '${GOOGLE_ADS_ID}');`
+    : "";
 
   return (
     <>
@@ -19,7 +25,9 @@ export default function GoogleAnalytics() {
           gtag('js', new Date());
           gtag('config', '${GA_MEASUREMENT_ID}', {
             page_path: window.location.pathname,
+            send_page_view: true
           });
+          ${adsConfigLine}
         `}
       </Script>
     </>
