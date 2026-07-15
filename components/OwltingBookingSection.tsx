@@ -10,8 +10,7 @@ import {
   PACKAGE_ADULTS_FIELD_NOTE,
   PACKAGE_BOOKING,
 } from '@/lib/business';
-import { trackOpenOwlnest } from '@/lib/analytics';
-import { buildOwlNestBookingUrl } from '@/lib/owlnest';
+import { buildOwlNestGoPath } from '@/lib/owlnest';
 
 function formatLocalDate(date: Date) {
   const y = date.getFullYear();
@@ -93,14 +92,15 @@ export default function OwltingBookingSection() {
 
   const isReady = Boolean(checkIn && checkOut && checkOut > checkIn);
 
-  const buildCurrentBookingUrl = useCallback(
-    () =>
-      buildOwlNestBookingUrl({
+  const buildCurrentGoPath = useCallback(
+    (location: 'booking_form' | 'mobile_sticky') =>
+      buildOwlNestGoPath({
         checkIn,
         checkOut,
         adults: Number(adults) || 1,
         children: 0,
         infants: 0,
+        location,
       }),
     [adults, checkIn, checkOut],
   );
@@ -113,18 +113,11 @@ export default function OwltingBookingSection() {
   const openBooking = useCallback(
     (location: 'booking_form' | 'mobile_sticky') => {
       if (!isReady) return;
-      const url = buildCurrentBookingUrl();
-      // 主要轉換：點訂房 → 新分頁開啟奧丁丁（GA4 open_owlnest）
-      trackOpenOwlnest({
-        location,
-        destination: url,
-        checkIn,
-        checkOut,
-        adults: Number(adults) || 1,
-      });
-      window.open(url, '_blank', 'noopener,noreferrer');
+      // 開中轉頁：到 /go/owlnest 只送 1 次 open_owlnest，再導向奧丁丁
+      // （booking-owlnest.com 無法裝碼，此頁代表「到達訂房引擎」）
+      window.open(buildCurrentGoPath(location), '_blank', 'noopener,noreferrer');
     },
-    [adults, buildCurrentBookingUrl, checkIn, checkOut, isReady],
+    [buildCurrentGoPath, isReady],
   );
 
   useEffect(() => {

@@ -1,13 +1,14 @@
 /**
  * GA4 / Google Ads 追蹤
  *
- * 主要轉換（給 Ads「盡量爭取轉換」用）：
- *   事件名 open_owlnest — 使用者點訂房並跳轉奧丁丁訂房頁
+ * 主要轉換（只送這 1 個事件）：
+ *   open_owlnest — 使用者經 /go/owlnest 前往奧丁丁訂房頁
+ *   （等同「到達奧丁丁訂房引擎」；對方網域無法直接裝碼）
  *
- * 次要行為（分析用，不要當主要轉換）：
- *   事件名 booking_click + booking_action=cta_click — 官網內「去訂房區」等 CTA
+ * 次要（分析用，勿當主要轉換）：
+ *   booking_click + cta_click — 官網內「去訂房區」等 CTA
  *
- * 後台請在 GA4 將 open_owlnest 標為「主要事件／轉換」，再匯入 Google Ads。
+ * GA4：將 open_owlnest 標為主要事件 → 匯入 Google Ads。
  */
 
 export const GA_MEASUREMENT_ID =
@@ -18,7 +19,7 @@ export const GOOGLE_ADS_ID =
   process.env.NEXT_PUBLIC_GOOGLE_ADS_ID?.trim() || "";
 
 /**
- * 選填：Google Ads「跳轉奧丁丁」轉換標籤（Conversion label）
+ * 選填：Google Ads「跳轉奧丁丁」轉換標籤
  * 與 ID 組成 send_to：AW-xxx/label
  */
 export const GOOGLE_ADS_CONVERSION_LABEL =
@@ -34,7 +35,7 @@ declare global {
     gtag?: (
       command: "config" | "event" | "js" | "set" | "consent",
       targetId: string | Date,
-      config?: Record<string, string | number | boolean | undefined>,
+      config?: Record<string, string | number | boolean | undefined | (() => void)>,
     ) => void;
     dataLayer?: unknown[];
   }
@@ -42,6 +43,25 @@ declare global {
 
 function canTrack() {
   return typeof window !== "undefined" && typeof window.gtag === "function";
+}
+
+/** 等 gtag 腳本就緒（中轉頁導向前用） */
+export function waitForGtag(timeoutMs = 3000): Promise<boolean> {
+  if (typeof window === "undefined") return Promise.resolve(false);
+  if (typeof window.gtag === "function") return Promise.resolve(true);
+
+  return new Promise((resolve) => {
+    const start = Date.now();
+    const id = window.setInterval(() => {
+      if (typeof window.gtag === "function") {
+        window.clearInterval(id);
+        resolve(true);
+      } else if (Date.now() - start >= timeoutMs) {
+        window.clearInterval(id);
+        resolve(false);
+      }
+    }, 50);
+  });
 }
 
 export function trackPageView(url: string) {
@@ -65,7 +85,6 @@ function buildBookingParams(params: BookingClickParams) {
   const eventParams: Record<string, string | number | boolean> = {
     booking_action: params.action,
     button_location: params.location,
-    // 提高離開頁面前送達機率（新分頁開啟時仍建議保留）
     transport_type: "beacon",
   };
 
@@ -77,46 +96,60 @@ function buildBookingParams(params: BookingClickParams) {
   return eventParams;
 }
 
-/** 官網內訂房相關點擊（含 CTA、跳轉奧丁丁明細） */
+/** 官網內訂房 CTA（非跳轉奧丁丁） */
 export function trackBookingClick(params: BookingClickParams) {
   if (!GA_MEASUREMENT_ID || !canTrack()) return;
 
   window.gtag!("event", "booking_click", buildBookingParams(params));
 }
 
+export type TrackOpenOwlnestOptions = Omit<BookingClickParams, "action"> & {
+  destination: string;
+  /** 事件送出後呼叫（導向奧丁丁前）；失敗也會在 timeout 後呼叫 */
+  onReady?: () => void;
+  /** 等待 gtag callback 的最長時間（ms） */
+  timeoutMs?: number;
+};
+
 /**
- * 主要轉換：點擊後開啟奧丁丁訂房頁
- * - GA4 事件：open_owlnest（請標為主要事件）
- * - 同時保留 booking_click 明細
- * - 若有設定 AW 轉換，再送 Google Ads conversion
+ * 主要轉換：只送 1 次 open_owlnest（勿再疊 booking_click）
+ * 在 /go/owlnest 中轉頁呼叫，再導向奧丁丁。
  */
-export function trackOpenOwlnest(
-  params: Omit<BookingClickParams, "action"> & {
-    destination: string;
-  },
-) {
-  if (!canTrack()) return;
+export function trackOpenOwlnest(params: TrackOpenOwlnestOptions) {
+  const { onReady, timeoutMs = 800, ...tracking } = params;
+  let finished = false;
+
+  const done = () => {
+    if (finished) return;
+    finished = true;
+    onReady?.();
+  };
+
+  if (!canTrack() || !GA_MEASUREMENT_ID) {
+    done();
+    return;
+  }
 
   const detail = buildBookingParams({
-    ...params,
+    ...tracking,
     action: "open_owlnest",
   });
 
-  if (GA_MEASUREMENT_ID) {
-    // 給 GA4 / Ads 匯入用的主要事件（名稱固定，勿改）
-    window.gtag!("event", "open_owlnest", {
-      ...detail,
-      event_category: "booking",
-      event_label: "owlnest",
-      // 方便在 GA4 報表篩選「完成跳轉訂房引擎」
-      outbound: true,
-    });
+  // 保險：callback 沒回來也繼續導向
+  const timer = window.setTimeout(done, timeoutMs);
 
-    // 明細事件（分析用）
-    window.gtag!("event", "booking_click", detail);
-  }
+  window.gtag!("event", "open_owlnest", {
+    ...detail,
+    event_category: "booking",
+    event_label: "owlnest",
+    outbound: true,
+    event_callback: () => {
+      window.clearTimeout(timer);
+      done();
+    },
+  });
 
-  // 選填：Google Ads 網站轉換標籤（後台建立轉換後把 ID/label 填進 env）
+  // 若有設定 AW，與 GA4 分開系統；仍屬「同一轉換意圖」
   if (GOOGLE_ADS_SEND_TO) {
     window.gtag!("event", "conversion", {
       send_to: GOOGLE_ADS_SEND_TO,

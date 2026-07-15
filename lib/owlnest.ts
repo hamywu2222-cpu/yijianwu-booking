@@ -43,3 +43,38 @@ export function buildOwlNestBookingUrl(overrides: OwlNestSearchParams = {}): str
 
   return url.toString();
 }
+
+export type OwlNestGoParams = OwlNestSearchParams & {
+  /** 官網按鈕位置，僅追蹤用，不會轉給奧丁丁 */
+  location?: string;
+};
+
+/**
+ * 官網中轉路徑：先到 /go/owlnest 送出 1 次 open_owlnest，再導向奧丁丁。
+ * 因 booking-owlnest.com 非本站，無法在對方頁面裝碼，以此代表「到達訂房引擎」。
+ */
+export function buildOwlNestGoPath(params: OwlNestGoParams = {}): string {
+  const sp = new URLSearchParams();
+
+  if (params.checkIn && isValidOwlNestDate(params.checkIn)) {
+    sp.set('start', params.checkIn);
+  }
+  if (params.checkOut && isValidOwlNestDate(params.checkOut)) {
+    sp.set('end', params.checkOut);
+  }
+  if (params.adults !== undefined) {
+    sp.set('adult', String(Math.max(1, params.adults)));
+  }
+  if (params.children !== undefined) {
+    sp.set('child', String(Math.max(0, params.children)));
+  }
+  if (params.infants !== undefined) {
+    sp.set('infant', String(Math.max(0, params.infants)));
+  }
+  if (params.location) {
+    sp.set('from', params.location);
+  }
+
+  const qs = sp.toString();
+  return qs ? `/go/owlnest?${qs}` : '/go/owlnest';
+}
