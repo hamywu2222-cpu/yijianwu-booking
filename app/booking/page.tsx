@@ -37,7 +37,8 @@ export default function BookingPage() {
           </header>
 
           <div id="booking-form">
-            <OwltingBookingSection />
+            {/* 次要入口；主訂房欄在首頁 /#booking */}
+            <OwltingBookingSection source="booking_page" />
           </div>
         </div>
       </main>

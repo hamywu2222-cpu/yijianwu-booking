@@ -539,6 +539,7 @@ export default function YijianwuWebsite() {
         </div>
       </section>
 
+      {/* 官網主訂房欄：https://onehouse.asia/#booking（一般訪客主要在此訂房） */}
       <section id="booking" className="max-w-4xl mx-auto px-6 py-8 md:py-10 scroll-mt-28 md:scroll-mt-20 border-t border-[#EDE8E0] bg-[#F8F5F1]">
         <div className="text-center mb-4 md:mb-5">
           <div className="text-[#8B7355] text-xs tracking-[4px] mb-1.5">BOOKING</div>
@@ -546,7 +547,7 @@ export default function YijianwuWebsite() {
           <p className="text-sm md:text-base text-[#6B665F] font-medium">{BOOKING_CTA.sectionSubtitle}</p>
         </div>
 
-        <OwltingBookingSection />
+        <OwltingBookingSection source="home" />
       </section>
 
       {/* 福隆風景 — 住這裡，風景就在門外 */}

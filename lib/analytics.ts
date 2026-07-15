@@ -5,8 +5,13 @@
  *   open_owlnest — 使用者經 /go/owlnest 前往奧丁丁訂房頁
  *   （等同「到達奧丁丁訂房引擎」；對方網域無法直接裝碼）
  *
+ * 官網主入口：
+ *   https://onehouse.asia/#booking（首頁訂房欄 OwltingBookingSection source=home）
+ *   選日期 → 點訂房 → /go/owlnest → 奧丁丁
+ *
  * 次要（分析用，勿當主要轉換）：
- *   booking_click + cta_click — 官網內「去訂房區」等 CTA
+ *   booking_click + cta_click — 官網內連到 #booking 的按鈕
+ *   /booking 獨立頁較少人到，仍可用但非主路徑
  *
  * GA4：將 open_owlnest 標為主要事件 → 匯入 Google Ads。
  */

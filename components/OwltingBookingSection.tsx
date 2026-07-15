@@ -81,7 +81,17 @@ function OwlNestAvailabilityTips() {
   );
 }
 
-export default function OwltingBookingSection() {
+type OwltingBookingSectionProps = {
+  /**
+   * 追蹤來源。官網主入口是首頁 #booking（home）。
+   * /booking 獨立頁較少人到，僅作次要入口。
+   */
+  source?: "home" | "booking_page";
+};
+
+export default function OwltingBookingSection({
+  source = "home",
+}: OwltingBookingSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [showMobileSticky, setShowMobileSticky] = useState(false);
   const minCheckIn = todayString();
@@ -93,16 +103,17 @@ export default function OwltingBookingSection() {
   const isReady = Boolean(checkIn && checkOut && checkOut > checkIn);
 
   const buildCurrentGoPath = useCallback(
-    (location: 'booking_form' | 'mobile_sticky') =>
+    (slot: 'booking_form' | 'mobile_sticky') =>
       buildOwlNestGoPath({
         checkIn,
         checkOut,
         adults: Number(adults) || 1,
         children: 0,
         infants: 0,
-        location,
+        // 例：home_booking_form = 首頁 #booking 主按鈕
+        location: `${source}_${slot}`,
       }),
-    [adults, checkIn, checkOut],
+    [adults, checkIn, checkOut, source],
   );
 
   const searchSummary = useMemo(() => {
@@ -111,11 +122,10 @@ export default function OwltingBookingSection() {
   }, [adults, checkIn, checkOut, isReady]);
 
   const openBooking = useCallback(
-    (location: 'booking_form' | 'mobile_sticky') => {
+    (slot: 'booking_form' | 'mobile_sticky') => {
       if (!isReady) return;
-      // 開中轉頁：到 /go/owlnest 只送 1 次 open_owlnest，再導向奧丁丁
-      // （booking-owlnest.com 無法裝碼，此頁代表「到達訂房引擎」）
-      window.open(buildCurrentGoPath(location), '_blank', 'noopener,noreferrer');
+      // 主路徑：首頁 #booking → /go/owlnest（1 次 open_owlnest）→ 奧丁丁
+      window.open(buildCurrentGoPath(slot), '_blank', 'noopener,noreferrer');
     },
     [buildCurrentGoPath, isReady],
   );
