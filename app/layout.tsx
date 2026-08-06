@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Suspense } from "react";
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
+import AdsConversionTracker from "@/components/AdsConversionTracker";
 import BookingClickTracker from "@/components/BookingClickTracker";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import GoogleAnalyticsPageView from "@/components/GoogleAnalyticsPageView";
@@ -132,6 +133,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <GoogleAnalyticsPageView />
         </Suspense>
         <BookingClickTracker />
+        <AdsConversionTracker />
       </body>
     </html>
   );

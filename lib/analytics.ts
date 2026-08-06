@@ -1,39 +1,57 @@
 /**
  * GA4 / Google Ads 追蹤
  *
- * 主要轉換（只送這 1 個事件）：
- *   open_owlnest — 使用者經 /go/owlnest 前往奧丁丁訂房頁
- *   （等同「到達奧丁丁訂房引擎」；對方網域無法直接裝碼）
+ * GA4 主要事件：
+ *   open_owlnest — 經 /go/owlnest 前往奧丁丁（分析用）
  *
- * 官網主入口：
- *   https://onehouse.asia/#booking（首頁訂房欄 OwltingBookingSection source=home）
- *   選日期 → 點訂房 → /go/owlnest → 奧丁丁
+ * Google Ads 轉換（專員提供，點擊事件）：
+ *   訂房：button.primary-booking-btn → AW-…/qJ5hCKHt-twcEO-Hxb1D
+ *   電話：a[href*="tel:"] → AW-…/oqIACKvc-twcEO-Hxb1D
  *
- * 次要（分析用，勿當主要轉換）：
- *   booking_click + cta_click — 官網內連到 #booking 的按鈕
- *   /booking 獨立頁較少人到，仍可用但非主路徑
- *
- * GA4：將 open_owlnest 標為主要事件 → 匯入 Google Ads。
+ * 訂房 Ads 轉換只在「主訂房按鈕」送一次，不在 /go/owlnest 再送，
+ * 避免同一操作被算兩次。
  */
 
 export const GA_MEASUREMENT_ID =
   process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "G-VYEJNN6EQF";
 
-/** 選填：Google Ads 轉換 ID，例如 AW-123456789 */
+/** Google Ads 帳戶 ID（公開值，可出現在前端） */
 export const GOOGLE_ADS_ID =
-  process.env.NEXT_PUBLIC_GOOGLE_ADS_ID?.trim() || "";
+  process.env.NEXT_PUBLIC_GOOGLE_ADS_ID?.trim() || "AW-18114233327";
 
 /**
- * 選填：Google Ads「跳轉奧丁丁」轉換標籤
- * 與 ID 組成 send_to：AW-xxx/label
+ * 訂房按鈕轉換標籤（button.primary-booking-btn）
+ * send_to = AW-…/qJ5hCKHt-twcEO-Hxb1D
  */
-export const GOOGLE_ADS_CONVERSION_LABEL =
-  process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL?.trim() || "";
+export const GOOGLE_ADS_BOOKING_CONVERSION_LABEL =
+  process.env.NEXT_PUBLIC_GOOGLE_ADS_BOOKING_CONVERSION_LABEL?.trim() ||
+  "qJ5hCKHt-twcEO-Hxb1D";
 
-export const GOOGLE_ADS_SEND_TO =
-  GOOGLE_ADS_ID && GOOGLE_ADS_CONVERSION_LABEL
-    ? `${GOOGLE_ADS_ID}/${GOOGLE_ADS_CONVERSION_LABEL}`
+/**
+ * 電話連結轉換標籤（a[href*="tel:"]）
+ * send_to = AW-…/oqIACKvc-twcEO-Hxb1D
+ */
+export const GOOGLE_ADS_PHONE_CONVERSION_LABEL =
+  process.env.NEXT_PUBLIC_GOOGLE_ADS_PHONE_CONVERSION_LABEL?.trim() ||
+  "oqIACKvc-twcEO-Hxb1D";
+
+/** @deprecated 舊名：請改用 GOOGLE_ADS_BOOKING_CONVERSION_LABEL */
+export const GOOGLE_ADS_CONVERSION_LABEL =
+  process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL?.trim() ||
+  GOOGLE_ADS_BOOKING_CONVERSION_LABEL;
+
+export const GOOGLE_ADS_BOOKING_SEND_TO =
+  GOOGLE_ADS_ID && GOOGLE_ADS_BOOKING_CONVERSION_LABEL
+    ? `${GOOGLE_ADS_ID}/${GOOGLE_ADS_BOOKING_CONVERSION_LABEL}`
     : "";
+
+export const GOOGLE_ADS_PHONE_SEND_TO =
+  GOOGLE_ADS_ID && GOOGLE_ADS_PHONE_CONVERSION_LABEL
+    ? `${GOOGLE_ADS_ID}/${GOOGLE_ADS_PHONE_CONVERSION_LABEL}`
+    : "";
+
+/** 相容舊程式：等同訂房 send_to */
+export const GOOGLE_ADS_SEND_TO = GOOGLE_ADS_BOOKING_SEND_TO;
 
 declare global {
   interface Window {
@@ -101,11 +119,35 @@ function buildBookingParams(params: BookingClickParams) {
   return eventParams;
 }
 
-/** 官網內訂房 CTA（非跳轉奧丁丁） */
+/** 官網內訂房 CTA（非跳轉奧丁丁；GA4 分析用） */
 export function trackBookingClick(params: BookingClickParams) {
   if (!GA_MEASUREMENT_ID || !canTrack()) return;
 
   window.gtag!("event", "booking_click", buildBookingParams(params));
+}
+
+/**
+ * Google Ads：訂房按鈕轉換（對應專員 button.primary-booking-btn 腳本）
+ */
+export function trackAdsBookingConversion() {
+  if (!canTrack() || !GOOGLE_ADS_BOOKING_SEND_TO) return;
+
+  window.gtag!("event", "conversion", {
+    send_to: GOOGLE_ADS_BOOKING_SEND_TO,
+    transport_type: "beacon",
+  });
+}
+
+/**
+ * Google Ads：電話連結轉換（對應專員 a[href*="tel:"] 腳本）
+ */
+export function trackAdsPhoneConversion() {
+  if (!canTrack() || !GOOGLE_ADS_PHONE_SEND_TO) return;
+
+  window.gtag!("event", "conversion", {
+    send_to: GOOGLE_ADS_PHONE_SEND_TO,
+    transport_type: "beacon",
+  });
 }
 
 export type TrackOpenOwlnestOptions = Omit<BookingClickParams, "action"> & {
@@ -117,8 +159,8 @@ export type TrackOpenOwlnestOptions = Omit<BookingClickParams, "action"> & {
 };
 
 /**
- * 主要轉換：只送 1 次 open_owlnest（勿再疊 booking_click）
- * 在 /go/owlnest 中轉頁呼叫，再導向奧丁丁。
+ * GA4：open_owlnest（中轉頁）
+ * 不在此送 Google Ads 訂房 conversion，避免與主訂房按鈕重複計算。
  */
 export function trackOpenOwlnest(params: TrackOpenOwlnestOptions) {
   const { onReady, timeoutMs = 800, ...tracking } = params;
@@ -140,7 +182,6 @@ export function trackOpenOwlnest(params: TrackOpenOwlnestOptions) {
     action: "open_owlnest",
   });
 
-  // 保險：callback 沒回來也繼續導向
   const timer = window.setTimeout(done, timeoutMs);
 
   window.gtag!("event", "open_owlnest", {
@@ -153,12 +194,4 @@ export function trackOpenOwlnest(params: TrackOpenOwlnestOptions) {
       done();
     },
   });
-
-  // 若有設定 AW，與 GA4 分開系統；仍屬「同一轉換意圖」
-  if (GOOGLE_ADS_SEND_TO) {
-    window.gtag!("event", "conversion", {
-      send_to: GOOGLE_ADS_SEND_TO,
-      transport_type: "beacon",
-    });
-  }
 }
