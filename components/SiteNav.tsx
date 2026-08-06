@@ -16,6 +16,13 @@ const NAV_LINKS = [
   { href: '#location', label: '位置' },
 ] as const;
 
+/** SEO 子頁內鏈（次要導覽，不搶主 CTA） */
+const SEO_NAV_LINKS = [
+  { href: '/fulong', label: '福隆' },
+  { href: '/faq', label: 'FAQ' },
+  { href: '/rooms/package', label: '包棟' },
+] as const;
+
 export default function SiteNav() {
   const headerRef = useRef<HTMLElement>(null);
   const taglineRef = useRef<HTMLDivElement>(null);
@@ -98,6 +105,18 @@ export default function SiteNav() {
                   {label}
                 </a>
               ))}
+              <span className="mx-1 text-[#E0D6C8]" aria-hidden>
+                |
+              </span>
+              {SEO_NAV_LINKS.map(({ href, label }) => (
+                <a
+                  key={href}
+                  href={href}
+                  className="nav-link text-[#8B7355]/90 hover:text-[#3F3A36] transition-colors"
+                >
+                  {label}
+                </a>
+              ))}
             </nav>
 
             <div className="site-nav-actions-slot">
@@ -148,6 +167,15 @@ export default function SiteNav() {
           <nav className="site-nav-mobile-links md:hidden" aria-label="主要導覽">
             {NAV_LINKS.map(({ href, label }) => (
               <a key={href} href={href} className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">
+                {label}
+              </a>
+            ))}
+            {SEO_NAV_LINKS.map(({ href, label }) => (
+              <a
+                key={href}
+                href={href}
+                className="nav-link shrink-0 text-[#8B7355] hover:text-[#3F3A36] transition-colors"
+              >
                 {label}
               </a>
             ))}

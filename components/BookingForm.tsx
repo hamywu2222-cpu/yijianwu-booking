@@ -7,9 +7,8 @@ import { BUSINESS_LINE, PACKAGE_FORM_PEOPLE_HINT } from '@/lib/business';
 
 const LINE_URL = BUSINESS_LINE.url;
 const LINE_ID = BUSINESS_LINE.id;
-const GAS_URL =
-  process.env.NEXT_PUBLIC_BOOKING_FORM_URL ||
-  'https://script.google.com/macros/s/AKfycbx3J43TGTOi5-HyB65Rc0B3ELQ6lubli1biES_ZpCTyk7WFXdV84xuyUk2vplXEP4WQtA/exec';
+/** 僅從環境變數讀取，勿在 repo 硬編碼 GAS 部署 URL */
+const GAS_URL = process.env.NEXT_PUBLIC_BOOKING_FORM_URL?.trim() || '';
 
 const MULTI_ROOM_TYPE = '訂一間以上';
 
@@ -357,6 +356,10 @@ export default function BookingForm() {
     params.append('referenceNumber', refNum);
 
     try {
+      if (!GAS_URL) {
+        throw new Error('NEXT_PUBLIC_BOOKING_FORM_URL is not configured');
+      }
+
       await fetch(GAS_URL, {
         method: 'POST',
         mode: 'no-cors',

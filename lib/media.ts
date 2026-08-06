@@ -62,16 +62,17 @@ export const FAMILY_ROOM_IMAGES = [
   '/images/4-6ROOMS/photo_2026-06-30_21-55-00.jpg',
 ] as const;
 
+/** 房型展示標籤（影片播放器已下架，僅保留文案） */
 export const ROOM_VIDEOS = {
   double: {
     poster: DOUBLE_ROOM_IMAGES[0],
     label: '和鳴 · 雙人房實景',
-    sources: ['/videos/double-room-1.mp4', '/videos/double-room-2.mp4', '/videos/family-room-1.mp4'],
+    sources: [] as const,
   },
   family: {
     poster: FAMILY_ROOM_IMAGES[0],
     label: '和風4-6人家庭房實景',
-    sources: ['/videos/family-room-2.mp4'],
+    sources: [] as const,
   },
 } as const;
 

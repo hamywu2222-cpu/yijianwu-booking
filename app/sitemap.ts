@@ -12,13 +12,11 @@ const SEO_PATHS = [
   { path: '/rooms/package', priority: 0.9, changeFrequency: 'monthly' as const },
 ] as const;
 
-/** 靜態內容站：以建置時間作為 lastModified 基準 */
-const SITE_LAST_MODIFIED = new Date('2026-06-27');
-
 export default function sitemap(): MetadataRoute.Sitemap {
+  const lastModified = new Date();
   return SEO_PATHS.map(({ path, priority, changeFrequency }) => ({
     url: absoluteUrl(path),
-    lastModified: SITE_LAST_MODIFIED,
+    lastModified,
     changeFrequency,
     priority,
   }));

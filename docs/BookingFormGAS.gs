@@ -1,10 +1,13 @@
-﻿// 【一間屋·駅前宿】2026 精美表單整合版（最終版）
+// 【一間屋·駅前宿】2026 精美表單整合版（最終版）
 // 包含網站表單寫入 + LINE 自動密碼功能
 // 欄位順序已對齊：訂單編號, 姓名, 電話, 付款狀態, 入住日期, 退房日期, 1F大門, 2F大門, 房型名稱, 房間密碼, LINE ID, 備註, 最後查詢時間
+// [SECURITY] Do NOT commit real tokens. Rotate LINE Channel Access Token in LINE Developers.
+// Prefer PropertiesService.getScriptProperties() for secrets in production GAS.
 
-const SPREADSHEET_ID = '1KD7IM1AmWai399kYjiLHJjV_N8MFSbNVU63CtbDKAzA';
-const CHANNEL_ACCESS_TOKEN = 'AlsJhZS/DmkePrS4Dero0+ZoYs/S8s2fPTFkj1DFlrI/oT73XBcbiU0eH3W3rK+LWJJGvAqFAoC/kRrOc6zd4NcxV7ULKAUZT6Ibx3WPJJ3m/Yu0okvvDmqmCeMzjPTI13y0lccYn85AbcaT9EdEfgdB04t89/1O/w1cDnyilFU=';
-const ADMIN_LINE_USER_ID = 'Uf4438d2c9d061eee16a4952a1cb5a2e0';
+
+const SPREADSHEET_ID = 'YOUR_SPREADSHEET_ID';
+const CHANNEL_ACCESS_TOKEN = 'YOUR_LINE_CHANNEL_ACCESS_TOKEN';
+const ADMIN_LINE_USER_ID = 'YOUR_ADMIN_LINE_USER_ID';
 const GOOGLE_REVIEW_URL = 'https://g.page/r/CQ9vPLq1BsJjEBM/review';
 
 // ==================== 電話正規化 ====================
