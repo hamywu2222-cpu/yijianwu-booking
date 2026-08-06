@@ -62,6 +62,19 @@ export const FAMILY_ROOM_IMAGES = [
   '/images/4-6ROOMS/photo_2026-06-30_21-55-00.jpg',
 ] as const;
 
+/**
+ * 包棟方案展示圖：民宿大門／外觀 + 雙人房 + 家庭房整合
+ * （不再單用公共設施圖當代表）
+ */
+export const PACKAGE_IMAGES = [
+  '/images/hero.jpg',
+  '/images/exterior3.jpg',
+  DOUBLE_ROOM_IMAGES[0],
+  FAMILY_ROOM_IMAGES[0],
+  '/images/hallway.jpg',
+  DOUBLE_ROOM_IMAGES[1],
+] as const;
+
 /** 房型展示標籤（影片播放器已下架，僅保留文案） */
 export const ROOM_VIDEOS = {
   double: {

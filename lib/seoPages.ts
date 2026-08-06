@@ -6,7 +6,12 @@ import {
   PACKAGE_SECTION,
   ROOMS_SECTION,
 } from '@/lib/business';
-import { FULONG_SECTION, OUTDOOR_FRIENDLY, SCENERY_IMAGES } from '@/lib/media';
+import {
+  FULONG_SECTION,
+  OUTDOOR_FRIENDLY,
+  PACKAGE_IMAGES,
+  SCENERY_IMAGES,
+} from '@/lib/media';
 
 export const SITE_FAQ = [
   ...BOOKING_FAQ,
@@ -89,7 +94,9 @@ export const ROOM_PAGES = {
     title: '一間屋包棟方案｜全館 5 間包房優惠',
     description: `福隆一間屋全館包房（5 間）：4 間和鳴雙人房 + 1 間和風家庭房。平日 NT$8,800、假日 NT$9,200，舒適建議 ${PACKAGE_BOOKING.comfortMin}–${PACKAGE_BOOKING.comfortMax} 人，適合包棟、團體與單車隊。`,
     section: PACKAGE_SECTION,
-    image: '/images/facilities.jpg',
+    /** 代表圖：民宿大門／外觀（與房間照輪播整合） */
+    image: PACKAGE_IMAGES[0],
+    images: PACKAGE_IMAGES,
     maxOccupancy: PACKAGE_BOOKING.maxPeople,
   },
 } as const;

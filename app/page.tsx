@@ -35,6 +35,7 @@ import {
   OUTDOOR_FRIENDLY,
   DOUBLE_ROOM_IMAGES,
   FAMILY_ROOM_IMAGES,
+  PACKAGE_IMAGES,
   ROOM_VIDEOS,
   SCENERY_IMAGES,
 } from '@/lib/media';
@@ -222,8 +223,19 @@ export default function HomePage() {
             <h3 className="text-2xl md:text-4xl font-light tracking-tight mb-4 font-playfair leading-snug">
               {PACKAGE_SECTION.title}
             </h3>
-            <p className="text-[#6B665F] mb-6 text-sm max-w-2xl mx-auto leading-relaxed">
+            <p className="text-[#6B665F] mb-5 text-sm max-w-2xl mx-auto leading-relaxed">
               {PACKAGE_SECTION.intro}
+            </p>
+
+            {/* 包棟照片：民宿大門／外觀 + 房間照整合輪播 */}
+            <div className="mb-8 overflow-hidden rounded-2xl border border-[#E8DFD2] text-left">
+              <RoomImageCarousel
+                images={PACKAGE_IMAGES}
+                label="包棟實景：大門・外觀 × 房間"
+              />
+            </div>
+            <p className="mb-6 text-xs text-[#8B7355]">
+              左右滑動查看：民宿大門／外觀、和鳴雙人房、和風家庭房
             </p>
             <ul className="text-left text-sm text-[#6B665F] max-w-xl mx-auto space-y-2.5 mb-4 leading-relaxed">
               {PACKAGE_SECTION.highlights.map((line) => (

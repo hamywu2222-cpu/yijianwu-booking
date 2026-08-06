@@ -1,7 +1,8 @@
-import Image from 'next/image';
+import RoomImageCarousel from '@/components/RoomImageCarousel';
 import { PageJsonLd } from '@/components/PageJsonLd';
 import { SeoSubPage } from '@/components/SeoSubPage';
 import { PACKAGE_BOOKING } from '@/lib/business';
+import { PACKAGE_IMAGES } from '@/lib/media';
 import { getImageAlt } from '@/lib/imageAlt';
 import { FULONG_SEO_KEYWORDS } from '@/lib/seo';
 import { buildPageMetadata } from '@/lib/seoMetadata';
@@ -61,14 +62,16 @@ export default function PackageRoomPage() {
           },
         ]}
       >
-        <Image
-          src={page.image}
-          alt={getImageAlt(page.image)}
-          width={960}
-          height={640}
-          priority
-          className="mt-10 w-full rounded-2xl border border-[#e8e0d4] object-cover"
-        />
+        <div className="mt-10 overflow-hidden rounded-2xl border border-[#e8e0d4] bg-white">
+          <RoomImageCarousel
+            images={PACKAGE_IMAGES}
+            label="包棟實景：民宿大門・外觀 × 雙人房 × 家庭房"
+            priority
+          />
+        </div>
+        <p className="mt-3 text-center text-xs text-[#8B7355] leading-relaxed">
+          左右滑動：大門／外觀 → 和鳴雙人房 → 和風家庭房 → 館內空間
+        </p>
       </SeoSubPage>
     </>
   );
