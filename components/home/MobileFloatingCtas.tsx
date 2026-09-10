@@ -4,47 +4,70 @@ import { useEffect, useState } from 'react';
 import { BOOKING_CTA, BUSINESS_LINE } from '@/lib/business';
 
 /**
- * 手機底欄：左訂房 FAB + 右 LINE 取得門禁密碼。
- * 桌機僅右下 LINE 取得門禁密碼。
- * 當 #booking 進入視野時隱藏左訂房 FAB，避免雙底欄遮擋。
+ * 滑過 HERO 後：底部整列「點我立即訂房」+ 右下加 LINE。
+ * 進入訂房區時收起訂房列，避免擋住表單。
  */
 export default function MobileFloatingCtas() {
-  const [hideBookingFab, setHideBookingFab] = useState(false);
+  const [showStickyBooking, setShowStickyBooking] = useState(false);
+  const [hideLineOnHero, setHideLineOnHero] = useState(true);
 
   useEffect(() => {
-    const booking = document.getElementById('booking');
-    if (!booking) return;
+    const update = () => {
+      const hero = document.getElementById('hero');
+      const booking = document.getElementById('booking');
+      const heroBottom = hero?.getBoundingClientRect().bottom ?? 0;
+      const bookingTop = booking?.getBoundingClientRect().top ?? Number.POSITIVE_INFINITY;
+      const pastHero = heroBottom < window.innerHeight * 0.55;
+      const bookingInView = bookingTop < window.innerHeight - 64;
+      setHideLineOnHero(!pastHero);
+      setShowStickyBooking(pastHero && !bookingInView);
+    };
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setHideBookingFab(entry.isIntersecting);
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -10% 0px' },
-    );
+    let frame = 0;
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        update();
+      });
+    };
 
-    observer.observe(booking);
-    return () => observer.disconnect();
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+      document.documentElement.classList.remove('has-sticky-booking');
+    };
   }, []);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('has-sticky-booking', showStickyBooking);
+  }, [showStickyBooking]);
 
   return (
     <>
-      {!hideBookingFab && (
-        <a
-          href="#booking"
-          className="primary-booking-btn primary-booking-btn--fab md:hidden fixed bottom-6 left-4 z-50 inline-flex items-center justify-center rounded-full whitespace-nowrap"
-        >
-          {BOOKING_CTA.jumpShort}
+      {showStickyBooking ? (
+        <a href="#booking" className="booking-sticky-bar">
+          {BOOKING_CTA.stickyBar}
         </a>
-      )}
+      ) : null}
 
-      {/* 右下懸浮：手機／桌機皆為 LINE 取得門禁密碼 */}
       <a
         href={BUSINESS_LINE.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed right-4 bottom-6 z-40 flex max-w-[calc(100vw-5.5rem)] items-center gap-1 rounded-full border border-[#D1C9BE] bg-white/95 px-2.5 py-2 text-[11px] font-medium leading-none text-[#6B665F] shadow-md transition-all active:scale-[0.98] hover:border-[#00C300] hover:text-[#00A300] min-[400px]:gap-1.5 min-[400px]:px-3 min-[400px]:text-[12px] md:right-6 md:max-w-none md:gap-2 md:px-4 md:py-3 md:text-sm"
+        className={`line-lock-fab ${hideLineOnHero ? 'hidden' : ''} ${showStickyBooking ? 'line-lock-fab--raised' : ''}`}
         aria-label={BUSINESS_LINE.fabLabel}
       >
+        <svg className="line-lock-fab-icon" viewBox="0 0 24 24" aria-hidden>
+          <path
+            fill="currentColor"
+            d="M12 3.2c-4.85 0-8.8 3.28-8.8 7.32 0 3.62 3.2 6.68 7.54 7.24.29.06.7.2.8.45.09.23.06.58.03.81l-.13.8c-.04.22-.2 1.03.9.56 1.1-.47 5.9-3.48 8.05-5.96 1.46-1.62 2.16-3.26 2.16-4.9C22.55 6.48 18.7 3.2 12 3.2Z"
+          />
+        </svg>
         <span className="whitespace-nowrap">{BUSINESS_LINE.fabLabel}</span>
       </a>
     </>

@@ -445,8 +445,7 @@ h1, h2, h3 {
 }
 
 .hero-logo-safe-zone {
-  flex: 1 1 auto;
-  min-height: 10vh;
+  display: none;
 }
 
 .hero-weather-slot {
@@ -525,7 +524,7 @@ h1, h2, h3 {
 }
 
 .hero-price-line {
-  margin: 0 auto 0.7rem;
+  margin: 1.35rem auto 0.7rem;
   max-width: 22rem;
   font-size: 0.8125rem;
   font-weight: 700;
@@ -541,22 +540,27 @@ h1, h2, h3 {
 }
 
 .hero-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 60%;
   width: 100%;
   max-width: 36rem;
   margin-inline: auto;
-  flex: 0 0 auto;
   padding-inline: 1.25rem;
-  padding-bottom: max(4.5rem, calc(env(safe-area-inset-bottom) + 3rem));
+  padding-bottom: 1rem;
   text-align: center;
 }
 
 @media (min-width: 768px) {
   .hero-content {
-    padding-bottom: 5.5rem;
+    top: 62%;
+    padding-bottom: 1.5rem;
   }
 }
 
 .hero-subtitle-card {
+  margin-top: 0.55rem;
   margin-bottom: 0.75rem;
   padding: 0.65rem 0.9rem 0.7rem;
   border-radius: 1rem;
@@ -736,7 +740,7 @@ h1, h2, h3 {
 
   .hero-map-card {
     max-width: 24rem;
-    margin-bottom: 1.35rem;
+    margin-bottom: 2rem;
     padding: 0.65rem 0.8rem 0.65rem 0.7rem;
   }
 
@@ -750,6 +754,7 @@ h1, h2, h3 {
 
   .hero-price-line {
     font-size: 0.9375rem;
+    margin-top: 1.4rem;
     margin-bottom: 0.85rem;
   }
 }
@@ -772,10 +777,47 @@ h1, h2, h3 {
     -webkit-backdrop-filter: none;
   }
 
+  .hero-overlay {
+    padding-top: var(--site-nav-offset, 7.25rem);
+  }
+
+  .hero-weather-slot {
+    padding: 0.35rem 0.75rem 0;
+  }
+
+  .hero-weather-bar {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 0.4rem;
+    padding: 0.28rem 0.75rem;
+    border-radius: 9999px;
+  }
+
+  .hero-weather-bar-title,
+  .hero-weather-bar-time,
+  .hero-weather-bar-tip {
+    display: none;
+  }
+
+  .hero-weather-bar-meta {
+    flex-wrap: nowrap;
+  }
+
   .hero-subtitle-card {
     background: rgba(0, 0, 0, 0.62);
-    margin-bottom: 0.5rem;
-    padding: 0.55rem 0.75rem 0.6rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.45rem;
+    padding: 0.5rem 0.75rem 0.55rem;
+  }
+
+  .hero-find-badge {
+    margin-bottom: 0.3rem;
+    font-size: 0.6875rem;
+    padding: 0.16rem 0.55rem;
+  }
+
+  .hero-subtitle-line--primary {
+    font-size: 1rem;
   }
 
   .hero-subtitle-line--secondary {
@@ -783,26 +825,43 @@ h1, h2, h3 {
   }
 
   .hero-find-steps {
-    margin: 0.4rem 0 0.4rem;
-    gap: 0.28rem;
-  }
-
-  .hero-find-step {
-    padding: 0.32rem 0.15rem 0.35rem;
+    display: none;
   }
 
   .hero-map-card {
-    margin-bottom: 1.1rem;
+    margin-bottom: 1.75rem;
     max-width: 20.5rem;
+    padding: 0.45rem 0.55rem 0.45rem 0.5rem;
+  }
+
+  .hero-map-copy strong {
+    font-size: 0.75rem;
+  }
+
+  .hero-map-copy span {
+    display: none;
+  }
+
+  .hero-price-line {
+    margin-top: 1.15rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
   }
 
   .hero-cta-group {
-    max-width: 18.5rem;
+    max-width: 16.5rem;
     gap: 0.45rem;
   }
 
-  .hero-logo-safe-zone {
-    min-height: 16vh;
+  .hero-content {
+    top: 58%;
+    padding-bottom: max(1rem, calc(env(safe-area-inset-bottom) + 0.5rem));
+  }
+}
+
+@media (max-width: 767px) and (max-height: 700px) {
+  .hero-content {
+    top: 54%;
   }
 }
 
@@ -868,13 +927,9 @@ h1, h2, h3 {
   margin-inline: auto;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 768px) {
   .hero-cta-group {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    max-width: none;
+    max-width: 18rem;
   }
 }
 
@@ -1302,18 +1357,136 @@ input:focus, select:focus, textarea:focus {
   line-height: 1;
 }
 
-/* 手機左下訂房 FAB：加大點擊區與存在感 */
-.primary-booking-btn--fab {
-  min-height: 3rem;
-  padding-inline: 1.15rem !important;
-  padding-block: 0.75rem !important;
-  font-size: 0.8125rem !important;
+/* 右下加 LINE：官方綠 #06C755、白字、對話框圖示 */
+.line-lock-fab {
+  position: fixed;
+  right: 1rem;
+  bottom: 1.5rem;
+  z-index: 40;
+  display: flex;
+  max-width: calc(100vw - 5.5rem);
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 9999px;
+  border: none;
+  background: #06c755;
+  color: #fff;
+  padding: 0.55rem 0.85rem 0.55rem 0.7rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
   box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.1),
-    0 8px 24px rgba(184, 148, 80, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+    0 2px 6px rgba(6, 199, 85, 0.28),
+    0 8px 22px rgba(6, 199, 85, 0.38);
+  transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.line-lock-fab:hover {
+  background: #05b34c;
+  color: #fff;
+  box-shadow:
+    0 2px 6px rgba(6, 199, 85, 0.32),
+    0 10px 26px rgba(6, 199, 85, 0.46);
+}
+
+.line-lock-fab:active {
+  transform: scale(0.98);
+  background: #049a42;
+}
+
+.line-lock-fab.hidden {
+  display: none;
+}
+
+.line-lock-fab-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+@media (min-width: 400px) {
+  .line-lock-fab {
+    gap: 0.45rem;
+    padding: 0.6rem 0.95rem 0.6rem 0.75rem;
+    font-size: 0.8125rem;
+  }
+
+  .line-lock-fab-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .line-lock-fab {
+    right: 1.5rem;
+    max-width: none;
+    gap: 0.5rem;
+    padding: 0.8rem 1.15rem 0.8rem 0.95rem;
+    font-size: 0.9375rem;
+  }
+
+  .line-lock-fab-icon {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+}
+
+.line-lock-fab--raised {
+  bottom: calc(3.65rem + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 768px) {
+  .line-lock-fab--raised {
+    bottom: calc(4.15rem + env(safe-area-inset-bottom));
+  }
+}
+
+/* 滑過 HERO 後：底部整列立即訂房 */
+a.booking-sticky-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 70;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 3.25rem;
+  padding: 0.85rem 1rem calc(0.85rem + env(safe-area-inset-bottom));
+  border: none;
+  border-radius: 0;
+  background-image: linear-gradient(
+    135deg,
+    #f0d078 0%,
+    #d4ad62 28%,
+    #b89450 58%,
+    #8b7355 100%
+  );
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  box-shadow: 0 -8px 24px rgba(80, 55, 20, 0.22);
+}
+
+html.has-sticky-booking body {
+  padding-bottom: calc(3.65rem + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 768px) {
+  a.booking-sticky-bar {
+    min-height: 3.5rem;
+    font-size: 1.125rem;
+  }
+
+  html.has-sticky-booking body {
+    padding-bottom: calc(4.15rem + env(safe-area-inset-bottom));
+  }
 }
 
 /* Airbnb 次要 CTA — 官網白字標誌 + 柔和寶石紅底，不搶主按鈕 */

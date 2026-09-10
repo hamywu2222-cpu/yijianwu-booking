@@ -62,7 +62,7 @@ export const BUSINESS_LINE = {
   inquireLabel: 'LINE 詢問 @811mszbh',
   inquireLabelShort: 'LINE 詢問',
   /** 右下懸浮 */
-  fabLabel: 'LINE取得入住門禁密碼@811mszbh',
+  fabLabel: '點我加LINE取得入住密碼',
 } as const;
 
 /** Airbnb 房源（使用無追蹤參數的乾淨連結，手機可順暢跳轉 App） */
@@ -166,6 +166,7 @@ export const BOOKING_CTA = {
   jump: '立即訂房',
   /** 手機固定列／窄空間：短文案更好點、更好記 */
   jumpShort: '立即訂房',
+  stickyBar: '點我立即訂房',
   action: '點我訂房最高優惠',
   intro: '選好日期與人數，即可查空房、選房型並完成付款（含包房優惠方案，舒適建議人數 12–14）。',
   note: '點擊後在新分頁完成訂房與刷卡',

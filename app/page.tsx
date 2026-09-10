@@ -55,7 +55,7 @@ export default async function HomePage() {
       <SiteNav />
 
       {/* Hero */}
-      <section className="relative h-[100dvh] overflow-hidden">
+      <section id="hero" className="relative h-[100dvh] overflow-hidden">
         <HeroBackground />
 
         <div className="hero-overlay relative z-10">
@@ -124,7 +124,7 @@ export default async function HomePage() {
               </a>
               <a
                 href="#rooms"
-                className="hero-cta-btn border border-[#F5E8C7]/65 text-[#F5E8C7] hover:bg-[#F5E8C7]/15 hover:text-white"
+                className="hero-cta-secondary hero-cta-btn border border-[#F5E8C7]/65 text-[#F5E8C7] hover:bg-[#F5E8C7]/15 hover:text-white"
               >
                 房間介紹
               </a>
@@ -323,7 +323,7 @@ export default async function HomePage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-[#00C300] text-white rounded-full text-sm font-medium hover:bg-[#00A000] transition-all"
               >
-                {BUSINESS_LINE.ctaLabel}
+                LINE詢問包房
               </a>
             </div>
           </div>
