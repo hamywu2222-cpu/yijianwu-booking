@@ -12,11 +12,11 @@ import { getBreadcrumbJsonLd, getRoomStructuredData } from '@/lib/structuredData
 const page = ROOM_PAGES.double;
 
 export const metadata = buildPageMetadata({
-  title: '和鳴雙人房｜福隆民宿近車站・出站30秒・平日$1,500',
+  title: '和鳴雙人雅房｜福隆民宿近車站・出站30秒・平日$1,500',
   description:
-    '福隆車站民宿和鳴雙人房，出站步行30秒。原木和式雅房共4間，平日$1,500、假日$1,600。2026全新裝潢，官網訂房享最大優惠。',
+    '福隆車站民宿和鳴雙人雅房，出站步行30秒。原木和式雅房共4間，平日$1,500、假日$1,600。2026全新裝潢，官網訂房享最大優惠。',
   path: page.path,
-  keywords: [...FULONG_SEO_KEYWORDS.tier1, '福隆雙人房', '和鳴雙人房'],
+  keywords: [...FULONG_SEO_KEYWORDS.tier1, '福隆雙人雅房', '和鳴雙人雅房'],
   ogImage: page.image,
   ogImageAlt: getImageAlt(page.image),
 });
@@ -31,13 +31,13 @@ export default function DoubleRoomPage() {
           getRoomStructuredData('double'),
           getBreadcrumbJsonLd([
             { name: '首頁', path: '/' },
-            { name: '和鳴雙人房', path: page.path },
+            { name: '和鳴雙人雅房', path: page.path },
           ]),
         ]}
       />
       <SeoSubPage
         eyebrow="房型介紹"
-        title="和鳴雙人房"
+        title="和鳴雙人雅房"
         description={page.description}
         sections={[
           {

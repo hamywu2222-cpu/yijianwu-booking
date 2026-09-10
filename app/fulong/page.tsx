@@ -549,12 +549,12 @@ export default function FulongPage() {
               ))}
               <li>
                 <Link href="/rooms/double" className="text-[#3F3A36] underline-offset-2 hover:underline">
-                  和鳴雙人房
+                  和鳴雙人雅房
                 </Link>
               </li>
               <li>
                 <Link href="/rooms/family" className="text-[#3F3A36] underline-offset-2 hover:underline">
-                  家庭房
+                  家庭雅房
                 </Link>
               </li>
               <li>

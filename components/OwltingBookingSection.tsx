@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import {
   AIRBNB_BOOKING,
@@ -93,8 +93,6 @@ type OwltingBookingSectionProps = {
 export default function OwltingBookingSection({
   source = "home",
 }: OwltingBookingSectionProps) {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [showMobileSticky, setShowMobileSticky] = useState(false);
   const minCheckIn = todayString();
   const [checkIn, setCheckIn] = useState(minCheckIn);
   const [checkOut, setCheckOut] = useState(addDays(minCheckIn, 1));
@@ -121,7 +119,7 @@ export default function OwltingBookingSection({
   }, [adults, checkIn, checkOut, isReady]);
 
   const openBooking = useCallback(
-    (slot: 'booking_form' | 'mobile_sticky') => {
+    (slot: 'booking_form') => {
       if (!isReady) return;
       // 主路徑：點擊後立刻送 open_owlnest（beacon），新分頁直接開奧丁丁，不再經中轉頁
       const destination = buildCurrentBookingUrl();
@@ -144,26 +142,10 @@ export default function OwltingBookingSection({
     [adults, buildCurrentBookingUrl, checkIn, checkOut, isReady, source],
   );
 
-  useEffect(() => {
-    const node = sectionRef.current;
-    if (!node) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setShowMobileSticky(entry.isIntersecting);
-      },
-      { threshold: 0.15 },
-    );
-
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <div
-      ref={sectionRef}
       data-ga-booking-tracked
-      className="min-w-0 space-y-3 md:space-y-4 pb-20 md:pb-0"
+      className="min-w-0 space-y-3 md:space-y-4"
     >
       <AvailabilityHighlight />
 
@@ -285,30 +267,18 @@ export default function OwltingBookingSection({
       </div>
 
       <p className="px-1 text-center text-xs leading-relaxed text-[#6B665F]">
-        訂房完成後，請點「
+        訂房完成後，請點{' '}
         <a
           href={BUSINESS_LINE.url}
           target="_blank"
           rel="noopener noreferrer"
           className="font-medium text-[#00C300] hover:underline"
         >
-          {BUSINESS_LINE.ctaLabelShort}
+          LINE 取入住門禁密碼 @811mszbh
         </a>
-        」加入官方 LINE，自助取得入住密碼。
+        {' '}加入官方 LINE，自助取得入住密碼。
       </p>
 
-      {showMobileSticky && (
-        <div className="md:hidden fixed bottom-0 left-0 right-0 z-[60] bg-white border-t border-[#EDE8E0] px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgba(0,0,0,0.08)]">
-          <button
-            type="button"
-            onClick={() => openBooking('mobile_sticky')}
-            disabled={!isReady}
-            className={bookingButtonClass}
-          >
-            {BOOKING_CTA.action} →
-          </button>
-        </div>
-      )}
     </div>
   );
 }

@@ -110,9 +110,9 @@ export default function SiteNav() {
                 href={BUSINESS_LINE.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="nav-link shrink-0 rounded-full border border-[#00C300] bg-white px-2.5 py-1 text-[11px] font-semibold text-[#00A300] transition-colors hover:bg-[#00C300] hover:text-white sm:text-xs"
+                className="nav-link shrink-0 rounded-full border border-[#D1C9BE] bg-white px-2.5 py-1 text-[11px] font-medium text-[#6B665F] transition-colors hover:border-[#00C300] hover:text-[#00A300] sm:text-xs"
               >
-                LINE 門禁密碼
+                {BUSINESS_LINE.inquireLabelShort}
               </a>
               <span className="site-nav-links-divider text-[#E0D6C8]" aria-hidden>
                 |
@@ -153,14 +153,14 @@ export default function SiteNav() {
                 </span>
                 {BUSINESS_PHONE.mobile}
               </a>
-              {/* 桌機：LINE 自助入住 */}
+              {/* 桌機：訂房前 LINE 詢問，不強調門禁 */}
               <a
                 href={BUSINESS_LINE.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden md:inline-flex shrink-0 items-center rounded-full border border-[#00C300] px-3 py-2 text-xs font-medium text-[#00A300] shadow-sm transition-transform active:scale-[0.98] md:hover:bg-[#00C300] md:hover:text-white"
+                className="hidden md:inline-flex shrink-0 items-center rounded-full border border-[#D1C9BE] px-3 py-2 text-xs font-medium text-[#6B665F] shadow-sm transition-transform active:scale-[0.98] md:hover:border-[#00C300] md:hover:text-[#00A300]"
               >
-                <span className="whitespace-nowrap">{BUSINESS_LINE.ctaLabelShort}</span>
+                <span className="whitespace-nowrap">{BUSINESS_LINE.inquireLabelShort}</span>
               </a>
               {/* 寬螢幕：電話一併顯示 */}
               <a
@@ -183,9 +183,9 @@ export default function SiteNav() {
               href={BUSINESS_LINE.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="nav-link shrink-0 rounded-full border border-[#00C300] bg-white px-2.5 py-0.5 text-[11px] font-semibold text-[#00A300]"
+              className="nav-link shrink-0 rounded-full border border-[#D1C9BE] bg-white px-2.5 py-0.5 text-[11px] font-medium text-[#6B665F]"
             >
-              LINE 門禁密碼
+              {BUSINESS_LINE.inquireLabelShort}
             </a>
             <a
               href={WEB_DEV_NAV.href}

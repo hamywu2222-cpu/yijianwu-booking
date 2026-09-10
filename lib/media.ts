@@ -46,7 +46,7 @@ export const SCENERY_IMAGES: SceneryItem[] = [
   },
 ];
 
-/** 和鳴雙人房實景照片 — public/images/ROOMS */
+/** 和鳴雙人雅房實景照片 — public/images/ROOMS */
 export const DOUBLE_ROOM_IMAGES = [
   '/images/ROOMS/photo_2026-06-30_20-31-57.jpg',
   '/images/ROOMS/photo_2026-06-30_20-32-17.jpg',
@@ -56,14 +56,14 @@ export const DOUBLE_ROOM_IMAGES = [
   '/images/ROOMS/photo_2026-06-30_20-32-32.jpg',
 ] as const;
 
-/** 和風 4–6 人家庭房實景照片 — public/images/4-6ROOMS */
+/** 和風 4–6 人家庭雅房實景照片 — public/images/4-6ROOMS */
 export const FAMILY_ROOM_IMAGES = [
   '/images/4-6ROOMS/photo_2026-06-30_21-55-08.jpg',
   '/images/4-6ROOMS/photo_2026-06-30_21-55-00.jpg',
 ] as const;
 
 /**
- * 包棟輪播：HERO → 4 張不同雙人房 → 家庭房 1 → 走廊／公共空間／衛浴各 1
+ * 包棟輪播：HERO → 4 張不同雙人雅房 → 家庭雅房 1 → 走廊／公共空間／衛浴各 1
  */
 export const PACKAGE_IMAGES = [
   '/images/hero.jpg',
@@ -81,12 +81,12 @@ export const PACKAGE_IMAGES = [
 export const ROOM_VIDEOS = {
   double: {
     poster: DOUBLE_ROOM_IMAGES[0],
-    label: '和鳴 · 雙人房實景',
+    label: '和鳴 · 雙人雅房實景',
     sources: [] as const,
   },
   family: {
     poster: FAMILY_ROOM_IMAGES[0],
-    label: '和風4-6人家庭房實景',
+    label: '和風4-6人家庭雅房實景',
     sources: [] as const,
   },
 } as const;

@@ -16,7 +16,7 @@ const RENOVATION_IMAGES = [
 export const metadata = buildPageMetadata({
   title: '2026全新裝潢｜福隆車站民宿一間屋翻新紀錄',
   description:
-    '福隆民宿一間屋·駅前宿 2026年1樓全面翻新紀錄。和鳴雙人房、家庭房日式空間升級，福隆車站出站30秒合法住宿。',
+    '福隆民宿一間屋·駅前宿 2026年1樓全面翻新紀錄。和鳴雙人雅房、家庭雅房日式空間升級，福隆車站出站30秒合法住宿。',
   path: '/renovation',
   keywords: [...FULONG_SEO_KEYWORDS.tier1, '福隆民宿 全新裝潢', '2026裝潢'],
 });
@@ -44,7 +44,7 @@ export default function RenovationPage() {
           {
             heading: '為什麼值得再訪',
             paragraphs: [
-              '2026 年 6 月初完工後，和鳴雙人房、家庭房與公共空間全面升級，保留日式溫潤風格，讓福隆出站30秒民宿的住宿體驗更舒適。',
+              '2026 年 6 月初完工後，和鳴雙人雅房、家庭雅房與公共空間全面升級，保留日式溫潤風格，讓福隆出站30秒民宿的住宿體驗更舒適。',
             ],
           },
         ]}

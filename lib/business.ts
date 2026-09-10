@@ -56,12 +56,13 @@ export const BUSINESS_LINE = {
   accessNote: '加入官方 LINE，自助取得入住密碼',
   /** 訂房完成後取密碼 */
   ctaLabel: 'LINE 自助入住密碼取得 @811mszbh',
-  /** 導覽／懸浮鈕短文案，不跟訂房主按鈕搶 */
-  ctaLabelShort: 'LINE 取密碼 @811mszbh',
-  /** 右下懸浮按鈕 */
-  fabLabel: 'LINE取門禁密碼@811mszbh',
-  /** 次要入口：包房、疑問、特殊需求 */
+  /** 訂完後取密碼（付款成功才強調） */
+  ctaLabelShort: 'LINE 取門禁密碼 @811mszbh',
+  /** 訂房前：疑問／包房，避免還沒訂就去要密碼 */
   inquireLabel: 'LINE 詢問 @811mszbh',
+  inquireLabelShort: 'LINE 詢問',
+  /** 右下懸浮 */
+  fabLabel: 'LINE取得入住門禁密碼@811mszbh',
 } as const;
 
 /** Airbnb 房源（使用無追蹤參數的乾淨連結，手機可順暢跳轉 App） */
@@ -100,7 +101,7 @@ export const ROOMS_SECTION = {
   title: '房型與包房',
   sharedNote: AMENITIES_NOTE,
   double: {
-    title: '和鳴 · 雙人房',
+    title: '和鳴 · 雙人雅房',
     subtitle: '共 4 間，格局大小都相同',
     note: '簡約和式雅房，木質溫潤、寧靜留白。2026 年 6 月初全新裝潢，適合情侶、好友或獨旅，享受車站旁難得的安靜夜晚。',
     tags: ['2 張單人床', '2 人', '衛浴共用', '吹風機', '民宿內拖鞋'] as const,
@@ -111,9 +112,9 @@ export const ROOMS_SECTION = {
     },
   },
   family: {
-    title: '和風4-6人家庭房',
+    title: '和風4-6人家庭雅房',
     badge: '僅此1間',
-    note: '寬敞和風家庭房，空間從容、采光舒適。適合家庭與好友小團體，在福隆住得自在安靜。',
+    note: '寬敞和風家庭雅房，空間從容、采光舒適。適合家庭與好友小團體，在福隆住得自在安靜。',
     tags: ['2 張雙人床', '4–6 人', '衛浴共用', '吹風機', '民宿內拖鞋'] as const,
     priceNote: '4 人起價',
     extraNote: '每加 1 人 +NT$600（最多 6 人）',
@@ -130,7 +131,7 @@ export const PACKAGE_SECTION = {
   title: '一間屋．全館包房優惠方案（共 5 間）',
   intro: '一次打包全館空間，非常適合家庭聚會、團體旅遊、單車隊或公司行號包棟！',
   highlights: [
-    '客房配置：和鳴雙人房 × 4 間 ＋ 和風 4–6 人家庭房 × 1 間。',
+    '客房配置：和鳴雙人雅房 × 4 間 ＋ 和風 4–6 人家庭雅房 × 1 間。',
     '衛浴：全館衛浴共三間可使用（全套衛浴）；內含洗髮精、沐浴乳、香皂。',
     '備品：每房附吹風機一台；提供民宿內拖鞋。',
     `容納人數：舒適建議 ${PACKAGE_BOOKING.comfortMin}–${PACKAGE_BOOKING.comfortMax} 人（上限最多 ${PACKAGE_BOOKING.maxPeople} 人）。`,
@@ -162,15 +163,16 @@ export const OWLNEST_BOOKING = {
 
 /** 官網訂房按鈕與說明文案（單一來源）— 主 CTA，視覺優先於攻略等次要按鈕 */
 export const BOOKING_CTA = {
-  jump: '點我訂房最高優惠',
+  jump: '立即訂房',
   /** 手機固定列／窄空間：短文案更好點、更好記 */
   jumpShort: '立即訂房',
   action: '點我訂房最高優惠',
   intro: '選好日期與人數，即可查空房、選房型並完成付款（含包房優惠方案，舒適建議人數 12–14）。',
   note: '點擊後在新分頁完成訂房與刷卡',
+  heroPrice: '雙人雅房平日 NT$1,500 起 · 官網直訂最優惠',
   sectionTitle: '線上訂房付款',
   sectionSubtitle: '選日期與人數，查空房、選房型並完成付款 · 官網保證最優惠',
-  package: '點我訂房最高優惠',
+  package: '立即訂房',
 } as const;
 
 export const BUSINESS_FACEBOOK = {
@@ -208,12 +210,12 @@ export const BOOKING_FAQ = [
     answer: `於官網訂房頁選好日期後，滑到最下方查看包房選項。舒適建議 ${PACKAGE_BOOKING.comfortMin}–${PACKAGE_BOOKING.comfortMax} 人，最多 ${PACKAGE_BOOKING.maxPeople} 人。若超過 ${PACKAGE_BOOKING.orderAdultCap} 人，下單時人數請填 ${PACKAGE_BOOKING.orderAdultCap} 人，並在備註寫實際共幾人；超出 ${PACKAGE_BOOKING.orderAdultCap} 人部分，每多 1 人 +NT$${PACKAGE_BOOKING.extraPerPerson}（備註範例：${PACKAGE_BOOKING.remarkExample}）。`,
   },
   {
-    question: '和鳴雙人房可以住幾人？加人如何計費？',
+    question: '和鳴雙人雅房可以住幾人？加人如何計費？',
     answer:
-      '和鳴雙人房舒適建議 2 人，官網優惠價平日 NT$1,500 / 假日 NT$1,600。若要多加 1 人，每人加 NT$600，並提供日式軟墊、枕頭、毯子。',
+      '和鳴雙人雅房舒適建議 2 人，官網優惠價平日 NT$1,500 / 假日 NT$1,600。若要多加 1 人，每人加 NT$600，並提供日式軟墊、枕頭、毯子。',
   },
   {
-    question: '和風 4–6 人家庭房如何計價？',
+    question: '和風 4–6 人家庭雅房如何計價？',
     answer:
       '4 人起基本價平日 NT$3,000 / 假日 NT$3,200，每增加 1 人加 NT$600（最多 6 人）。舒適建議 4–6 人，超過請自行斟酌空間與寢具安排。',
   },
@@ -286,7 +288,7 @@ export const BUSINESS_URLS = {
 export const ROOM_TYPES = [
   {
     slug: 'double' as const,
-    name: '和鳴雙人房',
+    name: '和鳴雙人雅房',
     description:
       '簡約和式雅房，木質溫潤、寧靜留白。2026 年 6 月初全新裝潢，適合情侶、好友或獨旅。',
     weekdayPrice: 1500,
@@ -295,9 +297,9 @@ export const ROOM_TYPES = [
   },
   {
     slug: 'family' as const,
-    name: '和風4-6人家庭房',
+    name: '和風4-6人家庭雅房',
     description:
-      '寬敞和風家庭房，空間從容、采光舒適。適合家庭與好友小團體，在福隆住得自在安靜。',
+      '寬敞和風家庭雅房，空間從容、采光舒適。適合家庭與好友小團體，在福隆住得自在安靜。',
     weekdayPrice: 3000,
     weekendPrice: 3200,
     path: '/rooms/family',
@@ -345,11 +347,11 @@ export const FULONG_ATTRACTIONS = [
   },
 ] as const;
 
-export const GMB_DESCRIPTION = `福隆車站民宿｜出站右轉步行約 30 秒即達。一間屋・駅前宿（合法登記：${BUSINESS_REGISTRATION}）提供日式雅房與家庭房，2026 年全新裝潢，適合沒開車、搭火車的旅客。
+export const GMB_DESCRIPTION = `福隆車站民宿｜出站右轉步行約 30 秒即達。一間屋・駅前宿（合法登記：${BUSINESS_REGISTRATION}）提供日式雙人雅房與家庭雅房，2026 年全新裝潢，適合沒開車、搭火車的旅客。
 
-・和鳴雙人房 平日 NT$1,500 / 假日 NT$1,600（共 4 間）
-・和風 4–6 人家庭房 平日 NT$3,000起 / 假日 NT$3,200起（僅 1 間）
-・一間屋包房優惠方案(5間)（4間和鳴雙人房+1間和風4-6人家庭房，全館衛浴共三間可使用・全套衛浴）平日 NT$8,800 / 假日 NT$9,200｜舒適建議人數 12–14
+・和鳴雙人雅房 平日 NT$1,500 / 假日 NT$1,600（共 4 間）
+・和風 4–6 人家庭雅房 平日 NT$3,000起 / 假日 NT$3,200起（僅 1 間）
+・一間屋包房優惠方案(5間)（4間和鳴雙人雅房+1間和風4-6人家庭雅房，全館衛浴共三間可使用・全套衛浴）平日 NT$8,800 / 假日 NT$9,200｜舒適建議人數 12–14
 ・入住 15:00 後｜退房 11:00 前
 ・單車友善停放｜免費 WiFi｜福隆海水浴場步行 8 分鐘
 

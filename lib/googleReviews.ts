@@ -51,7 +51,7 @@ const DEMO_REVIEWS: GoogleReviewsPayload = {
     {
       authorName: '旅人 C',
       rating: 5,
-      text: '家庭房空間剛好，小孩睡得很舒服。入住前 LINE 就收到門禁說明，流程很清楚。',
+      text: '家庭雅房空間剛好，小孩睡得很舒服。入住前 LINE 就收到門禁說明，流程很清楚。',
       relativeTime: '1 個月前',
     },
   ],

@@ -16,8 +16,8 @@ const SEO_LINKS = [
   { href: '/fulong/bike', label: '舊草嶺單車' },
   { href: '/fulong/water', label: '福隆玩水' },
   { href: '/faq', label: '常見問題' },
-  { href: '/rooms/double', label: '和鳴雙人房' },
-  { href: '/rooms/family', label: '家庭房' },
+  { href: '/rooms/double', label: '和鳴雙人雅房' },
+  { href: '/rooms/family', label: '家庭雅房' },
   { href: '/rooms/package', label: '包棟方案' },
   { href: '/renovation', label: '2026 裝潢' },
 ] as const;

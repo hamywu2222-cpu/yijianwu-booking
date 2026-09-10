@@ -90,6 +90,11 @@ export default function FulongWeatherChip({
             {weather.observedAt ? `${weather.observedAt} 更新` : '即時更新'}
           </span>
         </p>
+        {raining ? (
+          <a href="#booking" className="hero-weather-bar-tip">
+            小雨可看沙雕或走舊草嶺隧道 · 仍可訂房
+          </a>
+        ) : null}
       </div>
     );
   }

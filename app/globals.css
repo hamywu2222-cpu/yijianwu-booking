@@ -514,6 +514,27 @@ h1, h2, h3 {
   font-variant-numeric: tabular-nums;
 }
 
+.hero-weather-bar-tip {
+  margin: 0.1rem 0 0;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #fff4c8;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.hero-price-line {
+  margin: 0 auto 0.7rem;
+  max-width: 22rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  color: #fff8e0;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
+}
+
 .hero-weather-bar svg {
   width: 1rem;
   height: 1rem;
@@ -725,6 +746,11 @@ h1, h2, h3 {
 
   .hero-map-copy span {
     font-size: 0.75rem;
+  }
+
+  .hero-price-line {
+    font-size: 0.9375rem;
+    margin-bottom: 0.85rem;
   }
 }
 

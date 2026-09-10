@@ -97,12 +97,12 @@ export function SeoSubPage({
             </li>
             <li>
               <Link href="/rooms/double" className="text-[#3F3A36] underline-offset-2 hover:underline">
-                和鳴雙人房
+                和鳴雙人雅房
               </Link>
             </li>
             <li>
               <Link href="/rooms/family" className="text-[#3F3A36] underline-offset-2 hover:underline">
-                和風家庭房
+                和風家庭雅房
               </Link>
             </li>
             <li>

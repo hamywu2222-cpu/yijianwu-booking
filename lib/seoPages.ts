@@ -65,7 +65,7 @@ export const RENOVATION_PAGE = {
   timeline: [
     { period: '2026.04', label: '翻新前', note: '盤點舊有空間，規劃木作、泥作與動線。' },
     { period: '2026.05', label: '施工中', note: '拆除舊隔間，同步進行木作與泥作工程。' },
-    { period: '2026.06 初', label: '翻新完成', note: '和鳴雙人房、家庭房與公共空間全面升級，正式迎接旅人。' },
+    { period: '2026.06 初', label: '翻新完成', note: '和鳴雙人雅房、家庭雅房與公共空間全面升級，正式迎接旅人。' },
   ],
 } as const;
 
@@ -73,9 +73,9 @@ export const ROOM_PAGES = {
   double: {
     slug: 'double',
     path: '/rooms/double',
-    title: '和鳴雙人房｜福隆車站民宿出站30秒・一間屋',
+    title: '和鳴雙人雅房｜福隆車站民宿出站30秒・一間屋',
     description:
-      '福隆車站步行 30 秒的和鳴雙人房，原木和式雅房共 4 間。平日 NT$1,500、假日 NT$1,600，適合情侶、好友與獨旅，2026 年全新裝潢。',
+      '福隆車站步行 30 秒的和鳴雙人雅房，原木和式雅房共 4 間。平日 NT$1,500、假日 NT$1,600，適合情侶、好友與獨旅，2026 年全新裝潢。',
     room: ROOMS_SECTION.double,
     image: '/images/ROOMS/photo_2026-06-30_20-31-57.jpg',
     maxOccupancy: 3,
@@ -84,9 +84,9 @@ export const ROOM_PAGES = {
   family: {
     slug: 'family',
     path: '/rooms/family',
-    title: '和風家庭房｜福隆車站民宿・4–6人・僅此1間',
+    title: '和風家庭雅房｜福隆車站民宿・4–6人・僅此1間',
     description:
-      '福隆車站旁和風 4–6 人家庭房，兩張雙人床、寬敞日式空間。平日 NT$3,000 起、假日 NT$3,200 起，適合家庭與小團體入住。',
+      '福隆車站旁和風 4–6 人家庭雅房，兩張雙人床、寬敞日式空間。平日 NT$3,000 起、假日 NT$3,200 起，適合家庭與小團體入住。',
     room: ROOMS_SECTION.family,
     image: '/images/4-6ROOMS/photo_2026-06-30_21-55-08.jpg',
     maxOccupancy: 6,
@@ -96,7 +96,7 @@ export const ROOM_PAGES = {
     slug: 'package',
     path: '/rooms/package',
     title: '一間屋包棟方案｜全館 5 間包房優惠',
-    description: `福隆一間屋全館包房（5 間）：4 間和鳴雙人房 + 1 間和風家庭房；全館衛浴共三間可使用（全套衛浴）。平日 NT$8,800、假日 NT$9,200，舒適建議 ${PACKAGE_BOOKING.comfortMin}–${PACKAGE_BOOKING.comfortMax} 人，適合包棟、團體與單車隊。`,
+    description: `福隆一間屋全館包房（5 間）：4 間和鳴雙人雅房 + 1 間和風家庭雅房；全館衛浴共三間可使用（全套衛浴）。平日 NT$8,800、假日 NT$9,200，舒適建議 ${PACKAGE_BOOKING.comfortMin}–${PACKAGE_BOOKING.comfortMax} 人，適合包棟、團體與單車隊。`,
     section: PACKAGE_SECTION,
     /** 代表圖：民宿大門／外觀（與房間照輪播整合） */
     image: PACKAGE_IMAGES[0],

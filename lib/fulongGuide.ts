@@ -1571,7 +1571,7 @@ export const FULONG_PERSONA_ITINERARIES: PersonaItinerary[] = [
     id: 'family',
     persona: '家庭（親子）',
     emoji: '👨‍👩‍👧‍👦',
-    stay: '建議 2 天 1 夜起；選家庭房',
+    stay: '建議 2 天 1 夜起；選家庭雅房',
     transport: '自備汽車優先；無車可火車＋租電動輔助／親子車（福隆無租機車）',
     summary: '縮距離、控體能；一間屋當中午午睡與補給基地。',
     plan: [

@@ -12,11 +12,11 @@ import { getBreadcrumbJsonLd, getRoomStructuredData } from '@/lib/structuredData
 const page = ROOM_PAGES.family;
 
 export const metadata = buildPageMetadata({
-  title: '和風家庭房｜福隆民宿4-6人・近車站・僅此1間',
+  title: '和風家庭雅房｜福隆民宿4-6人・近車站・僅此1間',
   description:
-    '福隆住宿和風4-6人家庭房，兩張雙人床寬敞日式空間。平日$3,000起、假日$3,200起。福隆車站出站30秒，適合親子與小團體。',
+    '福隆住宿和風4-6人家庭雅房，兩張雙人床寬敞日式空間。平日$3,000起、假日$3,200起。福隆車站出站30秒，適合親子與小團體。',
   path: page.path,
-  keywords: [...FULONG_SEO_KEYWORDS.tier1, '福隆親子民宿', '福隆家庭房'],
+  keywords: [...FULONG_SEO_KEYWORDS.tier1, '福隆親子民宿', '福隆家庭雅房'],
   ogImage: page.image,
   ogImageAlt: getImageAlt(page.image),
 });
@@ -31,13 +31,13 @@ export default function FamilyRoomPage() {
           getRoomStructuredData('family'),
           getBreadcrumbJsonLd([
             { name: '首頁', path: '/' },
-            { name: '和風家庭房', path: page.path },
+            { name: '和風家庭雅房', path: page.path },
           ]),
         ]}
       />
       <SeoSubPage
         eyebrow="房型介紹"
-        title="和風4-6人家庭房"
+        title="和風4-6人家庭雅房"
         description={page.description}
         sections={[
           {
@@ -53,7 +53,7 @@ export default function FamilyRoomPage() {
           {
             heading: '適合誰住',
             paragraphs: [
-              '親子家庭、好友小團體。全館僅此一間家庭房，建議提早於官網訂房。',
+              '親子家庭、好友小團體。全館僅此一間家庭雅房，建議提早於官網訂房。',
             ],
           },
         ]}

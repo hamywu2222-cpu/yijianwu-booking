@@ -2,7 +2,6 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import HeroBackground from '@/components/HeroBackground';
 import SiteNav from '@/components/SiteNav';
-import RoomImageCarousel from '@/components/RoomImageCarousel';
 import HomeFooter from '@/components/home/HomeFooter';
 import HomeSeoHub from '@/components/home/HomeSeoHub';
 import { PageJsonLd } from '@/components/PageJsonLd';
@@ -28,7 +27,6 @@ import {
   STATION_FIND,
 } from '@/lib/business';
 import { fetchFulongWeather } from '@/lib/fulongWeather';
-import { fetchGoogleReviews } from '@/lib/googleReviews';
 import { getImageAlt } from '@/lib/imageAlt';
 import {
   DOUBLE_ROOM_IMAGES,
@@ -38,6 +36,7 @@ import {
 } from '@/lib/media';
 import { HOME_H1_TEXT } from '@/lib/seo';
 
+const RoomImageCarousel = dynamic(() => import('@/components/RoomImageCarousel'));
 const RenovationSection = dynamic(() => import('@/components/home/RenovationSection'));
 const OwltingBookingSection = dynamic(() => import('@/components/OwltingBookingSection'));
 const GoogleReviews = dynamic(() => import('@/components/GoogleReviews'));
@@ -48,10 +47,7 @@ const WebDevTeaser = dynamic(() => import('@/components/home/WebDevTeaser'));
 
 /** Server Component 首頁：互動區塊各自為 client，減少整頁 client bundle */
 export default async function HomePage() {
-  const [reviews, weather] = await Promise.all([
-    fetchGoogleReviews(),
-    fetchFulongWeather(),
-  ]);
+  const weather = await fetchFulongWeather();
 
   return (
     <main className="min-h-screen bg-[#F8F5F1] text-[#3F3A36]">
@@ -118,18 +114,19 @@ export default async function HomePage() {
               </span>
             </a>
 
+            <p className="hero-price-line">{BOOKING_CTA.heroPrice}</p>
             <div className="hero-cta-group">
               <a
                 href="#booking"
                 className="hero-cta-btn primary-booking-btn text-white shadow-lg min-h-[3rem] px-7 text-sm font-semibold sm:text-base"
               >
-                {BOOKING_CTA.jump}
+                {BOOKING_CTA.jumpShort}
               </a>
               <a
                 href="#rooms"
                 className="hero-cta-btn border border-[#F5E8C7]/65 text-[#F5E8C7] hover:bg-[#F5E8C7]/15 hover:text-white"
               >
-                查看房間
+                房間介紹
               </a>
             </div>
             <p className="mt-3 hidden text-[11px] leading-relaxed text-[#F5E8C7]/75 sm:block sm:text-xs">
@@ -196,7 +193,7 @@ export default async function HomePage() {
                     href="/rooms/double"
                     className="text-xs text-[#8B7355] hover:text-[#3F3A36] hover:underline"
                   >
-                    雙人房詳情 →
+                    雙人雅房詳情 →
                   </a>
                 </div>
               </div>
@@ -248,7 +245,7 @@ export default async function HomePage() {
                     href="/rooms/family"
                     className="text-xs text-[#8B7355] hover:text-[#3F3A36] hover:underline"
                   >
-                    家庭房詳情 →
+                    家庭雅房詳情 →
                   </a>
                 </div>
               </div>
@@ -275,7 +272,7 @@ export default async function HomePage() {
               />
             </div>
             <p className="mb-6 text-xs text-[#8B7355]">
-              左右滑動：主視覺 → 雙人房 4 張 → 家庭房 → 走廊 → 公共空間 → 衛浴
+              左右滑動：主視覺 → 雙人雅房 4 張 → 家庭雅房 → 走廊 → 公共空間 → 衛浴
             </p>
             <ul className="text-left text-sm text-[#6B665F] max-w-xl mx-auto space-y-2.5 mb-4 leading-relaxed">
               {PACKAGE_SECTION.highlights.map((line) => (
@@ -357,7 +354,7 @@ export default async function HomePage() {
               左右滑動瀏覽 Google 評價
             </p>
           </div>
-          <GoogleReviews initialData={reviews} />
+          <GoogleReviews />
         </div>
       </section>
 
