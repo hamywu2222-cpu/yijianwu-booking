@@ -2,13 +2,13 @@
  * GA4 / Google Ads 追蹤
  *
  * GA4 主要事件：
- *   open_owlnest — 經 /go/owlnest 前往奧丁丁（分析用）
+ *   open_owlnest — 點訂房後前往奧丁丁（分析用；主路徑在點擊時送出，舊連結仍可走 /go/owlnest）
  *
  * Google Ads 轉換（專員提供，點擊事件）：
  *   訂房：button.primary-booking-btn → AW-…/qJ5hCKHt-twcEO-Hxb1D
  *   電話：a[href*="tel:"] → AW-…/oqIACKvc-twcEO-Hxb1D
  *
- * 訂房 Ads 轉換只在「主訂房按鈕」送一次，不在 /go/owlnest 再送，
+ * 訂房 Ads 轉換只在「主訂房按鈕」送一次，不在 open_owlnest 再送，
  * 避免同一操作被算兩次。
  */
 
@@ -61,6 +61,9 @@ declare global {
       config?: Record<string, string | number | boolean | undefined | (() => void)>,
     ) => void;
     dataLayer?: unknown[];
+    __landingPageLocation?: string;
+    __landingPageViewSent?: boolean;
+    __fromSkyartSent?: boolean;
   }
 }
 
@@ -68,7 +71,7 @@ function canTrack() {
   return typeof window !== "undefined" && typeof window.gtag === "function";
 }
 
-/** 等 gtag 腳本就緒（中轉頁導向前用） */
+/** 等 gtag 腳本就緒（舊 /go/owlnest 中轉頁導向前用） */
 export function waitForGtag(timeoutMs = 3000): Promise<boolean> {
   if (typeof window === "undefined") return Promise.resolve(false);
   if (typeof window.gtag === "function") return Promise.resolve(true);
@@ -87,11 +90,43 @@ export function waitForGtag(timeoutMs = 3000): Promise<boolean> {
   });
 }
 
+function landingLocation() {
+  if (typeof window === "undefined") return "";
+  return window.__landingPageLocation || window.location.href;
+}
+
+/** 從藝素村帶 UTM 進站時送出，方便即時報表對得到 */
+export function trackFromSkyart(content?: string) {
+  if (!GA_MEASUREMENT_ID || !canTrack()) return;
+  if (window.__fromSkyartSent) return;
+  window.__fromSkyartSent = true;
+  window.gtag!("event", "from_skyart", {
+    event_category: "referral",
+    event_label: content || "(not set)",
+    transport_type: "beacon",
+  });
+}
+
 export function trackPageView(url: string) {
   if (!GA_MEASUREMENT_ID || !canTrack()) return;
 
-  window.gtag!("config", GA_MEASUREMENT_ID, {
-    page_path: url,
+  const isFirst = !window.__landingPageViewSent;
+  window.__landingPageViewSent = true;
+
+  const pageLocation = isFirst ? landingLocation() : window.location.href;
+  let pagePath = url;
+  try {
+    const parsed = new URL(pageLocation, window.location.origin);
+    pagePath = `${parsed.pathname}${parsed.search}`;
+  } catch {
+    pagePath = url;
+  }
+
+  window.gtag!("event", "page_view", {
+    page_path: pagePath,
+    page_location: pageLocation,
+    page_title: document.title,
+    page_referrer: document.referrer,
   });
 }
 
@@ -159,7 +194,7 @@ export type TrackOpenOwlnestOptions = Omit<BookingClickParams, "action"> & {
 };
 
 /**
- * GA4：open_owlnest（中轉頁）
+ * GA4：open_owlnest（點擊直接開奧丁丁時 fire-and-forget；舊中轉頁可帶 onReady）
  * 不在此送 Google Ads 訂房 conversion，避免與主訂房按鈕重複計算。
  */
 export function trackOpenOwlnest(params: TrackOpenOwlnestOptions) {

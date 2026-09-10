@@ -17,7 +17,7 @@ import {
   SITE_OG_IMAGE,
 } from '@/lib/business';
 import { HOME_PAGE_DESCRIPTION, TOP5_REGIONAL_KEYWORDS } from '@/lib/seo';
-import { SITE_FAQ } from '@/lib/seoPages';
+import { FULONG_GUIDE, SITE_FAQ } from '@/lib/seoPages';
 import { absoluteUrl } from '@/lib/site';
 
 export const SITE_NAME = BUSINESS_NAME;
@@ -29,7 +29,9 @@ const AMENITIES = [
   '單車清洗區',
   '行李寄放',
   '獨立冷氣',
-  '公共衛浴',
+  '公共冰箱',
+  '冷熱飲水機',
+  '共用衛浴(全套)3間・含沐浴乳、洗髮精、香皂',
   '日式木質裝潢',
 ] as const;
 
@@ -140,9 +142,10 @@ export function getLocalBusinessJsonLd() {
       '一間屋駅前宿',
       ...TOP5_REGIONAL_KEYWORDS,
       '福隆一間屋背包客棧',
+      '福隆火車站民宿',
       '新北民宿',
     ],
-    slogan: '福隆車站出站30秒・新北海邊日式住宿',
+    slogan: '福隆車站民宿・出站步行30秒',
     description: SITE_DESCRIPTION,
     url,
     telephone: BUSINESS_PHONE.mobileE164,
@@ -170,7 +173,15 @@ export function getLocalBusinessJsonLd() {
       { '@type': 'City', name: '貢寮區', containedInPlace: { '@type': 'State', name: '新北市' } },
       { '@type': 'State', name: '新北市', containedInPlace: { '@type': 'Country', name: '台灣' } },
     ],
-    knowsAbout: [...TOP5_REGIONAL_KEYWORDS, '舊草嶺隧道', '草嶺古道', '單車友善住宿'],
+    knowsAbout: [
+      ...TOP5_REGIONAL_KEYWORDS,
+      '舊草嶺隧道',
+      '草嶺古道',
+      '福隆海水浴場',
+      '福隆一日遊',
+      '單車友善住宿',
+      '沒開車福隆住宿',
+    ],
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
@@ -324,15 +335,41 @@ export function getFulongGuideStructuredData() {
   };
 }
 
+export function getStationWalkHowToJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: FULONG_GUIDE.walking.title,
+    description:
+      '福隆火車站出站右轉步行約 30 秒即達一間屋・駅前宿，適合沒開車、拖行李的旅客。',
+    totalTime: 'PT1M',
+    estimatedCost: { '@type': 'MonetaryAmount', currency: 'TWD', value: '0' },
+    step: FULONG_GUIDE.walking.steps.map((text, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      text,
+    })),
+  };
+}
+
 export function getFaqStructuredData() {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: SITE_FAQ.map((item) => ({
-      '@type': 'Question',
-      name: item.question,
-      acceptedAnswer: { '@type': 'Answer', text: item.answer },
-    })),
+    mainEntity: SITE_FAQ.map((item) => {
+      const linkText =
+        'link' in item && item.link
+          ? ` 詳見：${absoluteUrl(item.link.href)}（${item.link.label.replace(/\s*→\s*$/, '')}）`
+          : '';
+      return {
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `${item.answer}${linkText}`,
+        },
+      };
+    }),
   };
 }
 

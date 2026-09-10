@@ -1,22 +1,20 @@
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import GoogleMapEmbed from '@/components/GoogleMapEmbed';
-import GoogleReviews from '@/components/GoogleReviews';
-import OwltingBookingSection from '@/components/OwltingBookingSection';
 import HeroBackground from '@/components/HeroBackground';
 import SiteNav from '@/components/SiteNav';
 import RoomImageCarousel from '@/components/RoomImageCarousel';
-import SceneryGallery from '@/components/SceneryGallery';
 import HomeFooter from '@/components/home/HomeFooter';
-import MobileFloatingCtas from '@/components/home/MobileFloatingCtas';
-import RenovationSection from '@/components/home/RenovationSection';
-import WebDevTeaser from '@/components/home/WebDevTeaser';
+import HomeSeoHub from '@/components/home/HomeSeoHub';
+import { PageJsonLd } from '@/components/PageJsonLd';
+import { getFaqStructuredData, getStationWalkHowToJsonLd } from '@/lib/structuredData';
+import FulongWeatherChip from '@/components/home/FulongWeatherChip';
 import {
   AboutAmenityStrip,
-  OutdoorRouteGrid,
   PackagePriceCard,
   RoomPriceDisplay,
   RoomTags,
 } from '@/components/home/HomeUi';
+import MobileFloatingCtas from '@/components/home/MobileFloatingCtas';
 import {
   BOOKING_CTA,
   BUSINESS_ADDRESS,
@@ -27,65 +25,124 @@ import {
   BUSINESS_URLS,
   PACKAGE_SECTION,
   ROOMS_SECTION,
+  STATION_FIND,
 } from '@/lib/business';
+import { fetchFulongWeather } from '@/lib/fulongWeather';
+import { fetchGoogleReviews } from '@/lib/googleReviews';
 import { getImageAlt } from '@/lib/imageAlt';
-import { HOME_H1_TEXT } from '@/lib/seo';
 import {
-  FULONG_SECTION,
-  OUTDOOR_FRIENDLY,
   DOUBLE_ROOM_IMAGES,
   FAMILY_ROOM_IMAGES,
   PACKAGE_IMAGES,
   ROOM_VIDEOS,
-  SCENERY_IMAGES,
 } from '@/lib/media';
+import { HOME_H1_TEXT } from '@/lib/seo';
+
+const RenovationSection = dynamic(() => import('@/components/home/RenovationSection'));
+const OwltingBookingSection = dynamic(() => import('@/components/OwltingBookingSection'));
+const GoogleReviews = dynamic(() => import('@/components/GoogleReviews'));
+const GoogleMapEmbed = dynamic(() => import('@/components/GoogleMapEmbed'));
+const HomeFulongGuideTeaser = dynamic(() => import('@/components/home/HomeFulongGuideTeaser'));
+const NearbyDiningNote = dynamic(() => import('@/components/home/NearbyDiningNote'));
+const WebDevTeaser = dynamic(() => import('@/components/home/WebDevTeaser'));
 
 /** Server Component 首頁：互動區塊各自為 client，減少整頁 client bundle */
-export default function HomePage() {
+export default async function HomePage() {
+  const [reviews, weather] = await Promise.all([
+    fetchGoogleReviews(),
+    fetchFulongWeather(),
+  ]);
+
   return (
     <main className="min-h-screen bg-[#F8F5F1] text-[#3F3A36]">
+      <PageJsonLd data={[getFaqStructuredData(), getStationWalkHowToJsonLd()]} />
       <SiteNav />
 
       {/* Hero */}
       <section className="relative h-[100dvh] overflow-hidden">
         <HeroBackground />
 
-        <div
-          className="relative z-10 flex h-full flex-col"
-          style={{ paddingTop: 'var(--site-nav-offset, 7.25rem)' }}
-        >
-          <div className="hero-logo-safe-zone flex-1 min-h-[28vh] sm:min-h-[32vh] md:min-h-[38vh]" aria-hidden />
+        <div className="hero-overlay relative z-10">
+          <div className="hero-weather-slot">
+            <FulongWeatherChip weather={weather} compact />
+          </div>
+
+          <div className="hero-logo-safe-zone" aria-hidden />
 
           <div className="hero-content">
             <h1 className="sr-only">{HOME_H1_TEXT}</h1>
 
             <div className="hero-subtitle-card">
-              <p className="hero-subtitle-line hero-subtitle-line--primary">福隆民宿・新北海邊住宿</p>
-              <p className="hero-subtitle-line hero-subtitle-line--secondary">福隆車站出站 30 秒</p>
+              <p className="hero-find-badge">{STATION_FIND.badge}</p>
+              <p className="hero-subtitle-line hero-subtitle-line--primary">{STATION_FIND.headline}</p>
+              <p className="hero-subtitle-line hero-subtitle-line--secondary">{STATION_FIND.sub}</p>
+              <ol className="hero-find-steps">
+                {STATION_FIND.steps.map((step) => (
+                  <li key={step.n} className="hero-find-step">
+                    <span className="hero-find-step-n" aria-hidden>
+                      {step.n}
+                    </span>
+                    <span className="hero-find-step-text">
+                      <strong>{step.title}</strong>
+                      <span>{step.detail}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
             </div>
+
+            <a
+              href={BUSINESS_URLS.googleMapsDirections}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hero-map-card"
+              aria-label={`${STATION_FIND.mapsLabel}：${BUSINESS_ADDRESS.full}`}
+            >
+              <span className="hero-map-pin" aria-hidden>
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M12 21s7-6.2 7-11.2A7 7 0 0 0 5 9.8C5 14.8 12 21 12 21Z"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinejoin="round"
+                  />
+                  <circle cx="12" cy="9.6" r="2.2" fill="currentColor" />
+                </svg>
+              </span>
+              <span className="hero-map-copy">
+                <strong>{STATION_FIND.mapsLabel}</strong>
+                <span>{BUSINESS_ADDRESS.full}</span>
+              </span>
+              <span className="hero-map-go" aria-hidden>
+                導航
+              </span>
+            </a>
 
             <div className="hero-cta-group">
               <a
                 href="#booking"
-                className="hero-cta-btn bg-[#F5E8C7] text-[#3F3A36] shadow hover:bg-white"
+                className="hero-cta-btn primary-booking-btn text-white shadow-lg min-h-[3rem] px-7 text-sm font-semibold sm:text-base"
               >
                 {BOOKING_CTA.jump}
               </a>
               <a
                 href="#rooms"
-                className="hero-cta-btn border border-[#F5E8C7]/65 text-[#F5E8C7] hover:bg-[#F5E8C7] hover:text-[#3F3A36]"
+                className="hero-cta-btn border border-[#F5E8C7]/65 text-[#F5E8C7] hover:bg-[#F5E8C7]/15 hover:text-white"
               >
                 查看房間
               </a>
+            </div>
+            <p className="mt-3 hidden text-[11px] leading-relaxed text-[#F5E8C7]/75 sm:block sm:text-xs">
+              官網訂房保證最優惠。包房或有疑問再
               <a
                 href={BUSINESS_LINE.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hero-cta-btn bg-[#00C300] text-white hover:bg-[#00A000]"
+                className="mx-1 underline decoration-[#00C300]/70 underline-offset-2 hover:text-white"
               >
-                LINE 門禁密碼
+                {BUSINESS_LINE.inquireLabel}
               </a>
-            </div>
+            </p>
           </div>
         </div>
 
@@ -94,32 +151,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 關於我們 */}
-      <section id="about" className="max-w-4xl mx-auto px-6 py-10 md:py-12 scroll-mt-28 md:scroll-mt-20 text-center">
-        <div className="text-[#8B7355] text-xs tracking-[4px] mb-1.5">A QUIET RETREAT BY THE STATION</div>
-        <h2 className="text-3xl md:text-4xl font-light tracking-tight mb-3 font-playfair">
-          在福隆車站旁，
-          <br />
-          有一間溫柔的福隆背包客棧。
-        </h2>
-        <p className="max-w-xl mx-auto text-sm text-[#6B665F] leading-relaxed mb-3">
-          坐落新北貢寮，福隆車站步行 30 秒即達。一間屋・駅前宿是 2026 年 5 月全新裝潢的福隆青年旅館與日式民宿，溫潤和風空間，專注寧靜與細節，也是前往草嶺古道與舊草嶺隧道的便利住宿據點。
-        </p>
-        <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-[#8B7355]">
-          <div>福隆車站步行 30 秒</div>
-          <div>2026年5月全新裝潢</div>
-          <div>LINE 接收入住門禁密碼</div>
-          <div>單車族友善 · 舊草嶺隧道環狀線</div>
-        </div>
-        <AboutAmenityStrip />
-      </section>
-
       {/* 房間 */}
-      <section id="rooms" className="py-20 scroll-mt-28 md:scroll-mt-20 bg-[#F8F5F1] border-t border-[#EDE8E0]">
+      <section id="rooms" className="py-12 scroll-mt-28 md:py-20 md:scroll-mt-20 bg-[#F8F5F1] border-t border-[#EDE8E0]">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-10">
             <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">ROOMS</div>
-            <h2 className="text-5xl font-light tracking-tight font-playfair">{ROOMS_SECTION.title}</h2>
+            <h2 className="text-3xl font-light tracking-tight font-playfair sm:text-5xl">{ROOMS_SECTION.title}</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -127,12 +164,13 @@ export default function HomePage() {
               <RoomImageCarousel
                 images={DOUBLE_ROOM_IMAGES}
                 label={ROOM_VIDEOS.double.label}
-                priority
               />
               <div className="p-5 md:p-8">
                 <div className="mb-4 space-y-2">
                   <h3 className="text-2xl md:text-3xl font-light tracking-tight leading-tight">
-                    {ROOMS_SECTION.double.title}
+                    <a href="/rooms/double" className="hover:text-[#8B7355] transition-colors">
+                      {ROOMS_SECTION.double.title}
+                    </a>
                   </h3>
                   <p className="text-[#8B7355] text-sm leading-relaxed">{ROOMS_SECTION.double.subtitle}</p>
                   <RoomTags tags={ROOMS_SECTION.double.tags} />
@@ -150,7 +188,7 @@ export default function HomePage() {
                 <div className="flex flex-wrap items-center gap-3 text-sm mt-3">
                   <a
                     href="#booking"
-                    className="px-6 py-2.5 bg-[#3F3A36] text-white rounded-full hover:bg-[#2C2926] transition-colors text-xs font-medium"
+                    className="primary-booking-btn px-6 py-2.5 rounded-full text-xs font-semibold"
                   >
                     {BOOKING_CTA.jump}
                   </a>
@@ -173,7 +211,9 @@ export default function HomePage() {
                 <div className="mb-4 space-y-2">
                   <div className="flex flex-wrap items-center gap-2">
                     <h3 className="text-2xl md:text-3xl font-light tracking-tight leading-tight">
-                      {ROOMS_SECTION.family.title}
+                      <a href="/rooms/family" className="hover:text-[#8B7355] transition-colors">
+                        {ROOMS_SECTION.family.title}
+                      </a>
                     </h3>
                     <span className="shrink-0 text-[10px] px-2 py-0.5 bg-[#8B7355] text-white rounded-full">
                       {ROOMS_SECTION.family.badge}
@@ -200,7 +240,7 @@ export default function HomePage() {
                 <div className="flex flex-wrap items-center gap-3 text-sm mt-3">
                   <a
                     href="#booking"
-                    className="px-6 py-2.5 bg-[#3F3A36] text-white rounded-full hover:bg-[#2C2926] transition-colors text-xs font-medium"
+                    className="primary-booking-btn px-6 py-2.5 rounded-full text-xs font-semibold"
                   >
                     {BOOKING_CTA.jump}
                   </a>
@@ -231,11 +271,11 @@ export default function HomePage() {
             <div className="mb-8 overflow-hidden rounded-2xl border border-[#E8DFD2] text-left">
               <RoomImageCarousel
                 images={PACKAGE_IMAGES}
-                label="包棟實景：大門・外觀 × 房間"
+                label="包棟實景：主視覺・房間・公共空間"
               />
             </div>
             <p className="mb-6 text-xs text-[#8B7355]">
-              左右滑動查看：民宿大門／外觀、和鳴雙人房、和風家庭房
+              左右滑動：主視覺 → 雙人房 4 張 → 家庭房 → 走廊 → 公共空間 → 衛浴
             </p>
             <ul className="text-left text-sm text-[#6B665F] max-w-xl mx-auto space-y-2.5 mb-4 leading-relaxed">
               {PACKAGE_SECTION.highlights.map((line) => (
@@ -270,7 +310,7 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a
                 href="#booking"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-[#3F3A36] text-white rounded-full text-sm font-medium hover:bg-[#2C2926] transition-all"
+                className="primary-booking-btn inline-flex items-center justify-center gap-2 rounded-full px-8 py-3 text-sm font-semibold"
               >
                 {BOOKING_CTA.package}
               </a>
@@ -286,24 +326,10 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-[#00C300] text-white rounded-full text-sm font-medium hover:bg-[#00A000] transition-all"
               >
-                LINE {BUSINESS_LINE.id}（門禁密碼）
+                {BUSINESS_LINE.ctaLabel}
               </a>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Google 評價 */}
-      <section id="reviews" className="bg-[#F8F5F1] py-8 md:py-10 scroll-mt-28 md:scroll-mt-20 border-t border-[#EDE8E0]">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center px-6 mb-4">
-            <div className="text-[#8B7355] text-xs tracking-[4px] mb-1.5">留言板</div>
-            <h2 className="text-3xl font-light tracking-tight mb-1.5">旅客怎麼說</h2>
-            <p className="mx-auto max-w-lg text-xs md:text-sm text-[#6B665F] leading-relaxed">
-              左右滑動瀏覽 Google 評價
-            </p>
-          </div>
-          <GoogleReviews />
         </div>
       </section>
 
@@ -321,45 +347,67 @@ export default function HomePage() {
         <OwltingBookingSection source="home" />
       </section>
 
-      {/* 福隆風景 */}
+      {/* Google 評價 */}
+      <section id="reviews" className="bg-[#F8F5F1] py-8 md:py-10 scroll-mt-28 md:scroll-mt-20 border-t border-[#EDE8E0]">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center px-6 mb-4">
+            <div className="text-[#8B7355] text-xs tracking-[4px] mb-1.5">留言板</div>
+            <h2 className="text-3xl font-light tracking-tight mb-1.5">旅客怎麼說</h2>
+            <p className="mx-auto max-w-lg text-xs md:text-sm text-[#6B665F] leading-relaxed">
+              左右滑動瀏覽 Google 評價
+            </p>
+          </div>
+          <GoogleReviews initialData={reviews} />
+        </div>
+      </section>
+
+      {/* 關於我們 */}
+      <section id="about" className="max-w-4xl mx-auto px-6 py-10 md:py-12 scroll-mt-28 md:scroll-mt-20 text-center">
+        <div className="text-[#8B7355] text-xs tracking-[4px] mb-1.5">A QUIET RETREAT BY THE STATION</div>
+        <h2 className="text-3xl md:text-4xl font-light tracking-tight mb-3 font-playfair">
+          福隆車站旁最近的民宿，
+          <br />
+          沒開車也能輕鬆入住。
+        </h2>
+        <p className="max-w-xl mx-auto text-sm text-[#6B665F] leading-relaxed mb-3">
+          坐落新北貢寮，福隆車站出站右轉步行約 30 秒即達。一間屋・駅前宿是 2026 年 6 月初全新裝潢的福隆車站民宿與日式背包客棧，溫潤和風空間，專注寧靜與細節，也是前往
+          <a href="/fulong" className="text-[#8B7355] hover:underline">
+            草嶺古道
+          </a>
+          與
+          <a href="/fulong/bike" className="text-[#8B7355] hover:underline">
+            舊草嶺隧道
+          </a>
+          的便利住宿據點。沒開車、拖行李也很適合，
+          <a href="/faq" className="text-[#8B7355] hover:underline">
+            交通與入住問題
+          </a>
+          可先看說明。
+        </p>
+        <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-[#8B7355]">
+          <div>福隆車站民宿・步行 30 秒</div>
+          <div>2026年6月初全新裝潢</div>
+          <div>{BUSINESS_LINE.ctaLabelShort}</div>
+          <div>單車族友善 · 舊草嶺隧道環狀線</div>
+        </div>
+        <AboutAmenityStrip />
+      </section>
+
+      <HomeSeoHub />
+
+      {/* 福隆旅遊攻略精華（完整見 /fulong） */}
       <section id="fulong" className="bg-white py-20 border-t border-[#EDE8E0]">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-10">
-            <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">FULONG SCENERY</div>
-            <h2 className="text-5xl font-light tracking-tight font-playfair">福隆，走出家門就是風景</h2>
-            <p className="mt-3 max-w-xl mx-auto text-sm text-[#6B665F] leading-relaxed">
-              {FULONG_SECTION.intro}
+          <div className="text-center mb-8">
+            <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">FULONG GUIDE</div>
+            <h2 className="text-4xl font-light tracking-tight font-playfair sm:text-5xl">
+              福隆旅遊攻略
+            </h2>
+            <p className="mt-3 max-w-2xl mx-auto text-sm text-[#6B665F] leading-relaxed">
+              住一間屋，走出家門就是山海。玩水、單車、潮間帶與健行，皆以車站旁為基地。
             </p>
-            <a
-              href="/fulong"
-              className="mt-3 inline-block text-xs text-[#8B7355] hover:text-[#3F3A36] hover:underline"
-            >
-              福隆怎麼玩完整攻略 →
-            </a>
           </div>
-          <SceneryGallery items={SCENERY_IMAGES} />
-
-          <div className="mt-12 bg-[#F8F5F1] p-6 md:p-8 rounded-3xl space-y-8">
-            <div className="text-center md:text-left">
-              <div className="text-[#8B7355] text-xs tracking-[3px] mb-1">{OUTDOOR_FRIENDLY.eyebrow}</div>
-              <h3 className="text-xl md:text-2xl font-light tracking-tight mb-2">{OUTDOOR_FRIENDLY.title}</h3>
-              <p className="text-sm text-[#6B665F] leading-relaxed">{OUTDOOR_FRIENDLY.intro}</p>
-            </div>
-
-            <OutdoorRouteGrid
-              title={OUTDOOR_FRIENDLY.cycling.title}
-              intro={OUTDOOR_FRIENDLY.cycling.intro}
-              routes={OUTDOOR_FRIENDLY.cycling.routes}
-            />
-
-            <div className="border-t border-[#E8DFD2] pt-8">
-              <OutdoorRouteGrid
-                title={OUTDOOR_FRIENDLY.hiking.title}
-                intro={OUTDOOR_FRIENDLY.hiking.intro}
-                routes={OUTDOOR_FRIENDLY.hiking.routes}
-              />
-            </div>
-          </div>
+          <HomeFulongGuideTeaser />
         </div>
       </section>
 
@@ -369,9 +417,9 @@ export default function HomePage() {
       <section id="location" className="bg-white py-16 scroll-mt-28 md:scroll-mt-20 border-t border-[#EDE8E0]">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <div className="text-[#8B7355] text-xs tracking-[4px] mb-3">LOCATION</div>
-          <h2 className="text-4xl font-light tracking-tight mb-3">福隆車站前 30 秒・新北貢寮住宿</h2>
+          <h2 className="text-4xl font-light tracking-tight mb-3">福隆車站民宿｜出站步行 30 秒</h2>
           <p className="mx-auto mb-8 max-w-lg text-sm text-[#6B665F] leading-relaxed">
-            出站即達，走路比等紅綠燈還快。跟著下方指引，輕鬆找到一間屋· 駅前宿。
+            沒開車也能輕鬆住：搭火車到福隆站再步行約 30 秒即達。持雙北月票可直達福隆（宜蘭線・新北最後一站），出站右轉就到一間屋· 駅前宿。
           </p>
           <div className="mx-auto mb-8 max-w-md rounded-3xl border border-[#EDE8E0] bg-[#F8F5F1] p-6 text-left text-sm text-[#6B665F]">
             <div className="mb-3 text-base font-medium text-[#3F3A36]">{BUSINESS_NAME}</div>
@@ -403,13 +451,22 @@ export default function HomePage() {
                 <span className="text-xl shrink-0" aria-hidden>
                   🚉
                 </span>
-                <p>
-                  <span className="font-medium text-[#3F3A36]">步行指引</span>
-                  <br />
-                  出福隆車站大廳，馬上右轉直走，
-                  <span className="text-[#8B7355] font-medium">30 秒內</span>
-                  就會看到 <span className="text-[#3F3A36] font-medium">一間屋· 駅前宿</span> 招牌，即抵達。
-                </p>
+                <div>
+                  <p className="font-medium text-[#3F3A36]">火車＋步行</p>
+                  <p className="mt-1">
+                    搭台鐵宜蘭線至
+                    <span className="text-[#8B7355] font-medium">福隆車站</span>
+                    ，出站大廳後馬上右轉直走，
+                    <span className="text-[#8B7355] font-medium">約 30 秒</span>
+                    即見 <span className="text-[#3F3A36] font-medium">一間屋· 駅前宿</span> 招牌。
+                  </p>
+                  <p className="mt-2 rounded-xl border border-[#EDE8E0] bg-[#F8F5F1] px-3 py-2 text-xs leading-relaxed text-[#5c4f42]">
+                    <span className="font-medium text-[#3F3A36]">雙北月票提醒：</span>
+                    持雙北月票可直接搭火車抵達福隆。福隆站位於宜蘭線，是
+                    <span className="font-medium text-[#8B7355]">新北市範圍內的最後一站</span>
+                    ，從台北、新北出發免再轉其他票證，出站步行即可入住。
+                  </p>
+                </div>
               </li>
               <li className="flex gap-3">
                 <span className="text-xl shrink-0" aria-hidden>
@@ -435,7 +492,9 @@ export default function HomePage() {
             </ul>
           </div>
 
-          <div className="mx-auto mb-8 max-w-2xl">
+          <NearbyDiningNote />
+
+          <div className="mx-auto mb-8 mt-8 max-w-2xl">
             <GoogleMapEmbed />
           </div>
 
@@ -449,39 +508,10 @@ export default function HomePage() {
             />
           </div>
 
-          <div className="bg-[#F8F5F1] p-8 rounded-3xl text-left max-w-md mx-auto">
-            <ul className="space-y-3 text-sm">
-              <li className="flex justify-between">
-                <span>福隆海水浴場</span>{' '}
-                <span className="text-[#8B7355]">步行 8 分鐘 · 海邊玩水</span>
-              </li>
-              <li className="flex justify-between">
-                <span>舊草嶺隧道</span>{' '}
-                <span className="text-[#8B7355]">單車約 15 分鐘 · 環狀線經典</span>
-              </li>
-              <li className="flex justify-between">
-                <span>舊草嶺隧道環狀線</span>{' '}
-                <span className="text-[#8B7355]">沿海騎行 · 藍天碧海</span>
-              </li>
-              <li className="flex justify-between">
-                <span>貢寮老街</span> <span className="text-[#8B7355]">車程 10 分鐘</span>
-              </li>
-              <li className="flex justify-between">
-                <span>九份老街</span> <span className="text-[#8B7355]">車程 35 分鐘</span>
-              </li>
-              <li className="flex justify-between">
-                <span>登山步道</span> <span className="text-[#8B7355]">附近輕鬆爬山路線</span>
-              </li>
-              <li className="flex justify-between">
-                <span>單車道</span> <span className="text-[#8B7355]">東北角海岸自行車道起點</span>
-              </li>
-            </ul>
-          </div>
-
           <div className="mt-8 text-center">
             <a
               href="#booking"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-[#3F3A36] text-white rounded-full text-sm font-medium hover:bg-[#2C2926] transition-all"
+              className="primary-booking-btn inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-sm font-semibold"
             >
               {BOOKING_CTA.jump}
             </a>

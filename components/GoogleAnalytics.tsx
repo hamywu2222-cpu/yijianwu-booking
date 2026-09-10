@@ -14,6 +14,9 @@ export default function GoogleAnalytics() {
 
   return (
     <>
+      <Script id="capture-landing-url" strategy="beforeInteractive">
+        {`window.__landingPageLocation=window.location.href;`}
+      </Script>
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
         strategy="afterInteractive"
@@ -24,8 +27,23 @@ export default function GoogleAnalytics() {
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', '${GA_MEASUREMENT_ID}', {
-            send_page_view: false
+            send_page_view: true,
+            page_location: window.__landingPageLocation || window.location.href,
+            page_referrer: document.referrer
           });
+          window.__landingPageViewSent = true;
+          try {
+            var loc = window.__landingPageLocation || window.location.href;
+            var u = new URL(loc, window.location.origin);
+            if (u.searchParams.get('utm_source') === 'skyartvegan' && !window.__fromSkyartSent) {
+              window.__fromSkyartSent = true;
+              gtag('event', 'from_skyart', {
+                event_category: 'referral',
+                event_label: u.searchParams.get('utm_content') || '(not set)',
+                transport_type: 'beacon'
+              });
+            }
+          } catch (e) {}
           ${adsConfigLine}
         `}
       </Script>

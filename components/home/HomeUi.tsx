@@ -5,22 +5,24 @@ import { getImageAlt } from '@/lib/imageAlt';
 
 export function AboutAmenityStrip() {
   return (
-    <div className="mt-4 max-w-2xl mx-auto rounded-2xl border border-[#EDE8E0]/90 bg-white/50 px-3 py-2.5 md:px-3.5 md:py-3">
-      <p className="text-[10px] tracking-[3px] text-[#8B7355] mb-1.5">入住配套</p>
-      <ul className="flex flex-wrap justify-center gap-1 md:gap-1.5">
+    <div className="mt-5 max-w-3xl mx-auto rounded-2xl border border-[#EDE8E0] bg-white/70 px-4 py-4 md:px-5 md:py-5 shadow-sm">
+      <p className="text-xs md:text-sm tracking-[3px] text-[#8B7355] mb-2.5 md:mb-3 font-medium">
+        入住配套
+      </p>
+      <ul className="flex flex-wrap justify-center gap-2 md:gap-2.5">
         {ABOUT_AMENITIES.map(({ icon, label }) => (
           <li
             key={label}
-            className="inline-flex items-center gap-1 rounded-full border border-[#E8DFD2] bg-[#FFFCF8] px-2 py-0.5 text-[10px] md:text-[11px] text-[#6B665F] leading-snug"
+            className="inline-flex items-center gap-1.5 rounded-full border border-[#E8DFD2] bg-[#FFFCF8] px-3 py-1.5 md:px-3.5 md:py-2 text-xs md:text-sm text-[#3F3A36] leading-snug font-medium"
           >
-            <span aria-hidden className="text-[11px] leading-none shrink-0">
+            <span aria-hidden className="text-sm md:text-base leading-none shrink-0">
               {icon}
             </span>
             <span>{label}</span>
           </li>
         ))}
       </ul>
-      <p className="mt-1.5 text-[10px] text-[#8B7355] leading-relaxed">
+      <p className="mt-3 text-xs md:text-sm text-[#8B7355] leading-relaxed">
         行李寄放：入住前後如需暫放，歡迎事先透過 LINE 或電話洽詢。
       </p>
     </div>

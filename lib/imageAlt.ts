@@ -1,5 +1,13 @@
 /** 每張圖片專屬 alt：描述畫面 + Top5 關鍵字自然融入 */
 export const IMAGE_ALT: Record<string, string> = {
+  '/images/skyart/hero.jpg':
+    '福隆山上純素餐廳星空藝素村 海廢藝術牆 一間屋車站民宿可先寄行李再上山',
+  '/images/skyart/sea-glass.jpg':
+    '東北角浪濤海玻璃夜燈手作 福隆Go-Bike集合 距一間屋車站民宿步行數分鐘',
+  '/images/skyart/handmade.jpg':
+    '星空藝素村海玻璃小夜燈手作 福隆車站民宿一間屋寄行李後上山體驗',
+  '/images/skyart/matcha.jpg':
+    '抹茶秘境赤腳行禁語步道 福隆火車站集合 前一晚住一間屋駅前宿最順',
   '/images/photo_2026-04-25_01-38-33.jpg':
     '2026年翻新前 福隆民宿一間屋駅前宿 新北海邊住宿一樓舊客房待整建',
   '/images/photo_2026-04-25_01-38-38.jpg':
@@ -50,6 +58,12 @@ export const IMAGE_ALT: Record<string, string> = {
     '福隆民宿和鳴雙人房門口 新北海邊住宿一間屋暖色燈光',
   '/images/exterior4.jpg':
     '福隆民宿雙人房側視角 一間屋和式木質地板空間',
+  '/images/package/package-1.jpg':
+    '福隆民宿一間屋駅前宿 大門入口外觀 福隆車站出站30秒',
+  '/images/package/package-2.jpg':
+    '福隆車站住宿包棟共用廚房 一間屋洗滌區公共空間實景',
+  '/images/package/package-3.jpg':
+    '新北海邊住宿包棟衛浴 一間屋民宿乾淨淋浴盥洗空間',
   '/images/scenery/fulong-beach-aerial.jpg':
     '福隆海水浴場空拍 新北海邊住宿步行8分鐘金色沙灣',
   '/images/scenery/fulong-station.jpg':
@@ -74,6 +88,66 @@ export const IMAGE_ALT: Record<string, string> = {
     '舊草嶺濱海自行車道 新北海邊住宿山海景觀路段',
   '/images/scenery/maoao-fishing-village.jpg':
     '卯澳漁村海岸 東北角民宿單車路線漁港風光',
+  '/images/scenery/maoao-village-landmark.jpg':
+    '卯澳漁村地標裝置藝術 東北角民宿單車順遊漁港',
+  '/images/scenery/maoao-stone-house.jpg':
+    '卯澳石頭屋石構建築 東北角漁村人文景點',
+  '/images/scenery/sandiaojiao-lighthouse.jpg':
+    '三貂角燈塔純白燈塔 台灣最東岬角太平洋打卡景點',
+  '/images/scenery/fulian-tide-pool-1.jpg':
+    '福連國小旁天然海水游泳池潮池 東北角卯澳灣浮潛聖地',
+  '/images/scenery/fulian-tide-pool-2.jpg':
+    '福連國小潮池戲水 貢寮福連街天然海水泳池',
+  '/images/scenery/fulian-tide-pool-3.jpg':
+    '福連國小浮潛點岩岸 東北角潛水練習場',
+  '/images/scenery/fulian-tide-pool-4.jpg':
+    '福連國小潮池遠眺三貂角方向 卯澳灣清澈海域',
+  '/images/scenery/fulian-school-mural.jpg':
+    '福連國小彩繪校園 東北角最東小學',
+  '/images/scenery/fulian-playground-view.jpg':
+    '福連國小操場旁眺望海水游泳池 浮潛景點入口',
+  '/images/scenery/nanya-qiyan-1.jpg':
+    '南雅地質步道南雅奇岩 海蝕奇岩與海岸地質景觀',
+  '/images/scenery/nanya-qiyan-2.jpg':
+    '南雅奇岩地質步道 瑞芳東北角奇岩海岸',
+  '/images/scenery/nanya-qiyan-3.jpg':
+    '南雅奇岩霜淇淋岩一帶 跳石海岸山海景觀',
+  '/images/scenery/nanya-qiyan-map.jpg':
+    '南雅地質步道路線圖 南雅漁港至南雅奇岩',
+  '/images/scenery/nanzilin-1.jpg':
+    '南子吝步道山海景觀 瑞芳南雅漁港旁親民登高',
+  '/images/scenery/nanzilin-2.jpg':
+    '南子吝步道觀景台 東北角360度海灣山景',
+  '/images/scenery/nanzilin-3.jpg':
+    '南子吝步道木棧道石階 青春山海線健行',
+  '/images/scenery/nanzilin-4.jpg':
+    '南子吝東峰斷崖眺海 黃金稜線與太平洋',
+  '/images/scenery/nanzilin-5.jpg':
+    '南子吝步道秋冬芒花 北海岸賞芒熱門景點',
+  '/images/scenery/longdong-bay-1.jpg':
+    '龍洞灣海洋公園海灣全景 貢寮戲水潛水景點',
+  '/images/scenery/longdong-bay-2.jpg':
+    '龍洞灣海蝕地形與湛藍海水 東北角親子玩水',
+  '/images/scenery/longdong-bay-3.jpg':
+    '龍洞灣海洋公園戲水區 海水游泳池',
+  '/images/scenery/longdong-bay-4.jpg':
+    '龍洞灣海岸岩壁與海灣 潛水浮潛勝地',
+  '/images/scenery/longdong-bay-5.jpg':
+    '龍洞灣海洋公園海景 新北貢寮旅遊',
+  '/images/scenery/longdong-bay-6.jpg':
+    '龍洞灣之美 東北角海灣風光',
+  '/images/scenery/longdong-cape-1.jpg':
+    '龍洞灣岬步道俯瞰斷崖峭壁與湛藍太平洋 新北貢寮健行',
+  '/images/scenery/longdong-cape-2.jpg':
+    '龍洞灣岬步道山脊石板步道與涼亭 東北角地質奇觀',
+  '/images/scenery/taoyuangu-grassland.jpg':
+    '桃源谷草原步道 福隆出發登山遠眺山海',
+  '/images/scenery/magang-taiwan-net-official.jpg':
+    '馬崗潮間帶海蝕平台潮溝 交通部觀光署官方景點圖 新北貢寮',
+  '/images/scenery/magang-intertidal-1.jpg':
+    '馬崗潮間帶海蝕平台潮溝 臺灣海岸生態最豐富潮間帶 新北貢寮',
+  '/images/scenery/caoling-bike-map.jpg':
+    '舊草嶺環狀自行車道路線示意 福隆車站經三貂角卯澳',
   '/images/Mountain1.jpg':
     '草嶺古道石階 福隆民宿出發登山俯瞰東北角海岸',
   '/images/Mountain2.webp':
@@ -82,6 +156,8 @@ export const IMAGE_ALT: Record<string, string> = {
     '桃源谷山區道路 東北角民宿山海步道景觀',
   '/images/hero.jpg':
     '福隆民宿一間屋駅前宿 新北海邊住宿福隆車站出站30秒外觀',
+  '/images/exterior-facade.jpg':
+    '福隆民宿一間屋駅前宿 民宿外觀 福隆車站出站30秒',
 };
 
 export function getImageAlt(src: string): string {

@@ -1,3 +1,4 @@
+import FulongGuideCta from '@/components/FulongGuideCta';
 import { PageJsonLd } from '@/components/PageJsonLd';
 import { SeoSubPage } from '@/components/SeoSubPage';
 import { buildPageMetadata } from '@/lib/seoMetadata';
@@ -6,11 +7,18 @@ import { SITE_FAQ } from '@/lib/seoPages';
 import { getBreadcrumbJsonLd, getFaqStructuredData } from '@/lib/structuredData';
 
 export const metadata = buildPageMetadata({
-  title: '常見問題｜福隆民宿訂房・LINE自助入住・包棟規則',
+  title: '常見問題｜福隆車站民宿・沒開車怎麼住・LINE自助入住',
   description:
-    '福隆民宿一間屋·駅前宿 FAQ：空房查詢、包棟規則、加人計費、入住退房、LINE自助入住門禁密碼、行李寄放、福隆車站步行30秒路線。',
+    '福隆車站民宿 FAQ：出站步行30秒、沒開車怎麼住、空房查詢、包棟規則、LINE @811mszbh 自助入住、行李寄放與福隆旅遊攻略。',
   path: '/faq',
-  keywords: [...FULONG_SEO_KEYWORDS.tier1, '福隆民宿 FAQ', 'LINE自助入住'],
+  keywords: [
+    ...FULONG_SEO_KEYWORDS.tier1,
+    '福隆民宿 FAQ',
+    'LINE自助入住',
+    '福隆旅遊攻略',
+    '福隆攻略',
+    '福隆怎麼玩',
+  ],
 });
 
 export default function FaqPage() {
@@ -38,6 +46,14 @@ export default function FaqPage() {
                 {item.question}
               </h2>
               <p className="mt-3 leading-relaxed text-[#6B665F]">{item.answer}</p>
+              {'link' in item && item.link ? (
+                <div className="mt-4">
+                  <FulongGuideCta
+                    variant="default"
+                    label={item.link.label.replace(/\s*→\s*$/, '')}
+                  />
+                </div>
+              ) : null}
             </section>
           ))}
         </div>

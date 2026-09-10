@@ -63,13 +63,18 @@ function ReviewCard({ review }: { review: GoogleReviewsPayload['reviews'][number
   );
 }
 
-export default function GoogleReviews() {
+export default function GoogleReviews({
+  initialData,
+}: {
+  initialData?: GoogleReviewsPayload | null;
+}) {
   const trackRef = useRef<HTMLDivElement>(null);
-  const [data, setData] = useState<GoogleReviewsPayload | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<GoogleReviewsPayload | null>(initialData ?? null);
+  const [loading, setLoading] = useState(!initialData);
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    if (initialData) return;
     let cancelled = false;
 
     async function load() {
@@ -92,7 +97,7 @@ export default function GoogleReviews() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [initialData]);
 
   const scrollByCards = (direction: -1 | 1) => {
     const track = trackRef.current;

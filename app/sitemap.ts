@@ -4,7 +4,10 @@ import { absoluteUrl } from '@/lib/site';
 const SEO_PATHS = [
   { path: '/', priority: 1, changeFrequency: 'weekly' as const },
   { path: '/booking', priority: 0.95, changeFrequency: 'weekly' as const },
-  { path: '/fulong', priority: 0.85, changeFrequency: 'monthly' as const },
+  { path: '/fulong', priority: 0.9, changeFrequency: 'weekly' as const },
+  { path: '/fulong/day-trip', priority: 0.88, changeFrequency: 'weekly' as const },
+  { path: '/fulong/bike', priority: 0.88, changeFrequency: 'weekly' as const },
+  { path: '/fulong/water', priority: 0.88, changeFrequency: 'weekly' as const },
   { path: '/faq', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/renovation', priority: 0.75, changeFrequency: 'monthly' as const },
   { path: '/rooms/double', priority: 0.9, changeFrequency: 'monthly' as const },

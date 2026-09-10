@@ -14,7 +14,7 @@ const page = ROOM_PAGES.package;
 export const metadata = buildPageMetadata({
   title: '福隆包棟民宿｜全館5間包房・平日$8,800・近車站',
   description:
-    '福隆包棟民宿一間屋·駅前宿：4間和鳴雙人房+1間家庭房，平日$8,800、假日$9,200。舒適12-14人，福隆車站出站30秒，適合團體與單車隊。',
+    '福隆包棟民宿一間屋·駅前宿：4間和鳴雙人房+1間家庭房，全館衛浴共三間可使用（全套衛浴）。平日$8,800、假日$9,200。舒適12-14人，福隆車站出站30秒，適合團體與單車隊。',
   path: page.path,
   keywords: [...FULONG_SEO_KEYWORDS.tier2, '福隆包棟', '福隆包棟民宿'],
   ogImage: page.image,
@@ -43,7 +43,10 @@ export default function PackageRoomPage() {
           {
             heading: section.title,
             paragraphs: [section.intro],
-            bullets: [...section.highlights, `（${section.ecoNote}）`],
+            bullets: [
+              ...section.highlights,
+              section.amenitiesNote,
+            ],
           },
           {
             heading: '價格與人數',
@@ -65,12 +68,12 @@ export default function PackageRoomPage() {
         <div className="mt-10 overflow-hidden rounded-2xl border border-[#e8e0d4] bg-white">
           <RoomImageCarousel
             images={PACKAGE_IMAGES}
-            label="包棟實景：民宿大門・外觀 × 雙人房 × 家庭房"
+            label="包棟實景：主視覺・雙人房・家庭房・公共空間"
             priority
           />
         </div>
         <p className="mt-3 text-center text-xs text-[#8B7355] leading-relaxed">
-          左右滑動：大門／外觀 → 和鳴雙人房 → 和風家庭房 → 館內空間
+          左右滑動：主視覺 → 雙人房 4 張 → 家庭房 → 走廊 → 公共空間 → 衛浴
         </p>
       </SeoSubPage>
     </>

@@ -2,7 +2,7 @@
 
 :root {
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --site-nav-tagline-offset: 0px;
   --site-nav-offset: 7.25rem;
 
@@ -163,35 +163,32 @@
   }
 }
 
-/* 導覽列：左品牌｜中導覽（對齊上方標語）｜右按鈕 */
+/* 導覽列：左品牌｜中導覽｜右 CTA（不重疊、可收縮） */
 .site-nav-inner {
   width: 100%;
-  max-width: 72rem;
+  max-width: 80rem;
   margin-inline: auto;
-  padding-inline: 1rem 0.375rem;
+  padding-inline: 0.75rem;
 }
 
 @media (min-width: 768px) {
   .site-nav-inner {
-    max-width: none;
-    padding-inline: 1.25rem;
+    padding-inline: 1rem 1.25rem;
   }
 }
 
 .site-nav-main {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
   align-items: center;
-  column-gap: 0.75rem;
+  justify-content: space-between;
+  gap: 0.5rem;
   min-height: 3.5rem;
+  min-width: 0;
 }
 
 @media (min-width: 768px) {
   .site-nav-main {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-    align-items: center;
-    column-gap: 1rem;
+    gap: 0.75rem;
     min-height: 4rem;
   }
 }
@@ -200,75 +197,192 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 0.375rem;
+  gap: 0.25rem;
   min-width: 0;
+  /* 手機讓右側訂房／電話優先；品牌可被截斷 */
+  flex: 1 1 0;
+  overflow: hidden;
 }
 
 @media (min-width: 640px) {
   .site-nav-brand-slot {
-    gap: 0.5rem;
+    gap: 0.45rem;
   }
 }
 
 @media (min-width: 768px) {
   .site-nav-brand-slot {
-    justify-self: start;
-    gap: 0.75rem;
-    margin-inline-end: 0;
+    flex: 0 1 auto;
+    gap: 0.55rem;
+    max-width: 11.5rem;
   }
 }
 
+@media (min-width: 1024px) {
+  .site-nav-brand-slot {
+    max-width: 14rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .site-nav-brand-slot {
+    max-width: none;
+    flex: 0 0 auto;
+  }
+}
+
+.site-nav-brand-slot .site-nav-brand-meteors {
+  min-width: 0;
+  overflow: hidden;
+}
+
 .site-nav-links-slot {
-  justify-self: center;
+  display: none;
   align-items: center;
-  gap: 1.75rem;
-  font-size: 0.875rem;
+  justify-content: center;
+  gap: 0.85rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: #6b665f;
+  overflow: hidden;
 }
 
 @media (min-width: 768px) {
   .site-nav-links-slot {
-    position: static;
-    transform: none;
-    justify-self: center;
-    white-space: nowrap;
+    display: flex;
   }
+}
+
+@media (min-width: 1024px) {
+  .site-nav-links-slot {
+    gap: 1.15rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .site-nav-links-slot {
+    gap: 1.35rem;
+  }
+}
+
+.site-nav-links-slot .nav-link {
+  flex-shrink: 0;
 }
 
 .site-nav-actions-slot {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 0.5rem;
+  /* 右側 CTA（訂房／電話）優先保留，不因左側品牌壓縮而被擠出畫面 */
+  flex: 0 0 auto;
+  gap: 0.3rem;
   min-width: 0;
-  margin-inline-end: -0.125rem;
+  overflow: visible;
+}
+
+/* 手機固定列電話：確保不被裁切、數字可點 */
+.site-nav-phone-cta {
+  flex-shrink: 0;
+  max-width: none;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+@media (min-width: 640px) {
+  .site-nav-actions-slot {
+    gap: 0.45rem;
+  }
 }
 
 @media (min-width: 768px) {
   .site-nav-actions-slot {
-    justify-self: end;
-    gap: 0.75rem;
-    margin-inline-start: 0;
-    margin-inline-end: 0;
-    white-space: nowrap;
+    gap: 0.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-nav-actions-slot {
+    gap: 0.6rem;
+  }
+}
+
+/* 固定列攻略鈕：小於訂房；文案較長仍可讀 */
+.site-nav-guide-cta.fulong-guide-btn--nav {
+  max-width: 100%;
+  padding-inline: 0.45rem;
+  padding-block: 0.32rem;
+  font-size: 0.5625rem;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+}
+
+@media (min-width: 400px) {
+  .site-nav-guide-cta.fulong-guide-btn--nav {
+    padding-inline: 0.55rem;
+    padding-block: 0.35rem;
+    font-size: 0.625rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .site-nav-guide-cta.fulong-guide-btn--nav {
+    padding-inline: 0.65rem;
+    padding-block: 0.4rem;
+    font-size: 0.6875rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-nav-guide-cta.fulong-guide-btn--nav {
+    padding-inline: 0.75rem;
+    padding-block: 0.42rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* 固定列訂房主 CTA：比攻略更大、更好點 */
+.site-nav-actions-slot .primary-booking-btn--compact {
+  padding-inline: 0.85rem;
+  padding-block: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-height: 2.25rem;
+}
+
+@media (min-width: 768px) {
+  .site-nav-actions-slot .primary-booking-btn--compact {
+    padding-inline: 1.1rem;
+    padding-block: 0.55rem;
+    font-size: 0.8125rem;
+    min-height: 2.4rem;
   }
 }
 
 .site-nav-mobile-links {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1.25rem;
-  padding-bottom: 0.625rem;
+  justify-content: flex-start;
+  gap: 1rem;
+  padding: 0 0.15rem 0.625rem;
   font-size: 0.75rem;
   font-weight: 500;
   color: #6b665f;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.site-nav-mobile-links::-webkit-scrollbar {
+  display: none;
 }
 
 @media (min-width: 400px) {
   .site-nav-mobile-links {
-    gap: 1.5rem;
+    gap: 1.25rem;
+    justify-content: center;
   }
 }
 
@@ -321,73 +435,396 @@ h1, h2, h3 {
   letter-spacing: -0.02em;
 }
 
-/* Hero：背景圖已內建品牌標題，疊加層只放副標與 CTA */
+/* Hero 疊層：上天氣、中留標題、下找路；不撐破 100dvh */
+.hero-overlay {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  padding-top: var(--site-nav-offset, 7.25rem);
+}
+
+.hero-logo-safe-zone {
+  flex: 1 1 auto;
+  min-height: 10vh;
+}
+
+.hero-weather-slot {
+  display: flex;
+  justify-content: center;
+  flex: 0 0 auto;
+  padding: 0.55rem 0.75rem 0.25rem;
+}
+
+.hero-weather-bar {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.12rem;
+  max-width: calc(100% - 0.5rem);
+  padding: 0.35rem 0.85rem 0.4rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(245, 232, 199, 0.35);
+  background: rgba(0, 0, 0, 0.5);
+  color: #f5e8c7;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.hero-weather-bar-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #fff8e0;
+}
+
+.hero-weather-bar-meta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem 0.45rem;
+  margin: 0;
+}
+
+.hero-weather-bar-temp {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-weather-bar-label {
+  font-weight: 600;
+}
+
+.hero-weather-bar-rain {
+  color: rgba(245, 232, 199, 0.88);
+  font-weight: 500;
+}
+
+.hero-weather-bar-time {
+  color: rgba(245, 232, 199, 0.8);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-weather-bar svg {
+  width: 1rem;
+  height: 1rem;
+}
+
 .hero-content {
   width: 100%;
   max-width: 36rem;
   margin-inline: auto;
+  flex: 0 0 auto;
   padding-inline: 1.25rem;
-  padding-bottom: max(5rem, calc(env(safe-area-inset-bottom) + 3.5rem));
+  padding-bottom: max(4.5rem, calc(env(safe-area-inset-bottom) + 3rem));
   text-align: center;
 }
 
 @media (min-width: 768px) {
   .hero-content {
-    padding-bottom: 7rem;
+    padding-bottom: 5.5rem;
   }
 }
 
 .hero-subtitle-card {
-  margin-bottom: 1rem;
-  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+  padding: 0.65rem 0.9rem 0.7rem;
   border-radius: 1rem;
-  background: rgba(0, 0, 0, 0.38);
-  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.5);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+}
+
+.hero-find-badge {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  padding: 0.22rem 0.7rem;
+  border-radius: 9999px;
+  background: #e8c872;
+  color: #1a140c;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.hero-find-steps {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.35rem;
+  margin: 0.55rem 0 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-find-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  min-width: 0;
+  padding: 0.45rem 0.25rem 0.5rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 248, 220, 0.12);
+}
+
+.hero-find-step-n {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 9999px;
+  background: #e8c872;
+  color: #1a140c;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.hero-find-step-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  color: #f5e8c7;
+}
+
+.hero-find-step-text strong {
+  font-size: 0.9375rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+}
+
+.hero-find-step-text span {
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+  color: rgba(245, 232, 199, 0.9);
+}
+
+.hero-map-card {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  max-width: 22rem;
+  margin: 0 auto 1.15rem;
+  padding: 0.55rem 0.7rem 0.55rem 0.6rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(232, 200, 114, 0.45);
+  background: rgba(18, 16, 12, 0.55);
+  color: #f5e8c7;
+  text-align: left;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+}
+
+.hero-map-card:hover,
+.hero-map-card:focus-visible {
+  border-color: rgba(245, 232, 199, 0.8);
+  background: rgba(18, 16, 12, 0.7);
+}
+
+.hero-map-pin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background: rgba(232, 200, 114, 0.18);
+  color: #e8c872;
+}
+
+.hero-map-pin svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.hero-map-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.08rem;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.hero-map-copy strong {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #fff8e0;
+}
+
+.hero-map-copy span {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+  color: rgba(245, 232, 199, 0.82);
+}
+
+.hero-map-go {
+  flex-shrink: 0;
+  padding: 0.28rem 0.55rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(232, 200, 114, 0.55);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #e8c872;
 }
 
 @media (min-width: 768px) {
   .hero-subtitle-card {
-    margin-bottom: 1.25rem;
-    padding: 0.875rem 1.5rem;
+    margin-bottom: 1rem;
+    padding: 0.8rem 1.4rem 0.9rem;
     background: rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(6px);
+  }
+
+  .hero-find-badge {
+    font-size: 0.75rem;
+  }
+
+  .hero-find-steps {
+    gap: 0.55rem;
+    margin-top: 0.9rem;
+  }
+
+  .hero-find-step {
+    padding: 0.55rem 0.4rem 0.6rem;
+  }
+
+  .hero-find-step-text strong {
+    font-size: 0.9375rem;
+  }
+
+  .hero-find-step-text span {
+    font-size: 0.75rem;
+  }
+
+  .hero-map-card {
+    max-width: 24rem;
+    margin-bottom: 1.35rem;
+    padding: 0.65rem 0.8rem 0.65rem 0.7rem;
+  }
+
+  .hero-map-copy strong {
+    font-size: 0.875rem;
+  }
+
+  .hero-map-copy span {
+    font-size: 0.75rem;
+  }
+}
+
+/* 手機：關掉毛玻璃，低階機捲動比較不卡 */
+@media (max-width: 767px) {
+  #rooms,
+  #booking,
+  #reviews,
+  #about,
+  #fulong,
+  #location {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 720px;
+  }
+
+  .site-nav-shell {
+    background: #f8f5f1;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .hero-subtitle-card {
+    background: rgba(0, 0, 0, 0.62);
+    margin-bottom: 0.5rem;
+    padding: 0.55rem 0.75rem 0.6rem;
+  }
+
+  .hero-subtitle-line--secondary {
+    display: none;
+  }
+
+  .hero-find-steps {
+    margin: 0.4rem 0 0.4rem;
+    gap: 0.28rem;
+  }
+
+  .hero-find-step {
+    padding: 0.32rem 0.15rem 0.35rem;
+  }
+
+  .hero-map-card {
+    margin-bottom: 1.1rem;
+    max-width: 20.5rem;
+  }
+
+  .hero-cta-group {
+    max-width: 18.5rem;
+    gap: 0.45rem;
+  }
+
+  .hero-logo-safe-zone {
+    min-height: 16vh;
   }
 }
 
 .hero-subtitle-line {
   display: block;
   font-family: var(--font-geist-sans);
-  font-weight: 300;
-  color: #f5e8c7;
-  letter-spacing: 0.06em;
-  line-height: 1.55;
+  font-weight: 700;
+  color: #fff8e0;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.65);
 }
 
 .hero-subtitle-line--primary {
-  font-size: 0.9375rem;
+  font-size: 1.125rem;
 }
 
 .hero-subtitle-line--secondary {
   margin-top: 0.35rem;
-  font-size: 0.8125rem;
-  letter-spacing: 0.12em;
-  color: rgba(245, 232, 199, 0.88);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #f5e8c7;
 }
 
 @media (min-width: 640px) {
   .hero-subtitle-line--primary {
-    font-size: 1.0625rem;
+    font-size: 1.25rem;
   }
 
   .hero-subtitle-line--secondary {
-    font-size: 0.9375rem;
+    font-size: 1rem;
+  }
+
+  .hero-weather-bar {
+    font-size: 0.8125rem;
+    padding: 0.4rem 1rem 0.45rem;
+  }
+
+  .hero-weather-bar-title {
+    font-size: 0.875rem;
   }
 }
 
 @media (min-width: 768px) {
   .hero-subtitle-line--primary {
-    font-size: 1.25rem;
-    letter-spacing: 0.08em;
+    font-size: 1.35rem;
+    letter-spacing: 0.06em;
   }
 
   .hero-subtitle-line--secondary {
@@ -441,6 +878,40 @@ h1, h2, h3 {
 
 .font-playfair {
   font-family: var(--font-playfair);
+}
+
+/* 天氣模組：綠色呼吸燈，表示即時運作中 */
+.weather-live-dot {
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 9999px;
+  background: #4ade80;
+  box-shadow: 0 0 6px #22c55e;
+  animation: weather-breathe 2.2s ease-in-out infinite;
+}
+
+@keyframes weather-breathe {
+  0%,
+  100% {
+    opacity: 0.4;
+    box-shadow: 0 0 2px #4ade80;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 8px #22c55e, 0 0 14px #86efac;
+    transform: scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .weather-live-dot {
+    animation: none;
+    opacity: 0.95;
+    box-shadow: 0 0 6px #22c55e;
+    transform: none;
+  }
 }
 
 /* 卡片與按鈕增強 */
@@ -558,6 +1029,7 @@ input:focus, select:focus, textarea:focus {
 
 /* 官網訂房主按鈕 — 暖金漸層，視覺優先於次要渠道 */
 .primary-booking-btn {
+  position: relative;
   background-image: linear-gradient(
     135deg,
     #f0d078 0%,
@@ -577,6 +1049,46 @@ input:focus, select:focus, textarea:focus {
     transform 0.15s ease,
     box-shadow 0.2s ease,
     filter 0.2s ease;
+}
+
+.primary-booking-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow:
+    0 0 10px 2px rgba(240, 208, 120, 0.4),
+    0 0 22px 4px rgba(184, 148, 80, 0.28);
+  animation: booking-breathe 2.4s ease-in-out infinite;
+}
+
+.primary-booking-btn:disabled::after {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes booking-breathe {
+  0%,
+  100% {
+    opacity: 0.4;
+    box-shadow:
+      0 0 8px 1px rgba(240, 208, 120, 0.28),
+      0 0 16px 2px rgba(184, 148, 80, 0.18);
+  }
+  50% {
+    opacity: 1;
+    box-shadow:
+      0 0 18px 5px rgba(245, 216, 136, 0.75),
+      0 0 34px 10px rgba(212, 173, 98, 0.45);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primary-booking-btn::after {
+    animation: none;
+    opacity: 0.85;
+  }
 }
 
 .primary-booking-btn:hover:not(:disabled) {
@@ -624,6 +1136,158 @@ input:focus, select:focus, textarea:focus {
     0 1px 2px rgba(0, 0, 0, 0.06),
     0 4px 14px rgba(184, 148, 80, 0.42),
     inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+/* 攻略頁：固定「回本頁目錄」 */
+.fulong-toc-fab {
+  position: fixed;
+  right: 1rem;
+  bottom: 1.25rem;
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.65rem 0.95rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #fff;
+  text-decoration: none;
+  background-image: linear-gradient(135deg, #5aa8b8 0%, #2f6b7a 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.12),
+    0 6px 18px rgba(47, 107, 122, 0.4);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.fulong-toc-fab:hover {
+  color: #fff;
+  filter: brightness(1.06);
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.12),
+    0 8px 22px rgba(47, 107, 122, 0.5);
+}
+
+.fulong-toc-fab:active {
+  transform: scale(0.97);
+}
+
+.fulong-toc-fab:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 4px #3d8799,
+    0 6px 18px rgba(47, 107, 122, 0.4);
+}
+
+.fulong-toc-fab__icon {
+  font-size: 0.95rem;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.fulong-toc-fab__label {
+  line-height: 1;
+}
+
+@media (min-width: 640px) {
+  .fulong-toc-fab {
+    right: 1.5rem;
+    bottom: 1.75rem;
+    padding: 0.75rem 1.1rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* 「福隆旅遊攻略」次要 CTA — 海色實底＋白字反差清楚；無金光暈、體積小於訂房 */
+.fulong-guide-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 9999px;
+  background: #2f6b7a;
+  background-image: none;
+  border: 1px solid #255660;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.fulong-guide-btn:hover {
+  color: #ffffff;
+  background: #3d8799;
+  border-color: #2f6b7a;
+  filter: none;
+  box-shadow: 0 2px 6px rgba(47, 107, 122, 0.28);
+}
+
+.fulong-guide-btn:active {
+  transform: scale(0.985);
+}
+
+.fulong-guide-btn:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 4px rgba(47, 107, 122, 0.5);
+}
+
+/* 固定列：同樣白字／海色底，但更小、陰影更弱，不搶金色訂房 */
+.fulong-guide-btn--nav {
+  position: relative;
+  z-index: 1;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  background: #347f94;
+  background-image: none;
+  border: 1px solid #2a6678;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.fulong-guide-btn--nav:hover {
+  color: #ffffff;
+  background: #3d8799;
+  border-color: #2f6b7a;
+  filter: none;
+  box-shadow: 0 1px 4px rgba(47, 107, 122, 0.22);
+}
+
+.fulong-guide-btn--nav .fulong-guide-btn__icon {
+  font-size: 0.85em;
+}
+
+.fulong-guide-btn__icon {
+  font-size: 0.9em;
+  line-height: 1;
+}
+
+/* 手機左下訂房 FAB：加大點擊區與存在感 */
+.primary-booking-btn--fab {
+  min-height: 3rem;
+  padding-inline: 1.15rem !important;
+  padding-block: 0.75rem !important;
+  font-size: 0.8125rem !important;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    0 8px 24px rgba(184, 148, 80, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
 }
 
 /* Airbnb 次要 CTA — 官網白字標誌 + 柔和寶石紅底，不搶主按鈕 */

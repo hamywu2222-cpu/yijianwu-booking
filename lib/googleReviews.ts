@@ -111,6 +111,7 @@ async function placesFetch<T>(path: string, init?: RequestInit): Promise<T> {
       ...(init?.headers ?? {}),
     },
     next: { revalidate: 21600 },
+    signal: init?.signal ?? AbortSignal.timeout(1200),
   });
 
   if (!response.ok) {

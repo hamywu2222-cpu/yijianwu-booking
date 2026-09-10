@@ -11,6 +11,11 @@ type RoomImageCarouselProps = {
   className?: string;
 };
 
+/** 只解碼當張與左右各一張，避免手機一次下載整組輪播 */
+function shouldLoadSlide(index: number, activeIndex: number) {
+  return Math.abs(index - activeIndex) <= 1;
+}
+
 export default function RoomImageCarousel({
   images,
   label,
@@ -18,6 +23,7 @@ export default function RoomImageCarousel({
   className = '',
 }: RoomImageCarouselProps) {
   const trackRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const updateActiveIndex = useCallback(() => {
@@ -28,6 +34,14 @@ export default function RoomImageCarousel({
     const index = Math.round(track.scrollLeft / slideWidth);
     setActiveIndex(Math.min(Math.max(index, 0), images.length - 1));
   }, [images.length]);
+
+  const onScroll = useCallback(() => {
+    if (frameRef.current) return;
+    frameRef.current = window.requestAnimationFrame(() => {
+      frameRef.current = 0;
+      updateActiveIndex();
+    });
+  }, [updateActiveIndex]);
 
   const scrollToIndex = useCallback((index: number) => {
     const track = trackRef.current;
@@ -52,7 +66,7 @@ export default function RoomImageCarousel({
     <div className={`room-media relative aspect-[16/10] bg-[#EDE8E0] ${className}`}>
       <div
         ref={trackRef}
-        onScroll={updateActiveIndex}
+        onScroll={onScroll}
         className="flex h-full w-full snap-x snap-mandatory overflow-x-auto scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         aria-label={`${label}照片`}
         aria-roledescription="carousel"
@@ -64,14 +78,19 @@ export default function RoomImageCarousel({
             aria-roledescription="slide"
             aria-label={`${index + 1} / ${images.length}`}
           >
-            <Image
-              src={src}
-              alt={getImageAlt(src)}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              priority={priority && index === 0}
-              className="object-cover object-center"
-            />
+            {shouldLoadSlide(index, activeIndex) ? (
+              <Image
+                src={src}
+                alt={getImageAlt(src)}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                quality={65}
+                priority={priority && index === 0}
+                className="object-cover object-center"
+              />
+            ) : (
+              <div className="h-full w-full bg-[#EDE8E0]" aria-hidden />
+            )}
           </div>
         ))}
       </div>

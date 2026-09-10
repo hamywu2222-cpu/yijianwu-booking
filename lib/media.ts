@@ -9,19 +9,19 @@ export const SCENERY_IMAGES: SceneryItem[] = [
   {
     src: '/images/scenery/fulong-beach-aerial.jpg',
     title: '福隆海水浴場',
-    caption: '步行 8 分鐘 · 金色沙灣與湛藍海線',
+    caption: '一間屋步行約 8–12 分 · 金色沙灣',
     span: 'hero',
   },
   {
     src: '/images/scenery/fulong-caoling-tunnel.jpg',
     title: '舊草嶺隧道',
-    caption: '台灣第一條鐵路隧道，單車族必騎經典路線',
+    caption: '車站旁租車即可騎 · 環線經典',
     span: 'tall',
   },
   {
-    src: '/images/scenery/fulong-caoling-loop-sign.jpg',
-    title: '舊草嶺隧道環狀線',
-    caption: '沿海公路騎行，藍天碧海一路相伴',
+    src: '/images/scenery/sandiaojiao-lighthouse.jpg',
+    title: '三貂角燈塔',
+    caption: '一間屋約 15 分車程 · 台灣最東',
     span: 'wide',
   },
   {
@@ -32,17 +32,17 @@ export const SCENERY_IMAGES: SceneryItem[] = [
   {
     src: '/images/scenery/fulong-sandcastle.jpg',
     title: '沙雕藝術季',
-    caption: '福隆沙灘經典地標，每年吸引無數旅人',
+    caption: '海水浴場季節限定 · 散步即達',
   },
   {
     src: '/images/scenery/fulong-ring-immersive-art.webp',
-    title: '環狀線沿途體驗',
-    caption: '東北角單車之旅，沿途特色景點豐富',
+    title: '舊草嶺環線',
+    caption: '約 18–22 km · 三貂角／卯澳可串',
   },
   {
     src: '/images/scenery/fulong-starbucks.jpg',
-    title: '福隆夜色',
-    caption: '車站旁休閒角落，散步即可抵達',
+    title: '福隆星巴克',
+    caption: '一間屋步行約 5–10 分 · 行程中場',
   },
 ];
 
@@ -63,16 +63,18 @@ export const FAMILY_ROOM_IMAGES = [
 ] as const;
 
 /**
- * 包棟方案展示圖：民宿大門／外觀 + 雙人房 + 家庭房整合
- * （不再單用公共設施圖當代表）
+ * 包棟輪播：HERO → 4 張不同雙人房 → 家庭房 1 → 走廊／公共空間／衛浴各 1
  */
 export const PACKAGE_IMAGES = [
   '/images/hero.jpg',
-  '/images/exterior3.jpg',
-  DOUBLE_ROOM_IMAGES[0],
-  FAMILY_ROOM_IMAGES[0],
+  '/images/ROOMS/photo_2026-06-30_20-32-24.jpg',
+  '/images/ROOMS/photo_2026-06-30_20-32-21.jpg',
+  '/images/ROOMS/photo_2026-06-30_20-32-17.jpg',
+  '/images/ROOMS/photo_2026-06-30_20-32-27.jpg',
+  '/images/4-6ROOMS/photo_2026-06-30_21-55-08.jpg',
   '/images/hallway.jpg',
-  DOUBLE_ROOM_IMAGES[1],
+  '/images/facilities.jpg',
+  '/images/bathroom.jpg',
 ] as const;
 
 /** 房型展示標籤（影片播放器已下架，僅保留文案） */
@@ -91,7 +93,8 @@ export const ROOM_VIDEOS = {
 
 /** 福隆風景區塊 — 與上方相簿不重複的戶外友善說明 */
 export const FULONG_SECTION = {
-  intro: '住一間屋，福隆山海風光、單車路線與桃源谷登山都在門外。',
+  intro:
+    '住一間屋，走出家門就是山海。海水浴場、舊草嶺單車、潮間帶與健行，都以車站旁為 overnight 基地；下方是攻略精華，完整行程請看「福隆旅遊攻略」。',
 } as const;
 
 export type OutdoorRouteItem = {
@@ -126,11 +129,11 @@ export const OUTDOOR_FRIENDLY = {
         desc: '舊草嶺濱海步道一路看海，繞向三貂角燈塔，藍天碧海相伴。',
       },
       {
-        image: '/images/scenery/maoao-fishing-village.jpg',
-        name: '卯澳漁港 → 回福隆',
+        image: '/images/scenery/maoao-village-landmark.jpg',
+        name: '卯澳漁港 → 三貂角燈塔 → 回福隆',
         badge: '一日遊',
-        meta: '卯澳漁村 · 馬崗漁港風光',
-        desc: '經卯澳漁村與漁港巷弄，沿環狀線騎回福隆，適合搭配便當一日完騎。',
+        meta: '卯澳漁村 · 三貂角極東燈塔',
+        desc: '經卯澳漁村與漁港巷弄，可順遊三貂角燈塔，沿環狀線騎回福隆。',
       },
     ] satisfies OutdoorRouteItem[],
   },
@@ -169,11 +172,20 @@ export const ABOUT_AMENITIES = [
   { icon: '🧳', label: '房客行李寄放服務' },
   { icon: '❄️', label: '獨立冷氣' },
   { icon: '📶', label: '免費 WiFi' },
-  { icon: '🚿', label: '公共衛浴（洗髮精・沐浴乳・香皂）' },
-  { icon: '💨', label: '每間房一台吹風機' },
+  { icon: '🧊', label: '公共冰箱' },
+  { icon: '🚰', label: '冷熱飲水機' },
+  { icon: '🚿', label: '共用衛浴(全套)3間・含沐浴乳、洗髮精、香皂' },
+  { icon: '💨', label: '每房附吹風機一台' },
   { icon: '🥿', label: '民宿內拖鞋' },
-  { icon: '♻️', label: '不供一次性用品（提倡環保）' },
+  { icon: '♻️', label: '不供一次性用品・其餘請自備' },
 ] as const;
+
+/** 建站諮詢專線（與民宿訂房電話可分開） */
+export const WEB_DEV_CONTACT = {
+  phoneDisplay: '0912-365-533',
+  phoneHref: 'tel:0912365533',
+  phoneLabel: '電話建站諮詢 0912-365-533',
+} as const;
 
 export const WEB_DEV_FEATURES = [
   {
@@ -185,16 +197,16 @@ export const WEB_DEV_FEATURES = [
     desc: 'Next.js + React + TypeScript，現代工程架構，長期維護更容易',
   },
   {
-    title: '極速載入',
-    desc: '靜態預渲染、圖片與影片按需載入，手機開啟明顯比套版站更快',
+    title: '網頁載入極速體驗',
+    desc: '靜態預渲染、圖片與影片按需載入，手機開啟明顯比套版站更快、更順',
   },
   {
     title: '高度客製',
     desc: '訂房流程、房間影片、風景相簿、SEO 皆可量身設計，不受模板限制',
   },
   {
-    title: '手機優先',
-    desc: '響應式排版，一鍵撥號、線上訂房與 LINE 門禁通知在手機上完整可用',
+    title: '響應式排版',
+    desc: '手機、平板、電腦版面自動對齊；一鍵撥號、線上訂房與 LINE 自助入住密碼在手機上完整可用',
   },
   {
     title: '上線部署',

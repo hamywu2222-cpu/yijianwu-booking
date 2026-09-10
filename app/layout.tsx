@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Suspense } from "react";
-import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
+import { Geist, Playfair_Display } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import CaptureLandingUtm from "@/components/CaptureLandingUtm";
 import AdsConversionTracker from "@/components/AdsConversionTracker";
 import BookingClickTracker from "@/components/BookingClickTracker";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
@@ -27,21 +29,17 @@ import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "600"],
   display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
+  preload: true,
 });
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400"],
   display: "swap",
+  preload: false,
 });
 
 const SITE_KEYWORDS = [
@@ -123,17 +121,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="zh-TW"
-      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <StructuredData />
         {children}
+        <CaptureLandingUtm />
         <GoogleAnalytics />
         <Suspense fallback={null}>
           <GoogleAnalyticsPageView />
         </Suspense>
         <BookingClickTracker />
         <AdsConversionTracker />
+        <Analytics />
       </body>
     </html>
   );

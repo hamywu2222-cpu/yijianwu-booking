@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
+import FulongGuideCta from '@/components/FulongGuideCta';
 import { BOOKING_CTA } from '@/lib/business';
 
 type Section = {
@@ -30,16 +31,19 @@ export function SeoSubPage({
   return (
     <main className="min-h-screen bg-[#F8F5F1] text-[#3F3A36]">
       <header className="border-b border-[#EDE8E0] bg-[#F8F5F1]/95 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4 sm:px-6">
-          <Link href="/" className="text-sm font-medium text-[#8B7355] hover:text-[#3F3A36]">
+        <div className="mx-auto flex max-w-3xl items-center justify-between gap-2 px-4 py-4 sm:px-6">
+          <Link href="/" className="shrink-0 text-sm font-medium text-[#8B7355] hover:text-[#3F3A36]">
             ← 一間屋・駅前宿
           </Link>
-          <Link
-            href={ctaHref}
-            className="primary-booking-btn inline-flex rounded-full px-4 py-2 text-sm font-medium"
-          >
-            {ctaLabel}
-          </Link>
+          <div className="flex flex-wrap items-center justify-end gap-2">
+            <FulongGuideCta variant="nav" />
+            <Link
+              href={ctaHref}
+              className="primary-booking-btn inline-flex rounded-full px-4 py-2 text-sm font-medium"
+            >
+              {ctaLabel}
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -77,12 +81,10 @@ export function SeoSubPage({
           aria-label="相關頁面"
         >
           <p className="text-sm font-medium text-[#8B7355]">延伸閱讀</p>
-          <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm">
-            <li>
-              <Link href="/fulong" className="text-[#3F3A36] underline-offset-2 hover:underline">
-                福隆怎麼玩
-              </Link>
-            </li>
+          <div className="mt-3">
+            <FulongGuideCta variant="default" label="福隆旅遊攻略" showIcon={false} />
+          </div>
+          <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm">
             <li>
               <Link href="/faq" className="text-[#3F3A36] underline-offset-2 hover:underline">
                 常見問題

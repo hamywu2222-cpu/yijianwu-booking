@@ -3,25 +3,25 @@
 import { useEffect, useRef, type CSSProperties } from 'react';
 import BrandTagline from '@/components/BrandTagline';
 import CabinIcon from '@/components/CabinIcon';
+import FulongGuideCta from '@/components/FulongGuideCta';
 import NavBrandMark from '@/components/NavBrandMark';
 import { BOOKING_CTA, BUSINESS_LINE, BUSINESS_PHONE } from '@/lib/business';
 
 const SCROLL_FADE_DISTANCE = 64;
 
 const NAV_LINKS = [
-  { href: '#about', label: '簡介' },
   { href: '#rooms', label: '房間' },
-  { href: '#reviews', label: '留言板' },
   { href: '#booking', label: '訂房' },
-  { href: '#location', label: '位置' },
+  { href: '#reviews', label: '留言板' },
+  { href: '#location', label: '如何抵達' },
 ] as const;
 
-/** SEO 子頁內鏈（次要導覽，不搶主 CTA） */
-const SEO_NAV_LINKS = [
-  { href: '/fulong', label: '福隆' },
-  { href: '/faq', label: 'FAQ' },
-  { href: '/rooms/package', label: '包棟' },
-] as const;
+/** 建站諮詢（民宿業者洽詢，非訂房） */
+const WEB_DEV_NAV = {
+  href: '#web-dev',
+  label: '建站諮詢',
+  title: '喜歡這個網站嗎？有需求的老闆可以聯繫我諮詢建站事宜',
+} as const;
 
 export default function SiteNav() {
   const headerRef = useRef<HTMLElement>(null);
@@ -85,7 +85,7 @@ export default function SiteNav() {
       className="site-nav fixed top-0 left-0 right-0 z-50"
       style={{ '--tagline-progress': 1, '--tagline-height': '0px' } as CSSProperties}
     >
-      <div className="site-nav-shell bg-[#F8F5F1]/95 backdrop-blur-md border-b border-[#EDE8E0]">
+      <div className="site-nav-shell border-b border-[#EDE8E0] bg-[#F8F5F1] md:bg-[#F8F5F1]/95 md:backdrop-blur-md">
         <div ref={taglineRef} className="site-nav-tagline">
           <div className="site-nav-tagline-panel">
             <BrandTagline />
@@ -99,86 +99,101 @@ export default function SiteNav() {
               <NavBrandMark />
             </div>
 
+            {/* 桌機中欄：主錨點 + 建站諮詢 */}
             <nav className="site-nav-links-slot hidden md:flex" aria-label="主要導覽">
               {NAV_LINKS.map(({ href, label }) => (
                 <a key={href} href={href} className="nav-link hover:text-[#8B7355] transition-colors">
                   {label}
                 </a>
               ))}
-              <span className="mx-1 text-[#E0D6C8]" aria-hidden>
-                |
-              </span>
-              {SEO_NAV_LINKS.map(({ href, label }) => (
-                <a
-                  key={href}
-                  href={href}
-                  className="nav-link text-[#8B7355]/90 hover:text-[#3F3A36] transition-colors"
-                >
-                  {label}
-                </a>
-              ))}
-            </nav>
-
-            <div className="site-nav-actions-slot">
-              <a
-                href="#booking"
-                className="primary-booking-btn primary-booking-btn--compact md:hidden inline-flex items-center justify-center rounded-full px-3 py-2 text-[11px] tracking-wide whitespace-nowrap"
-              >
-                {BOOKING_CTA.jumpShort}
-              </a>
               <a
                 href={BUSINESS_LINE.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="md:hidden inline-flex items-center rounded-full border border-[#00C300] px-3 py-2 text-xs font-medium text-[#00A300] shadow-sm active:scale-[0.98] transition-transform"
-              >
-                LINE
-              </a>
-              <a
-                href={BUSINESS_PHONE.mobileHref}
-                className="md:hidden inline-flex items-center gap-1 rounded-full border border-[#D1C9BE] bg-white px-2.5 py-2 text-xs font-medium text-[#3F3A36] shadow-sm active:scale-[0.98] transition-transform"
-                aria-label={`撥打電話 ${BUSINESS_PHONE.mobile}`}
-              >
-                <span aria-hidden>📞</span>
-              </a>
-              <a
-                href={BUSINESS_PHONE.mobileHref}
-                className="hidden md:block text-sm text-[#8B7355] hover:text-[#3F3A36] transition-colors tracking-wider whitespace-nowrap"
-              >
-                📞 {BUSINESS_PHONE.mobile}
-              </a>
-              <a
-                href="#booking"
-                className="primary-booking-btn primary-booking-btn--compact hidden md:inline-flex items-center rounded-full px-5 py-2 text-xs tracking-wider whitespace-nowrap"
-              >
-                {BOOKING_CTA.jump}
-              </a>
-              <a
-                href={BUSINESS_LINE.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden md:flex items-center gap-2 border border-[#00C300] text-[#00A300] text-xs px-5 py-2 rounded-full hover:bg-[#00C300] hover:text-white transition-all tracking-wider font-medium whitespace-nowrap"
+                className="nav-link shrink-0 rounded-full border border-[#00C300] bg-white px-2.5 py-1 text-[11px] font-semibold text-[#00A300] transition-colors hover:bg-[#00C300] hover:text-white sm:text-xs"
               >
                 LINE 門禁密碼
+              </a>
+              <span className="site-nav-links-divider text-[#E0D6C8]" aria-hidden>
+                |
+              </span>
+              <a
+                href={WEB_DEV_NAV.href}
+                title={WEB_DEV_NAV.title}
+                className="nav-link shrink-0 rounded-full border border-[#D1C9BE]/80 bg-white/70 px-2.5 py-1 text-[11px] font-medium text-[#8B7355] transition-colors hover:border-[#8B7355] hover:text-[#3F3A36] sm:text-xs"
+              >
+                {WEB_DEV_NAV.label}
+              </a>
+            </nav>
+
+            {/* 右側：手機優先電話；桌機 LINE（寬螢幕可並顯電話）。攻略在極窄螢幕隱藏以免擠掉電話 */}
+            <div className="site-nav-actions-slot">
+              <FulongGuideCta
+                variant="nav"
+                className="site-nav-guide-cta shrink-0 max-[380px]:hidden"
+                label="福隆旅遊攻略"
+                href="#fulong-play"
+                ariaLabel="捲動至福隆旅遊攻略精華"
+              />
+              <a
+                href="#booking"
+                className="primary-booking-btn primary-booking-btn--compact inline-flex shrink-0 items-center justify-center rounded-full tracking-wide whitespace-nowrap"
+              >
+                <span className="md:hidden">{BOOKING_CTA.jumpShort}</span>
+                <span className="hidden md:inline">{BOOKING_CTA.jump}</span>
+              </a>
+              {/* 手機固定列：顯示電話 0912-362-533（取代長 LINE 文案，一鍵撥號） */}
+              <a
+                href={BUSINESS_PHONE.mobileHref}
+                className="site-nav-phone-cta inline-flex md:hidden shrink-0 items-center rounded-full border border-[#D1C9BE] bg-white px-2 py-1.5 text-[10px] min-[360px]:px-2.5 min-[360px]:text-[11px] font-semibold text-[#3F3A36] shadow-sm tabular-nums tracking-tight active:scale-[0.98] transition-transform"
+                aria-label={`撥打電話 ${BUSINESS_PHONE.mobile}`}
+              >
+                <span aria-hidden className="mr-0.5">
+                  📞
+                </span>
+                {BUSINESS_PHONE.mobile}
+              </a>
+              {/* 桌機：LINE 自助入住 */}
+              <a
+                href={BUSINESS_LINE.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden md:inline-flex shrink-0 items-center rounded-full border border-[#00C300] px-3 py-2 text-xs font-medium text-[#00A300] shadow-sm transition-transform active:scale-[0.98] md:hover:bg-[#00C300] md:hover:text-white"
+              >
+                <span className="whitespace-nowrap">{BUSINESS_LINE.ctaLabelShort}</span>
+              </a>
+              {/* 寬螢幕：電話一併顯示 */}
+              <a
+                href={BUSINESS_PHONE.mobileHref}
+                className="hidden xl:inline-flex shrink-0 items-center text-sm text-[#8B7355] hover:text-[#3F3A36] transition-colors tracking-wider whitespace-nowrap tabular-nums"
+                aria-label={`撥打電話 ${BUSINESS_PHONE.mobile}`}
+              >
+                📞 {BUSINESS_PHONE.mobile}
               </a>
             </div>
           </div>
 
-          <nav className="site-nav-mobile-links md:hidden" aria-label="主要導覽">
+          <nav className="site-nav-mobile-links md:hidden" aria-label="頁內導覽">
             {NAV_LINKS.map(({ href, label }) => (
               <a key={href} href={href} className="nav-link shrink-0 hover:text-[#8B7355] transition-colors">
                 {label}
               </a>
             ))}
-            {SEO_NAV_LINKS.map(({ href, label }) => (
-              <a
-                key={href}
-                href={href}
-                className="nav-link shrink-0 text-[#8B7355] hover:text-[#3F3A36] transition-colors"
-              >
-                {label}
-              </a>
-            ))}
+            <a
+              href={BUSINESS_LINE.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-link shrink-0 rounded-full border border-[#00C300] bg-white px-2.5 py-0.5 text-[11px] font-semibold text-[#00A300]"
+            >
+              LINE 門禁密碼
+            </a>
+            <a
+              href={WEB_DEV_NAV.href}
+              title={WEB_DEV_NAV.title}
+              className="nav-link shrink-0 rounded-full border border-[#D1C9BE] bg-white/80 px-2.5 py-0.5 text-[11px] font-medium text-[#8B7355]"
+            >
+              {WEB_DEV_NAV.label}
+            </a>
           </nav>
         </div>
       </div>

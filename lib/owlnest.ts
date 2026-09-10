@@ -50,8 +50,7 @@ export type OwlNestGoParams = OwlNestSearchParams & {
 };
 
 /**
- * 官網中轉路徑：先到 /go/owlnest 送出 1 次 open_owlnest，再導向奧丁丁。
- * 因 booking-owlnest.com 非本站，無法在對方頁面裝碼，以此代表「到達訂房引擎」。
+ * 舊中轉路徑（書籤／舊連結用）。主訂房按鈕已改為直接開奧丁丁並在點擊時送 open_owlnest。
  */
 export function buildOwlNestGoPath(params: OwlNestGoParams = {}): string {
   const sp = new URLSearchParams();

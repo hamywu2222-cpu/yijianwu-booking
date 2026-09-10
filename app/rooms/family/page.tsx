@@ -1,6 +1,7 @@
 import { PageJsonLd } from '@/components/PageJsonLd';
 import RoomImageCarousel from '@/components/RoomImageCarousel';
 import { SeoSubPage } from '@/components/SeoSubPage';
+import { ROOMS_SECTION } from '@/lib/business';
 import { getImageAlt } from '@/lib/imageAlt';
 import { FAMILY_ROOM_IMAGES, ROOM_VIDEOS } from '@/lib/media';
 import { FULONG_SEO_KEYWORDS } from '@/lib/seo';
@@ -46,6 +47,7 @@ export default function FamilyRoomPage() {
               ...room.tags,
               `價格：${room.pricing.weekday.label} ${room.pricing.weekday.sale} 起 / ${room.pricing.holiday.label} ${room.pricing.holiday.sale} 起`,
               `床型：${page.bed}，舒適建議 4–6 人`,
+              ROOMS_SECTION.sharedNote,
             ],
           },
           {

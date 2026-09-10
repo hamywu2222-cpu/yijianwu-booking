@@ -1,4 +1,5 @@
 import BrandTagline from '@/components/BrandTagline';
+import FulongGuideCta from '@/components/FulongGuideCta';
 import {
   BUSINESS_ADDRESS,
   BUSINESS_LINE,
@@ -9,13 +10,16 @@ import {
 } from '@/lib/business';
 
 const SEO_LINKS = [
-  { href: '/fulong', label: '福隆怎麼玩' },
+  { href: '/booking', label: '線上訂房' },
+  { href: '/fulong', label: '福隆旅遊攻略' },
+  { href: '/fulong/day-trip', label: '福隆一日遊' },
+  { href: '/fulong/bike', label: '舊草嶺單車' },
+  { href: '/fulong/water', label: '福隆玩水' },
   { href: '/faq', label: '常見問題' },
-  { href: '/renovation', label: '2026 裝潢' },
   { href: '/rooms/double', label: '和鳴雙人房' },
   { href: '/rooms/family', label: '家庭房' },
   { href: '/rooms/package', label: '包棟方案' },
-  { href: '/booking', label: '線上訂房' },
+  { href: '/renovation', label: '2026 裝潢' },
 ] as const;
 
 export default function HomeFooter() {
@@ -45,7 +49,7 @@ export default function HomeFooter() {
               rel="noopener noreferrer"
               className="block font-medium text-[#00C300] hover:underline"
             >
-              LINE 官方 {BUSINESS_LINE.id}（入住門禁密碼）
+              {BUSINESS_LINE.ctaLabel}
             </a>
             <a href={BUSINESS_PHONE.mobileHref} className="block font-medium hover:text-[#3F3A36]">
               急事專線 {BUSINESS_PHONE.mobile}
@@ -58,6 +62,9 @@ export default function HomeFooter() {
             >
               Google 地圖查看
             </a>
+            <div className="flex flex-wrap justify-center md:justify-start pt-3">
+              <FulongGuideCta variant="default" label="福隆旅遊攻略" showIcon={false} />
+            </div>
             <nav
               className="flex flex-wrap justify-center md:justify-start gap-x-3 gap-y-1 pt-2 text-xs"
               aria-label="延伸閱讀"

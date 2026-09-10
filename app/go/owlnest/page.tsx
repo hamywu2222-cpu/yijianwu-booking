@@ -6,8 +6,8 @@ import { trackOpenOwlnest, waitForGtag } from "@/lib/analytics";
 import { buildOwlNestBookingUrl, isValidOwlNestDate } from "@/lib/owlnest";
 
 /**
- * 中轉頁：到達此頁 = 記 1 次 open_owlnest，再導向奧丁丁訂房頁。
- * 對方網域 (booking-owlnest.com) 無法代裝追蹤碼，故以本頁代表「進入訂房引擎」。
+ * 舊中轉頁（書籤／舊連結）：到達此頁 = 記 1 次 open_owlnest，再導向奧丁丁。
+ * 主訂房按鈕已改為點擊後直接開奧丁丁，不再經過此頁。
  */
 export default function GoOwlnestPage() {
   const searchParams = useSearchParams();
