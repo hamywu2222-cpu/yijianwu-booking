@@ -57,7 +57,7 @@ function ReviewCard({ review }: { review: GoogleReviewsPayload['reviews'][number
           <StarRating rating={review.rating} size="sm" />
         </div>
 
-        <p className="flex-1 text-xs leading-relaxed text-[#6B665F] line-clamp-3">{review.text}</p>
+        <p className="flex-1 text-xs leading-relaxed text-[#6B665F] line-clamp-4">{review.text}</p>
       </div>
     </article>
   );
@@ -74,20 +74,20 @@ export default function GoogleReviews({
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (initialData) return;
     let cancelled = false;
 
     async function load() {
       try {
-        const response = await fetch('/api/reviews');
+        const response = await fetch('/api/reviews', { cache: 'no-store' });
         if (!response.ok) throw new Error('Failed to load reviews');
         const payload = (await response.json()) as GoogleReviewsPayload;
-        if (!cancelled) {
+        if (cancelled) return;
+        if (payload.source === 'live' || !initialData) {
           setData(payload);
-          setError(false);
         }
+        setError(false);
       } catch {
-        if (!cancelled) setError(true);
+        if (!cancelled && !initialData) setError(true);
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -121,26 +121,25 @@ export default function GoogleReviews({
     return null;
   }
 
+  const showLiveRating = data.rating > 0 && data.userRatingCount > 0;
+  const showCarousel = data.reviews.length > 0;
   const ratingLabel = data.rating > 0 ? data.rating.toFixed(1) : '—';
   const countLabel =
     data.userRatingCount > 0 ? `${data.userRatingCount} 則 Google 評價` : 'Google 評價';
 
   return (
-    <div className="mx-auto max-w-5xl px-6">
-      <div className="mb-4 text-center">
-        <div className="flex flex-wrap items-center justify-center gap-2">
-          <StarRating rating={data.rating || 5} size="sm" />
-          <span className="text-xl font-light text-[#3F3A36]">{ratingLabel}</span>
-          <span className="text-xs text-[#8B7355]">{countLabel}</span>
+    <div className="mx-auto max-w-5xl px-4 sm:px-6">
+      {showLiveRating ? (
+        <div className="mb-4 text-center">
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <StarRating rating={data.rating} size="sm" />
+            <span className="text-xl font-light text-[#3F3A36]">{ratingLabel}</span>
+            <span className="text-xs text-[#8B7355]">{countLabel}</span>
+          </div>
         </div>
-        {data.source === 'demo' ? (
-          <p className="mt-1.5 text-[10px] text-[#8B7355]">
-            預覽模式：請在 `.env.local` 設定 `GOOGLE_PLACES_API_KEY` 後即可顯示真實評價。
-          </p>
-        ) : null}
-      </div>
+      ) : null}
 
-      {data.reviews.length > 0 ? (
+      {showCarousel ? (
         <div className="relative">
           <div
             ref={trackRef}
@@ -180,7 +179,7 @@ export default function GoogleReviews({
           href={data.reviewsUri}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center rounded-full border border-[#3F3A36] px-4 py-1.5 text-xs font-medium text-[#3F3A36] transition-colors hover:bg-[#3F3A36] hover:text-white"
+          className="inline-flex min-h-10 items-center justify-center rounded-full border border-[#3F3A36] px-4 py-2 text-xs font-medium text-[#3F3A36] transition-colors hover:bg-[#3F3A36] hover:text-white"
         >
           查看全部評價
         </a>
@@ -188,7 +187,7 @@ export default function GoogleReviews({
           href={data.writeReviewUri}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-1.5 rounded-full bg-[#3F3A36] px-4 py-1.5 text-xs font-medium text-white transition-colors hover:bg-[#2C2926]"
+          className="inline-flex min-h-10 items-center justify-center gap-1.5 rounded-full bg-[#3F3A36] px-4 py-2 text-xs font-medium text-white transition-colors hover:bg-[#2C2926]"
         >
           <span aria-hidden>✍️</span>
           到 Google 寫評論

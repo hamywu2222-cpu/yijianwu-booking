@@ -1,7 +1,8 @@
 import RoomImageCarousel from '@/components/RoomImageCarousel';
 import { PageJsonLd } from '@/components/PageJsonLd';
 import { SeoSubPage } from '@/components/SeoSubPage';
-import { PACKAGE_BOOKING } from '@/lib/business';
+import { HolidayPriceNotice } from '@/components/home/HomeUi';
+import { PackagePeopleNotice } from '@/components/PackagePeopleNotice';
 import { PACKAGE_IMAGES } from '@/lib/media';
 import { getImageAlt } from '@/lib/imageAlt';
 import { FULONG_SEO_KEYWORDS } from '@/lib/seo';
@@ -14,7 +15,7 @@ const page = ROOM_PAGES.package;
 export const metadata = buildPageMetadata({
   title: '福隆包棟民宿｜全館5間包房・平日$8,800・近車站',
   description:
-    '福隆包棟民宿一間屋·駅前宿：4間和鳴雙人雅房+1間家庭雅房，全館衛浴共三間可使用（全套衛浴）。平日$8,800、假日$9,200。舒適12-14人，福隆車站出站30秒，適合團體與單車隊。',
+    '福隆包棟民宿一間屋·駅前宿：4間和鳴雙人雅房+1間家庭雅房，全館衛浴共三間可使用（全套衛浴）。14人內平日$8,800、假日$9,200；超過14人每人+$600，最多18人，須先詢問。福隆車站出站30秒。',
   path: page.path,
   keywords: [...FULONG_SEO_KEYWORDS.tier2, '福隆包棟', '福隆包棟民宿'],
   ogImage: page.image,
@@ -50,12 +51,8 @@ export default function PackageRoomPage() {
           },
           {
             heading: '價格與人數',
-            bullets: [
-              '平日 NT$8,800（週一～週四）',
-              '假日 NT$9,200（週五、週六、假日）',
-              `舒適建議 ${PACKAGE_BOOKING.comfortMin}–${PACKAGE_BOOKING.comfortMax} 人，最多 ${PACKAGE_BOOKING.maxPeople} 人`,
-              section.priceNote,
-            ],
+            content: <PackagePeopleNotice className="mt-4" />,
+            bullets: [section.bikeNote],
           },
           {
             heading: '適合誰訂',
@@ -65,6 +62,7 @@ export default function PackageRoomPage() {
           },
         ]}
       >
+        <HolidayPriceNotice className="mt-6 sm:mt-8 rounded-2xl border border-[#E8DFD2] bg-white px-3 py-2.5 sm:px-4 sm:py-3" />
         <div className="mt-10 overflow-hidden rounded-2xl border border-[#e8e0d4] bg-white">
           <RoomImageCarousel
             images={PACKAGE_IMAGES}

@@ -36,8 +36,9 @@ const ROOM_TYPES: RoomTypeConfig[] = [
   },
   {
     value: '包房方案',
-    label: '一間屋包房優惠方案(5間)（4間和鳴雙人雅房+1間和風4-6人家庭雅房，全館衛浴共三間可使用・全套衛浴，舒適建議人數 12–14）— 平日 NT$8,800 / 假日 NT$9,200（價格固定，特殊活動日另詢）',
-    maxPeople: 30,
+    label:
+      '一間屋包房優惠方案(5間) — 14人內平日 NT$8,800／假日 NT$9,200。超過14人每人 +NT$600，最多18人，須先詢問確認空間夠再訂',
+    maxPeople: 18,
     peopleHint: PACKAGE_FORM_PEOPLE_HINT,
   },
   {
@@ -565,15 +566,15 @@ export default function BookingForm() {
                 <Link href="/#package" className="underline hover:text-[#3F3A36] transition-colors">
                   一間屋包房優惠方案(5間)
                 </Link>
-                （舒適建議人數 12–14），皆須提早詢問。
+                。{PACKAGE_FORM_PEOPLE_HINT}
               </>
             ) : (
               <>
-                訂多間可備註間數房型（例：2雙人、1家庭1雙人），老闆確認安排；另有
+                訂多間可備註間數房型（例：2雙人、1家庭1雙人），老闆確認安排；另有{' '}
                 <Link href="/#package" className="underline hover:text-[#3F3A36] transition-colors">
                   一間屋包房優惠方案(5間)
                 </Link>
-                （舒適建議人數 12–14）可參考，皆須提早詢問確認房況。
+                。{PACKAGE_FORM_PEOPLE_HINT}
               </>
             )}
           </p>

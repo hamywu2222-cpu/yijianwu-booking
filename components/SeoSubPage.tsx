@@ -7,6 +7,7 @@ type Section = {
   heading: string;
   paragraphs?: readonly string[];
   bullets?: readonly string[];
+  content?: ReactNode;
 };
 
 type SeoSubPageProps = {
@@ -63,6 +64,7 @@ export function SeoSubPage({
                   {p}
                 </p>
               ))}
+              {section.content}
               {section.bullets && (
                 <ul className="mt-3 list-disc space-y-2 pl-5 text-[#6B665F]">
                   {section.bullets.map((item) => (

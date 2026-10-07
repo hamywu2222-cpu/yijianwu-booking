@@ -7,9 +7,10 @@ import {
   BOOKING_CTA,
   BUSINESS_LINE,
   OWLNEST_BOOKING,
-  PACKAGE_ADULTS_FIELD_NOTE,
   PACKAGE_BOOKING,
+  PACKAGE_OVER_CAPACITY_NOTE,
 } from '@/lib/business';
+import { PackagePeopleNotice } from '@/components/PackagePeopleNotice';
 import { trackOpenOwlnest } from '@/lib/analytics';
 import { buildOwlNestBookingUrl } from '@/lib/owlnest';
 
@@ -153,6 +154,7 @@ export default function OwltingBookingSection({
         <p className="text-sm text-[#6B665F] leading-relaxed mb-3 md:mb-4 text-center">
           {BOOKING_CTA.intro}
         </p>
+        <PackagePeopleNotice variant="compact" className="mb-3 md:mb-4 text-center" />
 
         <div className="grid min-w-0 grid-cols-2 sm:grid-cols-3 gap-2.5 md:gap-3 mb-3 md:mb-4">
           <div className="min-w-0">
@@ -204,13 +206,11 @@ export default function OwltingBookingSection({
               onChange={(e) => setAdults(e.target.value)}
               className={inputClass}
             />
-            {Number(adults) >= PACKAGE_BOOKING.comfortMin ? (
-              <p className="mt-1.5 text-[10px] text-[#8B7355] leading-relaxed">
-                {PACKAGE_ADULTS_FIELD_NOTE}
+            {Number(adults) > PACKAGE_BOOKING.comfortMax ? (
+              <p className="mt-1.5 text-[11px] font-medium leading-relaxed text-[#7A4E24]">
+                {PACKAGE_OVER_CAPACITY_NOTE}
               </p>
-            ) : (
-              <p className="mt-1.5 text-[10px] text-[#8B7355] leading-relaxed">包房 12 人以上會顯示下單說明</p>
-            )}
+            ) : null}
           </div>
         </div>
 
@@ -222,22 +222,39 @@ export default function OwltingBookingSection({
           <p className="mb-3 text-center text-xs text-[#8B7355]">請先選擇入住與退房日期</p>
         )}
 
-        <button
-          type="button"
-          onClick={() => openBooking('booking_form')}
-          disabled={!isReady}
-          className={bookingButtonClass}
-        >
-          <span aria-hidden className="text-[13px] opacity-90">
-            ✦
-          </span>
-          <span>{BOOKING_CTA.action}</span>
-          <span aria-hidden>→</span>
-        </button>
-
-        <p className="mt-2.5 text-center text-xs text-[#8B7355]">
-          {isReady ? '已帶入日期與人數，新分頁完成訂房與刷卡' : BOOKING_CTA.note}
-        </p>
+        {Number(adults) > PACKAGE_BOOKING.comfortMax ? (
+          <>
+            <a
+              href={BUSINESS_LINE.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={bookingButtonClass}
+            >
+              請先 LINE 詢問包房
+            </a>
+            <p className="mt-2.5 text-center text-xs font-medium leading-relaxed text-[#7A4E24]">
+              超過 {PACKAGE_BOOKING.comfortMax} 人先不要直接下單。我們確認空間夠，再請您預訂。
+            </p>
+          </>
+        ) : (
+          <>
+            <button
+              type="button"
+              onClick={() => openBooking('booking_form')}
+              disabled={!isReady}
+              className={bookingButtonClass}
+            >
+              <span aria-hidden className="text-[13px] opacity-90">
+                ✦
+              </span>
+              <span>{BOOKING_CTA.action}</span>
+              <span aria-hidden>→</span>
+            </button>
+            <p className="mt-2.5 text-center text-xs text-[#8B7355]">
+              {isReady ? '已帶入日期與人數，新分頁完成訂房與刷卡' : BOOKING_CTA.note}
+            </p>
+          </>
+        )}
 
         <div className="mt-4 pt-4 border-t border-[#EDE8E0]">
           <p className="mb-2 text-center text-[11px] tracking-wide text-[#8B7355]">亦可透過</p>

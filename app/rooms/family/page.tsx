@@ -1,6 +1,7 @@
 import { PageJsonLd } from '@/components/PageJsonLd';
 import RoomImageCarousel from '@/components/RoomImageCarousel';
 import { SeoSubPage } from '@/components/SeoSubPage';
+import { HolidayPriceNotice } from '@/components/home/HomeUi';
 import { ROOMS_SECTION } from '@/lib/business';
 import { getImageAlt } from '@/lib/imageAlt';
 import { FAMILY_ROOM_IMAGES, ROOM_VIDEOS } from '@/lib/media';
@@ -58,6 +59,7 @@ export default function FamilyRoomPage() {
           },
         ]}
       >
+        <HolidayPriceNotice className="mt-6 sm:mt-8 rounded-2xl border border-[#E8DFD2] bg-white px-3 py-2.5 sm:px-4 sm:py-3" />
         <div className="mt-10 overflow-hidden rounded-2xl border border-[#e8e0d4]">
           <RoomImageCarousel
             images={FAMILY_ROOM_IMAGES}

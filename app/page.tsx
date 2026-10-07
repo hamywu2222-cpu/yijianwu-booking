@@ -7,8 +7,10 @@ import HomeSeoHub from '@/components/home/HomeSeoHub';
 import { PageJsonLd } from '@/components/PageJsonLd';
 import { getFaqStructuredData, getStationWalkHowToJsonLd } from '@/lib/structuredData';
 import FulongWeatherChip from '@/components/home/FulongWeatherChip';
+import { PackagePeopleNotice } from '@/components/PackagePeopleNotice';
 import {
   AboutAmenityStrip,
+  HolidayPriceNotice,
   PackagePriceCard,
   RoomPriceDisplay,
   RoomTags,
@@ -27,6 +29,7 @@ import {
   STATION_FIND,
 } from '@/lib/business';
 import { fetchFulongWeather } from '@/lib/fulongWeather';
+import { fetchGoogleReviews } from '@/lib/googleReviews';
 import { getImageAlt } from '@/lib/imageAlt';
 import {
   DOUBLE_ROOM_IMAGES,
@@ -47,7 +50,10 @@ const WebDevTeaser = dynamic(() => import('@/components/home/WebDevTeaser'));
 
 /** Server Component 首頁：互動區塊各自為 client，減少整頁 client bundle */
 export default async function HomePage() {
-  const weather = await fetchFulongWeather();
+  const [weather, reviews] = await Promise.all([
+    fetchFulongWeather(),
+    fetchGoogleReviews(),
+  ]);
 
   return (
     <main className="min-h-screen bg-[#F8F5F1] text-[#3F3A36]">
@@ -149,8 +155,8 @@ export default async function HomePage() {
       </section>
 
       {/* 房間 */}
-      <section id="rooms" className="py-12 scroll-mt-28 md:py-20 md:scroll-mt-20 bg-[#F8F5F1] border-t border-[#EDE8E0]">
-        <div className="max-w-6xl mx-auto px-6">
+      <section id="rooms" className="py-10 scroll-mt-28 md:py-20 md:scroll-mt-20 bg-[#F8F5F1] border-t border-[#EDE8E0]">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
           <div className="text-center mb-10">
             <div className="text-[#8B7355] text-xs tracking-[4px] mb-2">ROOMS</div>
             <h2 className="text-3xl font-light tracking-tight font-playfair sm:text-5xl">{ROOMS_SECTION.title}</h2>
@@ -162,7 +168,7 @@ export default async function HomePage() {
                 images={DOUBLE_ROOM_IMAGES}
                 label={ROOM_VIDEOS.double.label}
               />
-              <div className="p-5 md:p-8">
+              <div className="p-4 md:p-8">
                 <div className="mb-4 space-y-2">
                   <h3 className="text-2xl md:text-3xl font-light tracking-tight leading-tight">
                     <a href="/rooms/double" className="hover:text-[#8B7355] transition-colors">
@@ -175,23 +181,21 @@ export default async function HomePage() {
                 </div>
                 <RoomPriceDisplay
                   pricing={ROOMS_SECTION.double.pricing}
-                  rightContent={
-                    <div className="text-right text-sm text-[#8B7355]">{ROOMS_SECTION.double.priceNote}</div>
-                  }
+                  rightContent={ROOMS_SECTION.double.priceNote}
                 />
-                <p className="mt-4 text-[10px] text-[#8B7355] leading-relaxed border-t border-[#EDE8E0] pt-3">
+                <p className="mt-3 text-[10px] text-[#8B7355] leading-relaxed border-t border-[#EDE8E0] pt-2.5">
                   {ROOMS_SECTION.sharedNote}
                 </p>
-                <div className="flex flex-wrap items-center gap-3 text-sm mt-3">
+                <div className="flex flex-wrap items-center gap-2.5 text-sm mt-3">
                   <a
                     href="#booking"
-                    className="primary-booking-btn px-6 py-2.5 rounded-full text-xs font-semibold"
+                    className="primary-booking-btn inline-flex min-h-10 items-center px-6 py-2.5 rounded-full text-xs font-semibold"
                   >
                     {BOOKING_CTA.jump}
                   </a>
                   <a
                     href="/rooms/double"
-                    className="text-xs text-[#8B7355] hover:text-[#3F3A36] hover:underline"
+                    className="text-xs text-[#8B7355] hover:text-[#3F3A36] hover:underline py-2"
                   >
                     雙人雅房詳情 →
                   </a>
@@ -204,7 +208,7 @@ export default async function HomePage() {
                 images={FAMILY_ROOM_IMAGES}
                 label={ROOM_VIDEOS.family.label}
               />
-              <div className="p-5 md:p-8">
+              <div className="p-4 md:p-8">
                 <div className="mb-4 space-y-2">
                   <div className="flex flex-wrap items-center gap-2">
                     <h3 className="text-2xl md:text-3xl font-light tracking-tight leading-tight">
@@ -222,28 +226,26 @@ export default async function HomePage() {
                 <RoomPriceDisplay
                   pricing={ROOMS_SECTION.family.pricing}
                   saleSuffix="起 /晚"
-                  rightContent={
-                    <div className="text-right text-sm text-[#8B7355]">{ROOMS_SECTION.family.priceNote}</div>
-                  }
+                  rightContent={ROOMS_SECTION.family.priceNote}
                   footer={
-                    <div className="mt-3 pt-3 border-t border-[#E8DFD2]/80 text-sm text-[#6B665F]">
+                    <div className="mt-2 pt-2 sm:mt-3 sm:pt-3 border-t border-[#E8DFD2]/80 text-xs sm:text-sm text-[#6B665F]">
                       {ROOMS_SECTION.family.extraNote}
                     </div>
                   }
                 />
-                <p className="mt-4 text-[10px] text-[#8B7355] leading-relaxed border-t border-[#EDE8E0] pt-3">
+                <p className="mt-3 text-[10px] text-[#8B7355] leading-relaxed border-t border-[#EDE8E0] pt-2.5">
                   {ROOMS_SECTION.sharedNote}
                 </p>
-                <div className="flex flex-wrap items-center gap-3 text-sm mt-3">
+                <div className="flex flex-wrap items-center gap-2.5 text-sm mt-3">
                   <a
                     href="#booking"
-                    className="primary-booking-btn px-6 py-2.5 rounded-full text-xs font-semibold"
+                    className="primary-booking-btn inline-flex min-h-10 items-center px-6 py-2.5 rounded-full text-xs font-semibold"
                   >
                     {BOOKING_CTA.jump}
                   </a>
                   <a
                     href="/rooms/family"
-                    className="text-xs text-[#8B7355] hover:text-[#3F3A36] hover:underline"
+                    className="text-xs text-[#8B7355] hover:text-[#3F3A36] hover:underline py-2"
                   >
                     家庭雅房詳情 →
                   </a>
@@ -254,10 +256,10 @@ export default async function HomePage() {
 
           <div
             id="package"
-            className="mt-16 md:mt-20 scroll-mt-28 md:scroll-mt-24 p-8 md:p-10 rounded-3xl border border-[#EDE8E0] bg-white text-center"
+            className="mt-10 md:mt-20 scroll-mt-28 md:scroll-mt-24 p-4 sm:p-8 md:p-10 rounded-3xl border border-[#EDE8E0] bg-white text-center"
           >
             <div className="text-[#8B7355] text-xs tracking-[3px] mb-2">{PACKAGE_SECTION.eyebrow}</div>
-            <h3 className="text-2xl md:text-4xl font-light tracking-tight mb-4 font-playfair leading-snug">
+            <h3 className="text-xl md:text-4xl font-light tracking-tight mb-3 md:mb-4 font-playfair leading-snug">
               {PACKAGE_SECTION.title}
             </h3>
             <p className="text-[#6B665F] mb-5 text-sm max-w-2xl mx-auto leading-relaxed">
@@ -265,7 +267,7 @@ export default async function HomePage() {
             </p>
 
             {/* 包棟照片：民宿大門／外觀 + 房間照整合輪播 */}
-            <div className="mb-8 overflow-hidden rounded-2xl border border-[#E8DFD2] text-left">
+            <div className="mb-4 md:mb-8 overflow-hidden rounded-2xl border border-[#E8DFD2] text-left">
               <RoomImageCarousel
                 images={PACKAGE_IMAGES}
                 label="包棟實景：主視覺・房間・公共空間"
@@ -286,34 +288,36 @@ export default async function HomePage() {
               （{PACKAGE_SECTION.ecoNote}）
             </p>
 
-            <div className="flex flex-col md:flex-row gap-6 justify-center mb-8">
+            <div className="flex flex-col md:flex-row gap-3 md:gap-6 justify-center mb-5 md:mb-8">
               <PackagePriceCard
                 label="平日"
                 originalPrice="NT$10,800"
                 salePrice="NT$8,800"
-                period="週一～週四"
+                period="14 人內・週一～週四"
               />
               <PackagePriceCard
                 label="假日"
                 originalPrice="NT$11,500"
                 salePrice="NT$9,200"
-                period="週五、週六、假日"
+                period="14 人內・週五、週六、假日"
                 featured
               />
             </div>
 
-            <div className="text-sm text-[#6B665F] mb-6">{PACKAGE_SECTION.priceNote}</div>
+            <PackagePeopleNotice className="mb-5 md:mb-6" />
+            <HolidayPriceNotice align="center" className="mb-2 max-w-xl mx-auto px-1" />
+            <p className="text-xs sm:text-sm text-[#6B665F] mb-5 md:mb-6">{PACKAGE_SECTION.bikeNote}</p>
 
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 justify-center">
               <a
                 href="#booking"
-                className="primary-booking-btn inline-flex items-center justify-center gap-2 rounded-full px-8 py-3 text-sm font-semibold"
+                className="primary-booking-btn inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-6 sm:px-8 py-3 text-sm font-semibold"
               >
                 {BOOKING_CTA.package}
               </a>
               <a
                 href="/rooms/package"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3 border border-[#3F3A36] text-[#3F3A36] rounded-full text-sm font-medium hover:bg-[#3F3A36] hover:text-white transition-all"
+                className="inline-flex min-h-11 items-center justify-center gap-2 px-6 sm:px-8 py-3 border border-[#3F3A36] text-[#3F3A36] rounded-full text-sm font-medium hover:bg-[#3F3A36] hover:text-white transition-all"
               >
                 包棟詳情
               </a>
@@ -321,7 +325,7 @@ export default async function HomePage() {
                 href={BUSINESS_LINE.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-[#00C300] text-white rounded-full text-sm font-medium hover:bg-[#00A000] transition-all"
+                className="inline-flex min-h-11 items-center justify-center gap-2 px-6 sm:px-8 py-3 bg-[#00C300] text-white rounded-full text-sm font-medium hover:bg-[#00A000] transition-all"
               >
                 LINE詢問包房
               </a>
@@ -333,12 +337,13 @@ export default async function HomePage() {
       {/* 訂房 */}
       <section
         id="booking"
-        className="max-w-4xl mx-auto px-6 py-8 md:py-10 scroll-mt-28 md:scroll-mt-20 border-t border-[#EDE8E0] bg-[#F8F5F1]"
+        className="max-w-4xl mx-auto px-4 md:px-6 py-8 md:py-10 scroll-mt-28 md:scroll-mt-20 border-t border-[#EDE8E0] bg-[#F8F5F1]"
       >
         <div className="text-center mb-4 md:mb-5">
           <div className="text-[#8B7355] text-xs tracking-[4px] mb-1.5">BOOKING</div>
           <h2 className="text-3xl md:text-5xl font-light tracking-tight mb-2">{BOOKING_CTA.sectionTitle}</h2>
           <p className="text-sm md:text-base text-[#6B665F] font-medium">{BOOKING_CTA.sectionSubtitle}</p>
+          <HolidayPriceNotice align="center" className="mt-3 max-w-xl mx-auto px-1" />
         </div>
 
         <OwltingBookingSection source="home" />
@@ -351,10 +356,10 @@ export default async function HomePage() {
             <div className="text-[#8B7355] text-xs tracking-[4px] mb-1.5">留言板</div>
             <h2 className="text-3xl font-light tracking-tight mb-1.5">旅客怎麼說</h2>
             <p className="mx-auto max-w-lg text-xs md:text-sm text-[#6B665F] leading-relaxed">
-              左右滑動瀏覽 Google 評價
+              Google 旅客評價，左右滑動瀏覽
             </p>
           </div>
-          <GoogleReviews />
+          <GoogleReviews initialData={reviews} />
         </div>
       </section>
 

@@ -3,6 +3,7 @@ import {
   BUSINESS_NAME,
   BUSINESS_REGISTRATION,
   PACKAGE_BOOKING,
+  PACKAGE_PEOPLE_NOTICE,
   PACKAGE_SECTION,
   ROOMS_SECTION,
 } from '@/lib/business';
@@ -96,7 +97,7 @@ export const ROOM_PAGES = {
     slug: 'package',
     path: '/rooms/package',
     title: '一間屋包棟方案｜全館 5 間包房優惠',
-    description: `福隆一間屋全館包房（5 間）：4 間和鳴雙人雅房 + 1 間和風家庭雅房；全館衛浴共三間可使用（全套衛浴）。平日 NT$8,800、假日 NT$9,200，舒適建議 ${PACKAGE_BOOKING.comfortMin}–${PACKAGE_BOOKING.comfortMax} 人，適合包棟、團體與單車隊。`,
+    description: `福隆一間屋全館包房（5 間）：4 間和鳴雙人雅房 + 1 間和風家庭雅房；全館衛浴共三間可使用（全套衛浴）。${PACKAGE_PEOPLE_NOTICE.short} 適合包棟、團體與單車隊。`,
     section: PACKAGE_SECTION,
     /** 代表圖：民宿大門／外觀（與房間照輪播整合） */
     image: PACKAGE_IMAGES[0],

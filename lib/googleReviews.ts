@@ -2,9 +2,9 @@ import {
   BUSINESS_ADDRESS,
   BUSINESS_GEO,
   BUSINESS_MAPS_NAME,
-  GOOGLE_BUSINESS_PROFILE_URL,
   GOOGLE_PLACE_ID,
   GOOGLE_TRAVEL_REVIEWS_URL,
+  GOOGLE_WRITE_REVIEW_URL,
 } from '@/lib/business';
 
 export type GoogleReviewItem = {
@@ -22,7 +22,7 @@ export type GoogleReviewsPayload = {
   reviews: GoogleReviewItem[];
   reviewsUri: string;
   writeReviewUri: string;
-  source: 'live' | 'demo';
+  source: 'live' | 'featured' | 'demo' | 'unavailable';
   fetchedAt: string;
 };
 
@@ -32,32 +32,63 @@ const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
 let cachedPayload: { data: GoogleReviewsPayload; expiresAt: number } | null = null;
 let resolvedPlaceId: string | null = null;
 
-const DEMO_REVIEWS: GoogleReviewsPayload = {
-  rating: 4.9,
-  userRatingCount: 0,
+/** Google Travel 真實 5 星留言（6 則） */
+const FEATURED_REVIEWS: GoogleReviewsPayload = {
+  rating: 5,
+  userRatingCount: 49,
   reviews: [
     {
-      authorName: '旅人 A',
+      authorName: 'CICIA CHEN',
       rating: 5,
-      text: '出站走 30 秒就到，晚上回來超方便。房間乾淨安靜，老闆很親切，福隆玩水住這裡很推薦。',
-      relativeTime: '2 週前',
+      text: '地點超級方便、房間乾淨整潔舒適、價格便宜，下次一定回來再住。',
+      relativeTime: '1 個月前',
+      profilePhotoUrl:
+        'https://lh3.googleusercontent.com/a-/ALV-UjX6ICwS2bp3OvWU26V4LtipWctkExPrILwSfdjkLQhgg3lBBa2N=s80-c-rp-mo-br100',
     },
     {
-      authorName: '旅人 B',
+      authorName: '張祐銘',
       rating: 5,
-      text: '和式房間很有質感，公共空間舒適。距離海水浴場很近，單車環島也很順。',
-      relativeTime: '1 個月前',
+      text: '地理位置超方便，真的出車站30秒就抵達。老闆友善親切，房間也很乾淨，大推👍🏻',
+      relativeTime: '2 個月前',
+      profilePhotoUrl:
+        'https://lh3.googleusercontent.com/a-/ALV-UjVwfwhkwYJ1YeQbJ55akgwsibgJNH8MOFlzFXXGHMPzVzhJo_X2=s80-c-rp-mo-ba12-br100',
     },
     {
-      authorName: '旅人 C',
+      authorName: '李若溱',
       rating: 5,
-      text: '家庭雅房空間剛好，小孩睡得很舒服。入住前 LINE 就收到門禁說明，流程很清楚。',
+      text: '老闆人很好很親切，地點很近蠻方便的，住宿好選擇👍🏻💗',
       relativeTime: '1 個月前',
+      profilePhotoUrl:
+        'https://lh3.googleusercontent.com/a/ACg8ocJcy2D2ETxZe2s2XABTZYHO43AGwq9qZ3G99FJbwpCTLObMkW0=s80-c-rp-mo-ba12-br100',
+    },
+    {
+      authorName: 'Morton',
+      rating: 5,
+      text: '地點方便且房間舒適，服務也很親切，絕對想再來住的好地方',
+      relativeTime: '',
+      profilePhotoUrl:
+        'https://lh3.googleusercontent.com/a-/ALV-UjWKEYivvKCqMzhNLjw2d3oX_eyCSY-EKMZAKZYVJXFg_IUNj0vq=s80-c-rp-br100',
+    },
+    {
+      authorName: 'W EI',
+      rating: 5,
+      text: '出站30秒沒有唬爛的（親測）住宿環境對得起價位！物美價廉～ 大推👍',
+      relativeTime: '',
+      profilePhotoUrl:
+        'https://lh3.googleusercontent.com/a-/ALV-UjX4vO0fjkJvMU3uMbMso8T9kHk4oCYFRbWJwMD0oFlGrcLi4kWu=s80-c-rp-br100',
+    },
+    {
+      authorName: 'mo oh',
+      rating: 5,
+      text: '老闆很讚 離火車站超近也離免費沙灘走個路10分鐘就到了！',
+      relativeTime: '',
+      profilePhotoUrl:
+        'https://lh3.googleusercontent.com/a-/ALV-UjViFuz4DpLDGBr6ISqlSM0Phgv_eGvg7-zJL9gn78zPIDMxl10Kjw=s80-c-rp-ba12-br100',
     },
   ],
   reviewsUri: GOOGLE_TRAVEL_REVIEWS_URL,
-  writeReviewUri: GOOGLE_BUSINESS_PROFILE_URL,
-  source: 'demo',
+  writeReviewUri: GOOGLE_WRITE_REVIEW_URL,
+  source: 'featured',
   fetchedAt: new Date().toISOString(),
 };
 
@@ -90,11 +121,15 @@ function getApiKey(): string | undefined {
   return process.env.GOOGLE_PLACES_API_KEY?.trim();
 }
 
-function demoPayload(): GoogleReviewsPayload {
+function featuredPayload(): GoogleReviewsPayload {
   return {
-    ...DEMO_REVIEWS,
+    ...FEATURED_REVIEWS,
     fetchedAt: new Date().toISOString(),
   };
+}
+
+function fallbackPayload(): GoogleReviewsPayload {
+  return featuredPayload();
 }
 
 async function placesFetch<T>(path: string, init?: RequestInit): Promise<T> {
@@ -111,7 +146,7 @@ async function placesFetch<T>(path: string, init?: RequestInit): Promise<T> {
       ...(init?.headers ?? {}),
     },
     next: { revalidate: 21600 },
-    signal: init?.signal ?? AbortSignal.timeout(1200),
+    signal: init?.signal ?? AbortSignal.timeout(4000),
   });
 
   if (!response.ok) {
@@ -186,8 +221,7 @@ function normalizeDetails(details: PlacesDetails): GoogleReviewsPayload {
     userRatingCount: details.userRatingCount ?? 0,
     reviews,
     reviewsUri: GOOGLE_TRAVEL_REVIEWS_URL,
-    writeReviewUri:
-      details.googleMapsLinks?.writeAReviewUri ?? GOOGLE_BUSINESS_PROFILE_URL,
+    writeReviewUri: GOOGLE_WRITE_REVIEW_URL,
     source: 'live',
     fetchedAt: new Date().toISOString(),
   };
@@ -200,9 +234,9 @@ export async function fetchGoogleReviews(): Promise<GoogleReviewsPayload> {
   }
 
   if (!getApiKey()) {
-    const demo = demoPayload();
-    cachedPayload = { data: demo, expiresAt: now + CACHE_TTL_MS };
-    return demo;
+    const data = fallbackPayload();
+    cachedPayload = { data, expiresAt: now + CACHE_TTL_MS };
+    return data;
   }
 
   try {
@@ -211,7 +245,7 @@ export async function fetchGoogleReviews(): Promise<GoogleReviewsPayload> {
       `/places/${placeId}?languageCode=zh-TW`,
       {
         headers: {
-          'X-Goog-FieldMask': 'rating,userRatingCount,reviews,googleMapsLinks',
+          'X-Goog-FieldMask': 'rating,userRatingCount,reviews',
         },
       },
     );
@@ -221,8 +255,8 @@ export async function fetchGoogleReviews(): Promise<GoogleReviewsPayload> {
     return payload;
   } catch (error) {
     console.error('[googleReviews]', error);
-    const demo = demoPayload();
-    cachedPayload = { data: demo, expiresAt: now + 15 * 60 * 1000 };
-    return demo;
+    const data = fallbackPayload();
+    cachedPayload = { data, expiresAt: now + CACHE_TTL_MS };
+    return data;
   }
 }

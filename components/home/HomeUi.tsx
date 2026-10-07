@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
+import { PRICE_HOLIDAY_NOTICE } from '@/lib/business';
 import { ABOUT_AMENITIES } from '@/lib/media';
 import { getImageAlt } from '@/lib/imageAlt';
 
@@ -31,10 +32,43 @@ export function AboutAmenityStrip() {
 
 export function PriceOfferBadge() {
   return (
-    <div className="inline-flex items-center gap-2 mb-3.5 px-3 py-1 rounded-full bg-white/70 border border-[#D9CFC0]/60 backdrop-blur-sm">
+    <div className="inline-flex items-center gap-2 mb-2 sm:mb-3.5 px-3 py-1 rounded-full bg-white/70 border border-[#D9CFC0]/60">
       <span className="w-1.5 h-1.5 rounded-full bg-[#8B7355] animate-pulse" />
       <span className="text-[10px] tracking-[0.2em] text-[#8B7355] font-medium">官網直訂優惠</span>
     </div>
+  );
+}
+
+export function HolidayPriceNotice({
+  className = '',
+  align = 'start',
+}: {
+  className?: string;
+  align?: 'start' | 'center';
+}) {
+  return (
+    <p
+      className={`holiday-price-notice flex items-start gap-1.5 sm:gap-2.5 ${align === 'center' ? 'justify-center' : ''} ${className}`}
+      role="note"
+    >
+      <Image
+        src="/images/holiday-price-notice.webp"
+        alt=""
+        width={80}
+        height={80}
+        sizes="32px"
+        quality={65}
+        className="mt-px h-7 w-7 sm:h-9 sm:w-9 shrink-0 rounded-xl sm:rounded-2xl object-cover"
+        aria-hidden
+      />
+      <span
+        className={`min-w-0 pt-0.5 text-[11px] sm:text-sm leading-snug sm:leading-relaxed text-[#8B7355] ${
+          align === 'center' ? 'text-left max-w-[18rem] sm:max-w-none' : ''
+        }`}
+      >
+        {PRICE_HOLIDAY_NOTICE}
+      </span>
+    </p>
   );
 }
 
@@ -53,10 +87,12 @@ export function PriceStrikeThrough({
 }) {
   const saleClass =
     size === 'lg'
-      ? 'text-4xl sm:text-5xl font-light text-[#3F3A36] tracking-tight font-playfair leading-none'
-      : 'text-3xl sm:text-[2.125rem] font-light text-[#3F3A36] tracking-tight font-playfair leading-none';
+      ? 'text-[1.85rem] sm:text-5xl font-light text-[#3F3A36] tracking-tight font-playfair leading-none'
+      : 'text-[1.65rem] sm:text-[2.125rem] font-light text-[#3F3A36] tracking-tight font-playfair leading-none';
   const originalClass =
-    size === 'lg' ? 'text-lg sm:text-xl text-[#B0A69A] font-light' : 'text-base sm:text-lg text-[#B0A69A] font-light';
+    size === 'lg'
+      ? 'text-sm sm:text-xl text-[#B0A69A] font-light'
+      : 'text-sm sm:text-lg text-[#B0A69A] font-light';
 
   return (
     <div
@@ -68,14 +104,16 @@ export function PriceStrikeThrough({
         {originalPrice}
       </span>
       <span
-        className="flex items-center justify-center w-7 h-7 rounded-full bg-white/80 border border-[#E5DDD2] text-[#8B7355] text-sm pb-px shadow-sm"
+        className="flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/80 border border-[#E5DDD2] text-[#8B7355] text-xs sm:text-sm pb-px shadow-sm"
         aria-hidden
       >
         →
       </span>
       <div className="flex items-baseline">
         <span className={saleClass}>{salePrice}</span>
-        {saleSuffix && <span className="text-sm text-[#8B7355] ml-1.5">{saleSuffix}</span>}
+        {saleSuffix && (
+          <span className="text-[11px] sm:text-sm text-[#8B7355] ml-1 sm:ml-1.5">{saleSuffix}</span>
+        )}
       </div>
     </div>
   );
@@ -83,11 +121,11 @@ export function PriceStrikeThrough({
 
 export function RoomTags({ tags }: { tags: readonly string[] }) {
   return (
-    <div className="flex flex-wrap items-center gap-2 text-xs text-[#8B7355]">
+    <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-[#8B7355]">
       {tags.map((tag) => (
         <span
           key={tag}
-          className="rounded-full border border-[#E8DFD2] bg-[#FFFCF8] px-2.5 py-1"
+          className="rounded-full border border-[#E8DFD2] bg-[#FFFCF8] px-2 py-0.5 sm:px-2.5 sm:py-1"
         >
           {tag}
         </span>
@@ -124,15 +162,18 @@ export function RoomPriceDisplay({
       : [];
 
   return (
-    <div className="room-price-card mt-4 p-4 sm:p-5 rounded-2xl border border-[#E8DFD2] bg-gradient-to-br from-[#FFFCF8] via-[#F8F5F1] to-[#F0E8DC] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
+    <div className="room-price-card mt-4 p-3 sm:p-5 rounded-2xl border border-[#E8DFD2] bg-gradient-to-br from-[#FFFCF8] via-[#F8F5F1] to-[#F0E8DC] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
       <PriceOfferBadge />
 
-      <div className="flex items-start justify-between gap-4 flex-wrap">
-        <div className="space-y-3 min-w-0">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+        {rightContent ? (
+          <div className="sm:order-2 text-xs sm:text-sm text-[#8B7355] sm:text-right">{rightContent}</div>
+        ) : null}
+        <div className="space-y-2.5 sm:space-y-3 min-w-0 sm:order-1">
           {tiers.map((tier) => (
             <div key={tier.label || 'single'}>
               {tier.label ? (
-                <div className="text-[10px] tracking-[0.18em] text-[#8B7355] mb-1.5">{tier.label}</div>
+                <div className="text-[10px] tracking-[0.18em] text-[#8B7355] mb-1">{tier.label}</div>
               ) : null}
               <PriceStrikeThrough
                 originalPrice={tier.original}
@@ -142,10 +183,11 @@ export function RoomPriceDisplay({
             </div>
           ))}
         </div>
-        {rightContent}
       </div>
 
       {footer}
+
+      <HolidayPriceNotice className="mt-2.5 pt-2.5 sm:mt-3 sm:pt-3 border-t border-[#E8DFD2]/80" />
     </div>
   );
 }
@@ -167,12 +209,12 @@ export function PackagePriceCard({
 }) {
   return (
     <div
-      className={`room-price-card p-8 rounded-3xl flex-1 max-w-sm mx-auto text-center border bg-gradient-to-br from-[#FFFCF8] via-[#F8F5F1] to-[#F0E8DC] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] ${
+      className={`room-price-card w-full p-4 sm:p-8 rounded-2xl sm:rounded-3xl flex-1 max-w-sm mx-auto text-center border bg-gradient-to-br from-[#FFFCF8] via-[#F8F5F1] to-[#F0E8DC] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] ${
         featured ? 'border-2 border-[#8B7355]/50' : 'border-[#E8DFD2]'
       }`}
     >
       <PriceOfferBadge />
-      <div className="text-2xl font-light text-[#3F3A36] mb-4">{label}</div>
+      <div className="text-xl sm:text-2xl font-light text-[#3F3A36] mb-2 sm:mb-4">{label}</div>
       <PriceStrikeThrough
         originalPrice={originalPrice}
         salePrice={salePrice}
@@ -180,7 +222,7 @@ export function PackagePriceCard({
         size="lg"
         align="center"
       />
-      <div className="text-sm text-[#8B7355] mt-4">{period}</div>
+      <div className="text-xs sm:text-sm text-[#8B7355] mt-2 sm:mt-4">{period}</div>
     </div>
   );
 }

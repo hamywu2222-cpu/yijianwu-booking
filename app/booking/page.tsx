@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import FulongGuideCta from '@/components/FulongGuideCta';
 import OwltingBookingSection from '@/components/OwltingBookingSection';
+import { HolidayPriceNotice } from '@/components/home/HomeUi';
 import { BOOKING_CTA } from '@/lib/business';
 
 export default function BookingPage() {
@@ -42,6 +43,7 @@ export default function BookingPage() {
             <div className="text-[#8B7355] text-xs tracking-[4px] mb-1.5 md:mb-2">BOOKING</div>
             <h1 className="text-3xl md:text-5xl font-light tracking-tight mb-1.5 md:mb-2">{BOOKING_CTA.sectionTitle}</h1>
             <p className="text-sm md:text-base text-[#6B665F] font-medium">{BOOKING_CTA.sectionSubtitle}</p>
+            <HolidayPriceNotice align="center" className="mt-3 max-w-xl mx-auto px-1" />
           </header>
 
           <div id="booking-form">

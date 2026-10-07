@@ -28,6 +28,10 @@ export const GOOGLE_PLACE_ID = 'ChIJN2tYluJdXTQRD288urUGwmM';
 export const GOOGLE_TRAVEL_REVIEWS_URL =
   'https://www.google.com/travel/hotels/entity/CgoIj97x0dvWgeFjEAE/reviews';
 
+/** 官網「到 Google 寫評論」按鈕 */
+export const GOOGLE_WRITE_REVIEW_URL =
+  'https://www.google.com/travel/hotels/entity/CgoIj97x0dvWgeFjEAE/reviews?utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwigss7-zpqXAxUAAAAAHQAAAAAQAg&ts=CAEaIAoCGgASGhIUCgcI6g8QChgDEgcI6g8QChgEGAEyAhAAKgkKBToDVFdEGgA';
+
 export const BUSINESS_ADDRESS = {
   full: '新北市貢寮區福隆街2巷1-2號',
   street: '福隆街2巷1-2號',
@@ -72,22 +76,42 @@ export const AIRBNB_BOOKING = {
   note: '習慣用 Airbnb 也可以，手機有 App 會詢問開啟',
 } as const;
 
-/** 包房（包棟）下單規則 — 官網文案單一來源 */
+/** 包房（包棟）人數與價格 — 官網文案單一來源 */
 export const PACKAGE_BOOKING = {
   comfortMin: 12,
   comfortMax: 14,
-  /** 奧丁丁下單時超過舒適人數，人數欄請填此值 */
+  /** 此人數以內為包房固定價；超過須先詢問，不可直接下單 */
   orderAdultCap: 14,
   maxPeople: 18,
   extraPerPerson: 600,
-  remarkExample: '實際共 16 人，超出 14 人 2 人',
+  weekdayPrice: 8800,
+  holidayPrice: 9200,
 } as const;
 
+function formatNtd(amount: number) {
+  return `NT$${amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+}
+
+const packageWithinCap = `${PACKAGE_BOOKING.comfortMax} 人內：平日 ${formatNtd(PACKAGE_BOOKING.weekdayPrice)}、假日 ${formatNtd(PACKAGE_BOOKING.holidayPrice)}`;
+const packageOverCap = `超過 ${PACKAGE_BOOKING.comfortMax} 人：每多 1 人 +${formatNtd(PACKAGE_BOOKING.extraPerPerson)}，最多 ${PACKAGE_BOOKING.maxPeople} 人`;
+const packageAskFirst = `${PACKAGE_BOOKING.comfortMax + 1} 人以上請先詢問。人數一多空間可能不夠，確認沒問題再預訂。`;
+
+/** 全館包房人數提醒 — 各包房區塊共用，避免說法不一致 */
+export const PACKAGE_PEOPLE_NOTICE = {
+  title: '人數與價格',
+  lines: [packageWithinCap, packageOverCap, packageAskFirst] as const,
+  /** 窄欄、表單、一句話 */
+  short: `全館包房：${PACKAGE_BOOKING.comfortMax} 人內平日 ${formatNtd(PACKAGE_BOOKING.weekdayPrice)}、假日 ${formatNtd(PACKAGE_BOOKING.holidayPrice)}。超過 ${PACKAGE_BOOKING.comfortMax} 人每人 +${formatNtd(PACKAGE_BOOKING.extraPerPerson)}，最多 ${PACKAGE_BOOKING.maxPeople} 人。${PACKAGE_BOOKING.comfortMax + 1} 人以上請先詢問，確認空間夠再訂。`,
+} as const;
+
+/** 奧丁丁人數超過 14 時，欄位下方加強提醒 */
+export const PACKAGE_OVER_CAPACITY_NOTE = `已超過 ${PACKAGE_BOOKING.comfortMax} 人。請先 LINE 詢問，確認空間夠再預訂（每多 1 人 +${formatNtd(PACKAGE_BOOKING.extraPerPerson)}，最多 ${PACKAGE_BOOKING.maxPeople} 人）。`;
+
 /** 奧丁丁人數欄位下方說明 — 官網訂房表單共用 */
-export const PACKAGE_ADULTS_FIELD_NOTE = `包房超過 ${PACKAGE_BOOKING.orderAdultCap} 人：請填 ${PACKAGE_BOOKING.orderAdultCap} 人下單，並於備註寫實際人數（超出每人 +${PACKAGE_BOOKING.extraPerPerson}，最多 ${PACKAGE_BOOKING.maxPeople} 人）`;
+export const PACKAGE_ADULTS_FIELD_NOTE = PACKAGE_PEOPLE_NOTICE.short;
 
 /** 舊版 Google 表單包房人數說明 — BookingForm 共用 */
-export const PACKAGE_FORM_PEOPLE_HINT = `舒適建議 ${PACKAGE_BOOKING.comfortMin}–${PACKAGE_BOOKING.comfortMax} 人，最多 ${PACKAGE_BOOKING.maxPeople} 人。超過 ${PACKAGE_BOOKING.orderAdultCap} 人請填 ${PACKAGE_BOOKING.orderAdultCap} 人下單，備註寫實際共幾人（超出每人 +NT$${PACKAGE_BOOKING.extraPerPerson}）`;
+export const PACKAGE_FORM_PEOPLE_HINT = PACKAGE_PEOPLE_NOTICE.short;
 
 /**
  * 衛浴與備品說明（房卡、包房共用）
@@ -95,6 +119,10 @@ export const PACKAGE_FORM_PEOPLE_HINT = `舒適建議 ${PACKAGE_BOOKING.comfortM
  */
 export const AMENITIES_NOTE =
   '衛浴含洗髮精、沐浴乳、香皂；每房附吹風機一台；提供民宿內拖鞋。響應環保規定不提供一次性用品，牙刷、刮鬍刀等個人用品請自備。';
+
+/** 官網標價提醒：連假／節日以預訂頁即時金額為準 */
+export const PRICE_HOLIDAY_NOTICE =
+  '連假、節日價格可能會有所更動，請依預訂頁上的價格直接預訂唷，謝謝。';
 
 /** 房型區塊文案 — 官網單一來源 */
 export const ROOMS_SECTION = {
@@ -134,12 +162,12 @@ export const PACKAGE_SECTION = {
     '客房配置：和鳴雙人雅房 × 4 間 ＋ 和風 4–6 人家庭雅房 × 1 間。',
     '衛浴：全館衛浴共三間可使用（全套衛浴）；內含洗髮精、沐浴乳、香皂。',
     '備品：每房附吹風機一台；提供民宿內拖鞋。',
-    `容納人數：舒適建議 ${PACKAGE_BOOKING.comfortMin}–${PACKAGE_BOOKING.comfortMax} 人（上限最多 ${PACKAGE_BOOKING.maxPeople} 人）。`,
   ],
   /** 與房卡一致的備品／環保說明 */
   amenitiesNote: AMENITIES_NOTE,
   ecoNote: AMENITIES_NOTE,
-  priceNote: '價格固定（特殊活動日另詢）。單車停放空間充足。',
+  priceNote: PRICE_HOLIDAY_NOTICE,
+  bikeNote: '單車停放空間充足。',
 } as const;
 
 /** 奧丁丁 OwlNest 官網訂房引擎（可被 NEXT_PUBLIC_OWLNEST_BOOKING_URL 覆寫） */
@@ -168,7 +196,7 @@ export const BOOKING_CTA = {
   jumpShort: '立即訂房',
   stickyBar: '點我立即訂房',
   action: '點我訂房最高優惠',
-  intro: '選好日期與人數，即可查空房、選房型並完成付款（含包房優惠方案，舒適建議人數 12–14）。',
+  intro: '選好日期與人數，即可查空房、選房型並完成付款（含全館包房）。',
   note: '點擊後在新分頁完成訂房與刷卡',
   heroPrice: '雙人雅房平日 NT$1,500 起 · 官網直訂最優惠',
   sectionTitle: '線上訂房付款',
@@ -207,18 +235,22 @@ export const BOOKING_FAQ = [
       '請至官網訂房頁選擇入住與退房日期。訂房頁上房型可選表示有空房；若看不到可選房型，表示當天已無空房。',
   },
   {
-    question: '如何預訂全館包房（5 間）？超過 14 人怎麼下單？',
-    answer: `於官網訂房頁選好日期後，滑到最下方查看包房選項。舒適建議 ${PACKAGE_BOOKING.comfortMin}–${PACKAGE_BOOKING.comfortMax} 人，最多 ${PACKAGE_BOOKING.maxPeople} 人。若超過 ${PACKAGE_BOOKING.orderAdultCap} 人，下單時人數請填 ${PACKAGE_BOOKING.orderAdultCap} 人，並在備註寫實際共幾人；超出 ${PACKAGE_BOOKING.orderAdultCap} 人部分，每多 1 人 +NT$${PACKAGE_BOOKING.extraPerPerson}（備註範例：${PACKAGE_BOOKING.remarkExample}）。`,
+    question: '如何預訂全館包房（5 間）？超過 14 人可以住嗎？',
+    answer: `於官網訂房頁選好日期後，滑到最下方查看包房。${PACKAGE_PEOPLE_NOTICE.lines.join(' ')}`,
   },
   {
     question: '和鳴雙人雅房可以住幾人？加人如何計費？',
     answer:
-      '和鳴雙人雅房舒適建議 2 人，官網優惠價平日 NT$1,500 / 假日 NT$1,600。若要多加 1 人，每人加 NT$600，並提供日式軟墊、枕頭、毯子。',
+      `和鳴雙人雅房舒適建議 2 人，官網優惠價平日 NT$1,500 / 假日 NT$1,600。若要多加 1 人，每人加 NT$600，並提供日式軟墊、枕頭、毯子。 ${PRICE_HOLIDAY_NOTICE}`,
   },
   {
     question: '和風 4–6 人家庭雅房如何計價？',
     answer:
-      '4 人起基本價平日 NT$3,000 / 假日 NT$3,200，每增加 1 人加 NT$600（最多 6 人）。舒適建議 4–6 人，超過請自行斟酌空間與寢具安排。',
+      `4 人起基本價平日 NT$3,000 / 假日 NT$3,200，每增加 1 人加 NT$600（最多 6 人）。舒適建議 4–6 人，超過請自行斟酌空間與寢具安排。 ${PRICE_HOLIDAY_NOTICE}`,
+  },
+  {
+    question: '連假或節日的房價會不一樣嗎？',
+    answer: PRICE_HOLIDAY_NOTICE,
   },
   {
     question: '入住與退房時間是幾點？',
@@ -309,9 +341,9 @@ export const ROOM_TYPES = [
     slug: 'package' as const,
     name: '一間屋包房優惠方案',
     description:
-      '一次打包全館 5 間空間，全館衛浴共三間可使用（全套衛浴）。適合家庭聚會、團體旅遊、單車隊或公司行號包棟。',
-    weekdayPrice: 8800,
-    weekendPrice: 9200,
+      `一次打包全館 5 間空間，全館衛浴共三間可使用（全套衛浴）。${PACKAGE_PEOPLE_NOTICE.short}`,
+    weekdayPrice: PACKAGE_BOOKING.weekdayPrice,
+    weekendPrice: PACKAGE_BOOKING.holidayPrice,
     path: '/rooms/package',
   },
 ] as const;
@@ -352,7 +384,7 @@ export const GMB_DESCRIPTION = `福隆車站民宿｜出站右轉步行約 30 �
 
 ・和鳴雙人雅房 平日 NT$1,500 / 假日 NT$1,600（共 4 間）
 ・和風 4–6 人家庭雅房 平日 NT$3,000起 / 假日 NT$3,200起（僅 1 間）
-・一間屋包房優惠方案(5間)（4間和鳴雙人雅房+1間和風4-6人家庭雅房，全館衛浴共三間可使用・全套衛浴）平日 NT$8,800 / 假日 NT$9,200｜舒適建議人數 12–14
+・一間屋包房優惠方案(5間)（4間和鳴雙人雅房+1間和風4-6人家庭雅房，全館衛浴共三間可使用・全套衛浴）${PACKAGE_PEOPLE_NOTICE.short}
 ・入住 15:00 後｜退房 11:00 前
 ・單車友善停放｜免費 WiFi｜福隆海水浴場步行 8 分鐘
 
