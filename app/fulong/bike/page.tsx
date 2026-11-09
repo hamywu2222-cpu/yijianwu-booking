@@ -119,6 +119,11 @@ export default function FulongBikePage() {
           <h2 className="font-playfair text-xl font-light">相關攻略</h2>
           <ul className="mt-3 space-y-2 text-sm text-[#5c4f42]">
             <li>
+              <Link href="/fulong/loop-ride" className="font-medium text-[#8B7355] underline-offset-2 hover:underline">
+                舊草嶺環狀線景點（一間屋出發，東興宮回程）
+              </Link>
+            </li>
+            <li>
               <Link href="/fulong/day-trip" className="font-medium text-[#8B7355] underline-offset-2 hover:underline">
                 福隆一日遊（含單車線與其他路線）
               </Link>

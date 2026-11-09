@@ -7,6 +7,7 @@ const SEO_PATHS = [
   { path: '/fulong', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/fulong/day-trip', priority: 0.88, changeFrequency: 'weekly' as const },
   { path: '/fulong/bike', priority: 0.88, changeFrequency: 'weekly' as const },
+  { path: '/fulong/loop-ride', priority: 0.7, changeFrequency: 'monthly' as const },
   { path: '/fulong/water', priority: 0.88, changeFrequency: 'weekly' as const },
   { path: '/faq', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/renovation', priority: 0.75, changeFrequency: 'monthly' as const },

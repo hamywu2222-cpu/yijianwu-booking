@@ -14,6 +14,7 @@ const SEO_LINKS = [
   { href: '/fulong', label: '福隆旅遊攻略' },
   { href: '/fulong/day-trip', label: '福隆一日遊' },
   { href: '/fulong/bike', label: '舊草嶺單車' },
+  { href: '/fulong/loop-ride', label: '環狀線景點' },
   { href: '/fulong/water', label: '福隆玩水' },
   { href: '/faq', label: '常見問題' },
   { href: '/rooms/double', label: '和鳴雙人雅房' },

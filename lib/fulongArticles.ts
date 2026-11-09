@@ -42,6 +42,25 @@ export const FULONG_ARTICLE_SERIES = [
     lead: '福隆最強節奏：車站租車 → 山進海出 → 回一間屋沖澡。環線可串三貂角、馬崗、卯澳。',
   },
   {
+    slug: 'loop-ride',
+    path: '/fulong/loop-ride',
+    emoji: '🌊',
+    shortTitle: '環狀線景點',
+    title: '舊草嶺環狀線｜一間屋出發・東興宮回程｜20–24 公里',
+    description:
+      '從福隆車站旁的一間屋出發，走舊草嶺隧道出海，沿外圍經過石城、萊萊、四角窟、三貂角、馬崗、卯澳、福連與福隆漁港，最後到東興宮再回民宿。約 20–24 公里，停留約 2–3 小時。',
+    keywords: [
+      '舊草嶺環狀線',
+      '福隆環線',
+      '舊草嶺隧道',
+      '東興宮',
+      '三貂角燈塔',
+      '一間屋',
+    ] as const,
+    heroImage: '/images/loop-ride/guishan.jpg',
+    lead: '從一間屋出發，走進舊草嶺隧道，出海後沿外圍把景點走完，最後到東興宮，再回民宿。',
+  },
+  {
     slug: 'water',
     path: '/fulong/water',
     emoji: '🤿',
