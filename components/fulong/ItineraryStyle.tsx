@@ -96,57 +96,43 @@ export function MoonBadge({
   );
 }
 
-export function ScheduleTable({
-  rows,
+/** 跟其他一日遊相同的圓點時間軸 */
+export function ItineraryTimeline({
+  items,
 }: {
-  rows: { time: string; place: string; detail: string }[];
+  items: { time?: string; place: string; detail: string }[];
 }) {
   return (
-    <div className="overflow-x-auto rounded-2xl border border-[#e8e0d4]">
-      <table className="w-full min-w-[32rem] border-collapse text-left text-sm">
-        <thead className="bg-[#fbf6ea] text-xs text-[#8B7355]">
-          <tr>
-            <th className="px-3 py-2 font-semibold">時間</th>
-            <th className="px-3 py-2 font-semibold">地點</th>
-            <th className="px-3 py-2 font-semibold">這一站</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row) => (
-            <tr key={`${row.time}-${row.place}`} className="border-t border-[#f0ebe3]">
-              <td className="whitespace-nowrap px-3 py-2 font-medium text-[#8B7355]">{row.time}</td>
-              <td className="whitespace-nowrap px-3 py-2 font-medium text-[#2c2416]">{row.place}</td>
-              <td className="px-3 py-2 text-[#5c4f42]">{row.detail}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-export function SpotTable({ rows }: { rows: { name: string; note: string }[] }) {
-  return (
-    <div className="overflow-x-auto rounded-2xl border border-[#e8e0d4]">
-      <table className="w-full min-w-[28rem] border-collapse text-left text-sm">
-        <thead className="bg-[#fbf6ea] text-xs text-[#8B7355]">
-          <tr>
-            <th className="px-3 py-2 font-semibold">順序</th>
-            <th className="px-3 py-2 font-semibold">景點</th>
-            <th className="px-3 py-2 font-semibold">吃・歇</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row, i) => (
-            <tr key={row.name} className="border-t border-[#f0ebe3]">
-              <td className="px-3 py-2 font-medium text-[#8B7355]">{String(i + 1).padStart(2, '0')}</td>
-              <td className="whitespace-nowrap px-3 py-2 font-medium text-[#2c2416]">{row.name}</td>
-              <td className="px-3 py-2 text-[#5c4f42]">{row.note}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <ol className="relative space-y-0">
+      {items.map((item, i) => {
+        const isLast = i === items.length - 1;
+        return (
+          <li key={`${item.time ?? ''}-${item.place}-${i}`} className="relative flex gap-3 pb-4 last:pb-0">
+            {!isLast ? (
+              <span
+                className="absolute left-[0.7rem] top-7 bottom-0 w-px bg-gradient-to-b from-[#d4c4a8] to-[#e8e0d4]"
+                aria-hidden
+              />
+            ) : null}
+            <span
+              className="relative z-[1] flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#e8e0d4] bg-[#F8F5F1] text-[10px] font-bold text-[#8B7355] shadow-sm"
+              aria-hidden
+            >
+              {i + 1}
+            </span>
+            <div className="min-w-0 flex-1 pt-0.5">
+              <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                {item.time ? (
+                  <span className="text-[11px] font-semibold tabular-nums text-[#8B7355]">{item.time}</span>
+                ) : null}
+                <span className="text-sm font-medium text-[#2c2416]">{item.place}</span>
+              </div>
+              <p className="mt-0.5 text-xs leading-relaxed text-[#6B665F] sm:text-sm">{item.detail}</p>
+            </div>
+          </li>
+        );
+      })}
+    </ol>
   );
 }
 
@@ -217,66 +203,34 @@ export function DayTripDetailCard({ plan }: { plan: DayTripPlan }) {
         </div>
       </div>
 
-      <div className="border-t border-[#f0ebe3] px-5 py-5 sm:px-6">
-        {plan.schedule && plan.spots ? (
-          <div className="space-y-8">
-            <div>
-              <p className="mb-3 text-[10px] font-semibold tracking-[0.18em] uppercase text-[#c4a574]">
-                時程表
-              </p>
-              <ScheduleTable rows={plan.schedule} />
-            </div>
-            <div>
-              <p className="mb-3 text-[10px] font-semibold tracking-[0.18em] uppercase text-[#c4a574]">
-                景點表
-              </p>
-              <SpotTable rows={plan.spots} />
-            </div>
-            {plan.guideHref ? (
-              <p className="text-sm">
-                <Link href={plan.guideHref} className="font-medium text-[#8B7355] underline-offset-2 hover:underline">
-                  {plan.guideLabel ?? '看完整介紹'} →
-                </Link>
-              </p>
-            ) : null}
+      <div className="space-y-8 border-t border-[#f0ebe3] px-5 py-5 sm:px-6">
+        <div>
+          <p className="mb-3 text-[10px] font-semibold tracking-[0.18em] uppercase text-[#c4a574]">
+            時間行程
+          </p>
+          <ItineraryTimeline items={plan.slots} />
+        </div>
+        {plan.spots ? (
+          <div>
+            <p className="mb-3 text-[10px] font-semibold tracking-[0.18em] uppercase text-[#c4a574]">
+              景點
+            </p>
+            <ItineraryTimeline
+              items={plan.spots.map((spot) => ({ place: spot.name, detail: spot.note }))}
+            />
           </div>
-        ) : (
-        <>
-        <p className="mb-3 text-[10px] font-semibold tracking-[0.18em] uppercase text-[#c4a574]">
-          時間行程
-        </p>
-        <ol className="relative space-y-0">
-          {plan.slots.map((slot, i) => {
-            const isLast = i === plan.slots.length - 1;
-            return (
-              <li key={`${plan.id}-${slot.time}-${slot.place}`} className="relative flex gap-3 pb-4 last:pb-0">
-                {!isLast ? (
-                  <span
-                    className="absolute left-[0.7rem] top-7 bottom-0 w-px bg-gradient-to-b from-[#d4c4a8] to-[#e8e0d4]"
-                    aria-hidden
-                  />
-                ) : null}
-                <span
-                  className="relative z-[1] flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[#e8e0d4] bg-[#F8F5F1] text-[10px] font-bold text-[#8B7355] shadow-sm"
-                  aria-hidden
-                >
-                  {i + 1}
-                </span>
-                <div className="min-w-0 flex-1 pt-0.5">
-                  <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-                    <span className="text-[11px] font-semibold text-[#8B7355]">{slot.time}</span>
-                    <span className="text-sm font-medium text-[#2c2416]">{slot.place}</span>
-                  </div>
-                  <p className="mt-0.5 text-xs leading-relaxed text-[#6B665F] sm:text-sm">
-                    {slot.detail}
-                  </p>
-                </div>
-              </li>
-            );
-          })}
-        </ol>
-        </>
-        )}
+        ) : null}
+        {plan.guideHref ? (
+          <Link
+            href={plan.guideHref}
+            className="flex items-center justify-between gap-2 rounded-xl border border-dashed border-[#c4a574]/70 bg-[#fffbf3] px-3 py-2 text-[11px] font-medium text-[#6b5438] transition-colors hover:border-[#8B7355] hover:bg-[#f5e8c7]/50"
+          >
+            <span>{plan.guideLabel ?? '看完整介紹'}</span>
+            <span className="shrink-0 text-[#8B7355]" aria-hidden>
+              →
+            </span>
+          </Link>
+        ) : null}
       </div>
 
       <div className="space-y-2.5 border-t border-[#f0ebe3] bg-gradient-to-b from-white to-[#faf7f2] px-5 py-4 sm:px-6">

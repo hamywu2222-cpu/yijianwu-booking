@@ -724,8 +724,6 @@ export type DayTripPlan = {
   noVehicle?: boolean;
   /** 需先向第三方預約（如藝素村） */
   booking?: { label: string; url: string; note: string };
-  /** 有則以表格呈現時程與景點，不再用時間軸 */
-  schedule?: { time: string; place: string; detail: string }[];
   spots?: { name: string; note: string }[];
   guideHref?: string;
   guideLabel?: string;
@@ -846,7 +844,6 @@ export const FULONG_DAY_TRIPS: DayTripPlan[] = [
     noVehicle: true,
     totalSpan: '約 2–3 小時｜20–24 km',
     hub: '一間屋 → 舊草嶺出海 → 外圍景點 → 東興宮 → 回一間屋',
-    schedule: OLD_CAOLING_LOOP_SCHEDULE,
     spots: OLD_CAOLING_LOOP_SPOTS,
     slots: OLD_CAOLING_LOOP_SCHEDULE,
     guideHref: '/fulong/loop-ride',
