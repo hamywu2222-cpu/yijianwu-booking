@@ -476,6 +476,12 @@ export default function HomeFulongGuideTeaser() {
             >
               🤿 玩水浮潛
             </Link>
+            <Link
+              href="/fulong/loop-ride"
+              className="rounded-full border border-[#f0d078] bg-[#f0d078] px-3 py-1 text-[11px] font-semibold text-[#2c2416] hover:brightness-105"
+            >
+              🌊 環狀線景點
+            </Link>
           </div>
           <p className="relative mt-3 text-[11px] text-white/50">
             也可從各行程卡「想看更多時段細節」跳到總覽章節

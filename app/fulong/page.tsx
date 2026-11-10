@@ -156,7 +156,20 @@ export default function FulongPage() {
             <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/85 sm:text-base">
               {FULONG_GUIDE_PAGE.description}
             </p>
-            <nav className="mt-6 max-w-xl space-y-2.5" aria-label="攻略快速跳轉">
+            <Link
+              href="/fulong/loop-ride"
+              className="mt-6 block max-w-xl rounded-2xl border border-[#f0d078] bg-[#f0d078] px-4 py-4 text-[#2c2416] shadow-[0_8px_24px_rgba(0,0,0,0.18)] transition hover:brightness-105"
+            >
+              <p className="text-[10px] font-semibold tracking-[0.18em]">環狀線景點</p>
+              <p className="mt-1 font-playfair text-2xl font-light leading-tight">
+                舊草嶺環狀線・從一間屋到東興宮
+              </p>
+              <p className="mt-2 text-sm leading-relaxed">
+                約 20–24 公里，停留 2–3 小時。走舊草嶺出來，沿外圍景點，最後東興宮再回民宿。行程導覽可以另外詢問。
+              </p>
+              <p className="mt-2 text-sm font-semibold">看這一圈 →</p>
+            </Link>
+            <nav className="mt-4 max-w-xl space-y-2.5" aria-label="攻略快速跳轉">
               <div className="rounded-2xl border border-white/20 bg-black/25 p-3 backdrop-blur-sm">
                 <p className="mb-2 text-[10px] font-semibold tracking-wide text-[#cfe8e0]">
                   🚴 只租腳踏車＆電輔車
@@ -197,7 +210,7 @@ export default function FulongPage() {
                   ))}
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                 <a
                   href="#season-now"
                   className="inline-flex min-h-10 items-center justify-center rounded-xl border border-white/35 bg-white/10 px-2 py-2 text-center text-[11px] text-white backdrop-blur-sm hover:bg-white/20 sm:text-xs"
@@ -227,6 +240,12 @@ export default function FulongPage() {
                   className="inline-flex min-h-10 items-center justify-center rounded-xl border border-white/35 bg-white/10 px-2 py-2 text-center text-[11px] text-white backdrop-blur-sm hover:bg-white/20 sm:text-xs"
                 >
                   🤿 玩水・浮潛
+                </Link>
+                <Link
+                  href="/fulong/loop-ride"
+                  className="inline-flex min-h-10 items-center justify-center rounded-xl border border-[#f0d078] bg-[#f0d078] px-2 py-2 text-center text-[11px] font-semibold text-[#2c2416] hover:brightness-105 sm:text-xs"
+                >
+                  🌊 環狀線景點
                 </Link>
               </div>
             </nav>

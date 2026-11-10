@@ -58,7 +58,7 @@ export const FULONG_ARTICLE_SERIES = [
       '一間屋',
     ] as const,
     heroImage: '/images/loop-ride/guishan.jpg',
-    lead: '從一間屋出發，走進舊草嶺隧道，出海後沿外圍把景點走完，最後到東興宮，再回民宿。',
+    lead: '從一間屋出發，走進舊草嶺隧道，出海後沿外圍把景點走完，最後到東興宮，再回民宿。行程導覽可以另外詢問。',
   },
   {
     slug: 'water',

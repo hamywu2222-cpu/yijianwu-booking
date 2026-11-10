@@ -2,6 +2,7 @@ import Image from 'next/image';
 import GuideArticleLayout from '@/components/fulong/GuideArticleLayout';
 import GuideBookingCta from '@/components/fulong/GuideBookingCta';
 import { PageJsonLd } from '@/components/PageJsonLd';
+import { BUSINESS_LINE } from '@/lib/business';
 import { getFulongArticle } from '@/lib/fulongArticles';
 import { FULONG_SEO_KEYWORDS } from '@/lib/seo';
 import { buildPageMetadata } from '@/lib/seoMetadata';
@@ -119,6 +120,20 @@ export default function LoopRidePage() {
             一間屋 → 舊草嶺隧道 → 石城（龜山島）→ 萊萊 → 四角窟 → 三貂角燈塔 → 馬崗・卯澳 → 福連 →
             福隆漁港 → 東興宮 → 回一間屋。含拍照停留大約 20–24 公里，全程大約 2–3 小時。中途能坐下吃的，主要在石城、萊萊、馬崗和卯澳。四角窟、三貂角、福連這幾段沒有店。
           </p>
+          <div className="rounded-2xl border border-[#e8d5a8] bg-[#fbf6ea] p-4 text-sm leading-relaxed text-[#5c4f42]">
+            <p>這頁照順序介紹景點，可以自己走。</p>
+            <p className="mt-1">
+              想找人帶、或想照這條排一天，行程導覽可以另外詢問。{' '}
+              <a
+                href={BUSINESS_LINE.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-[#8B7355] underline-offset-2 hover:underline"
+              >
+                {BUSINESS_LINE.inquireLabel}
+              </a>
+            </p>
+          </div>
         </section>
 
         <section className="grid grid-cols-3 gap-2 sm:gap-3">
