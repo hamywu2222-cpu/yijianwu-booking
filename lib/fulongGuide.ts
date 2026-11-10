@@ -724,7 +724,41 @@ export type DayTripPlan = {
   noVehicle?: boolean;
   /** 需先向第三方預約（如藝素村） */
   booking?: { label: string; url: string; note: string };
+  /** 有則以表格呈現時程與景點，不再用時間軸 */
+  schedule?: { time: string; place: string; detail: string }[];
+  spots?: { name: string; note: string }[];
+  guideHref?: string;
+  guideLabel?: string;
 };
+
+/** 舊草嶺環狀線實走：約 2–3 小時、20–24 km。時程是參考，不含坐下吃一餐。 */
+export const OLD_CAOLING_LOOP_SCHEDULE: { time: string; place: string; detail: string }[] = [
+  { time: '09:00', place: '一間屋・駅前宿', detail: '出站走幾步。車站前可先買便當、小吃，車站有廁所。' },
+  { time: '09:15', place: '舊草嶺隧道', detail: '北口門額「制天險」。洞內約兩公里，穿出就是石城。洞裡沒有店。' },
+  { time: '09:35', place: '石城・龜山島', detail: '出海後第一眼。服務區可歇，有公共廁所，也有賣輕食的地方。' },
+  { time: '09:55', place: '萊萊海蝕平台', detail: '岩盤伸進海裡。有休憩站，現場有店，可以買咖啡和簡單吃的。' },
+  { time: '10:15', place: '四角窟觀景台', detail: '路在下方，海平線很長。這一段沒有店，水要先備好。' },
+  { time: '10:35', place: '三貂角燈塔', detail: '台灣本島極東。適合拍照。這裡店不多。' },
+  { time: '11:00', place: '馬崗・卯澳', detail: '兩個漁村連在一起。馬崗有石花凍；卯澳有海鮮和小卷米粉，店不只一家。利洋宮有廁所，也可以加水。' },
+  { time: '11:25', place: '福連', detail: '福連國小彩虹階梯和校門前的潮池。這裡沒有店。' },
+  { time: '11:35', place: '福隆漁港', detail: '回福隆的路上路過。不把這裡當吃飯的點。' },
+  { time: '11:50', place: '東興宮', detail: '最後一站。廟前是金色沙灘，對岸看得到海水浴場。' },
+  { time: '12:05', place: '回一間屋', detail: '經福隆海水浴場和藍色屋頂星巴克，再走幾分鐘回民宿。' },
+];
+
+export const OLD_CAOLING_LOOP_SPOTS: { name: string; note: string }[] = [
+  { name: '一間屋・駅前宿', note: '起點與終點。車站前有便當、小吃、廁所。' },
+  { name: '舊草嶺隧道', note: '北口「制天險」，出南口到石城。洞裡沒有店。' },
+  { name: '石城・龜山島', note: '服務區有廁所，也有賣輕食的地方。' },
+  { name: '萊萊海蝕平台', note: '有休憩站，可以買咖啡和簡單吃的。' },
+  { name: '四角窟觀景台', note: '看海歇腳。沒有店。' },
+  { name: '三貂角燈塔', note: '極東點。店不多，要吃東西往馬崗、卯澳。' },
+  { name: '馬崗・卯澳', note: '馬崗有石花凍、哨所有廁所。卯澳有海鮮和小卷米粉。利洋宮可歇、可加水。' },
+  { name: '福連', note: '彩虹階梯、潮池。沒有店。' },
+  { name: '福隆漁港', note: '路過，再往東興宮。' },
+  { name: '東興宮', note: '環線最後一站。廟前沙灘可以坐。' },
+  { name: '福隆海水浴場・星巴克', note: '回程經過。星巴克有飲料和輕食，車站前便當也還在。' },
+];
 
 export const FULONG_DAY_TRIPS: DayTripPlan[] = [
   {
@@ -801,7 +835,23 @@ export const FULONG_DAY_TRIPS: DayTripPlan[] = [
         detail: '卯澳→福隆約 20–30 分；沖澡休息或搭車離開',
       },
     ],
-    tip: '環線約 18–22 km，建議電動輔助車；機車與汽車請勿進入自行車專用道。',
+    tip: '環線約 18–22 km，建議電動輔助車；機車與汽車請勿進入自行車專用道。想用 2–3 小時把每一站走完，看下面的環狀線。',
+  },
+  {
+    id: 'day-loop',
+    badge: '1 日遊 · 環狀線',
+    title: '舊草嶺環狀線・東興宮回程',
+    bestFor: '想一次把環線景點走完、當天回一間屋的人',
+    transport: '沿舊草嶺環狀線。車站旁可租腳踏車或電動輔助車（一間屋步行 1–3 分）',
+    noVehicle: true,
+    totalSpan: '約 2–3 小時｜20–24 km',
+    hub: '一間屋 → 舊草嶺出海 → 外圍景點 → 東興宮 → 回一間屋',
+    schedule: OLD_CAOLING_LOOP_SCHEDULE,
+    spots: OLD_CAOLING_LOOP_SPOTS,
+    slots: OLD_CAOLING_LOOP_SCHEDULE,
+    guideHref: '/fulong/loop-ride',
+    guideLabel: '看每一站的照片',
+    tip: '表上的時間是早上出發、含拍照、不含坐下吃一餐。在卯澳吃飯再加約 40–60 分鐘。想在東興宮看夕陽，把整段往後挪。行程導覽可以另外詢問。',
   },
   {
     id: 'day-snorkel',
@@ -1778,6 +1828,19 @@ export const FULONG_HOME_PREVIEW = {
         { time: '上午', emoji: '🏖️', label: '福隆海水浴場', detail: '步行約 8–12 分；戲水、沙雕' },
         { time: '中午', emoji: '☕', label: '站前覓食／星巴克', detail: '步行約 5–10 分' },
         { time: '下午', emoji: '🌅', label: '沙灘放空或 SUP', detail: '傍晚光影最美' },
+      ],
+    },
+    {
+      badge: '1 日 · 環狀線',
+      title: '舊草嶺環狀線',
+      vibe: '2–3 小時走完一圈',
+      href: '/fulong#day-loop',
+      span: '約 2–3 小時 · 20–24 km',
+      steps: [
+        { time: '09:00', emoji: '🏠', label: '一間屋出發', detail: '車站前可先買便當' },
+        { time: '09:15', emoji: '🚇', label: '舊草嶺隧道', detail: '穿出石城看龜山島' },
+        { time: '10:35', emoji: '🗼', label: '三貂角燈塔', detail: '接著馬崗、卯澳' },
+        { time: '11:50', emoji: '🌅', label: '東興宮', detail: '再回一間屋' },
       ],
     },
     {

@@ -96,6 +96,60 @@ export function MoonBadge({
   );
 }
 
+export function ScheduleTable({
+  rows,
+}: {
+  rows: { time: string; place: string; detail: string }[];
+}) {
+  return (
+    <div className="overflow-x-auto rounded-2xl border border-[#e8e0d4]">
+      <table className="w-full min-w-[32rem] border-collapse text-left text-sm">
+        <thead className="bg-[#fbf6ea] text-xs text-[#8B7355]">
+          <tr>
+            <th className="px-3 py-2 font-semibold">時間</th>
+            <th className="px-3 py-2 font-semibold">地點</th>
+            <th className="px-3 py-2 font-semibold">這一站</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr key={`${row.time}-${row.place}`} className="border-t border-[#f0ebe3]">
+              <td className="whitespace-nowrap px-3 py-2 font-medium text-[#8B7355]">{row.time}</td>
+              <td className="whitespace-nowrap px-3 py-2 font-medium text-[#2c2416]">{row.place}</td>
+              <td className="px-3 py-2 text-[#5c4f42]">{row.detail}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export function SpotTable({ rows }: { rows: { name: string; note: string }[] }) {
+  return (
+    <div className="overflow-x-auto rounded-2xl border border-[#e8e0d4]">
+      <table className="w-full min-w-[28rem] border-collapse text-left text-sm">
+        <thead className="bg-[#fbf6ea] text-xs text-[#8B7355]">
+          <tr>
+            <th className="px-3 py-2 font-semibold">順序</th>
+            <th className="px-3 py-2 font-semibold">景點</th>
+            <th className="px-3 py-2 font-semibold">吃・歇</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, i) => (
+            <tr key={row.name} className="border-t border-[#f0ebe3]">
+              <td className="px-3 py-2 font-medium text-[#8B7355]">{String(i + 1).padStart(2, '0')}</td>
+              <td className="whitespace-nowrap px-3 py-2 font-medium text-[#2c2416]">{row.name}</td>
+              <td className="px-3 py-2 text-[#5c4f42]">{row.note}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 /** 攻略頁：1 日遊完整卡片（當日來回 · 不含住宿） */
 export function DayTripDetailCard({ plan }: { plan: DayTripPlan }) {
   return (
@@ -164,6 +218,30 @@ export function DayTripDetailCard({ plan }: { plan: DayTripPlan }) {
       </div>
 
       <div className="border-t border-[#f0ebe3] px-5 py-5 sm:px-6">
+        {plan.schedule && plan.spots ? (
+          <div className="space-y-8">
+            <div>
+              <p className="mb-3 text-[10px] font-semibold tracking-[0.18em] uppercase text-[#c4a574]">
+                時程表
+              </p>
+              <ScheduleTable rows={plan.schedule} />
+            </div>
+            <div>
+              <p className="mb-3 text-[10px] font-semibold tracking-[0.18em] uppercase text-[#c4a574]">
+                景點表
+              </p>
+              <SpotTable rows={plan.spots} />
+            </div>
+            {plan.guideHref ? (
+              <p className="text-sm">
+                <Link href={plan.guideHref} className="font-medium text-[#8B7355] underline-offset-2 hover:underline">
+                  {plan.guideLabel ?? '看完整介紹'} →
+                </Link>
+              </p>
+            ) : null}
+          </div>
+        ) : (
+        <>
         <p className="mb-3 text-[10px] font-semibold tracking-[0.18em] uppercase text-[#c4a574]">
           時間行程
         </p>
@@ -197,6 +275,8 @@ export function DayTripDetailCard({ plan }: { plan: DayTripPlan }) {
             );
           })}
         </ol>
+        </>
+        )}
       </div>
 
       <div className="space-y-2.5 border-t border-[#f0ebe3] bg-gradient-to-b from-white to-[#faf7f2] px-5 py-4 sm:px-6">

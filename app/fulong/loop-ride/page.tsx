@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import GuideArticleLayout from '@/components/fulong/GuideArticleLayout';
 import GuideBookingCta from '@/components/fulong/GuideBookingCta';
+import { ScheduleTable, SpotTable } from '@/components/fulong/ItineraryStyle';
 import { PageJsonLd } from '@/components/PageJsonLd';
 import { BUSINESS_LINE } from '@/lib/business';
+import { OLD_CAOLING_LOOP_SCHEDULE, OLD_CAOLING_LOOP_SPOTS } from '@/lib/fulongGuide';
 import { getFulongArticle } from '@/lib/fulongArticles';
 import { FULONG_SEO_KEYWORDS } from '@/lib/seo';
 import { buildPageMetadata } from '@/lib/seoMetadata';
@@ -134,6 +136,19 @@ export default function LoopRidePage() {
               </a>
             </p>
           </div>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="font-playfair text-2xl font-light text-[#2c2416] sm:text-3xl">時程表</h2>
+          <p className="text-sm leading-relaxed text-[#5c4f42]">
+            以下是早上九點出發的參考。含拍照、不含坐下吃一餐，大約三小時走完。在卯澳吃飯再加約 40–60 分鐘。想在東興宮看夕陽，把整段往後挪。
+          </p>
+          <ScheduleTable rows={OLD_CAOLING_LOOP_SCHEDULE} />
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="font-playfair text-2xl font-light text-[#2c2416] sm:text-3xl">景點表</h2>
+          <SpotTable rows={OLD_CAOLING_LOOP_SPOTS} />
         </section>
 
         <section className="grid grid-cols-3 gap-2 sm:gap-3">
