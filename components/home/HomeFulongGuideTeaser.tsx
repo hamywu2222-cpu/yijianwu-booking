@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { MoonBadge, SunBadge } from '@/components/fulong/ItineraryStyle';
 import { FULONG_HOME_PREVIEW } from '@/lib/fulongGuide';
@@ -350,6 +351,36 @@ export default function HomeFulongGuideTeaser() {
             玩水、單車、潮間帶、健行，以及山上整日／半日行程、純素餐廳與手作體驗。
           </p>
         </div>
+        <Link
+          href="/fulong/loop-ride"
+          className="group mb-4 flex gap-3 overflow-hidden rounded-[1.25rem] bg-gradient-to-br from-[#fff3c8] via-[#f0d078] to-[#e2bc55] p-1.5 text-[#2c2416] shadow-[0_12px_28px_rgba(44,36,22,0.12),inset_0_1px_0_rgba(255,255,255,0.65)] ring-1 ring-white/70 transition hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(44,36,22,0.16)]"
+        >
+          <span className="relative aspect-[3/4] w-24 shrink-0 overflow-hidden rounded-xl sm:w-32">
+            <Image
+              src="/images/loop-ride/entrance.jpg"
+              alt="舊草嶺隧道入口"
+              fill
+              className="object-cover object-center"
+              sizes="128px"
+            />
+          </span>
+          <span className="flex min-w-0 flex-1 flex-col justify-center py-2 pr-2 sm:pr-4">
+            <p className="text-base font-semibold tracking-wide sm:text-lg">圖文攻略</p>
+            <span className="mt-1.5 block h-px w-8 bg-[#2c2416]/30" aria-hidden />
+            <p className="mt-1.5 font-playfair text-lg font-light leading-snug sm:text-2xl">
+              舊草嶺環狀線
+            </p>
+            <p className="mt-1 text-xs leading-relaxed text-[#3f3424] sm:text-sm">
+              每一站都有照片。只走隧道再回來最輕鬆，想挑戰再走全程。
+            </p>
+            <p className="mt-2 inline-flex items-center gap-1 text-sm font-semibold">
+              進來看
+              <span className="transition-transform group-hover:translate-x-1" aria-hidden>
+                →
+              </span>
+            </p>
+          </span>
+        </Link>
         <div className="grid gap-4 sm:grid-cols-2">
           {p.themes.map((t, i) => (
             <ThemeCard key={t.title} theme={t} index={i} />
