@@ -480,7 +480,7 @@ export default function HomeFulongGuideTeaser() {
               href="/fulong/loop-ride"
               className="rounded-full border border-[#f0d078] bg-[#f0d078] px-3 py-1 text-[11px] font-semibold text-[#2c2416] hover:brightness-105"
             >
-              🌊 環狀線景點
+              🌊 環狀線圖文
             </Link>
           </div>
           <p className="relative mt-3 text-[11px] text-white/50">

@@ -93,9 +93,9 @@ export default function FulongDayTripPage() {
           <h2 className="font-playfair text-xl font-light text-[#2c2416]">讀完一日遊後</h2>
           <ul className="mt-3 space-y-2 text-sm text-[#5c4f42]">
             <li>
-              · 舊草嶺環狀線的照片、時程表、景點表：
+              · 想先看風景再走：舊草嶺環狀線每一站都有照片
               <Link href="/fulong/loop-ride" className="ml-1 font-medium text-[#8B7355] underline-offset-2 hover:underline">
-                環狀線景點
+                進來看這一圈
               </Link>
             </li>
             <li>

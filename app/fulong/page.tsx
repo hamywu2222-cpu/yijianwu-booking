@@ -158,16 +158,34 @@ export default function FulongPage() {
             </p>
             <Link
               href="/fulong/loop-ride"
-              className="mt-6 block max-w-xl rounded-2xl border border-[#f0d078] bg-[#f0d078] px-4 py-4 text-[#2c2416] shadow-[0_8px_24px_rgba(0,0,0,0.18)] transition hover:brightness-105"
+              className="group relative mt-6 block max-w-xl touch-manipulation overflow-hidden rounded-[1.35rem] bg-gradient-to-br from-[#fff3c8] via-[#f0d078] to-[#e2bc55] p-1.5 text-[#2c2416] shadow-[0_18px_40px_rgba(44,36,22,0.28),inset_0_1px_0_rgba(255,255,255,0.65)] ring-1 ring-white/50 transition duration-300 active:brightness-95 sm:flex sm:hover:-translate-y-0.5 sm:hover:shadow-[0_22px_48px_rgba(44,36,22,0.34),inset_0_1px_0_rgba(255,255,255,0.75)]"
             >
-              <p className="text-[10px] font-semibold tracking-[0.18em]">環狀線景點</p>
-              <p className="mt-1 font-playfair text-2xl font-light leading-tight">
-                舊草嶺環狀線・從一間屋到東興宮
-              </p>
-              <p className="mt-2 text-sm leading-relaxed">
-                約 20–24 公里，停留 2–3 小時。走舊草嶺出來，沿外圍景點，最後東興宮再回民宿。行程導覽可以另外詢問。
-              </p>
-              <p className="mt-2 text-sm font-semibold">看這一圈 →</p>
+              <span className="relative block aspect-[3/4] w-full overflow-hidden rounded-[1rem] sm:w-44 sm:shrink-0 sm:self-start">
+                <Image
+                  src="/images/loop-ride/entrance.jpg"
+                  alt="舊草嶺隧道入口"
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 639px) 100vw, 200px"
+                />
+                <span className="pointer-events-none absolute inset-0 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.4)]" />
+              </span>
+              <span className="relative block min-w-0 px-3.5 py-3.5 sm:flex sm:flex-1 sm:flex-col sm:justify-center sm:px-4 sm:py-3">
+                <p className="text-base font-semibold tracking-wide sm:text-lg">圖文攻略</p>
+                <span className="mt-1.5 block h-px w-10 bg-[#2c2416]/30" aria-hidden />
+                <p className="mt-2 font-playfair text-xl font-light leading-snug sm:text-2xl sm:leading-tight">
+                  舊草嶺環狀線・從一間屋到東興宮
+                </p>
+                <p className="mt-2 text-sm leading-relaxed">
+                  每一站都有照片。只走隧道再原路回來最輕鬆，想挑戰再走全程 20–24 公里。行程導覽可以另外詢問。
+                </p>
+                <p className="mt-3 inline-flex items-center gap-1 text-sm font-semibold">
+                  進來看這一圈
+                  <span className="transition-transform duration-300 sm:group-hover:translate-x-1" aria-hidden>
+                    →
+                  </span>
+                </p>
+              </span>
             </Link>
             <nav className="mt-4 max-w-xl space-y-2.5" aria-label="攻略快速跳轉">
               <div className="rounded-2xl border border-white/20 bg-black/25 p-3 backdrop-blur-sm">
@@ -245,7 +263,7 @@ export default function FulongPage() {
                   href="/fulong/loop-ride"
                   className="inline-flex min-h-10 items-center justify-center rounded-xl border border-[#f0d078] bg-[#f0d078] px-2 py-2 text-center text-[11px] font-semibold text-[#2c2416] hover:brightness-105 sm:text-xs"
                 >
-                  🌊 環狀線景點
+                  🌊 環狀線圖文
                 </Link>
               </div>
             </nav>

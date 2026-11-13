@@ -839,7 +839,7 @@ export const FULONG_DAY_TRIPS: DayTripPlan[] = [
     id: 'day-loop',
     badge: '1 日遊 · 環狀線',
     title: '舊草嶺環狀線・東興宮回程',
-    bestFor: '想一次把環線景點走完、當天回一間屋的人',
+    bestFor: '想先看風景再出門、當天把環線走完的人',
     transport: '沿舊草嶺環狀線。車站旁可租腳踏車或電動輔助車（一間屋步行 1–3 分）',
     noVehicle: true,
     totalSpan: '約 2–3 小時｜20–24 km',
@@ -847,8 +847,8 @@ export const FULONG_DAY_TRIPS: DayTripPlan[] = [
     spots: OLD_CAOLING_LOOP_SPOTS,
     slots: OLD_CAOLING_LOOP_SCHEDULE,
     guideHref: '/fulong/loop-ride',
-    guideLabel: '看每一站的照片',
-    tip: '表上的時間是早上出發、含拍照、不含坐下吃一餐。在卯澳吃飯再加約 40–60 分鐘。想在東興宮看夕陽，把整段往後挪。行程導覽可以另外詢問。',
+    guideLabel: '每一站的照片和感覺，先進去看',
+    tip: '表上的時間是早上出發、含拍照、不含坐下吃一餐。在卯澳吃飯再加約 40–60 分鐘。想在東興宮看夕陽，把整段往後挪。想先感受每一站，點開圖文再走。行程導覽可以另外詢問。',
   },
   {
     id: 'day-snorkel',
@@ -1830,7 +1830,7 @@ export const FULONG_HOME_PREVIEW = {
     {
       badge: '1 日 · 環狀線',
       title: '舊草嶺環狀線',
-      vibe: '2–3 小時走完一圈',
+      vibe: '圖文景點・2–3 小時走完一圈',
       href: '/fulong#day-loop',
       span: '約 2–3 小時 · 20–24 km',
       steps: [

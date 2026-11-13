@@ -120,7 +120,7 @@ export default function FulongBikePage() {
           <ul className="mt-3 space-y-2 text-sm text-[#5c4f42]">
             <li>
               <Link href="/fulong/loop-ride" className="font-medium text-[#8B7355] underline-offset-2 hover:underline">
-                舊草嶺環狀線景點（一間屋出發，東興宮回程）
+                舊草嶺環狀線圖文：每一站的照片，從一間屋到東興宮
               </Link>
             </li>
             <li>
