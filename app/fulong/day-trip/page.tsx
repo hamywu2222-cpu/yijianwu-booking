@@ -42,11 +42,10 @@ export default function FulongDayTripPage() {
           </h2>
           <p className="text-sm leading-relaxed text-[#5c4f42] sm:text-base">
             福隆車站出站 30
-            秒即達一間屋・駅前宿。當日來回的旅客可先寄放行李再出門；若玩到想慢一點，傍晚直接入住，不必拖著行李趕末班車。以下 8
-            條路線皆從一間屋旁出發、當日結束，時間含交通估算。
+            秒即達一間屋・駅前宿。當日來回的旅客可先寄放行李再出門；若玩到想慢一點，傍晚直接入住，不必拖著行李趕末班車。以下路線皆從一間屋旁出發、當日結束，時間含交通估算。
           </p>
           <ul className="list-disc space-y-1.5 pl-5 text-sm text-[#5c4f42]">
-            <li>無車：優先選沙灘放空、舊草嶺環狀線、舊草嶺單車（車站可租腳踏車／電輔車）</li>
+            <li>無車：優先選沙灘放空、舊草嶺環狀線（車站可租腳踏車／電輔車）</li>
             <li>有自備汽機車：可選潮間帶、南雅南子吝、草嶺古道</li>
             <li>福隆目前沒有租機車店；跨區請預留回程時間</li>
           </ul>
@@ -96,12 +95,6 @@ export default function FulongDayTripPage() {
               · 想先看風景再走：舊草嶺環狀線每一站都有照片
               <Link href="/fulong/loop-ride" className="ml-1 font-medium text-[#8B7355] underline-offset-2 hover:underline">
                 進來看這一圈
-              </Link>
-            </li>
-            <li>
-              · 想騎單車深化：
-              <Link href="/fulong/bike" className="ml-1 font-medium text-[#8B7355] underline-offset-2 hover:underline">
-                舊草嶺單車專文
               </Link>
             </li>
             <li>

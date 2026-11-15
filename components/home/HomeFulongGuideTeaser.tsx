@@ -340,7 +340,7 @@ export default function HomeFulongGuideTeaser() {
         <p className="mt-1 text-sm leading-relaxed text-[#5c4f42]">{p.hubNote}</p>
       </div>
 
-      {/* 四大主題 — 固定列「福隆旅遊攻略」錨點 #fulong-play */}
+      {/* 四大主題 — 固定列「圖文旅遊攻略」錨點 #fulong-play */}
       <div id="fulong-play" className="scroll-mt-28 md:scroll-mt-24">
         <div className="mb-4 text-center sm:text-left">
           <p className="text-[10px] tracking-[0.28em] text-[#8B7355] mb-1">PATHS FROM THE STATION</p>
@@ -494,12 +494,6 @@ export default function HomeFulongGuideTeaser() {
               className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[11px] text-white/90 hover:bg-white/15"
             >
               ☀️ 一日遊
-            </Link>
-            <Link
-              href="/fulong/bike"
-              className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[11px] text-white/90 hover:bg-white/15"
-            >
-              🚴 舊草嶺單車
             </Link>
             <Link
               href="/fulong/water"

@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useRef, type CSSProperties } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import BrandTagline from '@/components/BrandTagline';
 import CabinIcon from '@/components/CabinIcon';
 import FulongGuideCta from '@/components/FulongGuideCta';
@@ -126,14 +128,15 @@ export default function SiteNav() {
               </a>
             </nav>
 
-            {/* 右側：手機優先電話；桌機 LINE（寬螢幕可並顯電話）。攻略在極窄螢幕隱藏以免擠掉電話 */}
+            {/* 右側：手機只留訂房與電話。圖文攻略不進這列，避免搶金色訂房 */}
             <div className="site-nav-actions-slot">
               <FulongGuideCta
                 variant="nav"
-                className="site-nav-guide-cta shrink-0 max-[380px]:hidden"
-                label="福隆旅遊攻略"
-                href="#fulong-play"
-                ariaLabel="捲動至福隆旅遊攻略精華"
+                mark
+                className="site-nav-guide-cta shrink-0"
+                label="圖文旅遊攻略"
+                href="/fulong/loop-ride"
+                ariaLabel="前往舊草嶺環狀線圖文攻略"
               />
               <a
                 href="#booking"
@@ -142,16 +145,21 @@ export default function SiteNav() {
                 <span className="md:hidden">{BOOKING_CTA.jumpShort}</span>
                 <span className="hidden md:inline">{BOOKING_CTA.jump}</span>
               </a>
-              {/* 手機固定列：顯示電話 0912-362-533（取代長 LINE 文案，一鍵撥號） */}
+              {/* 手機固定列：顯示電話號碼，一鍵撥號 */}
               <a
                 href={BUSINESS_PHONE.mobileHref}
-                className="site-nav-phone-cta inline-flex md:hidden shrink-0 items-center rounded-full border border-[#D1C9BE] bg-white px-2 py-1.5 text-[10px] min-[360px]:px-2.5 min-[360px]:text-[11px] font-semibold text-[#3F3A36] shadow-sm tabular-nums tracking-tight active:scale-[0.98] transition-transform"
+                className="site-nav-phone-cta inline-flex md:hidden shrink-0 items-center justify-center rounded-full border border-[#D1C9BE] bg-white font-semibold text-[#3F3A36] shadow-sm active:scale-[0.98] transition-transform"
                 aria-label={`撥打電話 ${BUSINESS_PHONE.mobile}`}
               >
-                <span aria-hidden className="mr-0.5">
-                  📞
+                <span className="site-nav-phone-icon" aria-hidden>
+                  <svg viewBox="0 0 24 24" width="13" height="13">
+                    <path
+                      fill="currentColor"
+                      d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.5.6 3.6.1.4 0 .7-.3 1L6.6 10.8z"
+                    />
+                  </svg>
                 </span>
-                {BUSINESS_PHONE.mobile}
+                <span className="tabular-nums">{BUSINESS_PHONE.mobile}</span>
               </a>
               {/* 桌機：訂房前 LINE 詢問，不強調門禁 */}
               <a
@@ -187,6 +195,9 @@ export default function SiteNav() {
             >
               {BUSINESS_LINE.inquireLabelShort}
             </a>
+            <span className="site-nav-links-divider text-[#E0D6C8]" aria-hidden>
+              |
+            </span>
             <a
               href={WEB_DEV_NAV.href}
               title={WEB_DEV_NAV.title}
@@ -197,6 +208,26 @@ export default function SiteNav() {
           </nav>
         </div>
       </div>
+
+      <Link href="/fulong/loop-ride" className="site-nav-guide-strip">
+        <span className="site-nav-guide-strip__photo">
+          <Image
+            src="/images/loop-ride/entrance.jpg"
+            alt=""
+            fill
+            sizes="56px"
+            className="object-cover object-center"
+          />
+        </span>
+        <span className="site-nav-guide-strip__copy">
+          <span className="site-nav-guide-strip__title">圖文旅遊攻略</span>
+          <span className="site-nav-guide-strip__sub">舊草嶺環狀線</span>
+        </span>
+        <span className="site-nav-guide-strip__go">
+          看照片
+          <span aria-hidden>→</span>
+        </span>
+      </Link>
     </header>
   );
 }

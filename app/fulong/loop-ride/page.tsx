@@ -387,7 +387,7 @@ export default function LoopRidePage() {
             小香蘭 → 福隆漁港 → 東興宮 → 回一間屋。含拍照停留大約 20–24 公里，全程大約 2–3 小時。中途能坐下吃的，主要在石城、萊萊、馬崗和卯澳。四角窟、三貂角、福連這幾段沒有店。
           </p>
           <p className="text-sm leading-relaxed text-[#5c4f42] sm:text-base">
-            如果只想來回隧道，可以在周邊逛逛，再原路返回車站，這樣最輕鬆。如果想挑戰全程 20–24 公里，再接續行程。
+            如果只想來回隧道，可以在周邊逛逛，再原路返回車站，這樣最輕鬆。如果想挑戰全程 20–24 公里，再接續行程。車在福隆車站旁租，一間屋走約 1–3 分鐘，腳踏車或電動輔助車都可以。這條是自行車道，機車和汽車不要進去。
           </p>
           <div className="rounded-2xl border border-[#e8d5a8] bg-[#fbf6ea] p-4 text-sm leading-relaxed text-[#5c4f42]">
             <p>這頁照順序介紹景點，可以自己走。</p>

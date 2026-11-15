@@ -248,12 +248,6 @@ export default function FulongPage() {
                   ☀️ 一日遊專頁
                 </Link>
                 <Link
-                  href="/fulong/bike"
-                  className="inline-flex min-h-10 items-center justify-center rounded-xl border border-white/35 bg-white/10 px-2 py-2 text-center text-[11px] text-white backdrop-blur-sm hover:bg-white/20 sm:text-xs"
-                >
-                  🚴 舊草嶺單車
-                </Link>
-                <Link
                   href="/fulong/water"
                   className="inline-flex min-h-10 items-center justify-center rounded-xl border border-white/35 bg-white/10 px-2 py-2 text-center text-[11px] text-white backdrop-blur-sm hover:bg-white/20 sm:text-xs"
                 >

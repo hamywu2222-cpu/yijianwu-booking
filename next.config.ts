@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
         destination: "/sitemap.xml",
         permanent: true,
       },
+      {
+        source: "/fulong/bike",
+        destination: "/fulong/loop-ride",
+        permanent: true,
+      },
     ];
   },
 };

@@ -116,8 +116,8 @@ export default function FulongWaterPage() {
               </Link>
             </li>
             <li>
-              <Link href="/fulong/bike" className="font-medium text-[#8B7355] underline-offset-2 hover:underline">
-                舊草嶺單車（可隔天安排）
+              <Link href="/fulong/loop-ride" className="font-medium text-[#8B7355] underline-offset-2 hover:underline">
+                舊草嶺環狀線（20–24 公里，可隔天安排）
               </Link>
             </li>
             <li>

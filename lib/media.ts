@@ -37,7 +37,7 @@ export const SCENERY_IMAGES: SceneryItem[] = [
   {
     src: '/images/scenery/fulong-ring-immersive-art.webp',
     title: '舊草嶺環線',
-    caption: '約 18–22 km · 三貂角／卯澳可串',
+    caption: '約 20–24 km · 自己走的一圈',
   },
   {
     src: '/images/scenery/fulong-starbucks.jpg',

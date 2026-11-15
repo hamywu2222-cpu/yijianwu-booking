@@ -10,11 +10,13 @@ type FulongGuideCtaProps = {
   showIcon?: boolean;
   /**
    * 連結目標。預設 `/fulong` 完整攻略。
-   * 首頁固定列可用 `#fulong-play` 捲動到攻略精華。
+   * 首頁固定列指向親自拍的舊草嶺圖文 `/fulong/loop-ride`。
    */
   href?: string;
   /** 無障礙標籤 */
   ariaLabel?: string;
+  /** 首頁固定列：小圖框標記，取代地圖 emoji */
+  mark?: boolean;
 };
 
 const SIZE: Record<NonNullable<FulongGuideCtaProps['variant']>, string> = {
@@ -34,9 +36,10 @@ export default function FulongGuideCta({
   showIcon,
   href = '/fulong',
   ariaLabel,
+  mark = false,
 }: FulongGuideCtaProps) {
   const isHash = href.startsWith('#');
-  const icon = showIcon ?? variant !== 'nav';
+  const icon = !mark && (showIcon ?? variant !== 'nav');
   const resolvedAria =
     ariaLabel ?? (isHash ? '捲動至福隆旅遊攻略精華' : '查看福隆旅遊攻略');
 
@@ -46,6 +49,15 @@ export default function FulongGuideCta({
       className={`fulong-guide-btn ${SIZE[variant]} ${className}`.trim()}
       aria-label={resolvedAria}
     >
+      {mark ? (
+        <span className="fulong-guide-btn__mark" aria-hidden>
+          <svg viewBox="0 0 16 16" width="13" height="13" fill="none">
+            <rect x="1.35" y="2.35" width="13.3" height="11.3" rx="1.7" stroke="currentColor" strokeWidth="1.15" />
+            <path d="M1.7 10.35 5.05 7.35l2.25 1.9 2.35-2.45 4.6 4.05" stroke="currentColor" strokeWidth="1.1" strokeLinejoin="round" />
+            <circle cx="11.15" cy="5.45" r="0.95" fill="currentColor" />
+          </svg>
+        </span>
+      ) : null}
       {icon ? (
         <span className="fulong-guide-btn__icon" aria-hidden>
           🗺️

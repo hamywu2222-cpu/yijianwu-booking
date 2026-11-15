@@ -1,12 +1,12 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import GuestQuestionChat from '@/components/GuestQuestionChat';
 import HeroBackground from '@/components/HeroBackground';
 import SiteNav from '@/components/SiteNav';
 import HomeFooter from '@/components/home/HomeFooter';
 import HomeSeoHub from '@/components/home/HomeSeoHub';
 import { PageJsonLd } from '@/components/PageJsonLd';
 import { getFaqStructuredData, getStationWalkHowToJsonLd } from '@/lib/structuredData';
-import FulongWeatherChip from '@/components/home/FulongWeatherChip';
 import { PackagePeopleNotice } from '@/components/PackagePeopleNotice';
 import {
   AboutAmenityStrip,
@@ -28,7 +28,6 @@ import {
   ROOMS_SECTION,
   STATION_FIND,
 } from '@/lib/business';
-import { fetchFulongWeather } from '@/lib/fulongWeather';
 import { fetchGoogleReviews } from '@/lib/googleReviews';
 import { getImageAlt } from '@/lib/imageAlt';
 import {
@@ -50,25 +49,19 @@ const WebDevTeaser = dynamic(() => import('@/components/home/WebDevTeaser'));
 
 /** Server Component 首頁：互動區塊各自為 client，減少整頁 client bundle */
 export default async function HomePage() {
-  const [weather, reviews] = await Promise.all([
-    fetchFulongWeather(),
-    fetchGoogleReviews(),
-  ]);
+  const reviews = await fetchGoogleReviews();
 
   return (
     <main className="min-h-screen bg-[#F8F5F1] text-[#3F3A36]">
       <PageJsonLd data={[getFaqStructuredData(), getStationWalkHowToJsonLd()]} />
       <SiteNav />
+      <GuestQuestionChat />
 
       {/* Hero */}
       <section id="hero" className="relative h-[100dvh] overflow-hidden">
         <HeroBackground />
 
         <div className="hero-overlay relative z-10">
-          <div className="hero-weather-slot">
-            <FulongWeatherChip weather={weather} compact />
-          </div>
-
           <div className="hero-logo-safe-zone" aria-hidden />
 
           <div className="hero-content">
@@ -377,7 +370,7 @@ export default async function HomePage() {
             草嶺古道
           </a>
           與
-          <a href="/fulong/bike" className="text-[#8B7355] hover:underline">
+          <a href="/fulong/loop-ride" className="text-[#8B7355] hover:underline">
             舊草嶺隧道
           </a>
           的便利住宿據點。沒開車、拖行李也很適合，
