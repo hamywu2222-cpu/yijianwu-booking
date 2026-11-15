@@ -61,6 +61,20 @@ export default function SiteNav() {
         `${taglineHeight * progress}px`,
       );
       tagline.setAttribute('aria-hidden', progress < 0.05 ? 'true' : 'false');
+
+      const hero = document.getElementById('hero');
+      const heroSpan = hero?.offsetHeight ?? window.innerHeight;
+      const fadeStart = heroSpan * 0.08;
+      const guideFade =
+        window.scrollY <= fadeStart
+          ? 1
+          : window.scrollY >= heroSpan
+            ? 0
+            : 1 - (window.scrollY - fadeStart) / (heroSpan - fadeStart);
+      header.style.setProperty('--guide-stack-opacity', guideFade.toFixed(3));
+      header
+        .querySelector('.site-nav-guide-stack')
+        ?.setAttribute('data-hidden', guideFade <= 0.02 ? 'true' : 'false');
     };
 
     const onScroll = () => {
@@ -134,9 +148,9 @@ export default function SiteNav() {
                 variant="nav"
                 mark
                 className="site-nav-guide-cta shrink-0"
-                label="圖文旅遊攻略"
+                label="舊草嶺環狀圖文攻略"
                 href="/fulong/loop-ride"
-                ariaLabel="前往舊草嶺環狀線圖文攻略"
+                ariaLabel="前往舊草嶺環狀圖文攻略"
               />
               <a
                 href="#booking"
@@ -209,25 +223,50 @@ export default function SiteNav() {
         </div>
       </div>
 
-      <Link href="/fulong/loop-ride" className="site-nav-guide-strip">
-        <span className="site-nav-guide-strip__photo">
-          <Image
-            src="/images/loop-ride/entrance.jpg"
-            alt=""
-            fill
-            sizes="56px"
-            className="object-cover object-center"
-          />
-        </span>
-        <span className="site-nav-guide-strip__copy">
-          <span className="site-nav-guide-strip__title">圖文旅遊攻略</span>
-          <span className="site-nav-guide-strip__sub">舊草嶺環狀線</span>
-        </span>
-        <span className="site-nav-guide-strip__go">
-          看照片
-          <span aria-hidden>→</span>
-        </span>
-      </Link>
+      <div className="site-nav-guide-stack">
+        <Link href="/fulong/loop-ride" className="site-nav-guide-strip">
+          <span className="site-nav-guide-strip__photo">
+            <Image
+              src="/images/loop-ride/entrance.jpg"
+              alt=""
+              fill
+              sizes="56px"
+              className="object-cover object-center"
+            />
+          </span>
+          <span className="site-nav-guide-strip__copy">
+            <span className="site-nav-guide-strip__title">舊草嶺環狀圖文攻略</span>
+            <span className="site-nav-guide-strip__sub">環狀線 20–24 公里・全年可走</span>
+          </span>
+          <span className="site-nav-guide-strip__go">
+            看照片
+            <span aria-hidden>→</span>
+          </span>
+        </Link>
+        <Link
+          href="/fulong/miscanthus"
+          className="site-nav-guide-strip"
+          aria-label="前往草嶺登山芒花季開跑，11月14日至12月13日週末"
+        >
+          <span className="site-nav-guide-strip__photo">
+            <Image
+              src="/images/caoling-2026/saddle.jpg"
+              alt=""
+              fill
+              sizes="56px"
+              className="object-cover object-center"
+            />
+          </span>
+          <span className="site-nav-guide-strip__copy">
+            <span className="site-nav-guide-strip__title">草嶺登山芒花季開跑</span>
+            <span className="site-nav-guide-strip__sub">11/14–12/13・只有週末</span>
+          </span>
+          <span className="site-nav-guide-strip__go">
+            看攻略
+            <span aria-hidden>→</span>
+          </span>
+        </Link>
+      </div>
     </header>
   );
 }

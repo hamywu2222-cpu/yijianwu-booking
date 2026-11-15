@@ -496,16 +496,29 @@
   line-height: 1;
 }
 
-/* 手機：整條固定列正下方，浮在首屏上方。不加訂房的金光。 */
-.site-nav-guide-strip {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
+/* 手機：固定列下方兩條攻略。只浮在首屏，滑過 hero 就收起，不再擋內文。 */
+.site-nav-guide-stack {
   position: fixed;
   z-index: 2;
   left: 0.7rem;
   right: 0.7rem;
   top: calc(var(--site-nav-offset, 7.25rem) + 0.4rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  opacity: var(--guide-stack-opacity, 1);
+  pointer-events: none;
+}
+
+.site-nav-guide-stack[data-hidden='true'] {
+  visibility: hidden;
+}
+
+.site-nav-guide-strip {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  pointer-events: auto;
   width: auto;
   min-height: 2.85rem;
   margin: 0;
@@ -589,7 +602,7 @@
 }
 
 @media (min-width: 768px) {
-  .site-nav-guide-strip {
+  .site-nav-guide-stack {
     display: none !important;
   }
 }

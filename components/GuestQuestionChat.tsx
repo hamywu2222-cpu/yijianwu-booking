@@ -70,12 +70,16 @@ export default function GuestQuestionChat() {
   useEffect(() => {
     const place = () => {
       const nav = document.querySelector<HTMLElement>('.site-nav');
-      const strip = document.querySelector<HTMLElement>('.site-nav-guide-strip');
+      const stack = document.querySelector<HTMLElement>('.site-nav-guide-stack');
       const navBottom = nav ? Math.round(nav.getBoundingClientRect().bottom) : 12;
       let top = navBottom + 10;
-      if (strip && getComputedStyle(strip).display !== 'none') {
-        const stripBottom = Math.round(strip.getBoundingClientRect().bottom);
-        if (stripBottom > navBottom) top = stripBottom + 8;
+      if (
+        stack &&
+        getComputedStyle(stack).display !== 'none' &&
+        stack.getAttribute('data-hidden') !== 'true'
+      ) {
+        const stackBottom = Math.round(stack.getBoundingClientRect().bottom);
+        if (stackBottom > navBottom) top = stackBottom + 8;
       }
       setAnchorTop(top);
       const buttonBottom = top + (buttonRef.current?.offsetHeight ?? 52);
@@ -132,7 +136,7 @@ export default function GuestQuestionChat() {
 
   return (
     <div
-      className="pointer-events-none fixed left-[max(0.7rem,env(safe-area-inset-left))] z-40 flex w-[min(22.5rem,calc(100vw-1.4rem))] flex-col items-start top-[calc(var(--site-nav-offset,7.25rem)+4.6rem)] md:top-[calc(var(--site-nav-offset,7.25rem)+0.65rem)]"
+      className="pointer-events-none fixed left-[max(0.7rem,env(safe-area-inset-left))] z-40 flex w-[min(22.5rem,calc(100vw-1.4rem))] flex-col items-start top-[calc(var(--site-nav-offset,7.25rem)+8.1rem)] md:top-[calc(var(--site-nav-offset,7.25rem)+0.65rem)]"
       style={anchorTop == null ? undefined : { top: anchorTop }}
     >
       <button

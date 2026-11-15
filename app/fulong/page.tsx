@@ -171,7 +171,7 @@ export default function FulongPage() {
                 <span className="pointer-events-none absolute inset-0 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.4)]" />
               </span>
               <span className="relative block min-w-0 px-3.5 py-3.5 sm:flex sm:flex-1 sm:flex-col sm:justify-center sm:px-4 sm:py-3">
-                <p className="text-base font-semibold tracking-wide sm:text-lg">圖文攻略</p>
+                <p className="text-base font-semibold tracking-wide sm:text-lg">舊草嶺環狀圖文攻略</p>
                 <span className="mt-1.5 block h-px w-10 bg-[#2c2416]/30" aria-hidden />
                 <p className="mt-2 font-playfair text-xl font-light leading-snug sm:text-2xl sm:leading-tight">
                   舊草嶺環狀線・從一間屋到東興宮

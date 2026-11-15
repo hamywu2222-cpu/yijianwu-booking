@@ -365,13 +365,13 @@ export default function HomeFulongGuideTeaser() {
             />
           </span>
           <span className="flex min-w-0 flex-1 flex-col justify-center py-2 pr-2 sm:pr-4">
-            <p className="text-base font-semibold tracking-wide sm:text-lg">圖文攻略</p>
+            <p className="text-base font-semibold tracking-wide sm:text-lg">舊草嶺環狀圖文攻略</p>
             <span className="mt-1.5 block h-px w-8 bg-[#2c2416]/30" aria-hidden />
             <p className="mt-1.5 font-playfair text-lg font-light leading-snug sm:text-2xl">
               舊草嶺環狀線
             </p>
             <p className="mt-1 text-xs leading-relaxed text-[#3f3424] sm:text-sm">
-              每一站都有照片。只走隧道再回來最輕鬆，想挑戰再走全程。
+              20–24 公里，全年可走。每一站都有照片。只走隧道再回來最輕鬆，想挑戰再走全程。
             </p>
             <p className="mt-2 inline-flex items-center gap-1 text-sm font-semibold">
               進來看
