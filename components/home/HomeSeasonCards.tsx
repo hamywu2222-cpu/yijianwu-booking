@@ -1,36 +1,7 @@
-import { BOOKING_CTA } from '@/lib/business';
+import Image from 'next/image';
+import Link from 'next/link';
 
-/**
- * 福隆攻略「本季可參加」三張卡（9–11 月）。
- * 若不要：刪除此檔，並拿掉 app/fulong/page.tsx 的 import 與 <HomeSeasonCards />。
- */
-const CARDS = [
-  {
-    month: '9月',
-    title: '沙雕看到底＋粉色單車',
-    when: '即日起～9/30',
-    fromStay: '海水浴場步行約 8–12 分；單車站前可租',
-    rain: '小雨可走沙雕園區、舊草嶺隧道',
-    note: '沙雕展至 10/26。9 月另有「極點慢旅」騎乘，完成紀錄可至福隆遊客中心抽扭蛋。',
-  },
-  {
-    month: '10月',
-    title: '沙雕最終場＋連假短住',
-    when: '至 10/26 閉展',
-    fromStay: '出站 30 秒放下行李再去看展',
-    rain: '小雨仍可看沙雕；隧道全年可騎',
-    note: '國慶 10/9–11、光復節連假 10/24–26 卡在閉展前後，適合火車來住一晚。',
-  },
-  {
-    month: '11月',
-    title: '草嶺古道芒花季',
-    when: '11/1–11/30',
-    fromStay: '福隆站是標準起點，接駁多從遊客中心走',
-    rain: '健行請備雨具；建議前一晚入住、清晨出發',
-    note: '秋天主打。住車站旁，隔天走古道、晚上回房，比當日趕末班車輕鬆。',
-  },
-] as const;
-
+/** 福隆攻略「本季可參加」：只露日期，詳情在 /fulong/miscanthus。 */
 export default function HomeSeasonCards() {
   return (
     <section id="season-now" className="scroll-mt-24" aria-labelledby="season-now-heading">
@@ -38,32 +9,34 @@ export default function HomeSeasonCards() {
       <h2 id="season-now-heading" className="mt-1 font-playfair text-2xl font-light sm:text-3xl">
         本季可參加
       </h2>
-      <p className="mt-3 text-sm leading-relaxed text-[#6B665F]">
-        行程若已大致排好，這三檔是 9–11 月從福隆車站出發最順的活動。住一間屋：出站 30 秒放下行李再出門，小雨也能看沙雕、騎隧道。
-      </p>
-      <div className="mt-6 grid gap-4">
-          {CARDS.map((card) => (
-            <article
-              key={card.month}
-              className="flex h-full flex-col rounded-3xl border border-[#EDE8E0] bg-[#F8F5F1] p-5 md:p-6"
-            >
-              <p className="text-xs font-semibold tracking-[0.2em] text-[#8B7355]">{card.month}</p>
-              <h3 className="mt-2 text-xl font-medium leading-snug text-[#3F3A36]">{card.title}</h3>
-              <p className="mt-1 text-sm text-[#8B7355]">{card.when}</p>
-              <ul className="mt-4 flex-1 space-y-2 text-sm leading-relaxed text-[#6B665F]">
-                <li>{card.fromStay}</li>
-                <li>{card.rain}</li>
-                <li>{card.note}</li>
-              </ul>
-              <a
-                href="/booking"
-                className="primary-booking-btn mt-5 inline-flex min-h-[2.75rem] items-center justify-center rounded-full px-5 text-sm font-semibold"
-              >
-                {BOOKING_CTA.jump}
-              </a>
-            </article>
-          ))}
-      </div>
+      <Link
+        href="/fulong/miscanthus"
+        className="group relative mt-6 block overflow-hidden rounded-[1.35rem] shadow-[0_16px_36px_rgba(44,36,22,0.16)] ring-1 ring-[#e8d5a8]/80"
+      >
+        <span className="relative block h-64 w-full sm:h-80">
+          <Image
+            src="/images/caoling-2026/saddle.jpg"
+            alt="草嶺古道埡口的芒花"
+            fill
+            className="object-cover object-[center_42%] transition duration-700 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, 720px"
+          />
+          <span className="absolute inset-0 bg-gradient-to-t from-[#1a2418]/85 via-[#1a2418]/25 to-[#1a2418]/10" />
+          <span className="absolute inset-0 flex flex-col justify-end p-5 sm:p-7">
+            <span className="text-xs font-semibold tracking-[0.28em] text-[#f3e6c0]">草嶺古道芒花季</span>
+            <span className="mt-2 font-playfair text-4xl font-light leading-none text-white sm:text-6xl">
+              11.14 – 12.13
+            </span>
+            <span className="mt-3 text-sm text-white/90 sm:text-base">每週六、週日</span>
+            <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[#f0d078]">
+              看詳情
+              <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden>
+                →
+              </span>
+            </span>
+          </span>
+        </span>
+      </Link>
     </section>
   );
 }

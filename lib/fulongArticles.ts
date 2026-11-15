@@ -79,6 +79,18 @@ export const FULONG_ARTICLE_SERIES = [
     heroImage: '/images/scenery/fulian-tide-pool-1.jpg',
     lead: '從步行即達的金沙灘，到需對潮汐的潮池與潮間帶——玩完走回車站旁 overnight 最輕鬆。',
   },
+  {
+    slug: 'miscanthus',
+    path: '/fulong/miscanthus',
+    emoji: '🌾',
+    shortTitle: '芒花季',
+    title: '2026 草嶺古道芒花季｜11/14–12/13 週末｜從一間屋出發',
+    description:
+      '2026 草嶺古道芒花季活動日為 11 月 14 日至 12 月 13 日的週六、週日。福隆起登、大里下山，再搭火車回一間屋。含接駁、集章、古裝與手作。',
+    keywords: ['草嶺古道', '芒花季', '福隆健行', '大里', '埡口', '一間屋'] as const,
+    heroImage: '/images/caoling-2026/saddle.jpg',
+    lead: '前一晚住一間屋。週六或週日早上出門，福隆進、大里出，傍晚搭火車回到同一扇門。',
+  },
 ] as const;
 
 export type FulongArticleSlug = (typeof FULONG_ARTICLE_SERIES)[number]['slug'];
