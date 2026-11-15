@@ -256,6 +256,9 @@ export default function FulongMiscanthusPage() {
           <p className="text-sm leading-relaxed text-[#5c4f42] sm:text-base">
             全程大約 8.5–10 公里、3.5–4.5 小時。現場路線圖寫約 9 公里、3 到 4 小時。週末若從福隆遊客中心搭接駁到遠望坑，健行段大約 5.5 公里、2.5–3 小時。下面的時刻是住在一間屋、而且搭上接駁的參考，拍照和排隊都會往後挪。山上沒有一般餐廳。午餐是出門前買的便當，坐在半山休憩亭吃；熱食、粥和點心，要下山之後才有。
           </p>
+          <p className="text-sm leading-relaxed text-[#5c4f42] sm:text-base">
+            平日古道一樣開著。這一季的活動只在那十個週末。活動日才有遊客中心到遠望坑的接駁、古裝、市集、手作，以及集章換當週徽章。天公廟的平安粥也是週末多半才有，沒有的日子就當歇腳。季節裡的平日，芒花還在，只是沒有攤位和接駁。午餐仍是福隆買好的便當。平日自己到遠望坑口：福隆站有公車，班次常改，出門前再查；站前計程車一車大約 250 元。從車站走路過去大約 1 小時，不拿來當正班。12 月 13 日之後，古道全年可走，只是這一季的活動結束了。
+          </p>
         </section>
 
         <section className="grid grid-cols-3 gap-2 sm:gap-3">
@@ -373,6 +376,7 @@ export default function FulongMiscanthusPage() {
         <section className="rounded-3xl border border-[#EDE8E0] bg-white p-5 sm:p-6">
           <h2 className="font-playfair text-2xl font-light text-[#2c2416]">出門前看這幾件</h2>
           <ul className="mt-4 space-y-2 text-sm leading-relaxed text-[#6B665F]">
+            <li>平日沒有接駁、古裝、市集和手作。到遠望坑口搭福隆站的公車，班次出門前再查，或搭站前計程車，一車大約 250 元。</li>
             <li>鞋底要抓得住。中段和下坡是舊石階，潮了會滑，不要穿平底休閒鞋。</li>
             <li>埡口到天公廟是連續下坡。有登山杖，膝蓋會輕很多。</li>
             <li>林道裡會出汗，一到埡口風就強。貼身穿排汗，外層帶防風外套。</li>
